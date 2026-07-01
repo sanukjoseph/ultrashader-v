@@ -1,0 +1,2 @@
+###,Description,Status
+1,"All these 3 Rosters do not follow a standard set of column headers which will limit our ability to automate the Roster for the long term approach. Few Rosters either have additional columns and/or missing a few. In order to build a automation, we need all minute clinic Rosters column header to look alike. BPaaS team to either work with Clover or do an outreach with Minute Clinic to have the Roster column headers standardized to the columns expected",Pending with BPaaS Team

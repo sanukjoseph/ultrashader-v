@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2014 sp1 (http://www.altova.com) by Rebecca (healthedge) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.healthedge.com/connector/schema/enrollment" xmlns:tns="http://www.healthedge.com/connector/schema/enrollment" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" xmlns:subscription="http://www.healthedge.com/connector/schema/subscription" xmlns:membership="http://www.healthedge.com/connector/schema/membership" targetNamespace="http://www.healthedge.com/connector/schema/enrollment" elementFormDefault="unqualified" version="4.0">
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+	<xs:import namespace="http://www.healthedge.com/connector/schema/subscription" schemaLocation="subscription.xsd"/>
+	<xs:import namespace="http://www.healthedge.com/connector/schema/membership" schemaLocation="membership.xsd"/>
+	<xs:element name="enrollment" type="EnrollmentType"/>
+	<xs:complexType name="EnrollmentType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:group ref="EnrollmentGroup"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:group name="EnrollmentGroup">
+		<xs:sequence>
+			<xs:element name="asOfDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="subscription" type="subscription:SubscriptionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="members" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="member" type="membership:MembershipType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<!--xs:element name="planSelections" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="planSelection" type="enrollmenttypes:MembershipPlanSelectionsType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="individual" type="enrollmenttypes:IndividualType" minOccurs="0" maxOccurs="1"/-->
+		</xs:sequence>
+	</xs:group>
+</xs:schema>

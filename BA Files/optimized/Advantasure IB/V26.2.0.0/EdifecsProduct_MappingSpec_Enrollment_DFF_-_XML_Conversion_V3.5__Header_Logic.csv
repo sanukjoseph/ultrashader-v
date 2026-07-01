@@ -1,0 +1,28 @@
+XML Fileds,Description
+<Count> Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/recordCount,Shows the total number of <enrollmentSparseSubmitRequestRecord> in a single xml file
+"<ediMemberRecordSequence>
+Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/ediMemberRecordSequence",Shows the member record sequence
+Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/ediArchiveFileName,Input Archive file name
+Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/recordId,"Shows the unique ID for each record inside, GUID"
+Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/recordIdFromSource,"Shows the unique ID for each record inside, GUID"
+"<memberIdentifier>
+Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/memberIdentifier",Map from Claims SubscriberID Number(Field No 2)
+"<sourceTypeIdentifier>
+Target/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/sourceTypeIdentifier",Hardcode as 'EDIFECS_ADV_DFF'
+<rayId>,This will be GUID for each record inside <enrollmentSparseSubmitRequestRecord> tag. It should be different from recordid
+<tenantId>,Hardcode as 'Product'
+<referenceIdentifier>,Leave it blank from Products
+<retriedReferenceIdentifier>,Leave it blank from Products
+header/ediFileType,"Populate as 'Daily  OR Weekly'
+
+File Naming Convention:
+<ClientCode><FileType><CreatedDate><CreatedTime><Environment>.txt
+<FileType> will be MBROUT for Daily file
+<FileType> will be FULLMBROUT for Weekly file
+
+Sample
+Incremental File - BHPMBROUT202303151930P.txt
+Full File - BHPFULLMBROUT202303151930P.txt"
+header/LOB,Hardcode as 'Medicare Advantage'
+header/State,"Leave it blank.
+If needed Customers can populate corresponding state names using adaptor map . If populated, State Must be in Full name format (e.g., California, New York, Georgia)"

@@ -1,0 +1,15 @@
+Group,Fields,278 Auth Ib values,Description,Sample values,comments
+,recordIdentifier,A Unique Record Identifier.,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",GzlBkxrCvJTTBbTj,to be checked
+,recordIdentifierFromSource,2000E.HCR,,IP7860004,
+,memberId,2010C.NM109,,ak1234567,
+,inputFileId,Value passed is  - {UID}- Uniqie for each file,EDI file id,mTQhkxrCu_TTBbTi,
+inputHeaderInfo,inputFileType,EDI,Defines the type of input file - API or File,EDI,
+,inputArchiveFilename,Input Filename of the EDI file archived in s3 with filename extension,Name of the input file after archiving the input file.,Input_2024-11-11 05:26:30:005_Input_NM1segment.txt,
+,inputFileReceiptDateTime,Input file receipt date time of when the file is dropped to edifecs profile,,2024-11-11T05:26:30.000000004,2024-11-11T05:26:30.000000004
+,inputFileName,Input Filename of the EDI file received with filename extension,Name of the input file received from source.,Input_NM1segment.txt,
+,auditTime,The time the audit json got generated in yyyy-MM-dd'T'HH:mm:ss.SSS format,Auditing time of each audit point,2024-11-11T05:26:30.000000301,to be checked
+,sourceTypeIdentifier,Hardcode as Products,Identifier to find from where we received(Starting point) the initial Transaction/Record.,Products,Custom field
+businessAdaptor,adaptorReceiptDateTime,The time when the file is dropped to edifecs profile  in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,,2024-11-11T05:26:30.000000004,
+,adaptorAuditDateTime,The time the audit trigger event  got generated in yyyy-MM-dd'T'HH:mm:ss.SSS format,Auditing time of each audit point,2024-11-11T05:26:30.000000004,
+processStatus,processStageName,Refer Audit events Tab,Represent the name of the process stage which post the Audit point.,EDIFECS-Validation,
+,adaptorStatus,Refer Audit events Tab,Represent the Intermediate or Final status of the process stage which posts the Audit point.,SUCCESS,

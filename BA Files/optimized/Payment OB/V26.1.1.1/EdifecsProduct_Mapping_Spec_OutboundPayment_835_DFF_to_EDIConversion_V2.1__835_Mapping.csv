@@ -1,0 +1,1174 @@
+Loop ID,EDI Segment,EDI Data Element Name,User Option,Length,Enumeration Values,Mapping Logic OR  DFF Position,DFF Field Description,Mapping Comments,Final Review Comments
+ISA (Interchange Control Header),,,,,,,,,
+,ISA,Segment: Interchange Control Header,R,,,,,,
+,ISA01,Authorization Information Qualifier,R,"Min - 2
+Max - 2","00 : No Authorization Information Present
+03: Additional Data Identification","Hardcode as ""00""",NA,,
+,ISA02,Authorization Information,R,"Min - 10
+Max - 10",,Leave it blank,NA,,
+,ISA03,Security Information Qualifier,R,"Min - 2
+Max - 2","00 : No Security Information Present
+01 : Password","Hardcode as ""00""",NA,,
+,ISA04,Security InformationLQ,R,"Min - 10
+Max - 10",,Leave it blank,NA,,
+,ISA05,Interchange Sender ID Qualifier,R,"Min - 2
+Max - 2","01: Duns (Dun & Bradstreet)
+14 Duns Plus Suffix
+20 Health Industry Number (HIN)
+27 Carrier Identification Number
+28 Fiscal Intermediary Identification Number
+29 Medicare Provider and Supplier IdentificationNumber
+30 U.S. Federal Tax Identification Number
+33 National Association of Insurance Commissioners Company Code (NAIC)
+ZZ Mutually Defined","Hardcode as ""ZZ""",NA,,
+,ISA06,Interchange Sender ID,R,"Min - 15
+Max - 15",,"Hardcode as  ""1234           """,NA,"Interchange Sender ID will be different for each customer.From product standpoint, we have hardcoded a random sender ID.",
+,ISA07,Interchange Receiver ID Qualifier,R,"Min - 2
+Max - 2","01: Duns (Dun & Bradstreet)
+14 Duns Plus Suffix
+20 Health Industry Number (HIN)
+27 Carrier Identification Number
+28 Fiscal Intermediary Identification Number
+29 Medicare Provider and Supplier IdentificationNumber
+30 U.S. Federal Tax Identification Number
+33 National Association of Insurance Commissioners Company Code (NAIC)
+ZZ Mutually Defined","Hardcode as ""ZZ""",NA,,
+,ISA08,Interchange Receiver ID,R,"Min - 15
+Max - 15",,"Hardcode  as ""123456789123456""",NA,"Interchange Receiver ID will be different for each customer.From product standpoint, we have hardcoded a random Receiver ID.",
+,ISA09,Interchange Date,R,"Min - 6
+Max - 6",The date format is YYMMDD.,"Map this value from  current date in the format of ""YYMMDD""",NA,Date  transaction is created – done by translator  (Date for the Process of converting 835 it will be the EDIFECS time of converting 835 ) YYMMDD,
+,ISA10,Interchange Time,R,"Min -4
+Max - 4",The time format is HHMM.,Map this value from   current time in the format of HHMM,NA,,
+,ISA11,Interchange Control Standards Identifier,R,"Min - 1
+Max - 1",,"Hardcode as ""^""",NA,,
+,ISA12,Interchange Control Version Number,R,"Min - 5
+Max - 5","00501 Standards Approved for Publication by ASC X12
+Procedures Review Board through October 2003",Hardcode as “00501”,NA,,
+,ISA13,Interchange Control Number,R,"Min - 9
+Max - 9","The Interchange Control Number, ISA13, must be identical to the
+associated Interchange Trailer IEA02.
+This Must be a positive unsigned number and must be identical to the value in IEA02.",Refer Column H,NA,Unique ISI control number needs to generated in Edifecs for each 835 EDI file. It has to be 9 digits (for example -  000000764),
+,ISA14,Acknowledgement Requested,R,"Min - 1
+Max - 1","0 No Interchange Acknowledgment Requested
+1 Interchange Acknowledgment Requested (TA1)","Hardcode as ""0""",NA,,
+,ISA15,Usage Indicator,R,"Min - 1
+Max - 1","P Production Data
+T Test Data","Refer Column I and map based on below logic
+Hardcode as ""P""  if it is a Production region
+Hardcode as ""T""  if it is a Non-Production region",NA,Based on Environmental property whether it is lower region or production region.,
+,ISA16,Component element Separator,R,"Min - 1
+Max - 1",,"Hardcode  as "":""",NA,,
+GS (Functional Group Header),,,,,,,,,
+,GS,Segment: Functional Group Header,R,,,,,,
+,GS01,Functional Identifier Code,R,"Min - 2
+Max - 2",HP Health Care Claim Payment/Advice (835),Hardcode as “HP”,NA,,
+,GS02,Application Sender Code,R,"Min -2
+Max - 15",,"Hardcode as ""1234""",NA,"Application Sender Code will be different for each customer.From product standpoint, we have hardcoded a random Application Sender Code.",
+,GS03,Application Receiver ID,R,"Min -2
+Max - 15",,"Hardcode as ""Product""",NA,"Application Receiver ID will be different for each customer.From product standpoint, we have hardcoded a random Application Application Receiver ID.",
+,GS04,Date,R,"Min - 8
+Max - 8",Date Expressed in YYYYMMDD format (Current Date),"Map this value from  current date in the format of ""YYYYMMDD""",NA,,
+,GS05,Time,R,"Min - 4
+Max - 8",,"Map this value from   current Time in the format of ""HHMMSS""",NA,,
+,GS06,Group Control Number,R,"Min - 1
+Max - 9",,,NA,"Functional Group Control Number. Value must equal GE02
+
+GS control number min length - 1 and max is 9",
+,GS07,Responsible Agency Code,R,"Min - 1
+Max - 2",X Accredited Standards Committee X12,"Hardcode as ""X""",NA,,
+,GS08,Version/Release/Industry Identifier,R,"Min - 1
+Max - 12","005010X221 Standards Approved for Publication by ASC X12
+Procedures Review Board through October 2003","Hardcode as ""005010X221A1""",NA,,
+ST Transaction Set Header,,,,,,,,,
+,ST,Segment: Transaction Set Header,R,,,,,,
+,ST01,Transaction Set Identifier Code,R,"Min - 3
+Max - 3",835 Health Care Claim Payment/Advice,"Hardcode as ""835""",NA,,
+,ST02,Transaction Set Control Number,R,"Min - 4
+Max - 9",,Refer Column H,NA,Unique control number needs to populated from process flow or map,
+BPR Financial Information,,,,,,,,,
+,BPR,Segment: Financial Information,R,,,,,Currently we are not mapping ACH payments,
+,BPR01,Transaction Handling Code,R,"Min - 1
+Max - 2","C Payment Accompanies Remittance Advice
+D Make Payment Only
+H Notification Only
+I Remittance Information Only
+P Prenotification of Future Transfers
+U Split Payment and Remittance
+X Handling Party’s Option to Split Payment and
+Remittance","Hardcode as ""I"" for EFT/Check payments
+Hardcode as ""H"" when the actual provider payment amount(BPR02) is zero.",NA,Currently ACH payment is not in scope for product. Need to verify future scope for ACH payment mapping . IBC conifrmed they don’t have ACH scope.,
+,BPR02,Monetary Amount,R,"Min - 1
+Max - 18",Cheque Amount,Map this value from the DFF index 1.006,CheckAmount,,
+,BPR03,Credit/Debit Flag,R,"Min - 1
+Max - 1","C Credit
+D Debit","Hardcode as ""C""",NA,,
+,BPR04,PAYMENT METHOD CODE,R,"Min - 3
+Max - 3","ACH Automated Clearing House (ACH)
+BOP Financial Institution Option
+CHK Check
+FWT Federal Reserve Funds/Wire Transfer - Nonrepetitive
+NON Non-Payment Data","Hardcode as ""CHK""  for check
+Hardcode as ""ACH"" for Electronic payment
+Hardcode as ""NON"" if the the actual provider payment amount(BPR02) is zero.",NA,"""CHK"" = Check, ""ACH"" = EFT payments, ""NON"" = Non payments",
+,BPR05,PAYMENT FORMAT CODE,S,"Min - 1
+Max - 10","CCP Cash Concentration/Disbursement plus Addenda
+(CCD+) (ACH)
+
+CTX Corporate Trade Exchange (CTX) (ACH)",,NA,Currently ACH payment is not in scope for product. Need to verify future scope for ACH payment mapping . IBC conifrmed they don’t have ACH scope.,
+,BPR06,(DFI) ID NUMBER QUALIFIER,S,"Min - 2
+Max - 2","01 ABA Transit Routing Number Including Check Digits
+(9 digits)
+04 Canadian Bank Branch and Institution Number",,NA,,
+,BPR07,(DFI) IDENTIFICATION NUMBER,S,"Min - 3
+Max - 12",,,MICRTransitNumber,,
+,BPR08,Account Number Qualifier,S,"Min - 1
+Max - 3",DA Demand Deposit,,NA,,
+,BPR09,Sender Bank Account Number,S,"Min - 1
+Max - 35",,,AccountNumber,,
+,BPR010,ORIGINATING COMPANY IDENTIFIER,S,"Min - 10
+Max - 10",,,NA,,
+,BPR11,Originating Company Supplemental Code,S,"Min -9
+Max - 9",,,NA,,
+,BPR12,DFI Identification Number Qualifier,S,"Min - 2
+Max - 2","01 ABA Transit Routing Number Including Check Digits
+(9 digits)
+04 Canadian Bank Branch and Institution Number",,NA,,
+,BPR013,Receiver or Provider Bank ID Number,S,"Min - 3
+Max - 12",,,Payee Bank ID Number,,
+,BPR014,ACCOUNT NUMBER QUALIFIER,S,"Min - 1
+Max - 3","DA Demand Deposit
+SG Savings",,Account Number Qualifier,,
+,BPR015,Receiver or Provider Account Number,S,"Min - 1
+Max - 35",,,Payee Account Number,,
+,BPR016,Check Issue or EFT Effective Date,S,"Min - 8
+Max - 8",,"Map this value from the DFF index 1.005
+
+Date format ""YYYYMMDD""",CheckDate,YYYYMMDD,
+TRN Reassociation Trace Number,,,,,,,,,
+,TRN,Segment: Reassociation Trace Number,R,,,,,,
+,TRN01,Trace Type Code,R,"Min - 1
+Max - 2",1 Current Transaction Trace Numbers,"Hardcode as ""1""",NA,,
+,TRN02,REFERENCE IDENTIFICATION,R,"Min - 1
+Max - 50",,Map this value from the DFF index 1.004,CheckNumber,,
+,TRN03,ORIGINATING COMPANY IDENTIFIER,R,"Min - 10
+Max - 10",,"Hardcode as ""1841297547""",NA,"1 Followed by payer TIN
+
+ORIGINATING COMPANY IDENTIFIER will be different for each customer.From product standpoint, we have hardcoded a random ORIGINATING COMPANY IDENTIFIER.",
+,TRN04,Originating Company Supplemental Code,S,"Min - 1
+Max - 50",,NA,NA,,
+CUR Foreign Currency Information,,,,,,,,,
+,CUR,Segment: Foreign Currency Information,S,,,,,,
+,CUR01,Entity Identifier Code,R,"Min - 2
+Max - 3",PR Payer,NA,NA,,
+,CUR02,Currency Code,R,"Min - 3
+Max - 3",,NA,NA,,
+REF Receiver Identification,,,,,,,,,
+,REF,Segment: Receiver Identification,S,,,,,,
+,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3",EV Receiver Identification Number,NA,NA,,
+,REF02,Reference Identification,R,"Min - 1
+Max - 50",,NA,NA,,
+REF Version Identification,,,,,,,,,
+,REF,Segment: Version Identification,S,,,,,,
+,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3",F2 Version Code - Local,NA,NA,,
+,REF02,Reference Identification,R,"Min - 1
+Max - 50",,NA,NA,,
+DTM Production Date,,,,,,,,,
+,DTM,Segment: Production Date,S,,,,,,
+,DTM01,Date/Time qualifier,R,"Min - 3
+Max - 3",405 Production,"Hardcode as ""405""",NA,,
+,DTM02,Date,R,"Min - 8
+Max - 8",,"Map this value from  system date in the format ""YYYYMMDD""",NA,,
+LOOP 1000A - Payer Identification,,,,,,,,,
+1000A,N1,Payer Identification,R,,,,,,
+1000A,N101,Payer Identifier Code,R,"Min - 2
+Max - 3",PR Payer,"Hardcode as ""PR""",NA,,
+1000A,N102,Payer NAME,R,"Min - 1
+Maxi - 60",,"Hardcode as ""PRODUCT""",NA,,
+1000A,N103,Identification Code Qualifier,S,"Min - 1
+Max - 2",XV Centers for Medicare and Medicaid Services PlanID,NA,NA,,
+1000A,N104,Payer Identification Code,S,"Min- 2
+Max - 80",,NA,NA,,
+1000A,N3,Payer Address,R,,,,,,
+1000A,N301,Payer Address Line,R,"Min - 1
+Max - 55",,"Hardcode as ""XXXX""",NA,,
+1000A,N302,Payer Address Line,S,"Min - 1
+Max - 55",,NA,NA,,
+1000A,N4,"Segment : Payer City, State, Zip Code",R,,,,,,
+1000A,N401,Payer City Name,R,"Min - 1
+Max - 30",,"Hardcode as ""Aurora""",NA,"Payer City Name will be different for each customer.From product standpoint, we have hardcoded a random Payer City Name.",
+1000A,N402,Payer State Code,S,"Min - 2
+Max - 2",,"Hardcode as ""CO""",NA,"Payer state will be different for each customer.From product standpoint, we have hardcoded a random Payer state.",
+1000A,N403,Payer Postal Zone or Zip Code,S,"Min - 1
+Max - 15",,"Hardcode as ""80014""",NA,"Payer Postal Zone will be different for each customer.From product standpoint, we have hardcoded a random Payer Postal Zone.",
+1000A,REF,Additional Payer Identification,S,,,,,,
+1000A,REF01,Reference Identifier Qualifier,R,"Min - 2
+Max - 3","2U Payer Identification Number
+EO Submitter Identification Number
+HI Health Industry Number (HIN)NF National Association of Insurance Commissioners (NAIC) Code","Hardcode as ""2U""",NA,,
+1000A,REF02,Additional Payer Identifier,R,"Min - 1
+Max - 50",,"Hardcode as ""6058028""",NA,"Payer identifier will be different for each customer.From product standpoint, we have hardcoded a random Payer identifier.",
+1000A,PER,Payer Business Contact Information,S,,,,,,
+1000A,PER01,Contact Function Code,R,"Min - 2
+Max - 2",CX Payers Claim Office,"Hardcode as ""CX""",NA,,
+1000A,PER02,Payer Contact Name,S,"Min - 1
+Max - 60",,"Hardode as ""EDI Coordinator""",NA,"Payer Contact Name will be different for each customer.From product standpoint, we have hardcoded a random Payer Contact Name.",
+1000A,PER03,Communication Number Qualifier,S,"Min - 2
+Max - 2","EM Electronic Mail
+FX Facsimile
+TE Telephone","Hardcode as ""TE""",NA,,
+1000A,PER04,Payer Contact Communication Number,S,"Min - 1
+Max - 256",,"Hardcode as ""1234567890""",NA,"Payer Contact Communication Number will be different for each customer.From product standpoint, we have hardcoded a random Payer Contact Communication Number.",
+1000A,PER05,Communication Email Qualifier,S,"Min - 2
+Max - 2","EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+TE Telephone",Hardcode as “EM”,NA,,
+1000A,PER06,Payer Contact Communication Email,S,"Min - 1
+Max - 256",,Hardcode as “xyz@xyz.com”,NA,"Payer Contact Communication Email will be different for each customer.From product standpoint, we have hardcoded a random Payer Contact Communication Email.",
+1000A,PER07,Communication Number Qualifier,S,"Min - 2
+Max - 2",EX Telephone Extension,,,,
+1000A,PER08,Communication Number,S,"Min - 1
+Max - 256",,,,,
+1000A,PER,Payer Technical Contact Information,R,,,,,,
+1000A,PER01,Contact Function Code,R,"Min - 2
+Max - 2",BL Technical Department,Hardcode as “BL”,NA,,
+1000A,PER02,Payer Technical Contact Name,S,"Min - 1
+Max - 60",,"Hardode as ""EDI Coordinator""",NA,"Payer Technical Contact Name will be different for each customer.From product standpoint, we have hardcoded a random Payer Technical Contact Name.",
+1000A,PER03,Communication Number Qualifier,S,"Min - 2
+Max - 2","EM Electronic Mail
+TE Telephone
+Recommended
+UR Uniform Resource Locator (URL)
+Use only when there is no central telephone number
+for the payer entity.",Hardcode as “TE”,NA,,
+1000A,PER04,Payer Contact Communication Number,S,"Min - 1
+Max - 256",,"Hardcode as ""1234567890""",NA,"Payer Contact Communication Number will be different for each customer.From product standpoint, we have hardcoded a random Payer Contact Communication Number.",
+1000A,PER05,Payer Contact Communication Number,S,"Min - 2
+Max - 2","M Electronic Mail
+EX Telephone Extension
+FX Facsimile
+TE Telephone
+UR Uniform Resource Locator (URL)",Hardcode as “EM”,NA,,
+1000A,PER06,Payer Technical Contact Communication,S,"Min - 1
+Max - 256",,"Hardcode as ""contactus@uhc.com""",NA,"Payer Technical Contact Communication will be different for each customer.From product standpoint, we have hardcoded a random Payer Technical Contact Communication.",
+1000A,PER07,Communication Number Qualifier,S,"Min - 2
+Max - 2","EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+UR Uniform Resource Locator (URL)",,,,
+1000A,PER08,Communication Number,S,"Min - 1
+Max - 256",,,,,
+1000A,PER,Payer Web Site,S,,,,,,
+1000A,PER01,Contact Function Code,R,"Min - 2
+Max - 2",IC Information Contact,"Hardcode as ""IC""",NA,,
+1000A,PER02,Name,R,NA,NA,NA,NA,,
+1000A,PER03,Communication Number Qualifier,R,"Min - 2
+Max - 2",UR Uniform Resource Locator (URL),"Hardcode as ""UR""",NA,,
+1000A,PER04,Communication Number,R,"Min - 1
+Max - 256",,"Hardcode as ""www.uhc.com""",,"Communication Number will be different for each customer.From product standpoint, we have hardcoded a random Communication Number.",
+LOOP 1000B Payee Identification,,,,,,,,,
+1000B,N1,Payee Identification,R,,,,,,
+1000B,N101,Payer Identifier Code,R,"Min - 2
+Max - 3",PE Payee,"Hardcode as ""PE""",NA,,
+1000B,N102,Payee Name,R,"Min - 1
+Max - 60",,Map this value from the DFF index 1.017,PayeeName,,
+1000B,N103,Payee Identification Code Qualifier,R,"Min - 1
+Max - 2","FI Federal Taxpayer’s Identification Number
+XV Centers for Medicare and Medicaid Services PlanID
+XX Centers for Medicare and Medicaid Services
+National Provider Identifier","Hardcode as ""XX""",NA,,
+1000B,N104,Payee Identification Code,R,"Min - 2
+Max - 80",,Map this value from the DFF index 1.033,Payee NPI,,
+1000B,N3,Payee Address,S,,,,,,
+1000B,N301,Payee Address Line,R,"Min - 1
+Max - 55",,Map this value from the DFF index  1.018,PayeeAddress1,,
+1000B,N302,Payee Address Line,S,"Min - 1
+Max - 56",,Map this value from the DFF index  1.019,PayeeAddress2,,
+1000B,N4,"Payee City, State, Zip Code",S,,,,,,
+1000B,N401,Payee City Name,R,"Min - 2
+Max - 30",,Map this value from the DFF index  1.020,PayeeCity,,
+1000B,N402,Payee State Code,S,"Min - 2
+Max - 2",,Map this value from the DFF index  1.021,PayeeState,,
+1000B,N403,Payee Postal Zone or Zip Code,S,"Min - 3
+Max - 15",,Map this value from the DFF index  1.022,PayeeZip,,
+1000B,N404,Country Code,S,"Min - 2
+Max - 3",,NA,NA,,
+1000B,N407,Country Subdivision Code,S,"Min - 1
+Max - 3",,NA,NA,,
+1000B,REF,Payee Additional Identification,S,,,,,,
+1000B,REF01,Additional Payee Identification Qualifier,R,"Min - 2
+Max - 3","0B State License Number
+D3 National Council for Prescription Drug Programs
+Pharmacy Number
+PQ Payee Identification
+TJ Federal Taxpayer’s Identification Number","Hardcode as ""TJ""",NA,,
+1000B,REF02,Reference Identification Code,R,"Min - 1
+Max - 50",,Map this value from the DFF index  1.032,Payee SSN/TIN,"Remove ""-"" If it is present in 1.032",
+1000B,RDM,Remittance Delivery Method,S,,,,,,
+1000B,RDM01,Report Transmission Code,R,"Min - 1
+Max - 2","BM By Mail
+EM E-Mail
+FT File Transfer
+OL On-Line",NA,NA,,
+1000B,RDM02,Name,S,"Min - 1
+Max - 60",,NA,NA,,
+1000B,RDM03,Communication Number,S,"Min - 1
+Max - 256",,NA,NA,,
+LOOP 2000 Header Number,,,,,,,,,
+2000,LX,Header Number,S,,,,,,
+2000,LX01,Assigned Number,R,"Min - 1
+Max - 6",,Refer to column I,NA,"Assigned Number - When 835 is created it needs to generated, starts with 1 , it increments for each CLP segement mentioned in Row#174, 2100 Loop",
+2000,TS3,Provider Summary Information,S,,,,,,
+2000,TS301,Reference Identification,R,"Min - 1
+Max - 50",,NA,NA,,
+2000,TS302,Facility Code Value,R,"Min - 1
+Max - 2",,NA,NA,,
+2000,TS303,Date,R,"Min - 8
+Max - 8",,,NA,,
+2000,TS304,Quantity,R,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS305,Monetary Amount,R,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS313,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS315,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS317,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS318,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS320,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS321,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS322,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS323,Quantity,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS324,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS2,Provider supplemental Summary Information,S,,,,,,
+2000,TS201,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS202,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS203,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS204,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS205,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS206,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS207,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS208,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS209,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS210,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS211,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS212,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS213,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS214,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS215,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS216,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2000,TS217,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS218,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2000,TS219,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+LOOP 2100 Claim payment Information,,,,,,,,,
+2100,CLP,Claim payment Information,R,,,,,,
+2100,CLP01,Patient Control Number,R,"Min - 1
+Max - 38",,Map this value from the DFF index  2.079,Patient Control Number,,
+2100,CLP02,Claim Status Code,R,"Min - 1
+Max - 2","1 Processed as Primary
+2 Processed as Secondary
+3 Processed as Tertiary
+4 Denied
+19 Processed as Primary, Forwarded to Additional
+Payer(s)
+20 Processed as Secondary, Forwarded to Additional
+Payer(s)
+21 Processed as Tertiary, Forwarded to Additional
+Payer(s)
+22 Reversal of Previous Payment
+23 Not Our Claim, Forwarded to Additional Payer(s)
+25 Predetermination Pricing Only - No Payment",Map this value from the DFF index   2.04,ClaimStatusCode,,
+2100,CLP03,Total Claim Charge Amount,R,"Min - 1
+Ma - 18",,Map this value from the DFF index  2.028,ChargeAmount,,
+2100,CLP04,Total Claim Payment Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index  2.037,PaidAmount,,
+2100,CLP05,Patient Responsibility Amount,S,"Min - 1
+Max - 18",,Map this value from the DFF index  2.038,PatientOwedamount,"This mapping is required when the patient responsibility is greater than zero, if not required.",
+2100,CLP06,Claim Filing Indicator Code,R,"Min - 2
+Max - 2","12 Preferred Provider Organization (PPO)
+13 Point of Service (POS)
+14 Exclusive Provider Organization (EPO)
+15 Indemnity Insurance
+16 Health Maintenance Organization (HMO) Medicare
+Risk
+17 Dental Maintenance Organization
+AM Automobile Medical
+CH Champus
+DS DisabilityHM Health Maintenance Organization
+LM Liability Medical
+MA Medicare Part A
+MB Medicare Part B
+MC Medicaid
+OF Other Federal Program
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation Health Claim
+ZZ Mutually Defined","Hardcode as ""HM""",NA,,
+2100,CLP07,Payer Claim Control Number (Payer Claim Control Number – HRP claim number ),R,"Min - 1
+Max - 50",,Map this value from the DFF index 2.003,ClaimNumber,,
+2100,CLP08,Facility Type Code,S,"Min - 1
+Max - 2",,Map this value from the DFF index 2.061,Facility Code Value,,
+2100,CLP09,Claim Frequency Code,S,"Min - 1
+Max - 1",,Map this value from the DFF index 2.083,Frequency code,,
+2100,CLP10,Patient Status Code,NA,NA,NA,NA,NA,,
+2100,CLP11,Diagnosis Related Group (DRG) Code,S,"Min - 1
+Max - 4",,Map this value from the DFF index 2.069,Diagnosis Related Group Code,,
+2100,CLP12,DRG Weight,S,"Min - 1
+Max - 15",,Map this value from the DFF index 2.068,DRG Weight (Record Type 2 Claim Level Information),,
+2100,CLP13,PERCENT - Discharge Fraction,S,"Min - 1
+Max - 10",,NA,NA,,
+2100,CAS,Claim Adjustment,S,,,,,All the adjustment details are mentioned in line level (2110 CAS Segment),
+2100,CAS01,Claim Adjustment Group Code,R,"Min - 1
+Max - 2","CO Contractual Obligations
+OA Other adjustments
+PI Payor Initiated Reductions
+PR Patient Responsibility",NA,NA,,
+2100,CAS02,Adjustment Reason Code,R,"Min - 1
+Max - 5",,NA,NA,,
+2100,CAS03,Adjustment Amount,R,"Min - 1
+Max - 18",,NA,NA,,
+2100,CAS04,QUANTITY,S,"Min - 1
+Max - 15",,NA,NA,,
+2100,CAS05,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,NA,NA,,
+2100,CAS06,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2100,CAS07,Quantity,S,"Min - 1
+Max - 15",,,,,
+2100,CAS08,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,,,,
+2100,CAS09,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2100,CAS10,Quantity,S,"Min - 1
+Max - 15",,,,,
+2100,CAS11,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,,,,
+2100,CAS12,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2100,CAS13,Quantity,S,"Min - 1
+Max - 15",,,,,
+2100,CAS14,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,,,,
+2100,CAS15,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2100,CAS16,Quantity,S,"Min - 1
+Max - 15",,,,,
+2100,CAS17,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,,,,
+2100,CAS18,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2100,CAS19,Quantity,S,"Min - 1
+Max - 15",,,,,
+2100,NM1,Patient Name,R,,,,,,
+2100,NM101,Patient Identifier Code,R,"Min - 2
+Max - 3",QC Patient,"Hardcode as ""QC""",NA,,
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1",1 Person,"Hardcode as ""1""",NA,,
+2100,NM103,Patient Last  Name,S,"Min - 1
+Max - 60",,Map this value from the DFF index 2.087 - Map only the Lastname,"SubmittedPatientLastName
+Format: (SubmittedPatientLastName, Middle Name,Firstname)","If 2.087 doesnt have comma(,) Map from position 2.080 (Corrected patient information)",
+2100,NM104,Patient First Name,S,"Min - 1
+Max - 35",,Map this value from the DFF index 2.087 - Map only the First name,"SubmittedPatientLastName
+Format: (SubmittedPatientLastName, Middle Name,Firstname)","If 2.087 doesnt have comma(,) Map from position 2.081 (Corrected patient information)",
+2100,NM105,Patient Middle Initial,S,"Min - 1
+Max - 25",,Map this value from the DFF index 2.087- Map only the Middle name,"SubmittedPatientLastName
+Format: (SubmittedPatientLastName, Middle Name,Firstname)","If 2.087 doesnt have comma(,) Map from position 2.082 (Corrected patient information)",
+2100,NM106,Name Prefix,NA,NA,,NA,NA,,
+2100,NM107,Patient Name Suffix,S,"Min - 1
+Max - 10",,NA,NA,,
+2100,NM108,Identification Code Qualifier,S,"Min - 1
+Max - 2","34 Social Security Number
+HN Health Insurance Claim (HIC) Number
+II Standard Unique Health Identifier for each Individual
+in the United States
+Use this code if mandated in a final Federal Rule.
+MI Member Identification Number
+MR Medicaid Recipient Identification Number","Hardcode as ""MI""",NA,,
+2100,NM109,Patient Member Number,S,"Min - 2
+Max - 80",,Map this value from the DFF index 2.084,SubmittedPatientID,If no values present in 2.084 then map from 2.005 (Corrected patient id),
+2100,NM1,Insured Name,S,,If subscriber and patient are same we will not map this entire segment,,,,
+2100,NM101,Entity Identifier Code,R,"Min - 2
+Max - 3",IL,"Hardcode as ""IL""",,If the subscriber is not same as patient,
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1","1,2","Hardcode as ""1""",,,
+2100,NM103,Name Last or Organization Name,S,"Min - 1
+Max - 60",,Map this value from the DFF index 2.091,SubscriberLastName,,
+2100,NM104,Name First,S,"Min - 1
+Max - 35",,Map this value from the DFF index 2.089,SubscriberFirstName,,
+2100,NM105,Name Middle,S,"Min - 1
+Max - 25",,Map this value from the DFF index 2.090,SubscriberMiddleName,,
+2100,NM107,Name Suffix,ISA,"Min - 1
+Max - 10",,NA,NA,,
+2100,NM108,Identification Code Qualifier,R,"Min - 1
+Max - 2","FI,II,MI","Hardcode as ""MI""",NA,,
+2100,NM109,Identification Code,R,"Min - 2
+Max - 80",,Map this value from the DFF index 2.088,SubscriberID,,
+2100,NM1,Corrected Patient/Insured Name,S,,,,,,
+2100,NM101,Entity Identifier Code,R,"Min - 2
+Max - 3",74 Corrected Insured,"Hardcode as ""74""",NA,"Mapping Logic 1:
+Map this segment, only
+if 2.045 - CorrectedPatient/InsuredName & 2.046 if CorrectedPatient/InsuredMemberID is present in DFF and
+if 2.045 (Last name) is differrent from 2.087 &
+if 2.046 is different from 2.084
+Consider Mapping logic 2 only if Mapping Logic 1 doesn't satisfy/present in DFF
+Mapping Logic 2:
+Map this segment only if
+the name in 2.080+2.082+2.081 is different from 2.087
+OR
+ID in 2.005 is different from 2.084","Note:
+1. As per X12 Standard, only the corrected patient information should be populated in NM1*74 which is expected product behavior, else Snip 4 error would be displayed which is not validated in product.
+2. If any other implementation team request for populating all the values in NM1*74, that is to handled in adaptor
+
+Example:
+Load a DFF with a change in difference in the middle name in submitted and actual member information for a claim.
+Actual Result:
+NM1*74*1*Lname*Fname*L
+Expected Result:
+NM1*74*1***L"
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1","1 Person
+2 Non-Person Entity","Hardcode as ""1""",NA,,
+2100,NM103,Name Last or Organization Name,S,"Min - 1
+Max - 60",,"Map this value from the DFF index 2.045
+Format of data in 2.045: Last Name, First Name
+Map this value from the DFF index 2.080","CorrectedPatient/InsuredName
+Patient Last name","Mapping Logic 1:
+Map only if 2.045 is present and  if 2.045 (Last name) is differrent from 2.087, else consider Logic 2
+If present, Map Last Name only
+Mapping Logic 2:
+Map only if  the name in 2.080+2.082+2.081 is different from 2.087",
+2100,NM104,Name First,S,"Min - 1
+Max - 35",,"Map this value from the DFF index 2.045
+Format of data in 2.045: Last Name, First Name
+Map this value from the DFF index 2.081",Patient First name,"Mapping Logic 1:
+Map only if 2.045 is present, else consider Logic 2
+If present, Map First Name only
+Mapping Logic 2:
+Map only if  the name in 2.080+2.082+2.081 is different from 2.087",
+2100,NM105,Name Middle,S,"Min - 1
+Max - 25",,Map this value from the DFF index 2.082,Patient Middle name,Map only if  the name in 2.080+2.082+2.081 is different from 2.087,
+2100,NM107,Name Suffix,S,"Min - 1
+Max - 10",,NA,NA,,
+2100,NM108,Identification Code Qualifier,S,"Min - 1
+Max - 2",C Insured’s Changed Unique Identification Number,"Hardcode as ""C""",NA,,
+2100,NM109,Identification Code,S,"Min - 2
+Max - 80",,"Map this value from the DFF index 2.046
+Map this value from the DFF index 2.005","CorrectedPatient/InsuredMemberID
+PatientID","Mapping Logic 1:
+Map only if 2.046 is present and 2.046 is different from 2.084, else consider Logic 2
+Mapping Logic 2:
+If both 2.005 and 2.084 has value, and both are different then populate NM109 with 2.005 value
+else
+Need not populate any value","If 2.005 is blank and 2.084 has value, populate NM109 with 2.084 value (Not a business scenario only for testing purpose)
+if 2.084 is blank and 2.005 has value then do not populate any in NM109"
+2100,NM1,Service Provider Name,S,,,,,,
+2100,NM101,Entity Identifier Code,R,"Min - 2
+Max - 3",82 Rendering Provider,"Hardcode as ""82""",NA,"1. This NM1*82 is a configurable item. A flag will be configured in Edifecs layer with Y/N value.
+If Y - NM103, NM104 & NM105 will be splited and populated.
+If N - only NM103 will populated with value. NM104 & NM105 should be blank
+2. Populate NM1*82 only if 2.016 is different from 1.033",NPI should be the only check
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1","1 Person
+2 Non-Person Entity","Hardcode as ""1""",NA,,
+2100,NM103,Name Last or Organization Name,S,"Min - 1
+Max - 60",,"Logic 1:
+If Flag Y - Map this value from the DFF index 2.094
+If Flag N - Map this value from the DFF index 2.018
+Logic 2:
+Do not populate NM1*82, If 2.018  is equal to 1.017",,Populate NM1*82 only if 2.018 is different from 1.017,"Currently we have Logic 2 in our code, but it Logic 2 is optional one to be considered"
+2100,NM104,Name First,S,"Min - 1
+Max - 35",,"If Flag Y - Map this value from the DFF index 2.092
+If Flag N - NA",NA,,
+2100,NM105,Name Middle,S,"Min - 1
+Max - 25",,"If Flag Y - Map this value from the DFF index 2.093
+If Flag N - NA",NA,,
+2100,NM107,Name Suffix,S,"Min - 1
+Max - 10",,NA,NA,,
+2100,NM108,Identification Code Qualifier,R,"Min - 1
+Max - 2","BD Blue Cross Provider Number
+BS Blue Shield Provider Number
+FI Federal Taxpayer’s Identification Number
+MC Medicaid Provider Number
+PC Provider Commercial Number
+SL State License Number
+UP Unique Physician Identification Number (UPIN)
+XX Centers for Medicare and Medicaid Services
+National Provider Identifier","Hardcode as ""XX""",NA,,
+2100,NM109,Identification Code,R,"Min - 2
+Max - 80",,Map this value from the DFF index 2.016,ProviderNPI,Map only if  ID in 2.005 is different from 2.084,
+2100,NM1,Crossover Carrier Name,S,,,,,,
+2100,NM101,Entity Identifier Code,R,"Min - 2
+Max - 3",TT Transfer To,NA,NA,,
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1",2 Non-Person Entity,NA,NA,,
+2100,NM103,Name Last or Organization Name,R,"Min - 1
+Max - 60",,NA,NA,,
+2100,NM108,Identification Code Qualifier,R,"Min - 1
+Max - 2","AD Blue Cross Blue Shield Association Plan Code
+FI Federal Taxpayer’s Identification Number
+NI National Association of Insurance Commissioners
+(NAIC) Identification
+PI Payor Identification
+PP Pharmacy Processor Number
+XV Centers for Medicare and Medicaid Services PlanID",NA,NA,,
+2100,NM109,Identification Code,R,"Min - 2
+Max - 80",,NA,NA,,
+2100,NM1,Corrected Priority Payer Name,S,,,,,,
+2100,NM101,Entity Identifier Code,R,"Min - 2
+Max - 3",PR Payer,NA,NA,,
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1",2 Non-Person Entity,NA,NA,,
+2100,NM103,Name Last or Organization Name,R,"Min - 2
+Max - 60",,NA,NA,,
+2100,NM108,Identification Code Qualifier,R,"Min - 1
+Max - 2","AD Blue Cross Blue Shield Association Plan Code
+FI Federal Taxpayer’s Identification Number
+NI National Association of Insurance Commissioners
+(NAIC) Identification
+PI Payor Identification
+PP Pharmacy Processor Number
+XV Centers for Medicare and Medicaid Services PlanID",NA,NA,,
+2100,NM109,Identification Code,R,"Min - 2
+Max - 80",,NA,NA,,
+2100,NM1,Other Subscriber Name,S,,,,,,
+2100,NM101,Entity Identifier Code,R,"Min - 2
+Max - 3",GB Other Insured,NA,NA,,
+2100,NM102,Entity Type Qualifier,R,"Min - 1
+Max - 1","1 Person
+2 Non-Person Entity",NA,NA,,
+2100,NM103,Name Last or Organization Name,S,"Min - 1
+Max - 60",,NA,NA,,
+2100,NM104,Name First,S,"Min - 1
+Max - 35",,NA,NA,,
+2100,NM105,Name Middle,S,"Min - 1
+Max - 25",,NA,NA,,
+2100,NM107,Name Suffix,S,"Min - 1
+Max - 10",,NA,NA,,
+2100,NM108,Identification Code Qualifier,S,"Min - 1
+Max - 2","FI Federal Taxpayer’s Identification Number
+II Standard Unique Health Identifier for each Individual
+in the United States
+MI Member Identification Number",NA,NA,,
+2100,NM109,Identification Code,S,"Min - 2
+Max - 80",,NA,NA,,
+2100,MIA,Inpatient Adjudication Information,S,,,,,,
+2100,MIA01,Quantity,R,"Min - 1
+Max - 15",,NA,NA,,
+2100,MIA02,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA03,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2100,MIA04,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA05,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MIA06,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA07,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA08,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA09,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA10,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA11,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA12,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA13,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA14,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA15,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2100,MIA16,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA17,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA18,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA19,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MIA20,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MIA21,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MIA22,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MIA23,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MIA24,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MOA,Outpatient Adjudication Information,S,,,,,,
+2100,MOA01,Percentage as Decimal,S,"Min - 1
+Max - 10",,NA,NA,,
+2100,MOA02,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MOA03,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MOA04,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MOA05,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MOA06,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MOA07,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2100,MOA08,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,MOA09,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2100,REF,Other Claim Related Identification,S,,,,,,
+2100,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3","1L Group or Policy Number
+1W Member Identification Number
+28 Employee Identification Number
+6P Group Number
+9A Repriced Claim Reference Number
+9C Adjusted Repriced Claim Reference Number
+BB Authorization Number
+CE Class of Contract Code
+EA Medical Record Identification Number
+F8 Original Reference Number
+G1 Prior Authorization Number
+G3 Predetermination of Benefits Identification Number
+IG Insurance Policy Number
+SY Social Security Number","Hardcode as ""1L""",NA,,
+2100,REF02,Reference Identification,R,"Min - 1
+Max - 50",,Map this value from the DFF index 2.025,GroupCode,,
+2100,REF,Rendering Provider Identification,S,,,,,,
+2100,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3","0B State License Number
+1A Blue Cross Provider Number
+1B Blue Shield Provider Number
+1C Medicare Provider Number
+1D Medicaid Provider Number
+1G Provider UPIN Number
+1H CHAMPUS Identification Number
+1J Facility ID Number
+D3 National Council for Prescription Drug Programs
+Pharmacy Number
+G2 Provider Commercial Number
+LU Location Number",NA,NA,,
+2100,REF02,Reference Identification,R,"Min - 1
+Max - 50",,NA,NA,,
+2100,DTM,Statement From or To Date,S,,,,,,
+2100,DTM01,Date/Time Qualifier,R,"Min - 3
+Max - 3",232 Claim Statement Period Start,"Hardcode as ""232""",NA,Only map when linelevel date is not present,
+2100,DTM02,Date,R,"Min - 8
+Max - 8",,Map this value from the DFF index 2.062,From Date,Date format is YYYYMMDD,
+2100,DTM01,Date/Time Qualifier,R,"Min - 3
+Max - 3",233 Claim Statement Period End,"Hardcode as ""233""",,Only map when linelevel date is not present,
+2100,DTM02,Date,R,"Min - 8
+Max - 8",,Map this value from the DFF index 2.063,To Date,Date format is YYYYMMDD,
+2100,DTM,Coverage Expiration Date,S,,,,,,
+2100,DTM01,Date Time Qualifier,R,"Min - 3
+Max - 3",036 Expiration,Hardcode as “036”,NA,Coverage Expiration Date (DTM*036) should be populated only if one of the adjustment codes on the Line level is “27”,
+2100,DTM02,Expiration Date,R,"Min - 8
+Max - 8",,Map this value from the DFF index 2.042,CoverageExpiration,Date format is YYYYMMDD,
+2100,DTM,Claim Received Date,S,,,,,,
+2100,DTM01,Date Time Qualifier,R,"Min - 3
+Max - 3",050 Received,Hardcode as “050”,NA,,
+2100,DTM02,Received Date,R,"Min - 8
+Max - 8",,Map this value from the DFF index 2.051,Claim Received Date,Date format is YYYYMMDD,
+2100,PER,Claim Contact Information,S,,,,,,
+2100,PER01,Contact Function Code,R,"Min - 2
+Max - 2",CX Payers Claim Office,NA,NA,,
+2100,PER02,Name,S,"Min - 1
+Max - 60",,NA,NA,,
+2100,PER03,Communication Number Qualifier,R,"Min - 2
+Max - 2","EM Electronic Mail
+FX Facsimile
+TE Telephone",NA,NA,,
+2100,PER04,Communication Number,R,"Min - 1
+Max - 256",,NA,NA,,
+2100,PER05,Communication Number Qualifier,S,"Min - 2
+Max - 2","EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+TE Telephone",NA,NA,,
+2100,PER06,Communication Number,S,"Min - 1
+Max - 256",,NA,NA,,
+2100,PER07,Communication Number Qualifier,S,"Min - 2
+Max - 2",EX Telephone Extension,NA,NA,,
+2100,PER08,Communication Number,S,"Min - 1
+Max - 256",,NA,NA,,
+2100,AMT,Claim Supplemental Information,S,,,,,,
+2100,6,Amount Qualifier Code,R,"Min - 1
+Max - 3","AU Coverage Amount
+D8 Discount Amount
+DY Per Day Limit
+F5 Patient Amount Paid
+I Interest
+NL Negative Ledger Balance
+T Tax
+T2 Total Claim Before Taxes
+ZK Federal Medicare or Medicaid Payment Mandate -
+Category 1
+ZL Federal Medicare or Medicaid Payment Mandate -
+Category 2
+ZM Federal Medicare or Medicaid Payment Mandate -
+Category 3
+ZN Federal Medicare or Medicaid Payment Mandate -
+Category 4
+ZO Federal Medicare or Medicaid Payment Mandate -
+Category 52","Hardcode as ""AU""",NA,,
+2100,AMT02,Claim Supplemental Information Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 2.053,Prompt Pay Discount,This mapping required when the amount is greater than zero.,
+2100,AMT01,Amount Qualifier Code,R,"Min - 1
+Max - 3","AU Coverage Amount
+D8 Discount Amount
+DY Per Day Limit
+F5 Patient Amount Paid
+I Interest
+NL Negative Ledger Balance
+T Tax
+T2 Total Claim Before Taxes
+ZK Federal Medicare or Medicaid Payment Mandate -
+Category 1
+ZL Federal Medicare or Medicaid Payment Mandate -
+Category 2
+ZM Federal Medicare or Medicaid Payment Mandate -
+Category 3
+ZN Federal Medicare or Medicaid Payment Mandate -
+Category 4
+ZO Federal Medicare or Medicaid Payment Mandate -
+Category 52","Hardcode as ""I""",NA,,
+2100,AMT02,Claim Supplemental Information Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 2.052,Interest Amounts,,
+2100,QTY,Claim Supplemental Information Quantity,S,,,,,,
+2100,QTY01,Quantity Qualifier,R,"Min - 2
+Max - 2","CA Covered - Actual
+CD Co-insured - Actual
+LA Life-time Reserve - Actual
+LE Life-time Reserve - Estimated
+NE Non-Covered - Estimated
+NR Not Replaced Blood Units
+OU Outlier Days
+PS Prescription
+VS Visits
+ZK Federal Medicare or Medicaid Payment Mandate -
+Category 1
+ZL Federal Medicare or Medicaid Payment Mandate -
+Category 2
+ZM Federal Medicare or Medicaid Payment Mandate -
+Category 3
+ZN Federal Medicare or Medicaid Payment Mandate -
+Category 4
+ZO Federal Medicare or Medicaid Payment Mandate -
+Category 5",NA,NA,,
+2100,QTY02,Quantity,R,"Min - 1
+Max - 15",,NA,NA,,
+LOOP 2110 Service Payment Information,,,,,,,,,
+2110,SVC,SERVICE PAYMENT INFORMATION,S,,,,,,
+2110,SVC01,"COMPOSITE MEDICAL PROCEDURE
+IDENTIFIER",R,"Min -
+Max -",,NA,NA,,
+2110,SVC01-1,Product/Service ID Qualifier,R,"Min - 2
+Max - 2","AD American Dental Association Codes
+ER Jurisdiction Specific Procedure and Supply Codes
+HC Health Care Financing Administration Common
+HP Health Insurance Prospective Payment System
+IV Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+N4 National Drug Code in 5-4-2 Format
+N6 National Health Related Item Code
+NU National Uniform Billing Committee (NUBC) UB92
+Codes
+UI U.P.C. Consumer Package Code (1-5-5)
+WK Advanced Billing Concepts (ABC) Codes","If the procedure code(3.007) is present in DFF, then we need to Hardcode as ""HC""
+Else If the procedure code (3.007) is blank and revenue code is present in index 3.034 then we need hardcode as ""NU""",NA,,
+2110,SVC01-2,Product/Service ID,R,"Min - 1
+Max - 48",,"If the procedure code is present Map this value from the DFF index 3.007
+Else If the procedure code is blank and revenue code is present Map the value from the DFF index 3.034",ProcedureCode,,
+2110,SVC01-3,PROCEDURE MODIFIER,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.031,Procedure Modifier,,
+2110,SVC01-4,PROCEDURE MODIFIER 2,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.031.1,Procedure Modifier 2,,
+2110,SVC01-5,PROCEDURE MODIFIER 3,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.031.2,Procedure Modifier 3,,
+2110,SVC01-6,PROCEDURE MODIFIER 4,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.031.3,Procedure Modifier 4,,
+2110,SVC01-7,Procedure Code Description,NA,NA,NA,NA,NA,,
+2110,SVC02,Monetary Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 3.010,ChargeAmount,,
+2110,SVC03,Monetary Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 3.019,PaidAmount,,
+2110,SVC04,NUBC Revenue Code,S,"Min - 1
+Max - 48",,When the procedure code is present and revenue code is present then Map SVC04 from the DFF index 3.034,Revenue Code,,
+2110,SVC05,Units of Service Paid Count,S,"Min - 1
+Max - 15",,Map this value from the DFF index 3.024,Units,The SVC05(Paid Units) required when the paid units of service are different than one if not required,
+2110,SVC06-1,PRODUCT/SERVICE ID QUALIFIER,R,"Min - 2
+Max - 2","AD American Dental Association Codes
+ER Jurisdiction Specific Procedure and Supply Codes
+HC Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+HP Health Insurance Prospective Payment System
+(HIPPS) Skilled Nursing Facility Rate Code
+IV Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+N4 National Drug Code
+NU National Uniform Billing Committee (NUBC) UB92
+Codes
+WK Advanced Billing Concepts (ABC) Codes",Map this value from the DFF index 3.043,"Place holder for Submitted Product/Service id qualifier
+
+Mapped based on getPaymentDetailsByIDResponse/paymentDetails/heexns:paymentExtract/eopPayment/eopClaimDetails/claim/claimLine/claimLine/serviceCode",Map SVC06 only when the valuein 3.007 is different from 3.044 (Service code),"PSD Ticket#502, 500, 499 based upon grooming call dated 11/7 , we are working along with IPlus team to analyse the feasiblity"
+2110,SVC06-2,Procedure Code,R,"Min - 1
+Max - 48",,Map this value from the DFF index 3.044,"Place holder for Submitted ProcedureCode
+
+getPaymentDetailsByIDResponse/paymentDetails/heexns:paymentExtract/eopPayment/eopClaimDetails/claim/claimLine/claimLine/serviceCode",,
+2110,SVC06-3,Procedure Modifier 1,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.045,"Place holder for Submitted Procedure Modifier
+
+getPaymentDetailsByIDResponse/paymentDetails/heexns:paymentExtract/eopPayment/eopClaimDetails/claim/claimLine/claimLine/modifierList",,
+2110,SVC06-4,Procedure Modifier 2,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.046,"Place holder for Submitted Procedure Modifier 2
+
+getPaymentDetailsByIDResponse/paymentDetails/heexns:paymentExtract/eopPayment/eopClaimDetails/claim/claimLine/claimLine/modifierList",,
+2110,SVC06-5,Procedure Modifier 3,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.047,"Place holder for Submitted Procedure Modifier 3
+
+getPaymentDetailsByIDResponse/paymentDetails/heexns:paymentExtract/eopPayment/eopClaimDetails/claim/claimLine/claimLine/modifierList",,
+2110,SVC06-6,Procedure Modifier 4,S,"Min - 2
+Max - 2",,Map this value from the DFF index 3.048,"Place holder for Submitted Procedure Modifier 4
+
+getPaymentDetailsByIDResponse/paymentDetails/heexns:paymentExtract/eopPayment/eopClaimDetails/claim/claimLine/claimLine/modifierList",,
+2110,SVC06-7,Procedure Code Description,S,"Min - 1
+Max - 80",,NA,NA,,
+2110,SVC07,Original Units of Service Count,S,"Min - 1
+Max - 15",,Map this value from the DFF index 3.036,Original Units,The SVC07(Submitted Units) required when the paid unites of service provided in SVC05 is different from the submitted units of service from the original claim.,
+2110,DTM,Service Start Date,S,,,,,,
+2110,DTM01,Date Time Qualifier,R,"Min - 3
+Max - 3",150 Service Period Start,"Hardcode as ""150""",NA,"1) Format the date to the below format ""YYYYMMDD""
+2) If 3.005 and 3.006 same then map the DTM segment with qualifier 472(Rows 364 and 365).
+Else If 3.005 is not equal to 3.006 Map the DTM segment with qualifiers 150 and 151(Rows 358 till 362)",
+2110,DTM02,Service Date,R,"Min - 8
+Max - 8",,Map this value from the DFF index 3.005,FromDate,,
+2110,DTM,Service End Date,S,,,NA,NA,,
+2110,DTM01,Date Time Qualifier,R,"Min - 3
+Max - 3",151 Service Period End,"Hardcode as ""151""",NA,,
+2110,DTM02,Service End Date,R,"Min - 8
+Max - 8",,Map this value from the DFF index 3.006,ToDate,,
+2110,DTM,Service Date,S,,,,,,
+2110,DTM01,Date Time Qualifier,R,"Min - 3
+Max - 3",472 Service,"Hardcode as ""472""",NA,,
+2110,DTM02,Service Date,R,"Min - 8
+Max - 8",,"Date format ""YYYYMMDD""",NA,,
+2110,CAS,Service Adjustment,S,,,,,,
+2110,CAS01,Claim Adjustment Group Code,R,"Min - 1
+Max - 2","CO Contractual Obligations
+OA Other adjustments
+PI Payor Initiated Reductions",Map this value from the DFF index 4.011,CAGC,,
+2110,CAS02,Claim Adjustment Reason Code,R,"Min - 1
+Max - 5",,Map this value from the DFF index 4.009,CARC,,
+2110,CAS03,Monetary Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 4.008,835 Adjusted Amount,,
+2110,CAS04,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2110,CAS05,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,Map the same logic present in Rows 367 and 368,Map the same logic present in Rows 367 and 368,,
+2110,CAS06,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2110,CAS07,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2110,CAS08,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,Map the same logic present in Rows 367 and 368,Map the same logic present in Rows 367 and 368,,
+2110,CAS09,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2110,CAS10,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2110,CAS11,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,Map the same logic present in Rows 367 and 368,Map the same logic present in Rows 367 and 368,,
+2110,CAS12,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2110,CAS13,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2110,CAS14,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,Map the same logic present in Rows 367 and 368,Map the same logic present in Rows 367 and 368,,
+2110,CAS15,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2110,CAS16,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2110,CAS17,Claim Adjustment Reason Code,S,"Min - 1
+Max - 2",,Map the same logic present in Rows 367 and 368,Map the same logic present in Rows 367 and 368,,
+2110,CAS18,Monetary Amount,S,"Min - 1
+Max - 18",,,,,
+2110,CAS19,Quantity,S,"Min - 1
+Max - 15",,NA,NA,,
+2110,REF,Service Identification,S,,,,,,
+2110,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3","1S Ambulatory Patient Group (APG) Number
+APC Ambulatory Payment Classification
+BB Authorization Number
+E9 Attachment Code
+G1 Prior Authorization Number
+G3 Predetermination of Benefits Identification Number
+LU Location Number
+RB Rate code number",NA,NA,,
+2110,REF02,Provider Identifier,R,"Min - 1
+Max - 50",,NA,NA,,
+2110,REF,Line Item Control Number,S,,,,,,
+2110,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3",6R Provider Control Number,"Hardcode as ""6R""",NA,,
+2110,REF02,Reference Identification,R,"Min - 1
+Max - 50",,Map this value from the DFF index 3.037,Line Item Control Number,,
+2110,REF,Rendering Provider Information,S,,,,,,
+2110,REF01,Reference Identification Number,R,"Min - 2
+Max - 3","0B State License Number
+1A Blue Cross Provider Number
+1B Blue Shield Provider Number
+1C Medicare Provider Number
+1D Medicaid Provider Number
+1G Provider UPIN Number
+1H CHAMPUS Identification Number
+1J Facility ID Number
+D3 National Council for Prescription Drug Programs
+G2 Provider Commercial Number
+HPI Centers for Medicare and Medicaid Services
+National Provider Identifier
+SY Social Security Number
+TJ Federal Taxpayer’s Identification Number",NA,NA,,
+2110,REF02,Rendering Provider Federal ID,R,"Min - 1
+Max - 50",,NA,NA,"Corresponding identifier, Federal ID differs from provider to provider.",
+2110,REF,HealthCare Policy Identification,S,,,,,,
+2110,REF01,Reference Identification Qualifier,R,"Min - 2
+Max - 3",0K Policy Form Identifying Number,NA,NA,,
+2110,REF02,Reference Identification,R,"Min - 1
+Max - 50",,NA,NA,,
+2110,AMT,Service Supplemental Amount,S,,,,,,
+2110,AMT01,Amount Qualifier Code,R,"Min - 1
+Max - 3","B6 Allowed - Actual
+KH Deduction Amount
+T Tax
+T2 Total Claim Before Taxes
+ZK Federal Medicare or Medicaid Payment Mandate -
+Category 1
+ZL Federal Medicare or Medicaid Payment Mandate -
+Category 2
+ZM Federal Medicare or Medicaid Payment Mandate -
+Category 3
+ZN Federal Medicare or Medicaid Payment Mandate -
+Category 4
+ZO Federal Medicare or Medicaid Payment Mandate -
+Category 5","Hardcode as ""B6""",NA,,
+2110,AMT02,Service Line Allowed Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 3.033,Allowed Amount,This mapping required when the amount is greater than zero.,
+2110,QTY,Service Supplemental Quantity,S,,,,,,
+2110,QTY01,Quantity Qualifier,R,"Min - 2
+Max - 2","ZK Federal Medicare or Medicaid Payment Mandate -
+Category 1
+ZL Federal Medicare or Medicaid Payment Mandate -
+Category 2
+ZM Federal Medicare or Medicaid Payment Mandate -
+Category 3
+ZN Federal Medicare or Medicaid Payment Mandate -
+Category 4
+ZO Federal Medicare or Medicaid Payment Mandate -
+Category 5",NA,NA,,
+2110,QTY02,Quantity,R,"Min - 1
+Max - 15",,NA,NA,,
+2110,LQ,Health Care Remark Code,S,,,,,,
+2110,LQ01,Service Line Remittance Remark Code 1,R,"Min - 1
+Max - 3","HE Claim Payment Remark Codes
+RX National Council for Prescription Drug Programs","Hardcode as ""HE""",NA,,
+2110,LQ02,Service Line Remittance Remark Code 2,R,"Min - 1
+Max - 30",,Map this value from the DFF index 4.01,RARC,,
+2110,PLB,Provider Adjustment,S,,,,,,
+2110,PLB01,Provider Identifier,R,"Min - 1
+Max - 50",,Map this value from the DFF index 1.033,Payee NPI,,
+2110,PLB02,Fiscal Period Date,R,"Min - 8
+Max - 8",,System Date YYYYMMDD format - December 31 of current year for example - 20231231,NA,"Last day of provider’s fiscal year(Financial Year) in YYYYMMDD format; if not known, December 31 of current year. (adjustment for the whole bill payment, monthly rebate , over payment )",
+2110,PLB03-1,PROVIDER ADJUSTMENT REASON CODE,R,"Min - 2
+Max - 2",20,Map this value from the DFF index 4.007,ProviderAdjustmentCode,,
+2110,PLB03-2,Provider Adjustment Identifier,R,"Min - 1
+Max - 50",,Map this value from the DFF index 4.013,PLB Identifier,,
+2110,PLB04,Provider Adjustment Amount,R,"Min - 1
+Max - 18",,Map this value from the DFF index 4.008,835 Adjusted Amount,,
+2110,PLB05,Provider Adjustment Identifier,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB05-1,PROVIDER ADJUSTMENT REASON CODE,S,"Min - 2
+Max - 2",,NA,NA,,
+2110,PLB05-2,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB06,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2110,PLB07,ADJUSTMENT IDENTIFIER,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB07-1,Adjustment Reason Code,S,"Min - 2
+Max - 2",,NA,NA,,
+2110,PLB07-2,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB08,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2110,PLB09,ADJUSTMENT IDENTIFIER,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB09-1,Adjustment Reason Code,S,"Min - 2
+Max - 2",,NA,NA,,
+2110,PLB09-2,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB010,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2110,PLB11,ADJUSTMENT IDENTIFIER,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB11-1,Adjustment Reason Code,S,"Min - 2
+Max - 2",,NA,NA,,
+2110,PLB11-2,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB12,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+2110,PLB13,ADJUSTMENT IDENTIFIER,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB13-1,Adjustment Reason Code,S,"Min - 2
+Max - 2",,NA,NA,,
+2110,PLB13-2,Reference Identification,S,"Min - 1
+Max - 50",,NA,NA,,
+2110,PLB14,Monetary Amount,S,"Min - 1
+Max - 18",,NA,NA,,
+SE - TRANSACTION SET TRAILER,,,,,,,,,
+,SE,Transaction Set Trailer,R,,,,,,
+,SE01,Number Of Included Segments,R,"Min - 1
+Max - 10",,"Total number of segments included in a transaction set including ST and SE
+segments",NA,,
+,SE02,Transaction Set Control Number,R,"Min -
+Max -",,STO2 Value,NA,,
+,GE,Functional Group Trailer,R,,,,,,
+,GE01,Number of Transaction Sets Included,R,"Min -
+Max -",,"Total number of transaction sets included in the functional group or interchange
+(transmission) group terminated by the trailer containing this data element",NA,,
+,GE02,Group Control Number,R,"Min -
+Max -",,GS06 Value,NA,,
+Interchange Control Loop (End),,,,,,,,,
+,IEA,Interchange Control Trailer,R,,,,,,
+,IEA01,Number of Included Functional Groups,R,"Min -
+Max -",,A count of the number of functional groups included in an interchange,NA,,
+,IEA02,Interchange Control Number,R,"Min -
+Max -",,ISA13 Value,NA,,

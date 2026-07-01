@@ -1,0 +1,18 @@
+processStageName,processStatus(Payment Level),processMessage,JSON TRIGGER EVENT,Comments
+EDIFECS-Conversion,PROCESSED,,After the EDI conversion if it’s a success,
+EDIFECS-Conversion,ERROR,Edifecs Translator Error,After the EDI conversion if it’s a failure,
+EDIFECS-Validation,SUCCESS,,,Need an aggregation status for good and bad
+EDIFECS-Validation,ERROR,Edifecs HIPAA Validation Error,"After the SNIP Validations, if it’s a bad record",
+,,,,
+,,,,
+,,,,
+Success,,,,
+EDIFECS-Conversion,PROCESSED,,After the EDI conversion if it’s a success,
+EDIFECS-Validation,SUCCESS,,,
+,,,,
+Error Scenario 1,,,,
+EDIFECS-Conversion,ERROR,Edifecs Translator Error,After the EDI conversion if it’s a failure,"As this pre-requisite is difficult to implement in Test environment, this may not be able to be tested in SIT"
+,,,,
+Error Scenario 2,,,,
+EDIFECS-Conversion,PROCESSED,,After the EDI conversion if it’s a success,
+EDIFECS-Validation,ERROR,Edifecs HIPAA Validation Error,"After the SNIP Validations, if it’s a bad record",

@@ -1,0 +1,11 @@
+
+     {"data":
+${M_Body},
+			
+        "identifiers": {			
+            "rayIdentifier": "${rayIdentifier}",			
+            "recordIdentifier": "${recordIdentifier}",						
+            "recordIdentifierFromSource": "",			
+            "timestamp": "${FileReceiptDateTime}"			
+        }
+}		

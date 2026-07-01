@@ -1,0 +1,92 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+import com.edifecs.etools.commons.io.SmartStream;
+import java.util.*;
+
+// Access the exchange and message data
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+
+// Read the input stream content into a string
+messageBodyInputStream = message.getBodyAsSmartStream().getInputStream();
+String messageContent = new String(messageBodyInputStream.readAllBytes());
+
+
+
+exchProperties.each { k, v -> msgHeaders.put(k, v) }
+//def inputFilename = exchProperties.get ("")
+  if (inputFilename.contains("FULLMBROUT")){
+  exchProperties.put("FileType", "Weekly");}
+  else if (inputFilename.contains("MBROUT")){
+  exchProperties.put("FileType", "Daily");}
+  else if ((!inputFilename.contains("MBROUT")) || (!inputFilename.contains("FULLMBROUT")) ){
+  exchProperties.put("FileType", "Daily");}
+
+
+// Split the input data into individual lines
+String[] tempLines = messageContent.split("[\\r\\n]+");
+
+// Initialize variables
+char CR = (char) 0x0D;
+char LF = (char) 0x0A;
+
+// Create a map to hold subscriber IDs and their corresponding lines
+Map<String, List<String>> subscriberToLinesMap = new HashMap<>();
+
+// Initialize a set to store unique subscriber IDs
+Set<String> uniqueSubscriberIds = new HashSet<>();
+
+// Process each line
+for (String tempLine : tempLines) {
+    String[] parts = tempLine.split("\\|");
+    if (parts.length >= 2) {
+        String transactionType = parts[0];
+        String subscriberID = parts[1];
+
+        // Add the subscriber ID to the set
+        uniqueSubscriberIds.add(subscriberID);
+
+        if (!subscriberToLinesMap.containsKey(subscriberID)) {
+            subscriberToLinesMap.put(subscriberID, new ArrayList<>());
+        }
+
+        if ("DEM".equals(transactionType)) {
+            subscriberToLinesMap.get(subscriberID).add(0, tempLine);
+        } else {
+            subscriberToLinesMap.get(subscriberID).add(tempLine);
+        }
+    }
+}
+
+// Get the count of unique subscribers
+int uniqueSubscriberCount = uniqueSubscriberIds.size();
+
+// Add the count to the properties
+exchProperties.put("UniqueSubscriberCount", uniqueSubscriberCount.toString());
+
+// Process each subscriber and create a new message for each
+for (String subscriberID : subscriberToLinesMap.keySet()) {
+    List<String> lines = subscriberToLinesMap.get(subscriberID);
+
+    // Generate the final data string using StringBuilder for each subscriber
+    StringBuilder finalDataStringBuilder = new StringBuilder();
+    for (String line : lines) {
+        finalDataStringBuilder.append(line).append(CR).append(LF);
+    }
+
+    String finalDataString = finalDataStringBuilder.toString();
+
+    // Create a new message headers map for each subscriber
+    def newMsgHeaders = [:]
+    exchProperties.each { k, v -> newMsgHeaders.put(k, v) }
+	
+	// Add the subscriberID to the new message headers
+
+    newMsgHeaders.put("UniqueMemberId", subscriberID);
+
+    // Create a new message and send the response for each subscriber
+    ProxyMessage newMessage = context.createNewMessage(finalDataString, newMsgHeaders);
+    context.createExchangeResponse(msgHeaders, newMessage);
+}

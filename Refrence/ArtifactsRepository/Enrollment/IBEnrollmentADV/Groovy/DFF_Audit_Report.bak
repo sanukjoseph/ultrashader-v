@@ -1,0 +1,236 @@
+import org.apache.commons.lang.StringUtils
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+import com.edifecs.etools.commons.io.SmartStream;
+import groovy.util.slurpersupport.NodeChild;
+import java.io.*;
+import groovy.util.XmlSlurper
+
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+
+//def ValidationAuditStartDateTime='';
+//def ValidationAuditEndDateTime='';
+
+
+def auditEventNumber = exchProperties.get('auditEventNumber')
+//if(auditEventNumber =="3")
+if (auditEventNumber in ["2", "4"]) 
+{
+	messageBodyInputStream = message.getBodyAsSmartStream().getInputStream()
+def maxFormattedLength = 298;
+
+// Parse XML
+def root = new XmlSlurper().parse(messageBodyInputStream)
+
+StringBuilder errorDetails = new StringBuilder()
+def errors = root.'**'.findAll { it.name() == 'Error' }
+
+// Iterate and format each error (excluding description)
+errors.eachWithIndex { error, idx ->
+    def errorBrief = error.Brief?.text()?.trim()
+    def errorID = error.@ID?.toString()
+    def errorCategory = error.@Category?.toString()
+    def errorSeverity = error.@Severity?.toString()
+    def errorSnip = error.@SNIP?.toString()
+
+    // Nested info inside ErrorDataInfo
+    def errDataInfo = error.ErrorDataInfo
+    
+    def businessPath = errDataInfo.BusinessPath?.text()?.trim()
+    if(businessPath!="")
+		{
+			businessPath=": "+"ErrPath-"+"${businessPath}";
+		}
+	else{
+		  businessPath="";
+		}
+    def errorSegment = errDataInfo.Part1?.text()?.trim()
+    if(errorSegment !="")
+		{
+			errorSegment=": "+"ErrSegment-"+"${errorSegment}";
+		}
+	else
+       {
+			errorSegment="";
+	   }
+    def errData = errDataInfo.ErrData?.text()?.trim()
+    if(errData!=""){
+    errData=": "+"ErrData-"+"${errData}";
+    }
+    else{
+    errData=="";
+    }
+    
+    String formatted = "ErrID-${errorID}${errData}: SNIP-${errorSnip}${businessPath}: ErrBrief-${errorBrief}${errorSegment}"
+	
+ 
+   // Truncate if longer than allowed
+    if (formatted.length() > maxFormattedLength) {
+        formatted = formatted.take(maxFormattedLength)
+    } 
+     formatted = formatted.replaceFirst(/\|$/, "")	
+    // Append with || separator if not first
+    if (idx > 0) {
+        errorDetails.append("||")
+    }
+
+    errorDetails.append(formatted)
+ }
+// Add to headers
+msgHeaders.put("ExtractedErrors", errorDetails.toString())
+
+// Optional response creation
+// ProxyMessage newMessage = context.createNewMessage(errorDetails.toString(), msgHeaders)
+// context.createExchangeResponse(msgHeaders, newMessage)
+
+
+			def AdaptorErrorMessage = '';
+//println ("beforecondition: " + newMessageBody)			
+
+             newMessageBody = errorDetails.toString();
+			 //println ("beforecondition: " + newMessageBody)	
+	
+	
+if (newMessageBody.length() > 5000) {
+		// Trim the string to 5000 characters and add "(...)" at the end
+		newMessageBody = newMessageBody.substring(0, 4992) + "(...)"
+																													
+		}
+		
+		
+		
+				
+			exchProperties['adaptorErrorMessage'] = newMessageBody;
+
+}
+
+exchange = context.exchange
+properties = exchange.properties
+messages = exchange.messages
+message = messages.first()
+messageBodyInputStream = message.bodyAsSmartStream.inputStream
+
+InputStreamReader isr = new InputStreamReader(messageBodyInputStream)
+BufferedReader br = new BufferedReader(isr)
+def Unique = properties.get('recordId')
+def badRecordIdentifier = properties.get('Unique')
+//def auditEventNumber = properties.get('auditEventNumber')
+def UniqueMemberId = properties.get('recordIdentifierBad')
+def ValidationAuditStartDateTime = properties.get('ValidationAuditStartTime')
+def ValidationAuditEndDateTime = properties.get('ValidationAuditEndTime')
+def ConversionAuditStartDateTime = properties.get('ConversionAuditStartTime')
+def ConversionAuditEndDateTime = properties.get('ConversionAuditEndDateTime')
+def MesssagePublishedAuditDateTime = properties.get('MesssagePublishedAuditDateTime')
+def ValidationErrorAuditEndDateTime = properties.get('ValidationErrorAuditEndDateTime')
+
+
+// Flag to check if the event has been logged
+def alreadyLogged = properties.get("alreadyLogged") ?: false
+
+if (auditEventNumber == "1" && !alreadyLogged) {
+    properties.put("Unique", Unique)
+    properties.put("OrigionalValidationStart", "Yes")
+
+    // Log PROCESS_START
+    properties.put("AdaptorStatus", "PROCESS_START")
+    properties.put("ProcessStageName", "EDIFECS-Validation")
+	properties.put("InputRecepitDate",ValidationAuditStartDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    // Log PROCESS_END
+    properties.put("AdaptorStatus", "PROCESS_END")
+	properties.put("InputRecepitDate",ValidationAuditEndDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    // Set the flag to true to prevent duplicate logging
+    properties.put("alreadyLogged", true)
+}
+
+else if (auditEventNumber == "2") {
+    properties.put("Unique", badRecordIdentifier)
+    properties.put("OrigionalValidationStart", "Yes")
+	properties.put("UniqueMemberId", UniqueMemberId)
+
+    // Log PROCESS_START and ERROR
+    properties.put("AdaptorStatus", "PROCESS_START")
+    properties.put("ProcessStageName", "EDIFECS-Validation")
+    properties.put("adaptorErrorMessage", "")
+	properties.put("InputRecepitDate",ValidationAuditStartDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    properties.put("AdaptorStatus", "ERROR")
+    properties.put("adaptorErrorMessage", newMessageBody)
+	properties.put("InputRecepitDate",ValidationErrorAuditEndDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+}
+
+else if (auditEventNumber == "3") {
+    properties.put("Unique", Unique)
+    properties.put("OrigionalValidationStart", "No")
+    properties.put("ConversionFlag", "Yes")
+
+    // Log PROCESS_START
+    properties.put("AdaptorStatus", "PROCESS_START")
+    properties.put("ProcessStageName", "EDIFECS-Conversion")
+	properties.put("InputRecepitDate",ConversionAuditStartDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    // Log PROCESS_END
+    properties.put("AdaptorStatus", "PROCESS_END")
+	properties.put("InputRecepitDate",ConversionAuditEndDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+	
+ properties.put("AdaptorStatus", "MESSAGE_PUBLISHED")
+    properties.put("ProcessStageName", "EDIFECS")
+	properties.put("InputRecepitDate",MesssagePublishedAuditDateTime)
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    properties.remove("AdaptorStatus")
+    properties.remove("ProcessStageName")
+}
+
+else if (auditEventNumber == "4") {
+    properties.put("Unique", Unique)
+    properties.put("ConversionFlag", "Yes")
+
+    // Log PROCESS_START
+    properties.put("AdaptorStatus", "PROCESS_START")
+    properties.put("ProcessStageName", "EDIFECS-Conversion")
+    properties.put("adaptorErrorMessage", "")
+	properties.put("InputRecepitDate",ConversionAuditStartDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    // Log ERROR
+    properties.put("AdaptorStatus", "ERROR")
+    properties.put("adaptorErrorMessage", newMessageBody)
+	properties.put("InputRecepitDate",ConversionAuditEndDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+	
+	
+}
+
+else if (auditEventNumber == "5") {
+	
+	    properties.put("PlanVoidFlag", "Yes")
+	
+    properties.put("AdaptorStatus", "PROCESS_START")
+    properties.put("ProcessStageName", "EDIFECS-Validation")
+    properties.put("adaptorErrorMessage", "")
+	properties.put("InputRecepitDate",ValidationAuditStartDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+    properties.put("AdaptorStatus", "ERROR")
+	properties.put("ProcessStageName", "EDIFECS-Validation")
+    properties.put("adaptorErrorMessage", "Rejected the request since the plan is void")
+	properties.put("InputRecepitDate",ValidationAuditEndDateTime);
+    context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+}
+
+// Clear the alreadyLogged flag if needed for the next execution
+if (auditEventNumber != "1") {
+    properties.remove("alreadyLogged")
+}

@@ -1,0 +1,20 @@
+Group,Fields,Sub Fields,Data Type,Usage,Sample Values,Description,Comments
+inputDetails,inputId,,String,Y,Value passed is  - {UID}- Unique for each file,Unique ID of the input file received from source.,
+,inputFileName,,String,,Input Filename of the JSON file received with filename extension,Name of the input file received from source.,
+,inputType,,String,,json,Defines the type of input file,
+,sourceTypeIdentifier,,String,,,,
+,tenantIdentifier,,String,,,Field to send the vendor name(CHC or PNC or Zelis) and should be configurable,
+,totalTransactions,,Integer,,Total count of the records in the inbound file,Total no. of transactions/Record received in API/File,
+,inputArchiveFilename,,String,,Input Filename of the JSON file archived in s3 with filename extension,Name of the input file after archiving the input file.,
+process,processStageName,,String,Y,refer Audit events tab,Represent the name of the process stage which post the Audit point.,
+,processStatus,,String,Y,refer Audit events tab,Represent the Intermediate or Final status of the process stage which posts the Audit point.,
+,processMessage,,String,,refer Audit events tab,Specific information of a particular step after the process is completed.,
+,auditTime,,DateTime,Y,"The time the audit trigger event got generated in YYYY-MM-DD HH:MM:SS.SSS format
+Sample: 2025-08-07 10:49:02.993",Auditing time of each audit point,
+identifiers,rayIdentifier,,String,Y,GUID(record level),"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",Mandatory for record level
+,recordIdentifier,,String,Y,UID(record level),Unique Identifier for transaction level. Will be different when reprocess a same record.,Mandatory for record level
+,recordIdentifierFromSource,,String,,Blank,,
+Correspondence,paymentDetails,,,,,,
+,,paymentId,String,,,,
+,,paymentTransactionId,String,,,,
+,,remittanceIssueDate,DateTime,,,,

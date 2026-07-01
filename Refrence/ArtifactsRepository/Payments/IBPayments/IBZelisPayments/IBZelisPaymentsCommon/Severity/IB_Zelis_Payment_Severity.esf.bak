@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SeverityConfigFile Version="2.0" Mode="extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SeverityConfig.xsd">
+  <SeverityDefinition />
+  <SeverityUsage>
+    <ApplyTo>
+      <Criteria Name="emp.id" Value="0x9c10007" />
+      <Criteria Name="emp.snip" Value="1" />
+      <SetSeverity SeverityID="0" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="1" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="2" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="3" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="4" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="5" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="6" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="7" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="10" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+    <ApplyTo>
+      <Criteria Name="emp.snip" Value="0" />
+      <SetSeverity SeverityID="1001" />
+    </ApplyTo>
+  </SeverityUsage>
+</SeverityConfigFile>

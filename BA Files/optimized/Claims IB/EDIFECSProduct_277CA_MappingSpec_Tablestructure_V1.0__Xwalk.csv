@@ -1,0 +1,23 @@
+2200D.STC,,,,,,,2200B.STC,,,,,,2200C.STC,,,,
+CLAIM_STATUS,STC01-01,STC01-02,STC03,Comments,,,CLAIM_STATUS,STC01-01,STC01-02,STC03,Comments,,CLAIM_STATUS,STC01-01,STC01-02,STC03,Comments
+CONSOLIDATED,A2,19,WQ,,,,CONSOLIDATED,A1,19,WQ,,,CONSOLIDATED,A1,19,WQ,
+NEEDS_REPAIR,P5,19,WQ,,,,NEEDS_REPAIR,A1,19,WQ,,,NEEDS_REPAIR,A1,19,WQ,
+NEEDS_REVIEW,P5,19,WQ,,,,NEEDS_REVIEW,A1,19,WQ,,,NEEDS_REVIEW,A1,19,WQ,
+DENIED,F2,20,WQ,,,,DENIED,A1,19,WQ,,,DENIED,A1,19,WQ,
+REJECTED,A3,19,U,,,,REJECTED,A1,19,WQ,,,REJECTED,A1,19,WQ,
+FINAL,F1,20,WQ,,,,FINAL,A1,19,WQ,,,FINAL,A1,19,WQ,
+NEEDS_REPRICING,P2,19,WQ,,,,NEEDS_REPRICING,A1,19,WQ,,,NEEDS_REPRICING,A1,19,WQ,
+WAITING_FOR_EXTERNAL_SYSTEM,P2,19,WQ,,,,WAITING_FOR_EXTERNAL_SYSTEM,A1,19,WQ,,,WAITING_FOR_EXTERNAL_SYSTEM,A1,19,WQ,
+DEFAULT,A1,19,WQ,"1. HRP Transaction Manager claims
+
+2. Unable to load the claim to HRP because of any webservice input xml file issue
+
+3. LCN Json Missing/Claim Status missing.",,,DEFAULT,A1,19,WQ,"1. HRP Transaction Manager claims
+
+2. Unable to load the claim to HRP because of any webservice input xml file issue
+
+3. LCN Json Missing/Claim Status missing.",,DEFAULT,A1,19,WQ,"1. HRP Transaction Manager claims
+
+2. Unable to load the claim to HRP because of any webservice input xml file issue
+
+3. LCN Json Missing/Claim Status missing."

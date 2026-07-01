@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+					xmlns:tns="http://healthedge.com" 
+					xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+					xmlns="http://schemas.xmlsoap.org/wsdl/" 
+					xmlns:lookup="http://www.healthedge.com/connector/schema/enrollmentsparselookup"
+					targetNamespace="http://healthedge.com">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparselookup" schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/enrollment-sparse-lookup.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+            <xsd:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/base-types.xsd" />
+        </xsd:schema>
+        <xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/match-input.xsd" />
+		</xsd:schema>
+	</types>
+	<message name="enrollmentSparseLookupCriteriaInput">
+		<part name="input" element="lookup:enrollmentLookupCriteria"/>
+	</message>
+	<message name="enrollmentSparseLookupResponseOutput">
+		<part name="output" element="lookup:enrollmentSparseLookupResponse"/>
+	</message>
+	<portType name="EnrollmentSparseLookupPortType">
+		<operation name="get">
+			<input message="tns:enrollmentSparseLookupCriteriaInput"/>
+			<output message="tns:enrollmentSparseLookupResponseOutput"/>
+		</operation>
+	</portType>
+	<binding name="EnrollmentSparseLookupBinding" type="tns:EnrollmentSparseLookupPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<operation name="get">
+			<soap:operation soapAction="http://healthedge.com/get"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="EnrollmentSparseLookup">
+		<port name="EnrollmentSparseLookupPort" binding="tns:EnrollmentSparseLookupBinding">
+			<soap:address location="http://localhost:7001/cprime-integration-webservices/EnrollmentSparseLookup"/>
+		</port>
+	</service>
+</definitions>

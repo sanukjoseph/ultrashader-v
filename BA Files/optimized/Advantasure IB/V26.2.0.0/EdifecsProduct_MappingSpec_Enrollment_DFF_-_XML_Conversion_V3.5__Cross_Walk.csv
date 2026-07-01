@@ -1,0 +1,78 @@
+Race Values,,,,,Disenrollment Reason codes,,,,PHIRelationshipToMember,,
+,,,,,,,,,,,
+Advantasure,,HRP /Enrollment sparse value,Shortname in HRP,,Advantasure,,HRP /Enrollment sparse value,,CODEENTRY,SHORTNAME,DESCRIPTION
+Value in Memout file,Description,Code entry for code set name=RaceOrEthnicityCode,,,Value in Memout file,ShortName,ShortDescription,,10,Emancipated Minor,Emancipated Minor
+300,American Indian or Alaska Native,I,American Indian or Alaska Native,,3,Date of Death Auto-Termination Policy,Date of Death Auto-Termination Policy,,11,Employee,Employee
+401,Asian Indian,5,Asian Indian,,2,Member No longer Eligible,Member No longer Eligible,,12,Ex-spouse,Ex-spouse
+201,Black or African American,ROEC2,Black or African American,,,,,,13,Father,Father
+411,Chinese,14,Chinese,,10,Overdue payment,Overdue payment,,14,Father or Mother,Father or Mother
+421,Filipino,21,Filipino,,1,Qualif  Event-Member Term,Qualif  Event-Member Term,,15,Foster Child,Foster Child
+521,Guamanian or Chamorro,ROEC4,Guamanian or Chamorro,,,,,,16,Grandmother or Grandfather,Grandmother or Grandfather
+431,Japanese,35,Japanese,,GenderIdentity Codes (Field 162),,,,17,Grandson or Granddaughter,Grandson or Granddaughter
+441,Korean,37,Korean,,Advantasure,,HRP /Enrollment sparse value,,18,Guardian,Guardian
+501,Native Hawaiian,J,Native Hawaiian,,Value in Memout file,Description,Codeentry for codesetname = GenderIdentity,,19,Handicapped Dependent,Handicapped Dependent
+499,Other Asian,4,Asian,,1,Woman,2,,1,Adopted Child,Adopted Child
+599,Other Pacific Islander,ROEC3,Other Pacific Islander,,2,Man,1,,20,Injured Plaintiff,Injured Plaintiff
+511,Samoan,52,Samoan,,3,Non-binary,5,,21,Life Partner,Life Partner
+451,Vietnamese,58,Vietnamese,,4,I use a different term,7,,22,Mother,Mother
+101,White,R5,White-CDC,,5,I choose not to answer,6,,23,Mother-in-law or Father-in-law,Mother-in-law or Father-in-law
+999,I choose not to answer,7,Not Provided,,,,,,24,Nephew or Niece,Nephew or Niece
+,,,,,SexualOrientation Codes (Field 163),,,,25,Other Adult,Other Adult
+Ethnicity Values,,,,,Advantasure,,HRP /Enrollment sparse value,,26,Other Relationship,Other Relationship
+,,,,,Value in Memout file,Description,Codeentry for codesetname = sexualOrientation,,27,Significant Other,Significant Other
+Advantasure,,HRP /Enrollment sparse value,Shortname in HRP,,1,Lesbian or Gay,1,,28,Son-in-law or Daughter-in-law,Son-in-law or Daughter-in-law
+Value in Memout file,Description,Code entry for code set name=RaceOrEthnicityCode,,,2,Straight,2,,29,Sponsored Dependent,Sponsored Dependent
+NA,"Not of Hispanic, Latino/a or Spanish
+Origin",ROEC1,Not Hispanic or Latino,,3,Bisexual,6,,2,Brother or Sister,Brother or Sister
+PR,Puerto Rican,47,Puerto Rican,,4,I use a different term,4,,30,Spouse,Spouse
+OTH,"Another Hispanic, Latino or Spanish
+Origin",E1,Hispanic or Latino -CDC,,4,I don’t know,4,,31,Stepfather,Stepfather
+MX,"Mexican, Mexican American, Chicano/a",40,Mexican American,,5,I choose not to answer,5,,32,Stepmother,Stepmother
+CUB,Cuban,15,Cuban,,,,,,33,Stepson or Stepdaughter,Stepson or Stepdaughter
+NR,I choose not to answer,7,Not Provided,,,,,,34,Uncle or Aunt,Uncle or Aunt
+,,,,,,,,,35,Unknown,Unknown
+,,,,,,,,,36,Ward,Ward
+Language Codes,,,,,,,,,3,Brother-in-law or Sister-in-law,Brother-in-law or Sister-in-law
+,,,,,,,,,4,Child,Child
+Advantasure,,HRP /Enrollment sparse value,Comments,,,,,,5,Child - Insured Has No Financial Responsibility,Child where Insured Has No Financial Responsibility
+Value in Memout file,Description,Code entry for code set name=LanguageDomain,,,,,,,6,Collateral Dependent,Collateral Dependent
+<null>,English,EN,,,,,,,7,Court Appointed Guardian,Court Appointed Guardian
+ENG,English,EN,,,,,,,8,Cousin,Cousin
+SPA,Spanish,ES,,,,,,,9,Dependent of a Minor Dependent,Dependent of a Minor Dependent
+FRA,French,FR,,,,,,,,,
+GER,German,DE,,,,,,,,,
+OTH,Other,OT,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+,,,,,,,,,,,
+Relationship to the Member,,,,,,,,,,,
+Code,Description,,,,,,,,,,
+1,Spouse,,,,,,,,,,
+3,Parent,,,,,,,,,,
+4,Grandparent,,,,,,,,,,
+5,Grandchild,,,,,,,,,,
+6,Uncle or Aunt,,,,,,,,,,
+7,Nephew or Niece,,,,,,,,,,
+8,Cousin,,,,,,,,,,
+9,Adopted Child,,,,,,,,,,
+10,Foster Child,,,,,,,,,,
+11,Son/Daughter-inlaw,,,,,,,,,,
+12,Brother/Sister-inlaw,,,,,,,,,,
+13,Mother/Fatherin-law,,,,,,,,,,
+14,Sibling,,,,,,,,,,
+15,Ward,,,,,,,,,,
+16,Stepparent,,,,,,,,,,
+17,Stepchild,,,,,,,,,,
+18,Self,,,,,,,,,,
+19,Child,,,,,,,,,,
+23,Sponsored Dependent,,,,,,,,,,
+24,Dependent of a Minor Dependent,,,,,,,,,,
+25,Ex-spouse,,,,,,,,,,
+26,Guardian,,,,,,,,,,
+31,Court Appointed Guardian,,,,,,,,,,
+38,Collateral Dependent,,,,,,,,,,
+53,Life Partner,,,,,,,,,,
+60,Annuitant,,,,,,,,,,
+D2,Trustee,,,,,,,,,,
+G8,Other Relationship,,,,,,,,,,
+G9,Other Relative,,,,,,,,,,

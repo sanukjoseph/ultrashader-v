@@ -1,0 +1,63 @@
+XML Field,HRP Element Description,CLaritev,,Zelis,,Notes
+,HRP Element Description,EDI 837I/P,Mapping Logic,EDI 837I/P,Mapping Logic,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputId,,UID,,UID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputType,,"""INST"" for 837I
+""PROF"" for 837P",,"""INST"" for 837I
+""PROF"" for 837P",,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/totalTransaction,,No of claims in EDI,,No of claims in EDI,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputFilename,,IB EDI file name with filename extension,,IB EDI file name with filename extension,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputArchiveFilename,,Archived file name with filename extension,,Archived file name with filename extension,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/totalClaimCount,,No of claims in EDI,,No of claims in EDI,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/totalXMLTransactionCount,,1 (1 claim each file),,1 (1 claim each file),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/XMLfileCreationDate,,2008-06-16T07:12:48(format),,2008-06-16T07:12:48(format),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/senderId,,ISA06,,ISA06,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/receiverId,,ISA08,,ISA08,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/recordCount,,1 (1 claim each file),,1 (1 claim each file),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/recordIdentifier,,GUID,,GUID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/rayIdentifier,,GUID,,GUID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/tenantIdentifier,,NA,,NA,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/SourceTypeIdentifier,,Claritev,Based on ISA06,Zelis,Based on ISA06,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/recordIdentifierFromSource,,Same as recordIdentifier,,Same as recordIdentifier,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/referenceIdentifier,,NA,,NA,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/hccClaimNumber,HCC Claim number,2300.REF*D9,,2300.REF*D9,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/hccLineNumber,Line number,2400.LX01,,2400.LX01,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/subUnit,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recHcpcs,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier01,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier02,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier03,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier04,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier05,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier06,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier07,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier08,"Identifies the type of external edit to apply to the identified claim or claim
+line:
+DENY_LINE – Denies the specified claim or claim line; no other values are required.
+PARTIAL_DENY – Adjust the units in a claim line. You must supply both originalUnits and adjustmentUnits.
+APPLY_PERCENTAGE — Adjust the payment amount. The
+adjustmentPercentage represents the final value to use for the claim (line).",,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/actionType,Reason code,"If  2400.NTE*TPO is present
+        Map 'APPLY_PERCENTAGE' when      2400.NTE02 = LAF2 (following 'RMRK=')
+      Map 'DENY_LINE' when 2400.NTE02 = LAF1 (following 'RMRK=')
+
+Else
+     Map 'PAY_LINE'",,"Map 'PEND' when 2300.HCP13 = Y
+
+When 2400.HCP01 = 10
+    Map 'APPLY_PERCENTAGE'
+Else
+    Map 'PAY_LINE'",,Please refer 'EDI Format' tab for the expected input format
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/reasons/reason/code,Reson code Description,2400.NTE02  (following 'EOBC='),Only if 2400.NTE*TPO is present,2400.HCP04,When 2400.HCP01 = 10,"Claritev mapping is not handled in Product COre Map since it may vary depending on implementaion.
+
+Reason code/desc  XWALK will be maintained Iplus Java layer. Implementaion teams has to Enable and maintain the xwalk in java layer if needed."
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/reasons/reason/description,,,,"2400.NTE02 when NTE01 = ADD
+Format for NTE02 is 'Reason code - Reason desc'. Map the Reason desc.",When 2400.HCP01 = 10,Reason code/desc  XWALK will be maintained Iplus Java layer. Implementaion teams has to Enable and maintain the xwalk in java layer if needed.
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/originalUnits,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/adjustedUnits,,,,,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/adjustmentPercentage,Must be a CodeEntry that has been defined in HealthRules Payer,2400.HCP02,Only if 2400.NTE*TPO is present,2400.HCP02,When 2400.HCP01 = 10,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/userMessageCode,,2400.NTE02  (following 'EOBC='),Only if 2400.NTE*TPO is present,2400.HCP04,When 2400.HCP01 = 10,"Claritev mapping is not handled in Product COre Map since it may vary depending on implementaion.
+
+Reason code/desc  XWALK will be maintained Iplus Java layer. Implementaion teams has to Enable and maintain the xwalk in java layer if needed."
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/adjustmentReasonCode,,1 (hardcoded),,1 (hardcoded),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/adjustmentLogNote,,"Map 'Apply Percentage Log Note' when 2400.NTE02 = LAF2 (following 'RMRK=')
+Map 'Deny Line Log Note' when 2400.NTE02 = LAF1 (following 'RMRK=')",Only if 2400.NTE*TPO is present (FIrst occurence of TPO),Map 'Apply Percentage Log Note' when 2400.HCP01 = 10,When 2400.HCP01 = 10(FIrst occurence),

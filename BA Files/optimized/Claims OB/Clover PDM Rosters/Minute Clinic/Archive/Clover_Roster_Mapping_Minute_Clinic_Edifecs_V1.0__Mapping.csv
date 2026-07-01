@@ -1,0 +1,58 @@
+##,I Network Fields,Penn Fields Mapping,Mapping Rules
+1,Service Market,,
+2,Provider NPI,NPI,
+3,First Name,FirstName,
+4,Last Name,LastName,
+5,Degree,EducationDegreeEarned,
+6,Primary Specialty,TaxonomyCode,
+7,Secondary Specialty,,
+8,PCP or Specialist?,,"Default it to ""Specialist"""
+9,Hospitalist?,,"Map ""N"" in all cases"
+10,Board Certified?,,
+11,Board Name (certifying board name),,
+12,License #,StateLicenseNumber,
+13,DEA #,DEALicenseNumber,
+14,CDS # (If Applicable),ControlledSubstanceLicenseNumber,
+15,Social Security #,,
+16,Medical School Name,,
+17,Medical School Grad Year,,
+18,DOB,BirthDate,"Convert date format to ""YYYY-MM-DD"""
+19,Gender,Gender,"Expected values - M,F,Male,Female
+
+Map ""Male"" if input value is ""M""
+Map ""Female"" if input value is ""F"""
+20,Additional Languages?,,
+21,Active Date,Initialappointment,"Convert date format to ""YYYY-MM-DD"""
+22,Practice/Group Name,FacilityName,
+23,Practice/Group NPI,GroupNPI,
+24,Provider's Primary Location?,,"Default it to ""N"""
+25,List Location in Directory?,,"IF ""Hospitalist?"" is ""Y"" Then Map it as ""No""
+Else Map it to ""Yes"" in case if no values is received"
+26,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",,"Map ""Yes"" if one of the following values are received - Accepting New Patients, Accepting Existing Patients
+
+Default it to ""Yes"" in case of no values present"
+27,Provider Email,,
+28,Service Address,Address-1,
+29,Service Address 2,,
+30,Service Location City,City-1,
+31,Service Location State,State,
+32,Service Location Zip,Zip-1,Map only first 5 digit numeric
+33,Service Location County,County-1,
+34,Service Location Phone,Telephone,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+35,Service Location Fax,Fax,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+36,Tax ID,Ta ID,"Remove ""-"""
+37,Remit Address,BillingAddress-1,
+38,Remit Address 2,,
+39,Remit Address City,BillingCity-1,
+40,Remit Address State,BillingState-1,
+41,Remit Address Zip,BillingZip-1,Map only first 5 digit numeric
+42,Billing Phone,,
+43,Billing Fax,,

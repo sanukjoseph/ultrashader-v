@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			 xmlns:tns="http://healthedge.com"
+			 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			 xmlns="http://schemas.xmlsoap.org/wsdl/"
+			 xmlns:supplierlocation="http://www.healthedge.com/connector/schema/supplierlocationlookup"
+			 targetNamespace="http://healthedge.com">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/supplierlocationlookup" schemaLocation="../PRIME_SERVICES_XSD/connector-supplierlocationlookup/supplierlocationlookup.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/base-types.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.codesynthesis.com/xmlns/xsstl" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/iso3166-country-code.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.codesynthesis.com/xmlns/xsstl" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/us-state-code.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.codesynthesis.com/xmlns/xsstl" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/phone-number.xsd" />
+		</xsd:schema>
+	</types>
+	<message name="supplierLocationLookupInput">
+		<part name="input" element="supplierlocation:supplierLocationLookupInput" />
+	</message>
+	<message name="supplierLocationLookupResponseOutput">
+		<part name="output" element="supplierlocation:supplierLocationLookupResponse" />
+	</message>
+	<portType name="SupplierLocationLookupPortType">
+		<operation name="get">
+			<input message="tns:supplierLocationLookupInput" />
+			<output message="tns:supplierLocationLookupResponseOutput" />
+		</operation>
+	</portType>
+	<binding name="SupplierLocationLookupBinding" type="tns:SupplierLocationLookupPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="get">
+			<soap:operation soapAction="http://healthedge.com/get" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="SupplierLocationLookup">
+		<port name="SupplierLocationLookupPort" binding="tns:SupplierLocationLookupBinding">
+			<soap:address
+				location="http://localhost:7001/cprime-integration-webservices/SupplierLocationLookup" />
+		</port>
+	</service>
+</definitions>

@@ -1,0 +1,22 @@
+Sample JSON - Jira # - https://usthp-products.atlassian.net/browse/INTP-8207
+"{
+    ""extractId"": ""20241212-0ee14402-922e-4595-8777-456dcf5f008"",
+    ""extractName"": ""Ob_835_extraction_service"",
+    ""spInvokedBy"": ""Generic_Extraction_Service"",
+    ""pageId"": ""20241209-b698292d-f51c-4304-Testjj"",
+    ""jobId"": ""OB-with-date-demo-Test"",
+    ""pageNum"": 9,
+    ""extractFileName"": null,
+    ""pageExtractStatus"": ""SUCCESS-EDIFECS-HIPAA VALIDATION"",
+    ""pageErrorDesc"": null,
+    ""pageProcessStartTs"": ""2024-12-09T09:39:26.639+00:00"",
+    ""pageProcessEndTs"": null,
+    ""auditCreatedTs"": ""2024-12-09T09:39:26.639+00:00"",
+    ""recordCount"": 1,
+    ""recipientName"": null,
+    ""pageDataId"": ""218225"",
+    ""fileLocation"": ""/GenericExtract/Enrollments/CSV/TEST/NEW""
+}"
+
+
+Jira # - https://usthp-products.atlassian.net/browse/INTP-8207

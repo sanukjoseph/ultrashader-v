@@ -1,0 +1,48 @@
+##,Source & Target Fields,Mandatory/Optional,Length,Format
+1,Service Market,O,100,String
+2,Provider NPI,M,10,Numeric
+3,First Name,M,50,String
+4,Last Name,M,50,String
+5,Degree,M,25,String
+6,Primary Specialty,M,200,String
+7,Secondary Specialty,O,200,String
+8,PCP or Specialist?,M,50,String
+9,Hospital Based?,M,50,String
+10,Board Certified?,O,50,String
+11,Board Name (certifying board name),O,150,String
+12,DEA Number,O,50,String
+13,CDS (If Applicable),O,50,String
+14,Medical License Number,O,50,String
+15,Medical School Name,O,150,String
+16,Medical School Grad Year,O,50,String
+17,Social Security Number,O,11,String
+18,DOB,M,12,Date
+19,Gender,M,10,String
+20,Original Credential Date,O,50,String
+21,Most Recent Credential Date,O,50,String
+22,Next Reappointment Date,O,50,String
+23,Additional Languages?,O,100,String
+24,Active Date,M,12,Date
+25,Practice/Group Name,M,200,String
+26,Practice/Group NPI,M,10,Numeric
+27,Site Name,O,200,String
+28,Provider's Primary Location?,M,5,String
+29,List Location in Directory?,M,50,String
+30,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",M,150,String
+31,Provider Email,O,150,String
+32,Service Address,M,100,String
+33,Service Address 2,O,100,String
+34,Service Location City,M,50,String
+35,Service Location State,M,50,String
+36,Service Location Zip,M,50,String
+37,Service Location County,O,50,String
+38,Service Location Phone,M,50,String
+39,Service Location Fax,O,50,String
+40,Tax ID,M,10-Sep,String
+41,Remit Address,M,100,String
+42,Remit Address 2,O,100,String
+43,Remit Address City,M,50,String
+44,Remit Address State,M,50,String
+45,Remit Address Zip,M,50,String
+46,Billing Phone,O,50,String
+47,Billing Fax,O,50,String

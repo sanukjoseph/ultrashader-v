@@ -1,0 +1,19 @@
+Sample Audit from EDIFECS
+"{
+  ""extractId"": ""40241216-b4c1bc44-2d46-4c28-97f2-4cfc7bf516fa"",
+  ""extractName"": ""OB_Enrollment_Extract"",
+  ""spInvokedBy"": ""OUTBOUND_ENROLLMENT_EDIFECS_SERVICE"",
+  ""pageId"": ""K8LBk-9zZgEUpglS"",
+  ""jobId"": ""Enrollment-Extraction"",
+  ""pageNum"": 5,
+  ""extractFileName"": ""Rejected_EDI_OB_834_40241216-b4c1bc44-2d46-4c28-97f2-4cfc7bf516fa"",
+  ""pageExtractStatus"": ""FAILURE"",
+  ""pageErrorDesc"": ""FAILURE-EDIFECS-HIPAA VALIDATION"",
+  ""pageProcessStartTs"": ""2024-12-22T12:38:57.263+00:00"",
+  ""pageProcessEndTs"": null,
+  ""auditCreatedTs"": ""2024-12-22T12:38:57.718+00:00"",
+  ""recordCount"": 1,
+  ""recipientName"": null,
+  ""pageDataId"": ""111TEST45"",
+  ""fileLocation"": null
+}"

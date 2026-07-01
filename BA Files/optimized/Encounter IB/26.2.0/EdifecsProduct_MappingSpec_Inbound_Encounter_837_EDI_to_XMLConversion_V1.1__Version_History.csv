@@ -1,0 +1,21 @@
+Revision History,,,,
+,,,,
+,,,,
+,,,,
+V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+0.1,06-04-2026,Deepthi Marella,Ambily Raj,Encounter Mapping Draft
+0.2,09-04-2026,Deepthi Marella,Ambily Raj,Review comments incorporated
+1.0,10-04-2026,Deepthi Marella,Ambily Raj,Review comments incorporated
+1.0,13-04-2026,Deepthi Marella,Ambily Raj,"1. Removed Transfermation logics which do not have mapping
+2. Added 2310C N3 and N4
+3. Removed 2430.AMT02 COB Member Responsibility"
+1.0,21-04-2026,Deepthi Marella,Ambily Raj,"1. Added 2310C N3 and N4
+2. Removed 2430.AMT02 COB Member Responsibility"
+1.0,22-04-2026,Deepthi Marella,Ambily Raj,1. Updated logic for 2430.CAS non covered amount mapping in 'Transformation Logic' column
+1.0,24-04-2026,Deepthi Marella,Ambily Raj,"1. Updated logic for multiple 2320 and 2430 segments
+2. Updated ndc code mapping - 2410 LIN & CTP"
+1.1,26-05-2026,Deepthi Marella,Ambily Raj,"1. Updated 2400.SV102 - Billed amount & Service Fee fields as part of INTP - 26085
+2. Sheet - ""837P Enc Mapping (Default Val)"" updated the userDefinedTermReference/ID field with ""Hardcode as ""Internal Claim Identifiers"""""
+,27-05-2026,Deepthi Marella,Ambily Raj,Removed Tranformation Logic from 2310C.NM103
+,17-06-2026,Deepthi Marella,Ambily Raj,"Updated ""837P Enc Mapping (Default Val)"" sheet with Input Type value ""Hardcode as ""prof-encounter"" for Encounter Claims""
+This change was based on Java team's suggeston as Caps view wanted to differentiate between Encounter Claims and Normal Claims"

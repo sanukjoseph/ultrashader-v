@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://healthedge.com"
+			 xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/"
+			 xmlns:codeentrylookup="http://www.healthedge.com/connector/schema/codeentrylookup" targetNamespace="http://healthedge.com">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/codeentrylookup" schemaLocation="../PRIME_SERVICES_XSD/connector-codeentrylookup/codeentrylookup.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/base-types.xsd"/>
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/match-input.xsd" />
+		</xsd:schema>
+	</types>
+	<message name="codeEntryLookupCriteriaInput">
+		<part name="input" element="codeentrylookup:codeEntryLookupCriteria"/>
+	</message>
+	<message name="codeEntryLookupListResponseOutput">
+		<part name="output" element="codeentrylookup:codeEntryLookupListResponse"/>
+	</message>
+	<message name="codeEntryLookupResponseOutput">
+		<part name="output" element="codeentrylookup:codeEntryLookupResponse"/>
+	</message>
+	<portType name="CodeEntryLookupPortType">
+		<!--<operation name="getAll">
+			<input message="tns:codeEntryLookupCriteriaInput"/>
+			<output message="tns:codeEntryLookupListResponseOutput"/>
+		</operation>-->
+		<operation name="get">
+			<input message="tns:codeEntryLookupCriteriaInput"/>
+			<output message="tns:codeEntryLookupResponseOutput"/>
+		</operation>
+	</portType>
+	<binding name="CodeEntryLookupBinding" type="tns:CodeEntryLookupPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<!--<operation name="getAll">
+			<soap:operation soapAction="http://healthedge.com/getAll"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>-->
+		<operation name="get">
+			<soap:operation soapAction="http://healthedge.com/get"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="CodeEntryLookup">
+		<port name="CodeEntryLookupPort" binding="tns:CodeEntryLookupBinding">
+			<soap:address location="http://localhost:7001/cprime-integration-webservices/CodeEntryLookup"/>
+		</port>
+	</service>
+</definitions>

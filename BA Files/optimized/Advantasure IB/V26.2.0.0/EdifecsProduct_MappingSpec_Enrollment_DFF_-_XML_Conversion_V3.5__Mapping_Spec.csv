@@ -1,0 +1,691 @@
+Advantasure fields,,,,,,,,HRP,,,HE - Enrollment Sparse,,
+No,field,Type,,Details,Sample,Description,,,,,XML Mapping,Mapping Logics,Comments
+1,Transaction Type,ALL,3,,D,The transaction type that is being output and determines which fields will be populated on the record.,,NA,Not needed,NA,NA,,
+,,,,,,,,,,,,,
+,,,,,,LOV:,,,,,,,
+,,,,,,▪    DEM (Demographics) – Non spanable always contains the latest value,,,,,,,
+,,,,,,▪    ADR – Address History,,,,,,,
+,,,,,,▪    PLN – Plan Enrollment History,,,,,,,
+,,,,,,▪    PWO – Premium Withhold,,,,,,,
+,,,,,,▪    LIS – Low Income Subsidy,,,,,,,
+,,,,,,▪    LEP – Late Enrollment Penalty,,,,,,,
+,,,,,,▪    FLG – Flag set in the system,,,,,,,
+,,,,,,▪    BRK – Broker,,,,,,,
+,,,,,,▪    PCP – Primary Care Physician,,,,,,,
+,,,,,,▪    GRP – Group/Subgroup information,,,,,,,
+,,,,,,▪    RDR – Rider,,,,,,,
+,,,,,,▪    COB – Coordination of Benefits,,,,,,,
+,,,,,,▪    MCD - Medicaid,,,,,,,
+,,,,,,▪    M3P-Medicare Prescription Payment Plan,,,,,,,
+2,Claims SubscriberID Number,ALL,11,Member Details,369258147,Unique ID assigned to each member generally assigned by the Claims system,Field may be blank if a member is new and has not been assigned an ID by the client,Subscrier/Member HCCID,Y,Member - ID details,"/enrollment/subscription/hccIdentifier
+
+/enrollment/member/hccIdentifier
+
+Member match mapping -
+
+enrollment/member/memberMatchData/id",,"a.Member will maintain the same subscriber ID when switching plans (e.g. HMO to PPO and Vice Versa)
+b. Member will maintain their original subscriber id even if they were disenrolled and reenrolled into the same plan or a different plan
+c. Member will maintain their original subscriber id if they are reinstated (no gap in coverage)"
+3,Start Date,ALL,8,PCP/Enroll History,20080101,Span start date,Start date of the span indicated by the specific transaction type of each record,"Start Date for each transaction type
+When Transaction type is PLN - this is the Benefit start date
+When Transaction type is PCP - this is the PCP start date",Y,"Member  - Plan
+Member - provider","When Transaction type is PLN - this is the Benefit start date
+
+/enrollment/member/planSelection/startDate
+
+When Transaction type is PCP - this is the PCP start date
+
+enrollment/member/providerSelections/providerSelection/providerDateRanges/startDate
+erollment/member/providerSelections/providerSelection/ providerRoleType  - hard code PCP
+
+When Transaction type is M3P
+
+/enrollment/member/medicareHICN/medicarePrescriptionPaymentPlans/medicarePrescriptionPaymentPlan/startDate
+
+Populate /enrollment/asOfDate  as 1800-01-01",,
+4,End Date,ALL,8,PCP/Enroll History,20081231,Span end date,End date of the span indicated by the specific transaction type of each record,"End Date for each transaction type
+When Transaction type DEM comes along with an END Date (a date in field 4) - this is the Benefit end date and PCP end date.
+When Transaction type is PCP - this is the PCP end date",Y,"Member  - Plan
+Member - provider","When Transaction type is PLN - this is the Benefit end date
+
+/enrollment/member/planSelection/EndDate
+If  Endate is NULL, populate as 3000-01-01
+
+When Transaction type is PCP - this is the PCP end date
+
+enrollment/member/providerSelections/providerSelection/providerDateRanges/endDate
+If  Endate is NULL, populate as 3000-01-01
+
+When Transaction type is M3P
+
+/enrollment/member/medicareHICN/medicarePrescriptionPaymentPlans/medicarePrescriptionPaymentPlan/endDate
+If  Endate is NULL, populate as 3000-01-01","When Transaction type is PLN, AND term reason code(Field No 122) is ""MIS"" or ""VDE"" AND start date and end date are same, those PLN transactio ns will be removed.",
+5,Subscriber Flag,DEM,1,System Logic,Y,"LOV: Y = Yes, or Null",Will always be Y on DEM record and be blank on all other records.,General: Subscriber Relationship,Y,Member Details,"/enrollment/member/relationshipToSubscriberDefinitionReference/reference/ID
+
+
+If the transaction is DEM and subscriber Flag is Y, then map the above field as 'Self'
+
+If 'Y' then
+
+/enrollment/member/memberIsSubscriber = true
+
+in all other cases
+
+/enrollment/member/memberIsSubscriber = false",,
+6,MBI,ALL,12,Member Details,357269487A,"Medicare Beneficiary Identifier (MBI) of the
+member in the system",,Medicare: Medicare Beneficary ID,Y,Member- Medicare,/enrollment/member/medicarehicn/mbi,,
+7,Member Name,DEM,105,System Logic,John Smith,First name Last Name,Created by combining first name and last name,General: Primary Name,Y,Member - Demographic,,,
+8,Member’s Last Name,DEM,50,Member Details,Smith,Last name of the member in the system,"Note: if member has suffix (e.g. Jr.), it will be appended to the last name",General: Primary Name,Y,Member - Demographic,"/enrollment/member/individual/primaryName/lastName
+Member match mapping -
+
+enrollment/member/memberMatchData/member/lastName
+enrollment/member/memberMatchData/subscriber/lastName
+l",,
+9,Member’s First Name,DEM,50,Member Details,John,First name of the member in the system,,General: Primary Name,Y,Member - Demographic,"/enrollment/member/individual/primaryName/firstName
+
+Member match mapping -
+
+enrollment/member/memberMatchData/member/firstName
+enrollment/member/memberMatchData/subscriber/firstName",,
+10,Middle Initial,DEM,1,Member Details,T,Member middle initial in the system,,General: Primary Name,Y,Member - Demographic,/enrollment/member/individual/primaryName/middleName,,
+11,Member’s Title,DEM,10,Member Details,Mr,"Title or prefix of the member in the system. LOV: Mr, Ms, or Mrs",,General: Primary Name,Y,Member - Demographic,/enrollment/member/individual/primaryName/namePrefix,,
+12,Member Status,DEM,20,Member Details,"ACTIVE
+PENDING
+TERM SUBMITTED
+DENIED
+
+We will process any member status in EDIFECS",Current status of the member in the Advantasure system,The current status of the member will be sent (see Member Status Values),General: Status ?? (top most of the screen),Y,Member - Demographic,"/enrollment/member/benefitStatusCode
+
+
+EDIFECS will map whatever it receives from the sender with no business validations.",,
+13,Alternate Member ID,DEM,11,Member Details,,Alternate member ID issued by the client,ID number is separate from the family link indicator number,General: Other ID,Y,Member - ID details,"Here we need to Map the input value (Member ID) to the below tag
+
+/enrollment/member/qualifierList/qualifierValue
+
+String ""AlternateMemberID"" need to be hardcoded to qualifierName in the below tag
+
+/enrollment/member/qualifierList/qualifierName",,
+14,Member Date of Birth,DEM,8,Member Details,19400528,Member’s date of birth in format YYYYMMDD,,General : Birth Date,Y,Member- Demograohic,"/enrollment/member/individual/birthDate
+
+Member match mapping -
+
+enrollment/member/memberMatchData/member/dateOfBirth
+enrollment/member/memberMatchData/subscriber/dateOfBirth",Date format - YYYY-MM-DD,
+15,Member Date of Death,DEM,8,Member Details,20080624,Member’s date of death in format YYYYMMDD,,General : Date of Death,Y,Member- Demograohic,"/enrollment/member/planSelection/endDate
+
+/enrollment/member/individual/dateofDeath
+
+Same date is applicable for the above both tags",Date format - YYYY-MM-DD,
+16,Member Gender,DEM,1,Member Details,M,LOV: M = Male; F = Female; U=Unknown,,General : Gender,Y,Member- Demograohic,"/enrollment/member/individual/genderCode
+
+Member match mapping -
+
+enrollment/member/memberMatchData/member/gender
+enrollment/member/memberMatchData/subscriber/gender
+
+
+
+Need to map the following;
+
+If the input field is 'M' then hardcode the above XML as 'Male'
+If the input field is 'F' then hardcode the above XML as 'Female'
+
+Else, if we get any other input field then hardcode the above XML as 'Unknown'",,
+17,Member Social Security Number,DEM,9,Member Details,159357852,Member’s social security number,Will only populate if SSN is populated on Member Details field but is not collected or required for an MA application,General : SSN,Y,Member- Demograohic,"/enrollment/member/individual/taxIdentificationNumber
+
+Member match mapping -
+
+enrollment/member/memberMatchData/member/taxId
+enrollment/member/memberMatchData/subscriber/taxId","Format of tax identification number - 161-11-7187.
+
+Include hyphen as per the example mentioned above",
+18,Address Type,ADR,9,PCP/Enroll History,Permanent,Type of address listed on this ADR record,Will be blank for DEM,NA,Y,NA,,,
+19,Member Permanent Address 1,"DEM,",55,PCP/Enroll History,123 Main Street,Address line 1 of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,Contact: Residential Address,Y,Member - Contact,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressTypeCode/codeSetName
+
+Codesetname need to be hardcoded to ""IndividualAddressType""
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressTypeCode/codeEntry = '2'
+
+Code Entry = ""2""
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/address","Ignore address check for all addresses = let us set as False for now.
+
+By default it is 'False'",
+,,,,,,,,,,,,,
+20,Member Permanent Address 2,"DEM,",55,PCP/Enroll History,Apt 201,Address line 2 of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/address2,,
+,,,,,,,,,,,,,
+21,Member Permanent Address 3,"DEM,",55,PCP/Enroll History,,Address line 3 of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/address3,,
+,,,,,,,,,,,,,
+22,Member Permanent City,"DEM,",30,PCP/Enroll History,Cambridge,City of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/cityName,,
+,,,,,,,,,,,,,
+23,Member Permanent County,"DEM,",30,PCP/Enroll History,Middlesex,County of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,,,
+,,,,,,,,,,,,,
+24,Member Permanent State,"DEM,",2,PCP/Enroll History,MA,State of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/stateCode,,
+,,,,,,,,,,,,,
+25,Member Permanent SCC,"DEM, ADR",5,PCP/Enroll History,25017,Unique code used by SSA to identify each combination of State and County,DEM transaction: contains most recent address,,N,,,,
+,,,,,,,,,,,,,
+26,Member Permanent Zip Code,"DEM,",9,PCP/Enroll History,02138 (5 Digit) 021389999 (9 Digit),Zip Code of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/zipCode (byte 1-5)
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/zipExtensionCode (byte 6-9)",,
+,,,,,,,,,,,,,
+27,Member Mailing Address 1,"DEM,",55,PCP/Enroll History,,Address line 1 of the mailing address of the member in the system,DEM transaction: contains most recent address,Contact:Correspondence Address,Y,,/enrollment/member/correspondenceAddress/postalAddress/address1,"•  Map the Mailing address from DEM transaction for
+      •  New enrollment/Re-enrollment
+      •  Mailing Address changes reported
+
+•  Address Type (field 18) will be blank . Field 27-32 need to be considered for Mailing address.",
+,,,,,,,,,,,,,
+28,Member Mailing Address 2,"DEM,",55,PCP/Enroll History,,Address line 2 of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/correspondenceAddress/postalAddress/address2,,
+,,,,,,,,,,,,,
+29,Member Mailing Address 3,"DEM,",55,PCP/Enroll History,,Address line 3 of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/correspondenceAddress/postalAddress/address3,,
+,,,,,,,,,,,,,
+30,Member Mailing City,"DEM,",30,PCP/Enroll History,,City of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/correspondenceAddress/postalAddress/cityName,,
+,,,,,,,,,,,,,
+31,Member Mailing State,"DEM,",2,PCP/Enroll History,,State of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/correspondenceAddress/postalAddress/stateCode,,
+,,,,,,,,,,,,,
+32,Member Mailing Zip Code,"DEM,",9,PCP/Enroll History,02138 (5 Digit) 021389999 (9 Digit),Zip code of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,"Byte 1-5
+/enrollment/member/correspondenceAddress/postalAddress/zipCode
+Byte 6-9
+/enrollment/member/correspondenceAddress/postalAddress/zipExtensionCode",,
+,,,,,,,,,,,,,
+33,Member Billing Address 1,"DEM,",55,PCP/Enroll History,,Address line 1 of the billing address of the member in the system,DEM transaction: contains most recent address,Contact: Billing Address,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/address
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressTypeCode/codeSetName
+
+Codesetname = IndividualAddressType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressTypeCode/codeEntry = 10
+
+Code Entry = 10",,"•  Map the Billing address from DEM transaction for
+      •  New enrollment/Re-enrollment
+      •  Billing Address changes reported
+
+•  Address Type (field 18) will be blank . Field 33-38 need to be considered for Billing address."
+,,,,,,,,,,,,,
+34,Member Billing Address 2,"DEM,",55,PCP/Enroll History,,Address line 2 of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo
+/postalAddress/address2",,
+,,,,,,,,,,,,,
+35,Member Billing Address 3,"DEM,",55,PCP/Enroll History,,Address line 3 of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo
+/postalAddress/address3",,
+,,,,,,,,,,,,,
+36,Member Billing City,"DEM,",30,PCP/Enroll History,,City of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/cityName,,
+,,,,,,,,,,,,,
+37,Member Billing State,"DEM,",2,PCP/Enroll History,,State of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo
+/postalAddress/stateCode",,
+,,,,,,,,,,,,,
+38,Member Billing Zip Code,"DEM,",9,PCP/Enroll History,02138 (5 Digit) 021389999 (9 Digit),Zip code of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/zipCode (byte 1-5)
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/zipExtensionCode (byte 6-9)",,
+,,,,,,,,,,,,,
+39,Member Home Phone Number,DEM,10,Member Details,5552227654,Primary phone number for contact,No dashes or hyphens,Contact:Phone number,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName
+
+Code Set Name  = IndividualPhoneType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry
+
+Code Entry = HP
+
+First 3 digits to
+ /enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+
+The next 7 digits to
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneNumber",,
+40,Alternate Member Phone Number,DEM,10,Member Details,5552345612,"Alternate phone number can be mobile, office, or other voice line",No dashes or hyphens,Contact:Phone number,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName
+
+Code Set Name = IndividualPhoneType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry
+
+Code Entry = AP
+
+First 3 digits to
+ /enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+
+The next 7 digits to
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneNumber",,
+41,Member Email Address,DEM,60,Member Details,jsmith@add ress.com,Email address supplied by member on the election form,,Contact:Email,Y,,"/enrollment/member/physicalAddress/memberPhysicalAddress/emailAddress
+/enrollment/member/correspondenceAddress/emailAddress",,
+42,Name of Emergency Contact,DEM,200,Member Details,Jane Good,Name of individual to be contacted in case of emergency,,"Couldn’t locate in HRP UI for other responsible
+PHI- Personal Representatives",N,"NA
+Member - PHI","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/lastName
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/firstName
+
+The Full name is sent across the file. Based on spaces we need to split First name and Last name.
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibilityTypeCodeCode/codeSetName
+
+CodeSetName = responsibilityTypeCode
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibilityTypeCodeCode/codeEntry
+
+Code Entry = 4","Emergency Contact
+
+Emergecny  details need to group together.
+
+'Emergecy Contact Relationship to Member' and 'Emergency Contact phone number' will be applicable if 'Name of Emergency Contact' is available.
+
+Format - <First Name>  <Last name>
+
+
+
+
+
+
+
+
+
+
+
+Refer the crosswalk of 'Relationship to Member' code entry",
+43,Emergency Contact Relationship to Member,DEM,50,Member Details,Daughter,Emergency contacts relationship to member,,Couldn’t locate in HRP UI,Y,NA,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/relationshipToMemberCode/codeSetName
+
+Code Set Name = PHIRelationshipToMember
+
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/relationshipToMemberCode/shortname",,
+44,Emergency Contact Phone Number,DEM,10,Member Details,5551347629,Emergency contact phone number,,Couldn’t locate in HRP UI,Y,NA,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry
+
+Code Entry = TE
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName=IndividualPhoneType
+
+code set name = IndividualPhoneType
+
+First 3 digits to
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+
+The next 7 digits to
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber",,
+45,"ID Card Trigger flag
+The significance of this field",DEM,1,Member Details,Y,Flag indicates if a new ID Card is requested LOV: Y = Yes; N = No,Flag will be reset to No after the file is generated,NA,Not needed,NA,NA,,
+46,Endangered Member Flag,DEM,1,Member Details,Y,Flag indicates that member is endangered/at risk; LOV: Y = Yes; N = No,"If Y, member is at risk from family member or cohabiting person",PHI:Confidential communication,,Member-PHI,"If input value in 'Endagered Member Flag' is  'Y'
+
+/enrollment/member/ccDirectiveList/confidentialCommunicationDirective/confidentialCommunicationTypeCode/codeSetName
+
+Code Set Name = PHIConfidentialCommunicationType
+
+/enrollment/member/ccDirectiveList/confidentialCommunicationDirective/confidentialCommunicationTypeCode/codeEntry=1
+
+Code Entry = 1
+
+/enrollment/member/ccDirectiveList/confidentialCommunicationDirective/confidentialCommunicationScope = ""Endangered""
+
+confidentialCommunicationScope need to hardcode to ""Endangered""
+
+/enrollment/member/ccDirectiveList/confidentialCommunicationDirective/effectiveStartDate
+
+Start Date is Start date from the DEM transaction
+
+(the communication scope and effective date is populated because during testing it was identified this is a mandatory xml tag for Enrollment Sparse to process Dual status code to HRP)",hardcode /enrollment/member/ccDirectiveList/listMode as 'REPLACE'.,"/enrollment/member/ccDirectiveList/listMode can be changed based on implementaion requirements. With 'REPLACE', existing data will be replaced by the new data."
+47,Member in OOA Process,DEM,1,Member Details,Y,Flag indicating that the member is currently in the Out Of Area process; LOV: Y = Yes; N = No,,,,,,,
+48,Source for placing in OOA process,DEM,30,Member Details,Returned Mail,Provides source of information that placed member in the OOA process,Source could be a TRC received from CMS or an update by a user,Couldn’t locate in HRP UI,N,NA,NA,,
+49,Date of Move,DEM,8,Member Details,20120416,"Date member moved out of the service area, in the format YYYYMMDD",Date of move can be prospective or retroactive,Couldn’t locate in HRP UI,N,NA,NA,,
+50,Move Deadline,DEM,8,Member Details,20121131,Date calculated by the system based on client logic after which member will be Involuntarily disenrolled,Date Involuntary Termination will be triggered based on move date,Couldn’t locate in HRP UI,N,NA,NA,,
+51,Medicaid ID,DEM,14,Member Details,612452885,Medicaid number of the member in the system,,General:Other ID,,Member - ID details,"Here we need to Map the input value (Medicaid ID) to the below tag
+
+/enrollment/member/qualifierList/qualifierValue
+
+String ""MedicaidID"" need to be hardcoded to qualifierName in the below tag
+
+/enrollment/member/qualifierList/qualifierName",,
+52,Medicare Part A Eff Date,DEM,8,IEQ,20000101,YYYYMMDD,Value received in response to latest IEQ,Medicare: Part A,Y,Member- Medicare,/enrollment/member/medicareHICN/partADates/partADate/effectiveDate,Date format - YYYY-MM-DD,Map from field '3'
+53,Medicare Part A End Date,DEM,8,IEQ,,YYYYMMDD,Value received in response to latest IEQ – usually blank (open),Medicare: Part A,Y,Member- Medicare,/enrollment/member/medicareHICN/partADates/partADate/terminationDate,Date format - YYYY-MM-DD,
+54,Medicare Part B Eff Date,DEM,8,IEQ,20020301,YYYYMMDD,Value received in response to latest IEQ,Medicare: Part B,Y,Member- Medicare,/enrollment/member/medicareHICN/partBDates/partBDate/effectiveDate,Date format - YYYY-MM-DD,
+55,Medicare Part B End Date,DEM,8,IEQ,,YYYYMMDD,Value received in response to latest IEQ usually blank (open),Medicare: Part B,Y,Member- Medicare,/enrollment/member/medicareHICN/partBDates/partBDate/terminationDate,Date format - YYYY-MM-DD,
+56,Medicare Part D Eff Date,DEM,8,IEQ,20020401,YYYYMMDD,Value received in response to latest IEQ,Medicare: Part D,Y,Member- Medicare,/enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/startDate,Date format - YYYY-MM-DD,
+57,Medicare Part D End Date,DEM,8,IEQ,20120430,YYYYMMDD,Value received in response to latest IEQ – usually blank (open),Medicare: Part D,Y,Member- Medicare,/enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/endDate,Date format - YYYY-MM-DD,
+58,Language Code,DEM,3,Member Details,SPA,Language code selected on Member Details screen,Refer Language Codes in the Advantasure specification document,General:Language,Y,Member-Demographic,"/enrollment/member/individual/languages/language/languageDomainCode/codeEntry
+
+enrollment/member/individual/languages/language/languageDomainCode/codesetName
+
+Codesetname need to hardcoded to ""LanguageDomain""
+
+Refer Crosswalks tab ""Language Code""
+
+/enrollment/member/individual/languages/language/primaryLanguage = ""true""",,
+59,Alternative Format Large Print,DEM,1,Member Details,Y,Flag indicating materials requested in large print format; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,"if Y
+/enrollment/member/communicationPreferences/contactMethod = ""Other""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeSetName
+CodeSetName = ""DocumentDeliveryMethod""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeEntry = 4",,
+60,Alternative Format Braille,DEM,1,Member Details,Y,Flag indicating materials requested in Braille format; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,"if Y
+/enrollment/member/communicationPreferences/contactMethod = ""Other""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeSetName
+codeSetName =  ""DocumentDeliveryMethod""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeEntry=8",,
+61,Alternative Format Audio Tape,DEM,1,Member Details,Y,Flag indicating materials requested in audio tape format; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,"if Y
+/enrollment/member/communicationPreferences/contactMethod = ""Other""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeSetName codeSetName = ""DocumentDeliveryMethod""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeEntry=6",,
+62,Fax Number,DEM,10,Member Details,8885552222,Fax number with no hyphens or special characters,Client-specific,Contact:Phone number,Y,Member-Contact,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName
+
+CodeSetName = IndividualPhoneType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry
+
+Code Entry = FX
+
+First 3 digits to
+ /enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+
+The next 7 digits to
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneNumber",,
+63,"In LEP Process Status
+If in LEP process, what are the processes",DEM,1,Member Details,Y,Indicates whether the member is in the LEP queue/creditable coverage determination process; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,NA,,
+64,"Authorized Rep Name
+Available in UI,",DEM,105,Member Details,Nancy James,Name of individual listed as Authorized Representative on member record. Formerly POA Name field.,,PHI:POA,Y,Member-PHI,"enrollment/member/memberRepresentative/authorizedIndividual/authorizedPerson/firstName
+
+enrollment/member/memberRepresentative/authorizedIndividual/authorizedPerson/lastName
+
+The Full name is sent across the file. Based on spaces we need to split First name and Last name.
+
+enrollment/member/memberRepresentative/authorizedIndividual/representativeTypeCode/codeSetName = TypeOfLegalRepresentative
+
+enrollment/member/memberRepresentative/authorizedIndividual/representativeTypeCode/codeEntry=3","Authorized Rep details will be applicable only if Authorized rep name is available.
+
+Format - <First Name>  <Last name>",
+65,"Authorized Rep
+Address 1",DEM,55,Member Details,123 Main,"Authorized Rep address line 1 from member
+record. Formerly POA Address 1 field.",,,Y,,"enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/ignoreAddressCheck=false
+enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/address",,
+66,"Authorized Rep
+Address 2",DEM,55,Member Details,Apt 2,"Authorized Rep address line 2 from member
+record. Formerly POA Address 2 field.",,,Y,,enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/address2,,
+67,"Authorized Rep
+Address 3",DEM,55,Member Details,,Not applicable and not displayed on UI. Formerly POA Address 3 field.,NA,,Not needed,,enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/address3,,
+68,Authorized Rep City,DEM,30,Member Details,Las Vegas,"Authorized Rep city from member record.
+Formerly POA City field.",,,Y,,enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/cityName,,
+69,"Authorized Rep
+County",DEM,30,Member Details,Henderson,Authorized Rep county from member record. Formerly POA County field.,,,Y,,,,
+70,Authorized Rep State,DEM,2,Member Details,NV,"Authorized Rep state from member record.
+Formerly POA State field.",,,Y,,enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/stateCode,,
+71,Authorized Rep Zip Code,DEM,9,Member Details,,Authorized Rep zip code from member record. Formerly POA Zip Code field.,,,Y,,"enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/zipCode (bytes 1-5)
+
+enrollment/member/memberRepresentative/authorizedIndividual/postalAddress/zipExtensionCode (bytes 6-9)",,
+72,"Authorized Rep Phone
+Number",DEM,10,Member Details,5554445678,"Authorized Rep phone number from member
+record. Formerly POA Phone Number field.",,,Y,,"First 3 digits
+
+enrollment/member/memberRepresentative/authorizedIndividual/authorizedIndividualGroupPhoneList/telephoneNumber/phoneAreaCode
+
+Next 7 digits
+enrollment/member/memberRepresentative/authorizedIndividual/authorizedIndividualGroupPhoneList/telephoneNumber/phoneNumber
+
+enrollment/member/memberRepresentative/authorizedIndividual/authorizedIndividualGroupPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName = IndividualPhoneType
+
+enrollment/member/memberRepresentative/authorizedIndividual/authorizedIndividualGroupPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry = TE",,
+73,"Authorized Rep
+Relationship",DEM,30,Member Details,Son,"Authorized Rep relationship from member
+record. Formerly POA Relationship field.",,,Y,,"enrollment/member/memberRepresentative/authorizedIndividual/relationshipToMemberCode/codeSetName = PHIRelationshipToMember
+enrollment/member/memberRepresentative/authorizedIndividual/relationshipToMemberCode/Shortname
+
+
+
+As discussed with dev team, both code set name(TypeOfLegalRepresentative and  PHIRelationshipTomember is required, otherwise it will get error out)",,
+74,Race Code,DEM,128,Member Details,999,See ‘CMS OEC Race and Ethnicity Values’ section for LOV,"Multiple values can be within this one field. Values will be comma separated. IE: 999, 499",Not available,Y,Race,"enrollment/member/raceOrEthnicity/raceOrEthnicityCodes/codeSetName
+
+Code Set Name = RaceOrEthnicityCode
+
+enrollment/member/raceOrEthnicity/raceOrEthnicityCodes/codeEntry
+
+Please refer the cross walk table 'Race Values' for code entry mapping",,"Multiple values can be send across the Memout file for a member. Values will be comma seperated. Refer Tab Crosswalk for code entry details.
+If multiple values send across , all values should be mapped to HRP."
+75,ikaUniqueID,DEM,11,System,1234,Unique sequential number assigned by internal process,,NA,Not needed,NA,NA,,Seena04/06: Adv team confirmed this id is used for Adv internal processing and this is not fed to upstream/downstream processing
+76,Family Link Indicator,DEM,12,Member Details,987654321,ID number used by the client to link family members together in commercial systems,,Couldn’t locate in HRP UI,NA,NA,NA,,
+77,In Premium Delinquency Process,DEM,1,Member Details,Y,Flag indicating if member is currently in the Premium Delinquency process,,Couldn’t locate in HRP UI,N,NA,NA,,
+78,Ethnicity,DEM,128,Member Details,CUB,See ‘CMS OEC Race and Ethnicity Values’ section for LOV,"Multiple values can be within this one field. Values will be comma separated. IE: CUB, OTH",General : Ethnicity,Y,Member - Demographic,"enrollment/member/raceOrEthnicity/raceOrEthnicityCodes/codeSetName
+
+Code Set Name = RaceOrEthnicityCode
+
+enrollment/member/raceOrEthnicity/raceOrEthnicityCodes/codeEntry
+
+Refer the cross walk table 'Ethnicity Values' for code entry mapping
+
+
+Multiple values can be send across the Memout file for a member. Values will be comma seperated. Refer Tab Crosswalk for code entry details.
+If multiple values send across , all values should be mapped to HRP.
+
+Note : Both Race & Ethnicity needs to be mapped to same XML tags.",,"Multiple values can be send across the Memout file for a member. Values will be comma seperated. Refer Tab Crosswalk for code entry details.
+If multiple values send across , all values should be mapped to HRP.
+
+Note : Both Race & Ethnicity needs to be mapped to same XML tags."
+79,Filler Field,DEM,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+80,Filler Field,DEM,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+81,Filler Field,DEM,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+82,od,PCP,25,PCP/Enroll History,IM29867,Provider number or PCP ID for MA and MAPD plans,Information is captured from PCP & Enrollment History,Provider,Y,Provider - Practitioner,"This field can contain PCP id or Supplier ID depends on client specification. Based on the requirement from the client we can choose the provider or supplier tag.
+
+enrollment/member/providerSelections/providerSelection/providerDateRanges/providerMatch/practitioner/hccIdentificationNumber",,Field No 82 mapping needs to handled at implementation side.
+83,PCP/Provider Address Suffix,PCP,20,PCP/Enroll History,567423,Client-specific,If applicable,Couldn’t locate in HRP UI,N,NA,xml TAG not available in Sparse,,
+84,PCP/Provider Eff Date,PCP,8,PCP/Enroll History,20120401,PCP effective date as listed in the member record,Information is captured from PCP & Enrollment History,Provider Choice,Y,Member - Provider,No need to map.,,
+85,Filler Field,PCP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+86,Filler Field,PCP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+87,Broker Name,BRK,105,Application,Amy Cooper,Name of selling broker,,Subscriber:Broker Selection,Y,Member- Broker,xml TAG not available in Sparse,,"no need to map/Current direction is not to bring Broker data to HRP,"
+88,Broker Code,BRK,10,Application,J3905,Broker code,,Subscriber:Broker Selection,Y,Member- Broker,,,no need to map
+89,Broker Association/Agency,BRK,10,Application,4,Agency code,,Subscriber:Broker Selection,Y,Member- Broker,,,no need to map
+90,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+91,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+92,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+93,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+94,Creditable Coverage Flag,LEP,1,System Logic,N,LOV: Y = Yes; N = No,This value is always NULL,NA,Not needed,NA,NA,,
+95,LEP Number of Uncovered Months,LEP,3,PCP/Enroll History,18,Number of months for which a member did not have creditable drug coverage,,Medicare : Part D LEP,Y,Member-Medicare,"enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/partDLEPCurrentNumberofUncoveredMonths
+or enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/partDLEPTotalNumberofUncoveredMonths",,
+96,Part D LEP Amount,LEP,6,PCP/Enroll History,4.4,Member LEP amount received from CMS,,Medicare : Part D LEP,Y,Member-Medicare,"enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/partDLEPAmount
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/startDate= start Date from LEP transaction
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/endtDate= end Date from LEP transaction
+
+(the  effective date is populated because during testing it was identified this is a mandatory xml tag for Enrollment Sparse to process Part D LEP Amount to HRP)
+
+Here start and end date is based on the LEP transaction 'Start date' (field 3) and 'End date (field 4)",,
+97,PartD LEP Waived Amount,LEP,6,PCP/Enroll History,1,Data from CMS,,Medicare : Part D LEP,Y,Member-Medicare,enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/partDLEPWaivedAmount,,
+98,PartD LEP Subsidy Amount,LEP,6,PCP/Enroll History,1,Data from CMS,,Medicare : Part D LEP,Y,Member-Medicare,enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLEPDateRanges/partDLEPSubsidyAmount,,
+99,LEP Source,LEP,6,PCP/Enroll History,TRR,"LOV: LISLEP, MPWR, TRR, Other",,couldn't locate in HRP,N,NA,NA,,
+100,Filler Field,LEP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+101,Filler Field,LEP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+102,Current LIS Premium Subsidy,LIS,6,Plan set up value,34.2,Subsidy amount that CMS contributes toward Part D premium,,Medicare Part D LIS,Y,Member: Medicare,"enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDCurrLISPremSubsidyDates/partDCurrentLISPremiumSubsidyAmount
+
+If Subsidy Amount is send across
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDCurrLISPremSubsidyDates/startDate = Start date from LIS transaction
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDCurrLISPremSubsidyDates/endDate = End date from LIS transaction
+
+Here start and end date is based on the LIS transaction 'Start date' (field 3) and 'End date (field 4)",,
+103,PartD LIS Subsidy Level,LIS,3,PCP/Enroll History,50,"LOV: 000, 025, 050, 075, and 100",,Medicare Part D LIS,Y,Member: Medicare,"enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISSubsidyLevelDates/partDLISSubsidyLevel/codeEntry
+
+The code entry is the input value from this  field
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISSubsidyLevelDates/partDLISSubsidyLevel/codesetname
+
+codesetname= PartDLISSubsidyLevel
+
+
+If Subsidy Level is send across
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISSubsidyLevelDates/startDate = Start date from LIS transaction
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISSubsidyLevelDates/endDate = End date from LIS transaction
+
+Here start and end date is based on the LIS transaction 'Start date' (field 3) and 'End date (field 4)",,
+104,PartD LIS Copay Category,LIS,1,PCP/Enroll History,4,"LOV: 0, 1, 2, 3, 4",,Medicare Part D LIS,Y,Member: Medicare,"enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISCopayCategoryDates/partDLISCopayCategoryCode/codeEntry
+
+The code entry is the input value from this field
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISCopayCategoryDates/partDLISCopayCategoryCode/codesetname
+
+codesetname=partDLISCopayCategory
+
+If Copay Category is send across
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISCopayCategoryDates/startDate = Start date from LIS transaction
+
+enrollment/member/medicareHICN/partDDateRanges/partDDateRanges/partDLISCopayCategoryDates/endDate = End date from LIS transaction
+
+Here start and end date is based on the LIS transaction 'Start date' (field 3) and 'End date (field 4)",,
+105,LIS Source Code,LIS,50,PCP/Enroll History,A,LOV: A = Applicant; D = Deemed,,Couldn’t locate in HRP UI,N,NA,NA,,
+106,Filler Field,LIS,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+107,Filler Field,LIS,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+108,Contract Number,PLN,5,PCP/Enroll History,H1234,Contract number (K#) of the current plan,,Benefit Plan Configurtaion,Y,NA,,,
+109,PBP Number,PLN,3,PCP/Enroll History,67,PBP number for the plan,,Benefit Plan Configurtaion,Y,NA,"Here we need to concatenated Contract number +PBP number and map to
+
+enrollment/member/planSelection/benefitPlanMatchData/parameter/value
+
+In value we need to map the concatenated value
+
+enrollment/member/planSelection/benefitPlanMatchData/parameter/name
+
+In name we hardcode the name as 'BenefitPlanName'",,
+110,Segment,PLN,3,Claims Eligibility,5,"Plan segment number, if applicable",Value is only for segmented plans and has a unique relationship with the county in which a member resides,Benefit plan configuration,Y,NA,NA,,
+111,Group ID,PLN / GRP,25,Claims Eligibility,56129R,Group number associated with the member’s,,General:Account,Y,Member-Account,"/enrollment/subscription/membergroup
+
+Account:  First 6 bytes will be used
+/enrollment/subscription/accountMatchData/accountHccIdentifier/topAccountHccIdentificationNumber
+/enrollment/member/memberMatchData/topAccount",,
+,,,,,,plan,,,,,,,
+112,Subgroup,GRP,20,Claims Eligibility,1000,Subgroup number associated with the,,NA,Not needed,NA,No need to map,,
+,,,,,,member’s plan,,,,,,,
+113,Class ID,PLN,25,Claims Eligibility,,Client-specific,,May be Benefit plan configuration,Y,NA,NA,,
+114,Plan Code,PLN,3,Claims Eligibility,,Client-specific,,Benefit Plan,Y,Member - Coverage,,,
+115,Disenrollment Reason code (DRC),PLN,2,Plan Span,,Disenrollment Reason Code,"Refer to the CMS PCUG for the latest
+Disenrollment Reason Codes.
+Always populated",Not Available,N,Member-Coverage,"enrollment/member/planSelection/enrollmentInfo/disenrollReason
+
+enrollment/member/planSelection/enrollmentInfo/disenrollDate = End date + 1 from PLN transaction
+
+End date is captured from the field 4 (End date) + 1
+
+enrollment/member/planSelection/memberTerminateReasonCode/codeSetName = MemberTerminateReason
+
+enrollment/member/planSelection/memberTerminateReasonCode/codeEntry
+
+refer Crosswalk 'Dis Enrollment Reason Code'",,
+116,Filler Field,PLN,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+117,Filler Field,PLN,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+118,Filler Field,PLN,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+119,Signature Date,PLN,8,Application data,20120210,Date that the application was signed by applicant or POA in the format YYYYMMDD,,Not Available,N,Member-Coverage,enrollment/member/planSelection/enrollmentInfo/applicationSignatureDate,Date format - YYYY-MM-DD,
+120,CSNP Disenrollment Eff. Date,PLN,8,System Logic,20120901,Chronic Special Need Plan Disenrollment Eff date,,Couldn’t locate in HRP UI,N,NA,xml TAG not available in Sparse,,
+121,Election Type,PLN,300,Application data,,Election type,Will contain a value only if the last transaction is enrollment or PBP change,Couldn’t locate in HRP UI,N,NA,"enrollment/member/planSelection/enrollmentInfo/medicareEnrollmentPeriodCode/codeSetName=MedicareEnrollmentPeriod
+
+enrollment/member/planSelection/enrollmentInfo/medicareEnrollmentPeriodCode/codeEntry
+
+The value comes in the field 'Election Type' will be mapped to Code Entry",,
+122,Term Reason Code,PLN,20,PCP/Enroll History,DOD,Termination reason code listed in the Plan Override section of PCP & Enrollment History,Not always populated,Benefit Plan,Y,Member-Coverage,,,
+123,Plan Rider,RDR,1,Claims Eligibility,,LOV: D = Dental; V = Vision; R= Rx,,Benefit plan configuration,Y,NA,NA,,
+124,Rider Code,RDR,50,Claims Eligibility,,Code used to identify specific rider benefit,,Benefit plan configuration,Y,NA,NA,,
+125,Filler Field,RDR,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+126,Filler Field,RDR,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+127,Payment Method Type,PWO,20,PCP/Enroll History,SSA,Member premium payment option,No Premium; Receive monthly bill; EFT/APO;CC; RRB; SSA; No data,NA,NA,NA,enrollment/member/medicareHICN/premiumWithholdDateRanges/premiumWithholdDateRange/premiumWithholdPaymentMethodType,,no need to map
+128,Premium Withhold Option,PWO,1,PCP/Enroll History,SSA,Premium Withhold Option submitted to CMS; LOV: D= Bill; S= SSA; R= RRB,,,,,"enrollment/member/medicareHICN/premiumWithholdDateRanges/premiumWithholdDateRange/premiumWithholdOption
+
+map START DATE from PWO Transcation type to enrollment/member/medicareHICN/premiumWithholdDateRanges/premiumWithholdDateRange/startDate
+map END DATE from PWO Transcation type to enrollment/member/medicareHICN/premiumWithholdDateRanges/premiumWithholdDateRange/EndDate",,
+129,Name of Account Holder,PWO,105,PCP/Enroll History,John Smith,Account holder name listed on member record,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+130,Account Number,PWO,20,PCP/Enroll History History,78912378900,Account number listed on member record,NACHA/BizTalk encrypted eff spring 2023,,,,,,
+131,Bank Routing Number,PWO,20,PCP/Enroll History,123456789,Bank routing number listed on member record,NACHA/BizTalk encrypted eff spring 2023,,,,,,
+132,Bank Account Type,PWO,1,PCP/Enroll History,C,"LOV: C = Checking, S = Savings",If applicable,,,,,,
+133,Credit Card Type,PWO,50,PCP/Enroll History,,Credit card type selected in the system,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+134,Credit Card Account Holder Name,PWO,105,PCP/Enroll History,,Credit card type selected in the system,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+135,Credit Card Number,PWO,16,PCP/Enroll History,,Credit card number,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+136,Credit card Security Code,PWO,3,PCP/Enroll History,,Credit card security code from back of card,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+137,Credit Card Expiration Date,PWO,6,PCP/Enroll History,,Expiration date of the credit card in the format YYYYMM,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+138,Filler Field,PWO,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+139,Filler Field,PWO,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+140,Hospice Flag,FLG,1,PCP/Enroll History,Y,Member has a Hospice flag; LOV: Y = Yes; N = No U=Unknown,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Medicare and General tab,Y,Member - Health Indicators,"enrollment/member/medicareHICN/hospiceIndicator
+
+If Hospice Indicator is Y
+enrollment/member/medicareHICN/hospiceDateRanges/hospiceDateRange/startDate= Start Date from the FLG Transaction
+
+
+enrollment/member/medicareHICN/hospiceDateRanges/hospiceDateRange/endDate= End Date from the FLG Transaction
+(if end date is not provided in file use 01/01/3000 as End date)","Map only if Hospice Flag = Y.
+
+If Hospice Flag = Y, populate /hospiceIndicator  as 'True'",
+141,Medicaid Flag,FLG,1,PCP/Enroll History,Y,Member has a Medicaid flag; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Couldn’t locate in HRP UI,N,NA,"enrollment/member/medicareHICN/medicaidDateRanges/medicaidDateRange/startDate = Start Date from the FLG Transction
+
+enrollment/member/medicareHICN/medicaidDateRanges/medicaidDateRange/endDate = End Date from the FLG Transction",Map only if Medicaid Flag = Y.,
+142,MSP/Working Aged Flag,FLG,1,PCP/Enroll History,Y,Member has a Medicare Secondary Payer flag; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Couldn’t locate in HRP UI,N,NA,xml TAG not available in Sparse,,
+143,Institutional Flag,FLG,1,PCP/Enroll History,Y,"Member is a resident of an institution; LOV: Y = Yes; N = No, U=Unknown",Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Medicare,Y,Member - Health Indicators,"enrollment/member/medicareHICN/institutionalIndicator
+
+
+If Institutional Flag  is Y
+
+enrollment/member/medicareHICN/institutionalDateRanges/institutionalDateRange/startDate= Start date from the FLG transactions
+
+enrollment/member/medicareHICN/institutionalDateRanges/institutionalDateRange/endDate= End date from the FLG transactions
+(if end date is not provided in file use 01/01/3000 as End date)","Map only if Institutional Flag = Y.
+
+If Institutional Flag = Y, populate /institutionalIndicator  as 'True'",
+144,ESRD Flag,FLG,1,PCP/Enroll History,Y,Member has ESRD; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Medicare,Y,Member - Health Indicators,"enrollment/member/medicareHICN/esrdIndicator
+
+
+If ESRD flag is Y or N
+
+enrollment/member/medicareHICN/esrdDateRanges/esrdDateRange/startDate = Start date from the FLG transaction
+
+enrollment/member/medicareHICN/esrdDateRanges/esrdDateRange/endDate = End date from the FLG transaction
+(if end date is not provided in file use 1/1/300 as End date)","Map only if ESRD Flag = Y.
+
+If ESRD Flag = Y, populate /esrdIndicator  as 'True'",
+145,Transplant Flag,FLG,1,PCP/Enroll History,Y,Member received a transplant; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,"enrollment/member/medicareHICN/transplantDateRanges/transplantDateRange/startDate = Start date from the FLG transaction
+
+enrollment/member/medicareHICN/transplantDateRanges/transplantDateRange/endDate = End date from the FLG transaction
+(if end date is not provided in file use 1/1/300 as End date)",Map only if Transplant Flag = Y,
+146,Dialysis Flag,FLG,1,PCP/Enroll History,Y,Member is on Dialysis; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,"enrollment/member/medicareHICN/dialysisDateRanges/dialysisDateRange/startDate = Start date from the FLG transaction
+
+enrollment/member/medicareHICN/dialysisDateRanges/dialysisDateRange/endDate = End date from the FLG transaction
+(if end date is not provided in file use 1/1/300 as End date)",Map only if Dialysis Flag is Y,
+147,Disabled Flag,FLG,1,PCP/Enroll History,Y,Member disabled; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,General:Handicapped,Y,Member-Demographic,enrolment/member/isHandicapped,"If Disabled Flag = Y, map /isHandicapped as True
+If Disabled Flag = N, map /isHandicapped as False",
+148,Plan Override Indicator,FLG,1,PCP/Enroll History,Y,Plan override indicator: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,,,
+149,Dual Status Code,MCD,2,PCP/Enroll History,,"Member has Medicaid Dual Status in Medicaid Eligibility History.
+LOV: 01, 02, 03, 04, 05, 06, 08, 09, 99",Values will be captured from MCMD processing or user updates,Medicare,Y,Member - Medicare,"enrollment/member/medicareHICN/medicaidDualStatusRanges/medicaidDualStatus/medicaidDualStatusCode/codeEntry
+
+The value comes in the field 'Dual Staus Code' will be mapped to Code Entry
+
+enrollment/member/medicareHICN/medicaidDualStatusRanges/medicaidDualStatus/medicaidDualStatusCode/codesetname
+
+codesetname= ""MedicaidDualStatuscode""",If the transaction is MCD and value coming in Dual status code field.,
+,,,,,,,,,,,enrollment/member/medicareHICN/medicaidDualStatusRanges/medicaidDualStatus/medicaidDual as True,,
+,,,,,,,,,,,"enrollment/member/medicareHICN/medicaidDualStatusRanges/medicaidDualStatus/effectiveDate  = this needs to be populated from Start Date under MCD transaction
+
+(the effective is populated because during testing it was identified this is a mandatory xml tag for Enrollment Sparse to process Dual status code to HRP)
+
+enrollment/member/medicareHICN/medicaidDualStatusRanges/medicaidDualStatus/terminationDate  = this needs to be populated from End Date under MCD transaction",,
+150,Medicaid Record Type,MCD,1,PCP/Enroll History,,"Dual Status record type; LOV: A = Audited, V = Valid",Values will be captured from MCMD processing or user updates,Couldn’t locate in HRP UI,N,NA,xml TAG not available in Sparse,,
+151,COB Update Date,COB,8,CMS Files,,YYYYMMDD,Client-specific,Date?,Y,Member-COB,COB transactiosn fields are client specific. SO this can be mapped based on customer specifications.,,
+152,Name of Other Coverage,COB,50,CMS Files,,Other insurance name,Client-specific,COB,Y,Member - COB,COB transactiosn fields are client specific. SO this can be mapped based on customer specifications.,,
+153,Subscriber ID of Other Coverage,COB,20,CMS Files,,Other insurance ID number,Client-specific,COB,Y,Member - COB,COB transactiosn fields are client specific. SO this can be mapped based on customer specifications.,,
+154,Group ID of other Coverage,COB,20,CMS Files,,Other insurance group number,Client-specific,COB,Y,Member - COB,COB transactiosn fields are client specific. SO this can be mapped based on customer specifications.,,
+155,Kind of Other Insurance,COB,3,CMS Files,,Type of other insurance,Client-specific,COB,Y,Member - COB,COB transactiosn fields are client specific. SO this can be mapped based on customer specifications.,,
+156,Name of Other Insurance Company,COB,200,CMS Files,,Name of other insurance company,Client-specific,COB,Y,Member - COB,COB transactiosn fields are client specific. SO this can be mapped based on customer specifications.,,
+157,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+158,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+159,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+160,M3P Term Reason,M3P,50,PCP/Enroll History,,"LOV: V = Voluntary, I = Involuntary If a member’s M3P span has an end date, there must be a termination reason populated",M3P Term Reason,NA,Not needed,NA,"/enrollment/member/medicareHICN/medicarePrescriptionPaymentPlans/medicarePrescriptionPaymentPlan/medicarePrescriptionPaymentPlanStatusIndicator/codesetname  as  MedicarePrescriptionPaymentPlanStatusIndicator
+
+/enrollment/member/medicareHICN/medicarePrescriptionPaymentPlans/medicarePrescriptionPaymentPlan/medicarePrescriptionPaymentPlanStatusIndicator/codeEntry  from Field no 160",,
+161,Filler Field,,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+162,Gender Identity,DEM,50,Member Details,,"This element will populate with the code that is stored on the member details table. If a gender code also has an associated free text element, both will display within this field delimited by a comma.",,NA,Not needed,NA,"/enrollment/member/genderIdentityCode/codesetname  = GenderIdentity
+/enrollment/member/genderIdentityCode/codeEntry","Refer Cross Walk tab for conversion copy
+(Take only the code, code can be accompanied by a text separated by comma)",
+163,Sexual Orientation,DEM,50,Member Details,,"This element will populate with the code that is stored on the member details table. If a gender code also has an associated free text element, both will display within this field delimited by a comma.",,NA,Not needed,NA,"/enrollment/member/sexualOrientationCode/codesetname  = sexualOrientation
+/enrollment/member/sexualOrientationCode/codeEntry","Refer Cross Walk tab for conversion copy
+(Take only the code, code can be accompanied by a text separated by comma)",
+164,Alternative Format Data CD,DEM,1,Member Details,,Flag indicating materials requested in Data CD format; LOV: Y = Yes; N = No,Alternate Format: Data CD,NA,Not needed,NA,"if Y
+/enrollment/member/communicationPreferences/contactMethod = ""Other""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeSetName
+codeSetName =  ""DocumentDeliveryMethod""
+
+/enrollment/member/communicationPreferences/documentDeliveryMethodCode/codeEntry=1",Data CD is not available in HRP codeentries. So for now it is mapped to 'Online' . Implementaion teams needs to review this and make changes if needed.,
+165,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+166,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,

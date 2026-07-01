@@ -1,0 +1,41 @@
+Audit events,Sample
+MESSAGE READ,"{
+		""inputFileID"": ""pS3BkyiosYkGHi2d"",
+	 ""inputHeaderInfo"": {
+		""inputFileType"": ""EDI"",
+		""inputArchiveFilename"": ""Input_2024-11-13 22:12:44:429_input44.dat"",
+		""inputFileReceiptDateTime"": ""2024-11-13T22:12:44.000000427"",
+		""inputFileName"": ""input44.dat"",
+		""auditTime"": ""2024-11-13T22:12:49.000000778""
+  },
+  	 ""businessAdaptor"": {
+		""adaptorReceiptDateTime"": ""2024-11-13T22:12:44.000000427"",
+		""adaptorAuditDateTime"": ""2024-11-13T22:12:49.000000778""
+	 },
+	 ""processStatus"": {
+	   ""processStageName"": ""EDIFECS"",
+	   ""adaptorStatus"": ""MESSAGE READ""
+   }
+
+}"
+EDIFECS-Validation,"{
+""recordIdentifier"": ""GzlBkxrCvJTTBbTj"",
+		""recordIdentifierFromSource"": ""IP7860004"",
+		""memberId"": ""ak1234567"",
+		""inputFileID"": ""mTQhkxrCu_TTBbTi"",
+	 ""inputHeaderInfo"": {
+		""inputFileType"": ""EDI"",
+		""inputArchiveFilename"": ""Input_2024-11-11 05:26:30:005_Input_NM1segment.txt"",
+		""inputFileReceiptDateTime"": ""2024-11-11T05:26:30.000000004"",
+		""inputFileName"": ""Input_NM1segment.txt"",
+		""auditTime"": ""2024-11-11T05:26:30.000000301""
+  },
+		""sourceTypeIdentifier"": ""SUPPLIER_1615190209006625591_Inpatient"",
+  	 ""businessAdaptor"": {
+		""adaptorReceiptDateTime"": ""2024-11-11T05:26:30.000000004"",
+		""adaptorAuditDateTime"": ""2024-11-11T05:26:30.000000301""
+	 },
+	 ""processStatus"": {
+	   ""processStageName"": ""EDIFECS-Validation"",
+	   ""adaptorStatus"": ""SUCCESS""
+   }"

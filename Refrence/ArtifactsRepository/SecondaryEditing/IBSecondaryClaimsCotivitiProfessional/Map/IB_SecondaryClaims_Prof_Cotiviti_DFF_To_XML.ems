@@ -1,0 +1,937 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Map Version="3" ModelVersion="4" ModelRevision="1" LastCPID="233">
+	<Properties Category="BusinessGroups">
+		<Property Name="1/ID">1</Property>
+		<Property Name="1/Name">Header</Property>
+		<Property Name="2/ID">2</Property>
+		<Property Name="2/Name">claimLine</Property>
+		<Property Name="3/ID">3</Property>
+		<Property Name="3/Name">REASON</Property>
+	</Properties>
+	<Properties Category="BusinessTabs">
+		<Property Name="1/ID">1</Property>
+		<Property Name="1/LeftReserve">44</Property>
+		<Property Name="2/ID">2</Property>
+		<Property Name="2/LeftReserve">44</Property>
+		<Property Name="3/ID">3</Property>
+		<Property Name="3/LeftReserve">28</Property>
+	</Properties>
+	<Properties Category="Features">
+		<Property Name="StrictVariablesNaming">true</Property>
+	</Properties>
+	<Properties Category="GlobalUserNoteLabels">
+		<Property Name="{a46d9617-f264-4524-b167-aa859d16de6a}">Description</Property>
+	</Properties>
+	<Properties Category="Summary">
+		<Property Name="Author">UST Global</Property>
+		<Property Name="Version">1.0</Property>
+		<Property Name="Company">UST Global</Property>
+		<Property Name="Status">Draft</Property>
+		<Property Name="CreatedBy">SpecBuilder 9.3.2.8431</Property>
+		<Property Name="CreationDate">1740471583</Property>
+		<Property Name="ModifiedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="ModificationDate">1745839276</Property>
+	</Properties>
+	<Properties Category="Variables">
+		<Property Name="LastVarID">6</Property>
+		<Property Name="1/ID">1</Property>
+		<Property Name="1/Name">Claim_ID</Property>
+		<Property Name="2/ID">2</Property>
+		<Property Name="2/Name">FileCreationDate</Property>
+		<Property Name="3/ID">3</Property>
+		<Property Name="3/Name">REC_LINE_STATUS</Property>
+		<Property Name="4/ID">4</Property>
+		<Property Name="4/Name">REC_LINE_STATUS_ADJ</Property>
+		<Property Name="5/ID">5</Property>
+		<Property Name="5/Name">Adj_LogNote</Property>
+		<Property Name="6/ID">6</Property>
+		<Property Name="6/Name">AlloweUnits</Property>
+		<Property Name="6/InitValue"></Property>
+	</Properties>
+	<Sources>
+		<ExternalStorage ID="1" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Source</Property>
+				<Property Name="Location">..\Guideline\IB_SecondaryClaims_Prof_Cotiviti_DFF_Translation_SOURCE.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">DelimitedFlatFile</Property>
+				<Property Name="EntryNodeID">Message</Property>
+				<Property Name="EntryNodeName">Message</Property>
+				<Property Name="GuidelineType">DelimitedFlatFile</Property>
+				<Property Name="InternalID">{F27B2B1C-9F5D-41E4-9BCB-9507AC9824FD}</Property>
+				<Property Name="Standard">DFF</Property>
+				<Property Name="Version"></Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="_EntireDocument">InputFileName</Property>
+				<Property Name="_EntireDocument">InputFileId</Property>
+				<Property Name="_EntireDocument">TotalClaimCount</Property>
+				<Property Name="_EntireDocument">FileCreationDate</Property>
+				<Property Name="_EntireDocument">TotalInputTransaction</Property>
+				<Property Name="_EntireDocument">RecordIdentifier</Property>
+				<Property Name="_EntireDocument">RayIdentifier</Property>
+				<Property Name="_EntireDocument">tenantIdentifier</Property>
+				<Property Name="_EntireDocument">ArchivedFileName</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="21" Path="/InternalProperties/Field(Name = 'InputFileName')"/>
+				<ConnectionPoint ID="23" Path="/InternalProperties/Field(Name = 'InputFileId')"/>
+				<ConnectionPoint ID="25" Path="/InternalProperties/Field(Name = 'TotalClaimCount')"/>
+				<ConnectionPoint ID="28" Path="/InternalProperties/Field(Name = 'FileCreationDate')"/>
+				<ConnectionPoint ID="33" Path="/Message(ID = 'Message')/Record(ID = 'Detail')"/>
+				<ConnectionPoint ID="52" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'CLAIM_ID')"/>
+				<ConnectionPoint ID="57" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'LINE_SEQ')"/>
+				<ConnectionPoint ID="60" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_LINE_STATUS')"/>
+				<ConnectionPoint ID="83" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_HCPCS')"/>
+				<ConnectionPoint ID="84" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_01')"/>
+				<ConnectionPoint ID="85" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_02')"/>
+				<ConnectionPoint ID="86" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_03')"/>
+				<ConnectionPoint ID="87" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_04')"/>
+				<ConnectionPoint ID="88" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_05')"/>
+				<ConnectionPoint ID="89" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_06')"/>
+				<ConnectionPoint ID="90" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_07')"/>
+				<ConnectionPoint ID="91" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_MOD_08')"/>
+				<ConnectionPoint ID="92" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_UNITS')"/>
+				<ConnectionPoint ID="93" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REC_PCT')"/>
+				<ConnectionPoint ID="118" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REASON1_ID')"/>
+				<ConnectionPoint ID="119" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REASON2_ID')"/>
+				<ConnectionPoint ID="120" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'REASON3_ID')"/>
+				<ConnectionPoint ID="152" Path="/InternalProperties/Field(Name = 'TotalInputTransaction')"/>
+				<ConnectionPoint ID="198" Path="/InternalProperties/Field(Name = 'RecordIdentifier')"/>
+				<ConnectionPoint ID="200" Path="/InternalProperties/Field(Name = 'RayIdentifier')"/>
+				<ConnectionPoint ID="206" Path="/InternalProperties/Field(Name = 'ArchivedFileName')"/>
+				<ConnectionPoint ID="217" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'SUB_UNITS')"/>
+				<ConnectionPoint ID="231" Path="/Message(ID = 'Message')/Record(ID = 'Detail')/Field(ID = 'ALLOWED_UNITS')"/>
+			</ConnectionPoints>
+		</ExternalStorage>
+	</Sources>
+	<Targets>
+		<ExternalStorage ID="2" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Target</Property>
+				<Property Name="Location">..\..\IBSecondaryClaimsCommon\Guideline\IB_SecondaryClaims_XML_Target.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentID"></Property>
+				<Property Name="DocumentType">XMLSchema</Property>
+				<Property Name="GuidelineType">XML Schema</Property>
+				<Property Name="InternalID">{E5FF2A16-D493-4B0B-80E6-429DB6CEF42B}</Property>
+				<Property Name="Standard"></Property>
+				<Property Name="Version"></Property>
+			</Properties>
+			<Properties Category="InstancedNodes">
+				<Property Name="1/Path">/schema/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'code')</Property>
+				<Property Name="1/Instance_1/CustomName">REASON1_ID</Property>
+				<Property Name="1/Instance_2/CustomName">REASON2_ID</Property>
+				<Property Name="1/Instance_3/CustomName">REASON3_ID</Property>
+				<Property Name="2/Path">/schema/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'description')</Property>
+				<Property Name="2/Instance_1/CustomName">REASON1_ID+&quot;ACTION REASON&quot;</Property>
+				<Property Name="2/Instance_2/CustomName">REASON2_ID+&quot;ACTION REASON&quot;</Property>
+				<Property Name="2/Instance_3/CustomName">REASON3_ID+&quot;ACTION REASON&quot;</Property>
+				<Property Name="3/Path">/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'code')</Property>
+				<Property Name="3/Instance_1/CustomName">REASON1_ID</Property>
+				<Property Name="3/Instance_2/CustomName">REASON2_ID</Property>
+				<Property Name="3/Instance_3/CustomName">REASON3_ID</Property>
+				<Property Name="4/Path">/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'description')</Property>
+				<Property Name="4/Instance_1/CustomName">REASON1_ID+&quot;ACTION REASON&quot;</Property>
+				<Property Name="4/Instance_2/CustomName">REASON2_ID+&quot;ACTION REASON&quot;</Property>
+				<Property Name="4/Instance_3/CustomName">REASON3_ID+&quot;ACTION REASON&quot;</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="162" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'inputFilename')"/>
+				<ConnectionPoint ID="165" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'totalClaimCount')"/>
+				<ConnectionPoint ID="169" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'senderId')"/>
+				<ConnectionPoint ID="170" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'receiverId')"/>
+				<ConnectionPoint ID="171" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'totalXMLTransactionCount')"/>
+				<ConnectionPoint ID="172" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'hccClaimNumber')"/>
+				<ConnectionPoint ID="173" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'hccLineNumber')"/>
+				<ConnectionPoint ID="174" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recHcpcs')"/>
+				<ConnectionPoint ID="175" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier01')"/>
+				<ConnectionPoint ID="176" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier02')"/>
+				<ConnectionPoint ID="177" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier03')"/>
+				<ConnectionPoint ID="178" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier04')"/>
+				<ConnectionPoint ID="179" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier05')"/>
+				<ConnectionPoint ID="180" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier06')"/>
+				<ConnectionPoint ID="181" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier07')"/>
+				<ConnectionPoint ID="182" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'recModifier08')"/>
+				<ConnectionPoint ID="183" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'adjustedUnits')"/>
+				<ConnectionPoint ID="184" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'adjustmentPercentage')"/>
+				<ConnectionPoint ID="185" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'actionType')"/>
+				<ConnectionPoint ID="186" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'code'){1}"/>
+				<ConnectionPoint ID="187" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'code'){2}"/>
+				<ConnectionPoint ID="188" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'code'){3}"/>
+				<ConnectionPoint ID="189" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'description'){1}"/>
+				<ConnectionPoint ID="190" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'description'){2}"/>
+				<ConnectionPoint ID="191" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'reasons')/complexType/sequence/element(name = 'reason')/complexType/sequence/element(name = 'description'){3}"/>
+				<ConnectionPoint ID="192" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'originalUnits')"/>
+				<ConnectionPoint ID="193" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'adjustmentReasonCode')"/>
+				<ConnectionPoint ID="194" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'adjustmentLogNote')"/>
+				<ConnectionPoint ID="195" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'actions')/complexType/sequence/element(name = 'action')/complexType/sequence/element(name = 'userMessageCode')"/>
+				<ConnectionPoint ID="196" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'inputId')"/>
+				<ConnectionPoint ID="197" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'totalTransaction')"/>
+				<ConnectionPoint ID="199" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/element(name = 'recordIdentifier')"/>
+				<ConnectionPoint ID="201" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/element(name = 'rayIdentifier')"/>
+				<ConnectionPoint ID="204" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'inputType')"/>
+				<ConnectionPoint ID="205" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'XMLfileCreationDate')"/>
+				<ConnectionPoint ID="207" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'header')/element(name = 'header')/complexType/sequence/element(name = 'inputArchiveFilename')"/>
+				<ConnectionPoint ID="212" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/element(name = 'recordCount')"/>
+				<ConnectionPoint ID="213" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/element(name = 'sourceTypeIdentifier')"/>
+				<ConnectionPoint ID="214" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/element(name = 'recordIdentifierFromSource')"/>
+				<ConnectionPoint ID="218" Path="/schema/element(name = 'ClaimEditingAdaptorRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequestRoot')/element(name = 'ClaimEditingIBRequestRoot')/complexType/sequence/elementRef(ref = 'ClaimEditingIBRequest')/element(name = 'ClaimEditingIBRequest')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecordList')/element(name = 'ClaimEditingRequestRecordList')/complexType/sequence/elementRef(ref = 'ClaimEditingRequestRecord')/element(name = 'ClaimEditingRequestRecord')/complexType/sequence/elementRef(ref = 'claimsEditing:externalEditClaim')/element(name = 'externalEditClaim')/complexType/sequence/element(name = 'claimLines')/complexType/sequence/element(name = 'claimLine')/complexType/sequence/element(name = 'subUnit')"/>
+			</ConnectionPoints>
+			<ReverseConnectionPoints/>
+		</ExternalStorage>
+	</Targets>
+	<Functions>
+		<Function ID="4" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">2</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-288</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="27" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="5" Name="JavaScript_fileCreationDate" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var FileCreationDate = ec_VariableHelper.GetVariable(&quot;FileCreationDate&quot;);
+ 
+// Ensure the input is valid
+if (FileCreationDate &amp;&amp; typeof FileCreationDate === &quot;string&quot;) {
+    FileCreationDate = FileCreationDate.trim();
+}
+ 
+// Function to convert 'yyyy-MM-dd HH:mm:ss.S' to 'yyyy-MM-ddTHH:mm:ss'
+function convertToISOFormat(dateStr) {
+    var match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/);
+ 
+    if (!match) {
+        return &quot;Invalid date format&quot;;
+    }
+ 
+    var year = match[1];
+    var month = match[2];
+    var day = match[3];
+    var hours = match[4];
+    var minutes = match[5];
+    var seconds = match[6];
+ 
+    return year + &quot;-&quot; + month + &quot;-&quot; + day + &quot;T&quot; + hours + &quot;:&quot; + minutes + &quot;:&quot; + seconds;
+}
+ 
+// Convert and report the result
+if (FileCreationDate) {
+    var formattedDateTime = convertToISOFormat(FileCreationDate);
+    ec_ResultHelper.ReportResultByIndex(0, formattedDateTime);
+}</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-416</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="30" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="31" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="29" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="6" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-64</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="37" FP="A" Name="value" DirectValue="PROF"/>
+				<ConnectionPoint ID="35" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="8" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-224</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="41" FP="A" Name="value" DirectValue="1"/>
+				<ConnectionPoint ID="40" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="9" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-352</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="44" FP="A" Name="value" DirectValue="Cotiviti"/>
+				<ConnectionPoint ID="43" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="11" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-496</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="48" FP="A" Name="value" DirectValue="Product"/>
+				<ConnectionPoint ID="47" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="12" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">0</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="51" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="13" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-128</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="54" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="55" FP="A" Name="value" DirectValue="{1}"/>
+				<ConnectionPoint ID="53" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="14" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">3</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">64</Property>
+				<Property Name="Tab2/YPos">0</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="59" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="15" Name="JavaScript_claimLine" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var REC_LINE_STATUS = ec_VariableHelper.GetVariable(&quot;REC_LINE_STATUS&quot;);
+
+var REC_HCPCS = ec_DataHelper.GetValueByIndex(0);
+var REC_MOD_01 = ec_DataHelper.GetValueByIndex(1);
+var REC_MOD_02 = ec_DataHelper.GetValueByIndex(2);
+var REC_MOD_03 = ec_DataHelper.GetValueByIndex(3);
+var REC_MOD_04 = ec_DataHelper.GetValueByIndex(4);
+var REC_MOD_05 = ec_DataHelper.GetValueByIndex(5);
+var REC_MOD_06 = ec_DataHelper.GetValueByIndex(6);
+var REC_MOD_07 = ec_DataHelper.GetValueByIndex(7);
+var REC_MOD_08 = ec_DataHelper.GetValueByIndex(8);
+var REC_UNITS = ec_DataHelper.GetValueByIndex(9);
+var REC_PCT = ec_DataHelper.GetValueByIndex(10);
+var SUB_UNITS = ec_DataHelper.GetValueByIndex(11);
+
+
+
+if (REC_LINE_STATUS != &quot;P&quot;)
+{
+			ec_ResultHelper.ReportResultByIndex(0,REC_HCPCS);
+	   	  	ec_ResultHelper.ReportResultByIndex(1,REC_MOD_01);	
+            ec_ResultHelper.ReportResultByIndex(2,REC_MOD_02);
+            ec_ResultHelper.ReportResultByIndex(3,REC_MOD_03);
+            ec_ResultHelper.ReportResultByIndex(4,REC_MOD_04);
+            ec_ResultHelper.ReportResultByIndex(5,REC_MOD_05);
+            ec_ResultHelper.ReportResultByIndex(6,REC_MOD_06);	
+            ec_ResultHelper.ReportResultByIndex(7,REC_MOD_07);	
+            ec_ResultHelper.ReportResultByIndex(8,REC_MOD_08);
+            ec_ResultHelper.ReportResultByIndex(9,REC_UNITS);
+            ec_ResultHelper.ReportResultByIndex(10,REC_PCT);
+            ec_ResultHelper.ReportResultByIndex(11,SUB_UNITS);
+            
+}</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">64</Property>
+				<Property Name="Tab2/YPos">-64</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="72" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="73" FP="A" Pos="1" Name="value2">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="74" FP="A" Pos="2" Name="value3">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="75" FP="A" Pos="3" Name="value4">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="76" FP="A" Pos="4" Name="value5">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="77" FP="A" Pos="5" Name="value6">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="78" FP="A" Pos="6" Name="value7">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="79" FP="A" Pos="7" Name="value8">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="80" FP="A" Pos="8" Name="value9">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="81" FP="A" Pos="9" Name="value10">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="82" FP="A" Pos="10" Name="value11">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="215" FP="A" Pos="11" Name="value12">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="61" FP="X" Pos="0" Name="result1"/>
+				<ConnectionPoint ID="62" FP="X" Pos="1" Name="result2"/>
+				<ConnectionPoint ID="63" FP="X" Pos="2" Name="result3"/>
+				<ConnectionPoint ID="64" FP="X" Pos="3" Name="result4"/>
+				<ConnectionPoint ID="65" FP="X" Pos="4" Name="result5"/>
+				<ConnectionPoint ID="66" FP="X" Pos="5" Name="result6"/>
+				<ConnectionPoint ID="67" FP="X" Pos="6" Name="result7"/>
+				<ConnectionPoint ID="68" FP="X" Pos="7" Name="result8"/>
+				<ConnectionPoint ID="69" FP="X" Pos="8" Name="result9"/>
+				<ConnectionPoint ID="70" FP="X" Pos="9" Name="result10"/>
+				<ConnectionPoint ID="71" FP="X" Pos="10" Name="result11"/>
+				<ConnectionPoint ID="216" FP="X" Pos="11" Name="result12"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="17" Name="Conditional Copy_originalUnits" Template="ConditionalCopy">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="if_1/conditions/expression_1/arg1">3</Property>
+				<Property Name="if_1/conditions/expression_1/arg1/type">1</Property>
+				<Property Name="if_1/conditions/expression_1/operation">1</Property>
+				<Property Name="if_1/conditions/expression_1/operation/type">0</Property>
+				<Property Name="if_1/conditions/expression_1/arg2">P</Property>
+				<Property Name="if_1/actions/assignment_1/lvalue">108</Property>
+				<Property Name="if_1/actions/assignment_1/lvalue/type">2</Property>
+				<Property Name="if_1/actions/assignment_1/rvalue">6</Property>
+				<Property Name="if_1/actions/assignment_1/rvalue/type">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">160</Property>
+				<Property Name="Tab3/YPos">0</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="151" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="109" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="108" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="21" Name="JavaScript_reason" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var REC_LINE_STATUS = ec_VariableHelper.GetVariable(&quot;REC_LINE_STATUS&quot;);
+var REASON1_ID = ec_DataHelper.GetValueByIndex(0);
+var REASON2_ID = ec_DataHelper.GetValueByIndex(1);
+var REASON3_ID = ec_DataHelper.GetValueByIndex(2);
+
+if (REC_LINE_STATUS !=&quot;P&quot;)
+{
+var output1 = REASON1_ID + &quot; &quot; + &quot;Action Reason&quot;; // Modify format if needed
+var output2 = REASON2_ID + &quot; &quot; + &quot;Action Reason&quot;;
+var output3 = REASON3_ID + &quot; &quot; + &quot;Action Reason&quot;;
+
+if(REASON1_ID != &quot;&quot;){
+ec_ResultHelper.ReportResultByIndex(0, REASON1_ID);
+ec_ResultHelper.ReportResultByIndex(1, output1);
+}
+if(REASON2_ID != &quot;&quot;)
+{
+ec_ResultHelper.ReportResultByIndex(2, REASON2_ID);
+ec_ResultHelper.ReportResultByIndex(3, output2);
+}
+if(REASON3_ID != &quot;&quot;)
+{
+ec_ResultHelper.ReportResultByIndex(4, REASON3_ID);
+ec_ResultHelper.ReportResultByIndex(5, output3);
+}
+}</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">64</Property>
+				<Property Name="Tab3/YPos">-176</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="143" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="144" FP="A" Pos="1" Name="value2">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="145" FP="A" Pos="2" Name="value3">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="137" FP="X" Pos="0" Name="result1"/>
+				<ConnectionPoint ID="138" FP="X" Pos="1" Name="result2"/>
+				<ConnectionPoint ID="139" FP="X" Pos="2" Name="result3"/>
+				<ConnectionPoint ID="140" FP="X" Pos="3" Name="result4"/>
+				<ConnectionPoint ID="141" FP="X" Pos="4" Name="result5"/>
+				<ConnectionPoint ID="142" FP="X" Pos="5" Name="result6"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="23" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">3</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">64</Property>
+				<Property Name="Tab2/YPos">-320</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="149" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="148" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="24" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">4</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">64</Property>
+				<Property Name="Tab3/YPos">-320</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="150" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="25" Template="ConditionalCopy">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="if_1/conditions/expression_1/arg1">155</Property>
+				<Property Name="if_1/conditions/expression_1/arg1/type">2</Property>
+				<Property Name="if_1/conditions/expression_1/operation">0</Property>
+				<Property Name="if_1/conditions/expression_1/operation/type">0</Property>
+				<Property Name="if_1/conditions/expression_1/arg2">1</Property>
+				<Property Name="if_1/actions/assignment_1/lvalue">154</Property>
+				<Property Name="if_1/actions/assignment_1/lvalue/type">2</Property>
+				<Property Name="if_1/actions/assignment_1/rvalue">156</Property>
+				<Property Name="if_1/actions/assignment_1/rvalue/type">2</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">224</Property>
+				<Property Name="Tab3/YPos">-384</Property>
+				<Property Name="Tab1/XPos">240</Property>
+				<Property Name="Tab1/YPos">-176</Property>
+				<Property Name="Tab2/XPos">240</Property>
+				<Property Name="Tab2/YPos">-208</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="155" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="156" FP="A" Pos="1" Name="value2">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="154" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="26" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">5</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">368</Property>
+				<Property Name="Tab3/YPos">-384</Property>
+				<Property Name="Tab1/XPos">417</Property>
+				<Property Name="Tab1/YPos">-190</Property>
+				<Property Name="Tab2/XPos">417</Property>
+				<Property Name="Tab2/YPos">-222</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="157" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="27" Name="JavaScript_AdjLogNote" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var REC_LINE_STATUS = ec_VariableHelper.GetVariable(&quot;Adj_LogNote&quot;);
+if (REC_LINE_STATUS != &quot;P&quot;)
+{
+	ec_ResultHelper.ReportResultByIndex(0,REC_LINE_STATUS);
+}
+
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">64</Property>
+				<Property Name="Tab3/YPos">-464</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="159" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="160" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="158" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="29" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-560</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="211" FP="A" Name="value" DirectValue="1"/>
+				<ConnectionPoint ID="210" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="31" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-624</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="222" FP="A" Name="value" DirectValue="Cotiviti Prof"/>
+				<ConnectionPoint ID="221" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="32" Name="Trim-Line Sequence" Template="Trim">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="paddings">0</Property>
+				<Property Name="type">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">88</Property>
+				<Property Name="Tab2/YPos">-267</Property>
+				<Property Name="Tab3/XPos">64</Property>
+				<Property Name="Tab3/YPos">-384</Property>
+				<Property Name="Tab1/XPos">88</Property>
+				<Property Name="Tab1/YPos">-113</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="223" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="224" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="35" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">6</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">224</Property>
+				<Property Name="Tab2/YPos">-16</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="228" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="36" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">6</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">288</Property>
+				<Property Name="Tab3/YPos">-73</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="230" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="229" FP="A" Name="value"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="37" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab3/XPos">400</Property>
+				<Property Name="Tab3/YPos">-144</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="233" FP="A" Name="value" DirectValue="1"/>
+				<ConnectionPoint ID="232" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+	</Functions>
+	<Connectors>
+		<Connector OutputCP="28" InputCP="27"/>
+		<Connector OutputCP="33" InputCP="30">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="52" InputCP="51"/>
+		<Connector OutputCP="33" InputCP="54">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="60" InputCP="59"/>
+		<Connector OutputCP="83" InputCP="72"/>
+		<Connector OutputCP="84" InputCP="73"/>
+		<Connector OutputCP="85" InputCP="74"/>
+		<Connector OutputCP="86" InputCP="75"/>
+		<Connector OutputCP="87" InputCP="76"/>
+		<Connector OutputCP="88" InputCP="77"/>
+		<Connector OutputCP="89" InputCP="78"/>
+		<Connector OutputCP="90" InputCP="79"/>
+		<Connector OutputCP="91" InputCP="80"/>
+		<Connector OutputCP="92" InputCP="81"/>
+		<Connector OutputCP="93" InputCP="82"/>
+		<Connector OutputCP="118" InputCP="143"/>
+		<Connector OutputCP="119" InputCP="144"/>
+		<Connector OutputCP="120" InputCP="145"/>
+		<Connector OutputCP="33" InputCP="149">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="60" InputCP="150"/>
+		<Connector OutputCP="33" InputCP="151">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="60" InputCP="156"/>
+		<Connector OutputCP="154" InputCP="157"/>
+		<Connector OutputCP="33" InputCP="159">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="21" InputCP="162">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="25" InputCP="165">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="40" InputCP="171"/>
+		<Connector OutputCP="53" InputCP="172"/>
+		<Connector OutputCP="61" InputCP="174"/>
+		<Connector OutputCP="62" InputCP="175"/>
+		<Connector OutputCP="63" InputCP="176"/>
+		<Connector OutputCP="64" InputCP="177"/>
+		<Connector OutputCP="65" InputCP="178"/>
+		<Connector OutputCP="66" InputCP="179"/>
+		<Connector OutputCP="67" InputCP="180"/>
+		<Connector OutputCP="68" InputCP="181"/>
+		<Connector OutputCP="69" InputCP="182"/>
+		<Connector OutputCP="70" InputCP="183"/>
+		<Connector OutputCP="71" InputCP="184"/>
+		<Connector OutputCP="137" InputCP="186"/>
+		<Connector OutputCP="139" InputCP="187"/>
+		<Connector OutputCP="141" InputCP="188"/>
+		<Connector OutputCP="138" InputCP="189"/>
+		<Connector OutputCP="140" InputCP="190"/>
+		<Connector OutputCP="142" InputCP="191"/>
+		<Connector OutputCP="108" InputCP="192"/>
+		<Connector OutputCP="158" InputCP="194"/>
+		<Connector OutputCP="137" InputCP="195"/>
+		<Connector OutputCP="23" InputCP="196">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="152" InputCP="197">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="198" InputCP="199">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="200" InputCP="201">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="35" InputCP="204"/>
+		<Connector OutputCP="29" InputCP="205"/>
+		<Connector OutputCP="206" InputCP="207">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="210" InputCP="212"/>
+		<Connector OutputCP="47" InputCP="170"/>
+		<Connector OutputCP="198" InputCP="214">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="217" InputCP="215"/>
+		<Connector OutputCP="216" InputCP="218"/>
+		<Connector OutputCP="60" InputCP="185">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="43" InputCP="213"/>
+		<Connector OutputCP="221" InputCP="169"/>
+		<Connector OutputCP="57" InputCP="223"/>
+		<Connector OutputCP="224" InputCP="173"/>
+		<Connector OutputCP="224" InputCP="155"/>
+		<Connector OutputCP="33" InputCP="230">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="231" InputCP="228"/>
+		<Connector OutputCP="232" InputCP="193"/>
+	</Connectors>
+</Map>

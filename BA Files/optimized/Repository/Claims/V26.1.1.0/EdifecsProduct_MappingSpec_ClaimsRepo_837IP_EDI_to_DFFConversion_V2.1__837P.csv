@@ -1,0 +1,1925 @@
+EDILoopID. Segment,EDI Data Element Name,EDI Element Description,Usage,Enumeration Values,Sample values,"Mapped to
+Integration PlusTable Name.Column Name",Column Desc,Transformation Logic,COMMENTS
+ISA (Interchange Control Header Segment),,,,,,,,,
+ISA,Segment: Interchange Control Header,,R,,,,,,
+ISA01,Authorization Information Qualifier,Code identifying the type of information in the Authorization Information,R,00 : No Authorization Information Present,,,,,
+ISA02,Authorization Information,,R,Blank (10 spaces),,,,,
+ISA03,Security Information Qualifier,Code identifying the type of information in the Security Information,R,00 : No Security Information Present,,,,,
+ISA04,Security Information,"security information about the interchange sender
+or the data in the interchange",R,Blank (10 spaces),,,,,
+ISA05,Interchange ID Qualifier,"Code indicating the system/method of code structure used to designate the
+sender or receiver ID element being qualified",R,ZZ : Mutually Defined,,,,,
+ISA06,Interchange Sender ID,Sender ID,R,<Sender ID>,,,,,
+ISA07,Interchange ID Qualifier,"Code indicating the system/method of code structure used to designate the
+sender or receiver ID element being qualified",R,ZZ : Mutually Defined,,,,,
+ISA08,Interchange Receiver ID,Receiver Id,R,<Receiver ID>,,,,,
+ISA09,Interchange Date,Date of the interchange,R,SysDate (YYMMDD),Example : 210630,,,,
+ISA10,Interchange Time,Time of the interchange,R,SysTime (HHMM),Example : 1732,,,,
+ISA11,Interchange Control Standards Identifier,,R,^,,,,,
+ISA12,Interchange Control Version Number,Code specifying the version number of the interchange control segments,R,00501,,,,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,R,,Example : 319003402,,,,
+ISA14,Acknowledgment Requested,Code indicating sender’s request for an interchange acknowledgment,R,"0 : No Interchange Acknowledgement Requested
+1 : Interchange Acknowledgment Requested",,,,,
+ISA15,Usage Identifier,"Code indicating whether data enclosed by this interchange envelope is test,
+production or information",R,P : Production Data T : Test,,,,,
+ISA16,Component Element Separator,The delimiter used to separate component data elements,R,": = Element separator
+~ = Segment Terminator",,,,,
+GS (Functional Group Header),,,,,,,,,
+GS,Segment: Functional Group Header,,R,,,,,,
+GS01,Functional Identifier Code,The two-character identifier Code for the transaction set included.,R,HC : Health Care Claim (837),,,,,
+GS02,Application Senders Code,"Code identifying party sending transmission,  codes agreed to by trading partners
+This is Submitter-specific.",R,<Sender ID>,,,,,
+GS03,Application Receivers Code,Code identifying party receiving transmission; codes agreed to by trading partners,R,<HealthPlan ID>/,,,,,
+GS04,Date,Date the Group Header is created.,R,SysDate (CCYYMMDD),Example : 210630,,,,
+GS05,Time,Time the Group Header is created.,R,SysTime (HHMM),Example : 1732,,,,
+GS06,Group Control Number,Submitter-specific number.,R,<Group Control Number>,319003402,,,,
+GS07,Responsible Agency Code,Code identifying the issuer of the EDI standard being used.,R,X : Accredited Standards Committee X12,,,,,
+GS08,Version/Release/Industry Identifier Code,"Code indicating the version, release, subrelease, and industry identifier of the EDI
+standard being used,
+ST03 and GS08 must be identical",R,005010X222A1,,,,,
+ST (Transaction Set Header),,,,,,,,,
+ST,Segment: Transaction Set Header,,R,,,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,R,837 : Health Care Claim,,,,,
+ST02,Transaction Set Control Number,Unique Sequential Number Assigned by Internal Processes for each Transaction Set. Starts from 001 and increments with each transaction set,R,"<Transaction set Control Number>
+Starts from 001 and increments with each transaction set",319003402,,,,
+ST03,Implementation Convention Reference,Standards Approved by ACS X12 Review Board.                 ST03 and GS08 must be identical,R,005010X222A1,,,,,
+BHT,Segment: Beginning Of Hierarchical Transaction,,R,,,,,,
+BHT01,Hierarchical Structure Code,Code indicating the hierarchical application structure of a transaction set,R,"0019 : Information Source, Subscriber, Dependent",,,,,
+BHT02,Transaction Set Purpose Code,"Code identifying purpose of transaction set.  Used to convey the electronic transmission status of
+the 837 batch",R,"00 : Original
+18 : Reissue",,,,,
+BHT03,Reference Identification,Reference information as defined for a particular Transaction Set,R,<Originator Application Transaction Identifier>,319003402,,,,
+BHT04,Date,The date the transaction was created,R,SysDate (CCYYMMDD),20210630,SUBMITTED_CLAIM,CLAIM_CREATION_DATE,,
+BHT05,Time,The time the transaction was created,R,SysTime (HHMMSS),173250,SUBMITTED_CLAIM,CLAIM_CREATION_TIME,,
+BHT06,Transaction Type Code,Code specifying the type of transaction,R,"CH- Chargeable
+RP- Reporting",,,,,
+Loop 1000A — SUBMITTER NAME (Required)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment NM1 - Submitter Name  (Required),,R,,,,,,
+1000A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,41 : Submitter,,,,,
+1000A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-person Entity",,,,,
+1000A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM,SUBMITTER_NAME,,
+1000A.NM104,Name First,Individual first name,S,,,,,,
+1000A.NM105,Name Middle,Individual middle name or initial,S,,,,,,
+1000A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,46 : Electronic Transmitter Identification Number (ETIN,,,,,
+1000A.NM109,Identification Code,Code identifying a party or other code,R,100X,,SUBMITTED_CLAIM,SUBMITTER_IDENTIFICATION_CODE,,
+PER,Segment PER - Submitter EDI Contact Information,,,,,,,,
+1000A.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC -  Information Contact,,,,,
+1000A.PER02,Name,Submitter Contact Name,S,<<Submitter Name>>,,,,,
+1000A.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+1000A.PER04,Communication Number,Complete communications number including country or area code when applicable,R,,,,,,
+1000A.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+1000A.PER06,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+1000A.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+1000A.PER08,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+Loop 1000B — RECEIVER NAME (Required) Loop Repeat: 1,,,,,,,,,
+NM1,Segment NM1 - Receiver Name  (Required),,R,,,,,,
+1000B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,40 : Receiver,,,,,
+1000B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+1000B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM,RECEIVER_NAME,,
+1000B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,46 :  Electronic Transmitter Identification Number (ETIN,,,,,
+1000B.NM109,Identification Code,Code identifying a party,R,,,SUBMITTED_CLAIM,RECEIVER_IDENTIFICATION_CODE,,
+Loop 2000A — BILLING PROVIDER HIERARCHICAL LEVEL (Required)  Loop Repeat: >1,,,,,,,,,
+HL,Segment HL - Billing Provider Hierarchical Level  (Required),,R,,,,,,
+2000A.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,"The first HL01 within each ST-SE envelope must begin with “1”,
+and be incremented by one each time an HL is used in the
+transaction",,,,,
+2000A.HL02,Hierarchical Parent ID Number,,R,,,,,,
+2000A.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,20 : Information Source,,,,,
+2000A.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described.",R,"1 : Additional Subordinate HL Data Segment in This
+Hierarchical Structure.",,,,,
+PRV,Segment PRV - Billing Provider Specialty Information  (Situational),,,,,,,,
+2000A.PRV01,Provider Code,Code identifying the type of provider,R,BI : Billing,,,,,
+2000A.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC :  Health Care Provider Taxonomy Code,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_REFERENCE_IDENTIFIER,,
+2000A.PRV03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_TAXONOMY_CODE,,
+CUR,Segment CUR - Foreign Currency Information (Situational),,,,,,,,
+2000A.CUR01,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,
+2000A.CUR02,Currency Code,Code (Standard ISO) for country in whose currency the charges are specified,R,,,,,,
+Loop 2010AA - BILLING PROVIDER NAME (Required) Loop Repeat: 1,,,,,,,,,
+NM1,Segment NM1 - Billing Provider Name (Required),,R,,,,,,
+2010AA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,85 :  Billing Provider,,,,,
+2010AA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2010AA.NM103,Name Last or Organization Name,Individual last name or organizational name,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_LAST_NAME,,
+2010AA.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_FIRST_NAME,,
+2010AA.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_MIDDLE_NAME,,
+2010AA.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_NAME_SUFFIX,,
+2010AA.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2010AA.NM109,Identification Code,Code identifying a party or other code / Billing Provider Identifier,S,,1477569838,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_IDENTIFIER,,
+N3,Segment N3 - Billing Provider Address (Required),,R,,,,,,
+2010AA.N301,Address Information,Address information,R,,777 BANNOCK ST,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_ADDRESS_1,,
+2010AA.N302,Address Information,Address information,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_ADDRESS_2,,
+N4,"Segment N4 - Billing Provider City, State, ZIP Code (Required)",,R,,,,,,
+2010AA.N401,City Name,Free-form text for city name,R,,DENVER,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_CITY,,
+2010AA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,CO,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_STATE_CODE,,
+2010AA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,802044507,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_POSTAL_CODE,,
+2010AA.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,BILLING_PROVIDER_COUNTRY_CODE,,
+2010AA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment REF - Billing Provider Tax Identification (Required),,R,,,,,,
+2010AA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"EI : Employer’s Identification Number
+SY : Social Security Number",,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+2010AA.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+REF,Segment REF - Billing Provider UPIN/License Information (Situational),,,,,,,,
+2010AA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"1G  : Provider UPIN Number
+0B :  State License Number",,,,,
+2010AA.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+PER,Segment - PER Billing Provider Contact Information (Situational),,,,,,,,
+2010AA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group name,R,IC -  Information Contact,,,,,
+2010AA.PER02,Name,Billing Provider Contact Name,S,,,SUBMITTED_CLAIM,"BILLING_PROVIDER_CONTACT_NAME
+Contact name of the Billing Provider.",,
+2010AA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2010AA.PER04,Communication Number,,R,,,SUBMITTED_CLAIM,BILLING_PROVIDER_CONTACT_NAME,,
+2010AA.PER05,Communication Number Qualifier,Code identifying the type of communication numbe,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone
+""EX"" : Telephone Extension",,,,,
+2010AA.PER06,Communication Number,Communication Number,S,,,SUBMITTED_CLAIM,BILLING_PROVIDER_CONTACT_NAME,,
+2010AA.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,,,,,,
+2010AA.PER08,Communication Number,,S,,,,,,
+Loop 2010AB - PAY-TO ADDRESS NAME (Situational)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Pay-to Address Name (Situational),,,,,,,,
+2010AB.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,87: Pay-to Provider,,,,,
+2010AB.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2:  Non-Person Entity",,,,,
+N3,Segment - N3 Pay-to Address - ADDRESS (Required),,R,,,,,,
+2010AB.N301,Address Information,Address Information,R,,PO BOX 677931,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+2010AB.N302,Address Information,Address Information,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+N4,"Segment - N4 Pay-To Address City, State, ZIP Code (Required)",,R,,,,,,
+2010AB.N401,City Name,Free-form text for city name,R,,DALLAS,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+2010AB.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,TX,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+2010AB.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,752677931,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+2010AB.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_BILLINGPROVIDER_DETAILS,,,
+2010AB.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2010AC - — PAY-TO PLAN NAME  (Situational)   Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Pay-To Plan Name (Situational),,,,,,,,
+2010AC.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PE : Payee,,,,,
+2010AC.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2010AC.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,
+2010AC.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code (67),R,,,,,,
+2010AC.NM109,Identification Code,Code identifying a party or other code,R,,,,,,
+N3,Segment - N3 Pay-to Plan Address (Required),,R,,,,,,
+2010AC.N301,Address Information,Address Information,R,,,,,,
+2010AC.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Pay-To Plan City, State, ZIP Code (Required)",,R,,,,,,
+2010AC.N401,City Name,Free-form text for city name,R,,,,,,
+2010AC.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2010AC.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2010AC.N404,Country Code,Code identifying the country,S,,,,,,
+2010AC.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Pay-to Plan Secondary Identification (Required),,R,,,,,,
+2010AC.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010AC.REF02,Reference Identification,"Reference information as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Pay-To Plan Tax Identification Number (Required),,R,,,,,,
+2010AC.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EI : Employer’s Identification Number,,,,,
+2010AC.REF02,Reference Identification,"Reference information as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2000B — SUBSCRIBER HIERARCHICAL LEVEL  (Required)  Loop Repeat: >1,,,,,,,,,
+HL,Segment - HL Subscriber Hierarchical Level (Required),,,,,,,,
+2000B.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,"2000A.HL01 + 1
+
+Incremented at each new HL segment.",,,,,
+2000B.HL02,Hierarchical Parent ID Number,"Identification number of the next higher hierarchical data segment that the data
+segment being described is subordinate to",R,2000A.HL01,,,,,
+2000B.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,22 - Subscriber,,,,,
+2000B.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described.",R,"0 :  HL04 has no subordinate levels  (the subscriber is the patient and there are no dependent claims)
+1: HL04 has subordinate levels",,,,,
+SBR,Segment - SBR Subscriber Information (Required),,,,,,,,
+2000B.SBR01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim",R,"P : Primary
+S : Secondary
+T  : Tertiary",,,,,
+2000B.SBR02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,S,18 : Self,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_RELATIONSHIP_CODE,,
+2000B.SBR03,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_POLICY_NUMBER,,
+2000B.SBR04,Name,,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_GROUP_NAME,,
+2000B.SBR05,Insurance Type Code,Code identifying the type of insurance policy within a specific insurance program,S,"12 :  Medicare Secondary Working Aged Beneficiary or
+Spouse with Employer Group Health Plan
+13 : Medicare Secondary End-Stage Renal Disease
+Beneficiary in the Mandated Coordination Period
+with an Employer’s Group Health Plan
+14 : Medicare Secondary, No-fault Insurance including
+Auto is Primary
+15 : Medicare Secondary Worker’s Compensation
+16 : Medicare Secondary Public Health Service (PHS)or
+Other Federal Agency
+41 : Medicare Secondary Black Lung
+42 : Medicare Secondary Veteran’s Administration
+43 : Medicare Secondary Disabled Beneficiary Under
+Age 65 with Large Group Health Plan (LGHP)
+47 : Medicare Secondary, Other Liability Insurance",,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_INSURANCE_TYPE_CODE,,
+2000B.SBR09,Claim Filing Indicator Code,,S,"11 : Other Non-Federal Programs
+12 : Preferred Provider Organization (PPO)
+13 : Point of Service (POS)
+14 : Exclusive Provider Organization (EPO)
+15 : Indemnity Insurance
+16 : Health Maintenance Organization (HMO) Medicare
+Risk
+17 : Dental Maintenance Organization
+AM :  Automobile Medical
+BL :  Blue Cross/Blue Shield
+CH :  Champus
+CI :  Commercial Insurance Co.
+DS :  Disability
+FI :  Federal Employees Program
+HM :  Health Maintenance Organization
+LM :  Liability Medical
+MA :  Medicare Part A
+MB :  Medicare Part B
+MC :  Medicaid
+OF :  Other Federal Program
+1484 Use code OF when submitting Medicare Part D
+claims.
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation Health Claim
+ZZ Mutually Defined
+71 Use Code ZZ when Type of Insurance is not known.",,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_FILING_INDICATOR,,
+PAT,Segment - PAT Patient Information (Situational),,,,,,,,
+2000B.PAT05,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",S,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2000B.PAT06,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times / Patient Death Date",S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_DEATH_DATE,If Subscriber and patient are same 2000B PAT segment should be populated to 2000B PAT (SUBMITTED_CLAIM_PATIENT_DETAILS),
+2000B.PAT07,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,01 : Actual Pounds,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_UNIT,,
+2000B.PAT08,Weight,Numeric value of weight,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_WEIGHT,,
+2000B.PAT09,Yes/No Condition or Response Code,Code indicating  whether the patient is pregnant or not pregnant.,S,Y :Yes,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_PREGNANCY_INDICATOR,,
+Loop2010BA — SUBSCRIBER NAME (Required) Loop Repeat: 1,,,S,,,,,,
+NM1,Segment - NM1 Subscriber Name (Required),,,,,,,,
+2010BA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,IL :  Insured or Subscriber,,,,,
+2010BA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2010BA.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_LAST_NAME,Subscriber's full name concatenate NM103/5/4/7,
+2010BA.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_FIRST_NAME,,
+2010BA.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_MIDDLE_NAME,,
+2010BA.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_NAME_SUFFIX,,
+2010BA.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"II :  Standard Unique Health Identifier for each Individual in the United States
+MI  :  Member Identification Number",,,,,
+2010BA.NM109,Identification Code,Code identifying a party or other code / Subscriber Primary Identifier,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_IDENTIFICATION_CODE,,
+N3,Segment - N3 Subscriber Address (Situational),,,,,,,,
+2010BA.N301,Address Information,Address Information,R,,4600 W 9TH AVE UNIT 216,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_ADDRESS_1,,
+2010BA.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Subscriber City, State, ZIP Code (Situational)",,,,,,,,
+2010BA.N401,City Name,Free-form text for city name,R,,DENVER,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_ADDRESS_CITY,,
+2010BA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,CO,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_ADDRESS_STATE,,
+2010BA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,802042991,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_ADDRESS_ZIP,,
+2010BA.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_ADDRESS_COUNTRY,,
+2010BA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+DMG,Segment - DMG Subscriber Demographic Information (Situational),,,,,,,,
+2010BA.DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2010BA.DMG02,Date Time Period,Date Time Period,R,,19471120,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_BIRTH_DATE,,
+2010BA.DMG03,Gender Code,Code indicating the sex of the individual,R,"F : Female
+M : Male",,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_GENDER,"M=Male, F=Female, U=Unknown",
+REF,Segment - REF Subscriber Secondary Identification (Situational),,,,,,,,
+2010BA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,SY:Social Security Number,,,,,
+2010BA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier /: Subscriber Supplemental Identifier,R,,,,,,
+REF,Segment - REF Property and Casualty Claim Number (Situational),,,,,,,,
+2010BA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,Y4: Agency Claim Number,,,,,
+2010BA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier / Property Casualty Claim Number,R,,,,,,
+PER,Segment - PER Property and Casualty Subscriber Contact Information (Situational),,,,,,,,
+2010BA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC : Information Contact,,,,,
+2010BA.PER02,Name,,S,,,,,,
+2010BA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,TE :  Telephone,,,,,
+2010BA.PER04,Communication Number,,R,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_PHONE_NUMBER_1,,
+2010BA.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,EX :  Telephone Extension,,,,,
+2010BA.PER06,Communication Number,,S,,,SUBMITTED_CLAIM_SUBSCRIBER_DETAILS,SUBSCRIBER_PHONE_NUMBER_2,,
+Loop 2010BB  — PAYER NAME (Required)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Payer Name (Required),,,,,,,,
+2010BB.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PR : Payer,,,,,
+2010BB.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2010BB.NM103,Name Last or Organization Name,,R,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_PAYER_NAME,,
+2010BB.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,"PI :  Payor Identification
+XV : Centers for Medicare and Medicaid Services PlanID",,,,,
+2010BB.NM109,Identification Code,Code identifying a party or other code / Payer Identifier,R,,,,,,
+N3,Segment - N3 Payer Address (Situational),,,,,,,,
+2010BB.N301,Address Information,Address Information,R,,,,,,
+2010BB.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Payer City, State, ZIP Code (Situational)",,,,,,,,
+2010BB.N401,City Name,Free-form text for city name,R,,,,,,
+2010BB.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2010BB.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2010BB.N404,Country Code,Code identifying the country,S,,,,,"Map to the value ""US"" if not present",
+2010BB.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Payer Secondary Identification (Situational),,,,,,,,
+2010BB.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"2U : Payer Identification Number
+EI :  Employer’s Identification Number",,,,,
+2010BB.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+REF,Segment - REF Billing Provider Secondary Identification (Situational),,,,,,,,
+2010BB.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010BB.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+"Loop 2000C - Patient Hierarchical Level (Situational)   Loop Repeat: >1
+                In case of dependent claims (if  dependant is the patient ), Loop ID-2000C and Loop ID-2010CA are sent.
+                When subscriber is the patient, Loop ID-2000C and Loop ID-2010CA are not sent.",,,,,,,,,
+NM1,NM1 Patient Name (Required),,,,,,,,
+2000C.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,,,,,,
+2000C.HL02,Hierarchical Parent ID Number,"Identification number of the next higher hierarchical data segment that the data
+segment being described is subordinate to",R,,,,,,
+2000C.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,"23 : Dependent (the information
+in this HL applies to the patient when the subscriber
+and the patient are not the same person)",,,,,
+2000C.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described",R,"0 :  No Subordinate HL Segment in This Hierarchical
+Structure",,,,,
+PAT,Patient information,,,,,,,,
+2000C.PAT01,Individual Relationship Code,Code indicating the relationship between two individuals or entities,R,"01 : Spouse
+19 : Child
+20 : Employee
+21 : Unknown
+39 : Organ Donor
+40:  Cadaver Donor
+53:  Life Partner
+G8 : Other Relationship",,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_SUBS_RELATIONSHIP,If Subscriber and patient are different 2000C PAT segment should be populated to 2000C PAT (SUBMITTED_CLAIM_PATIENT_DETAILS),
+2000C.PAT05,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",S,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2000C.PAT06,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times / Patient Death Date",S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_DEATH_DATE,,
+2000C.PAT07,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,01 : Actual Pounds,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_UNIT,,
+2000C.PAT08,Weight,Numeric value of weight,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_WEIGHT,,
+2000C.PAT09,Yes/No Condition or Response Code,Code indicating  whether the patient is pregnant or not pregnant.,S,Y :Yes,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_PREGNANCY_INDICATOR,,
+Loop 2010CA - Patient Name (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Patient Name (Required),,,,,,,,
+2010CA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,QC : Patient,,,,,
+2010CA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1: Person,,,,,
+2010CA.NM103,Name Last or Organization Name,Patient Last Name,R,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_LAST_NAME,,
+2010CA.NM104,Name First,Patient First Name,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_FIRST_NAME,,
+2010CA.NM105,Name Middle,Patient Middle Name or Initial,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_MIDDLE_NAME,,
+2010CA.NM107,Name Suffix,Patient Name Suffix,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_NAME_SUFFIX,,
+N3,Segment - N3 Patient Address (Situational),,,,,,,,
+2010CA.N301,Address Information,Patient Address Line,R,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_ADDRESS_1,,
+2010CA.N302,Address Information,Patient Address Line,S,,,,,,
+N4,"Segment - N4 Patient City, State, ZIP Code (Situational)",,,,,,,,
+2010CA.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_ADDRESS_CITY,,
+2010CA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_ADDRESS_STATE,,
+2010CA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_ADDRESS_ZIP,,
+2010CA.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_ADDRESS_COUNTRY,,
+2010CA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+DMG,Segment - DMG Patient Demographic Information (Situational),,,,,,,,
+2010CA.DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2010CA.DMG02,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times/Patient Birth Date",R,,19670712,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_BIRTH_DATE,,
+2010CA.DMG03,Gender Code,Code indicating the sex of the individual,R,"F: Female
+M :Male
+U : Unknown",,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_GENDER,,
+REF,Segment - Property and Casuality Claim Number (Situational),,,,,,,,
+2010CA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,Y4 : Agency Claim Number,,,,,
+2010CA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+PER,Segment -Property and Casuality Patient Contact Information (Situational),,,,,,,,
+2010CA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC :Information Contact,,,,,
+2010CA.PER02,Name,Free-form name,S,,,,,,
+2010CA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,TE :  Telephone,,,,,
+2010CA.PER04,Communication Number,"Complete communications number including country or area code when
+applicable",R,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_PHONE_NUMBER_1,,
+2010CA.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,EX : Telephone Extension,,,,,
+2010CA.PER06,Communication Number,Complete communications number including country or area code when applicable,S,,,SUBMITTED_CLAIM_PATIENT_DETAILS,PATIENT_PHONE_NUMBER_2,,
+"Loop 2300  - CLAIM INFORMATION(Required)  Loop Repeat: 100
+       When patient is the subscriber : The claim information(Loop ID-2300), is placed following Loop ID-2010BB in the Subscriber Hierarchical Level(HL) and patient information is sent in Loop ID-2010BA.
+       When patient is the dependent :  The claim information(Loop ID-2300),is placed following Loop ID-2010CA  in the Patient HL and the patient information is sent in Loop ID-2010CA .",,,,,,,,,
+CLM,Segment - CLM Claim information (Situational),,,,,,,,
+2300.CLM01,Claim Submitter's Identifier,Identifier used to track a claim from creation by the health care provider through payment,R,,,SUBMITTED_CLAIM,CLAIM_SUBMITTERS_IDENTIFIER,,
+2300.CLM02,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM,CLAIM_AMOUNT,Map only when 2320.CAS  is present,
+2300.CLM05.01,Facility Code Value,"Code identifying where services were, or may be, performed /Place of Service Code",R,,,SUBMITTED_CLAIM,CLAIM_FACILITY_CODE,,
+2300.CLM05.02,Facility Code Qualifier,Code identifying the type of facility referenced,R,B :Place of Service Codes for Professional Services,,,,,
+2300.CLM05.03,Claim Frequency Type Code,Code specifying the frequency of the claim,R,,,SUBMITTED_CLAIM,CLAIM_FREQUENCY_TYPE,,
+2300.CLM06,Yes/No Condition or Response Code,Provider or Supplier Signature Indicator,R,"Y : provider signature is on file
+N : provider signature is not on file",,SUBMITTED_CLAIM,PROVIDER_SIGNATURE_IND,Map only when CLM06 value is 'Y',OPTION FIELD
+2300.CLM07,Provider Accept Assignment Code,Code indicating whether the provider accepts assignment,R,"A : Assigned
+B : Assignment Accepted on Clinical Lab Services Only
+C :  Not Assigned",,SUBMITTED_CLAIM,PROVIDER_ACCEPT_ASSIGNEMNT_CODE,"If 2300.CLM07 = “A”, Map “Y”
+Else If 2300.CLM07  = “C”, Map “N”",
+2300.CLM08,Yes/No Condition or Response Code,Benefits Assignment Certification Indicator,R,"Y : Yes
+N : No
+W :  Not Applicable",,SUBMITTED_CLAIM,BENEFIT_ASSIGNMENT_IND,,
+2300.CLM09,Release of Information Code,"Code indicating whether the provider has on file a signed statement by the patient
+authorizing the release of medical data to other organizations",R,"I : Informed Consent  to Release Medical Information for Conditions or Diagnoses
+Y :Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim",,SUBMITTED_CLAIM,RELEEASE_INFO_CODE,,
+2300.CLM10,Patient Signature Source Code,"Code indicating how the patient or subscriber authorization signatures were
+obtained and how they are being retained by the provider",S,P :  Signature generated by provider because the patient was not physically present for services,,SUBMITTED_CLAIM,,,
+2300.CLM11.01,Related-Causes Code,"Code identifying an accompanying cause of an illness, injury or an accident",R,"AA : Auto Accident
+EM : Employment
+OA : Other Accident",,SUBMITTED_CLAIM,,,
+2300.CLM11.02,Related-Causes Code,"Code identifying an accompanying cause of an illness, injury or an accident (when more than one related cause code applies)",S,"AA : Auto Accident
+EM : Employment
+OA : Other Accident",,SUBMITTED_CLAIM,,,
+2300.CLM11.04,State or Province Code,"Code (Standard State/Province) as defined by appropriate government
+agency",S,,,SUBMITTED_CLAIM,,,
+2300.CLM11.05,Country Code,Country Code,S,,,SUBMITTED_CLAIM,,,
+2300.CLM12,Special Program Code,,S,,,,,,
+2300.CLM20,Delay Reason Code,,S,,,,,,
+DTP,Segment - DTP Date - Onset of Current Illness or Symptom (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,431 :Onset of Current Symptoms or Illness,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,SUBMITTED_CLAIM,,,
+DTP,Segment - DTP Date - Initial Treatment Date (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,454 : Initial Treatment,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,SUBMITTED_CLAIM,TREATMENT_START_DT,,
+DTP,Segment - DTP Date - Last Seen Date (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,304: Latest Visit or Consultation,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Acute Manifestation (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,453: Acute Manifestation of a Chronic Condition,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Accident (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,439: Accident,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Last Menstrual Period (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,484:  Last Menstrual Period,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Last X-ray Date (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,455: Last X-Ray,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Hearing and Vision Prescription Date (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,471: Prescription,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Disability Dates (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,"314 : Disability ( when both disability start and end date are being reported)
+360 :  Initial Disability Period Start (if patient is currently disabled and
+disability end date is unknown.)
+361 : Initial Disability Period End ( if patient is no longer disabled and the)
+start date is unknown",,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,"D8 :  Date Expressed in Format CCYYMMDD
+RD8 :  Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,SUBMITTED_CLAIM,,,
+DTP,Segment - DTP Date - Last Worked (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,297 : Initial Disability Period Last Day Worked,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Authorized Return to Work (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,296 : Initial Disability Period Last Day Worked,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Admission (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,435 : Admission,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,SUBMITTED_CLAIM,ADMISSION_DATE,,
+DTP,Segment - DTP Date - Discharge (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,096 : Discharge,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,SUBMITTED_CLAIM,DISCHARGE_DATE,,
+DTP,Segment - DTP Date - Assumed and Relinquished Care Dates (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,090 :  Report Start,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Property and Casualty Date of First Contact (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,096 :  First Visit or Consultation,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Repricer Received Date (Situational),,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,050 :  Received,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+PWK,Segment - PWK Claim Supplemental Information (Situational),,,,,,,,
+2300.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,"04 : Drugs Administered
+05 : Treatment Diagnosis
+06 : Initial Assessment",,SUBMITTED_CLAIM,,,
+2300.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be
+sent",R,"AA : Available on Request at Provider Site
+BM : By Mail
+EL : Electronically Only
+EM : E-Mail
+FT : File Transfer
+FX : By Fax",,SUBMITTED_CLAIM,,,
+2300.PWK05,Identification Code Qualifier,Code identifying a party or other code,S,AC:  Attachment Control Number,,,,,
+2300.PWK06,Identification Code,Attachment Control Number. Used to identify the attached electronic documentation.The number in PWK06 is carried in the TRN of the electronic attachment,S,,,SUBMITTED_CLAIM,,,
+CN1,Segment - CN1 Contract Information (Situational),,,,,,,,
+2300.CN101,Contract Type Code,Code identifying a contract type,R,"01 : Diagnosis Related Group (DRG)
+02 : Per Diem
+03 : Variable Per Diem
+04 : Flat
+05 : Capitated
+06 : Percent
+09 : Other",,,,,
+2300.CN102,Monetary Amount,Contract Amount,S,,,,,,
+2300.CN103,"Percent, Decimal Format",Contract Percentage,S,,,,,,
+2300.CN104,Reference Identification,Contract Code,S,,,,,,
+2300.CN105,Terms Discount Percent,"Terms discount percentage, expressed as a percent, available to the purchaser if
+an invoice is paid on or before the Terms Discount Due Date",S,,,,,,
+2300.CN106,Version Identifier,Contract Version Identifier,S,,,,,,
+AMT,Segment - AMT Patient Amount Paid (Situational),,,,,,,,
+2300.AMT01,Amount Qualifier Code,Code to qualify amount,R,F5 : Patient Amount Paid,,,PATIENT_AMT_CODE,,
+2300.AMT02,Monetary Amount,Patient Amount Paid,R,,,SUBMITTED_CLAIM,PATIENT_AMOUNT_PAID,,
+REF,Segment - REF Service Authorization Exception Code (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,4N :  Special Payment Reference Number,,,,,
+2300.REF02,Reference Identification,Service Authorization Exception Code,R,,,,,,
+REF,Segment - REF Mandatory Medicare (Section 4081) Crossover Indicator (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F5 : Medicare Version Code,,,,,
+2300.REF02,Reference Identification,Medicare Section 4081 Indicator,R,"Y : 4081
+N : Regular crossover",,,,,
+REF,Segment - REF Mammography Certification Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EW:  Mammography Certification Number,,,,,
+2300.REF02,Reference Identification,Mammography Certification Number,R,,,,,,
+REF,Segment - REF Referral Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F :  Referral Number,,,,,
+2300.REF02,Reference Identification,Referral Number,R,,,SUBMITTED_CLAIM,,,
+REF,Segment - REF Prior Authorization (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,
+2300.REF02,Reference Identification,Prior Authorization Number,R,,,,,,
+REF,Segment - REF Payer Claim Control Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F8 : Original Reference Number,,,,Map only for void/replacement claims (2300.CLM05.03 = '7' or '8',
+2300.REF02,Reference Identification,Payer Claim Control Number,R,,,SUBMITTED_CLAIM,HCC_CLAIM_NUMBER,Map only for void/replacement claims (2300.CLM05.03 = '7' or '8',
+REF,Segment - REF Clinical Laboratory Improvement Amendment (CLIA) Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"X4 : Clinical Laboratory Improvement Amendment
+Number",,,,,
+2300.REF02,Reference Identification,Clinical Laboratory Improvement Amendment Number,R,,,,,,
+REF,Segment - REF Repriced Claim Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9A : Repriced Claim Reference Number,,,,,
+2300.REF02,Reference Identification,Repriced Claim Reference Number,R,,,,,,
+REF,Segment - REF Adjusted Repriced Claim Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9C :  Adjusted Repriced Claim Reference Number,,,,,
+2300.REF02,Reference Identification,Adjusted Repriced Claim Reference Number,R,,,,,,
+REF,Segment - REF Investigational Device Exemption Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,LX : Qualified Products List,,,,,
+2300.REF02,Reference Identification,Investigational Device Exemption Identifier,R,,,,,,
+REF,Segment - REF Claim Identification For Transmission Intermediaries (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,D9 : Claim Number,,,,,
+2300.REF02,Reference Identification,Value Added Network Trace Number,R,,,SUBMITTED_CLAIM,CLEARINGHOUSE_TRACE_NUMBER,,
+REF,Segment - REF Medical Record Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EA :  Medical Record Identification Number,,,,,
+2300.REF02,Reference Identification,Value Added Network Trace Number,R,,,,,,
+REF,Segment - REF Demonstration Project Identifier (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,P4 :   Project Code,,,,,
+2300.REF02,Reference Identification,Value Added Network Trace Number,R,,,,,,
+K3,Segment - K3 File Information (Situational),,,,,,,,
+2300.K301,Fixed Format Information,Data in fixed format agreed upon by sender and receiver,R,,,,,,
+NTE,Segment - NTE Claim Note (Situational),,,,,,,,
+2300.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,"ADD : Additional Information
+CER : Certification Narrative
+DCP : Goals, Rehabilitation Potential, or Discharge Plans",,SUBMITTED_CLAIM,,,
+2300.NTE02,Description,A free-form description to clarify the related data elements and their content  /  Claim Note Text,R,,,SUBMITTED_CLAIM,,,
+CR1,Segment - CR1 Ambulance Transport Information (Situational),,,,,,,,
+2300.CR101,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,LB : Pound,,,,,
+2300.CR102,Weight,Patient Weight,S,,,,,,
+2300.CR104,Ambulance Transport Reason Code,Code indicating the reason for ambulance transport,R,"A : Patient was transported to nearest facility
+B : Patient was transported for the benefit of a preferred physician
+C : Patient was transported for the nearness of family members
+D : Patient was transported for the care of a specialist
+E : Patient Transferred to Rehabilitation Facility",,,,,
+2300.CR105,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,DH : Miles,,,,,
+2300.CR106,Quantity,Transport Distance,R,,,,,,
+2300.CR109,Description,"Round Trip Purpose Description. Required when the ambulance service is for a round
+trip.",S,,,,,,
+2300.CR110,Description,Stretcher Purpose Description,S,,,SUBMITTED_CLAIM,"AMBULANCE_TRANSPORT_STRETCHER_PURPOSE
+If the ambulance made a round trip, describes the purpose",,
+CR2,Segment - CR2 Spinal Manipulation Service Information (Situational),,,,,,,,
+2300.CR208,Nature of Condition Code,Code indicating the nature of a patient’s condition,R,,,,,,
+2300.CR210,Description,Patient Condition Description,S,,,,,,
+2300.CR211,Description,Patient Condition Description,S,,,,,,
+CRC,Segment - CRC Ambulance Certification (Situational),A record is inserted into SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION table for each repetition of CRC segment.,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,07 : Ambulance Certification,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"Y : Yes
+N : No",,SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code",,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code1",,
+2300.CRC04,Condition Indicator,Code indicating a condition when a second condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code2",,
+2300.CRC05,Condition Indicator,Code indicating a condition when a third condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code3",,
+2300.CRC06,Condition Indicator,Code indicating a condition when a fourth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code4",,
+2300.CRC07,Condition Indicator,Code indicating a condition when a fifth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code5",,
+CRC,Segment - CRC Patient Condition Information: Vision (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,"E1 : Spectacle Lenses
+E2 : Contact Lenses
+E3 : Spectacle Frames",,,,,
+2300.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"Y : Yes
+N : No",,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"L1 : General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met
+L2 : Replacement Due to Loss or Theft L3 : Replacement Due to Breakage or Damage
+L4 : Replacement Due to Patient Preference
+ L5 : Replacement Due to Medical Reason",,,,,
+2300.CRC04,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC05,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC06,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC07,Condition Indicator,Code indicating a condition,S,,,,,,
+CRC,Segment - CRC Homebound Indicator (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,75 :  Functional Limitations,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,Y :Yes,,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,IH : Independent at Home,,,,,
+CRC,Segment - CRC EPSDT Referral (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,ZZ : Mutually Defined,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"Y : Yes
+N : No",,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"AV : Available - Not Used
+NU :Not Used
+S2 :Under Treatment
+ST :New Services Requested",,,,,
+2300.CRC04,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC05,Condition Indicator,Code indicating a condition,S,,,,,,
+HI,Segment - HEALTH CARE DIAGNOSIS CODE (Required),,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list/ Principal Diagnosis Type Code,R,"ABK : ICD10 -CM - Principal Diagnosis
+BK : ICD9 -CM - Principal Diagnosis",,,,,
+2300.HI01.02,Industry Code,Code indicating a code from a specific industry code list/Principal Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE1,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI02.01,Code List Qualifier Code,Diagnosis Type Code,R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI02.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE2,,
+2300.HI03.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI03.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE3,,
+2300.HI04.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI04.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE4,,
+2300.HI05.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI05.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE5,,
+2300.HI06.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI06.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE5,,
+2300.HI07.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI07.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE7,,
+2300.HI08.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI08.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE8,,
+2300.HI09.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI09.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE9,,
+2300.HI10.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI10.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE10,,
+2300.HI11.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI11.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE11,,
+2300.HI12.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI12.02,Industry Code,Diagnosis Code,R,,,SUBMITTED_CLAIM,DIAGNOSIS_CODE12,,
+HI,Segment - HI Anesthesia Related Procedure (Situational),,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BP : Health Care Financing Administration Common Procedural Coding System Principal Procedure,,,,,
+2300.HI01.02,Industry Code,Anesthesia Related Principal Surgical Procedure,R,,,SUBMITTED_CLAIM,ANESTHESIA_CODE,,
+2300.HI02.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BO :  Health Care Financing Administration Common Procedural Coding System,,,,,
+2300.HI02.02,Industry Code,Anesthesia Related  Surgical Procedure,R,,,SUBMITTED_CLAIM,,,
+HI,Segment - HI CONDITION INFORMATION (Situational),,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI01.02,Industry Code,Condition Code,R,,,SUBMITTED_CLAIM,,,
+2300.HI02.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI02.02,Industry Code,Condition Code,R,,,,,,
+2300.HI03.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI03.02,Industry Code,Condition Code,R,,,,,,
+2300.HI04.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI04.02,Industry Code,Condition Code,R,,,,,,
+2300.HI05.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI05.02,Industry Code,Condition Code,R,,,,,,
+2300.HI06.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI06.02,Industry Code,Condition Code,R,,,,,,
+2300.HI07.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI07.02,Industry Code,Condition Code,R,,,,,,
+2300.HI08.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI08.02,Industry Code,Condition Code,R,,,,,,
+2300.HI09.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI09.02,Industry Code,Condition Code,R,,,,,,
+2300.HI10.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI10.02,Industry Code,Condition Code,R,,,,,,
+2300.HI11.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI11.02,Industry Code,Condition Code,R,,,,,,
+2300.HI12.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI12.02,Industry Code,Condition Code,R,,,,,,
+HCP,Segment - HCP Claim Pricing/Repricing Information (Situational),,,,,,,,
+2300.HCP01,Pricing Methodology,"Code specifying pricing methodology at which the claim or line item has been
+priced or repriced",R,,,,,,
+2300.HCP02,Monetary Amount,Repriced Allowed Amount,R,,,,,,
+2300.HCP03,Monetary Amount,Repriced Saving Amount,S,,,,,,
+2300.HCP04,Reference Identification,Repricing Organization Identifier,S,,,,,,
+2300.HCP05,Rate,Repricing Per Diem or Flat Rate Amount,S,,,,,,
+2300.HCP06,Reference Identification,Repriced Approved Ambulatory Patient Group Code,S,,,,,,
+2300.HCP07,Monetary Amount,Repriced Approved Ambulatory Patient Group Amount,S,,,,,,
+2300.HCP13,Reject Reason Code,Code assigned by issuer to identify reason for rejection,S,,,,,,
+2300.HCP14,Policy Compliance Code,Code specifying policy compliance,S,,,,,,
+2300.HCP15,Exception Code,Code specifying the exception reason for consideration of out-of-network health care services,S,,,,,,
+Loop 2310A  - REFERRING PROVIDER NAME (Situational)  Loop Repeat: 2,,,R,,,,,,
+NM1,Segment - NM1 Referring Provider Name (Situational),,R,,,,,,
+2310A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"DN : Referring Provider
+P3 : Primary Care Provider",,,,,
+2310A.NM102,Entity Type Qualifier,y,R,1 : Person,,,,,
+2310A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,REFERRING_PROVIDER_LAST_NAME,,
+2310A.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,REFERRING_PROVIDER_FIRST_NAME,,
+2310A.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,REFERRING_PROVIDER_MIDDLE_NAME,,
+2310A.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,REFERRING_PROVIDER_NAME_SUFFIX,,
+2310A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2310A.NM109,Identification Code,Referring Provider Identifier,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,REFERRING_PROVIDER_IDENTIFICATION_CODE,,
+REF,Segment - REF Referring Provider Secondary Identification (Situational),,,,,,,,
+2310A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Referring Provider Secondary Identifier",R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+Loop 2310B — RENDERING PROVIDER NAME Loop Repeat: 1 (Situational),,,,,,,,,
+NM1,Segment - NM1 Rendering Physician Name (Situational),,,,,,,,
+2310B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 : Rendering Provider,,,,,
+2310B.NM102,Entity Type Qualifier,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"1 : Person
+2 : Non-Person Entity",,,,,
+2310B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM,"Rendering_Provider_Last_Name
+Submitted rendering provider last name.",if  Loop 2420A does not exist,
+2310B.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM,"Rendering_Provider_First_Name
+Submitted rendering provider first name.",if  Loop 2420A does not exist,
+2310B.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM,"Rendering_Provider_Middle_Name
+Submitted rendering provider middle name.",if  Loop 2420A does not exist,
+2310B.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM,"Rendering_Provider_Name_Suffix
+Submitted information rendering provider suffix.",if  Loop 2420A does not exist,
+2310B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2310B.NM109,Identification Code,Code identifying a party or other code /Rendering Provider Identifier,S,,,SUBMITTED_CLAIM,"Rendering_Provider_ID
+Submitted Rendering Provider Id",if  Loop 2420A does not exist,
+PRV,Segment - PRV Rendering Provider Specialty Information (Situational),,,,,,,,
+2310B.PRV01,Provider Code,Code identifying the type of provider,R,PE : Performing,,,,,
+2310B.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC : Health Care Provider Taxonomy Code,,,,,
+2310B.PRV03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier / Provider Taxonomy Code",R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,if  Loop 2420A does not exist,
+REF,Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,,,
+2310B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU : Location Number",,SUBMITTED_CLAIM_PROVIDER_DETAILS,,if  Loop 2420A does not exist,
+2310B.REF02,Reference Identification,Rendering Provider Secondary Identifier,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,if  Loop 2420A does not exist,
+Loop 2310C — SERVICE FACILITY LOCATION NAME Loop Repeat: 1 (Situational),,,,,,,,,
+NM1,Segment - NM1 Service Facility Location Name (Situational),,,,,,,,
+2310C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",R,77 : Service Location,,,,,
+2310C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2310C.NM103,Name Last or Organization Name,Individual last name or organizational name /Laboratory or Facility Name,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_NAME,,
+2310C.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2310C.NM109,Identification Code,Laboratory or Facility Primary Identifier,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_IDENTIFICATION_CODE,,
+N3,Segment - N3 Service Facility Location Address (Required),,,,,,,,
+2310C.N301,Address Information,Address information,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_ADDRESS_1,,
+2310C.N302,Address Information,Address information,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_ADDRESS_2,second instance of street address,
+N4,"Segment - N4 Service Facility Location City, State, ZIP Code (Required)",,,,,,,,
+2310C.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_CITY_NAME,,
+2310C.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_STATE_CODE,,
+2310C.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_POSTAL_CODE,,
+2310C.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,SERVICE_FACILITY_COUNTRY_CODE,,
+2310C.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Service Facility Location Secondary Identification (Situational),,,,,,,,
+2310C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2310C.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Laboratory or Facility Secondary Identifier",R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+PER,Segment - PER Service Facility Contact Information (Situational),,,,,,,,
+2310C.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC : Information Contact,,,,,
+2310C.PER02,Name,Name,S,,,,,,
+2310C.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,TE : Telephone,,,,,
+2310C.PER04,Communication Number,Complete communications number including country or area code when applicable,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310C.PER05,Communication Number Qualifier,Code identifying the type of communication number,R,EX :  Telephone Extension,,,,,
+2310C.PER06,Communication Number,"Complete communications number including country or area code when
+applicable",S,,,,,,
+Loop 2310D — SUPERVISING PROVIDER NAME (Situational)   Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Supervising Provider Name (Situational),,,,,,,,
+2310D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DQ : Supervising Physician,,,,,
+2310D.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+2310D.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,
+2310D.NM104,Name First,Individual first name,S,,,,,,
+2310D.NM105,Name Middle,Individual middle name or initial,S,,,,,,
+2310D.NM107,Name Suffix,Suffix to individual name,S,,,,,,
+2310D.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,,,,,,
+2310D.NM109,Identification Code,Code identifying a party or other code /  Supervising Provider Identifier,S,,,,,,
+REF,Segment - REF Supervising Provider Secondary Identification (Situational),,,,,,,,
+2310D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2310D.REF02,Reference Identification,Supervising Provider Secondary Identifier,R,,,,,,
+Loop 2310E  - AMBULANCE PICK-UP LOCATION  (Situational)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Pick-up Location (Situational),,,,,,,,
+2310E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PW :  Pickup Address,,,,,
+2310E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2  :  Non-Person Entity,,,,,
+N3,Segment - N3 Ambulance Pick-up Location Address (Required),,,,,,,,
+2310E.N301,Address Information,Ambulance Pick-up Address Line,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310E.N302,Address Information,Ambulance Pick-up Address Line,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+N4,"Segment - N4 Ambulance Pick-up Location City, State, ZIP Code (Required)",,,,,,,,
+2310E.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310E.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310E.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+,,,,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310E.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310E.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2310F — AMBULANCE DROP-OFF LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Drop-off Location (Situational),,,,,,,,
+2310F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,45 : Drop-off Location,,,,,
+2310F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2  :  Non-Person Entity,,,,,
+2310F.NM103,Name Last or Organization Name,Ambulance Drop-off Location,S,,,SUBMITTED_CLAIM,"AMBULANCE_DROPOFF_LOCATION_NAME
+Location name for Drop off",,
+N3,Segment - N3 Ambulance Drop-off Location Address (Required),,,,,,,,
+2310F.N301,Address Information,Ambulance Drop-off Address Line,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310F.N302,Address Information,Ambulance Drop-off Address Line,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+N4,"Segment - N4 Ambulance Drop-off Location City, State, ZIP Code (Required)",,,,,,,,
+2310F.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310F.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310F.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310F.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_PROVIDER_DETAILS,,,
+2310F.N407,Country Subdivision Code,Code identifying the country subdivision,,,,,,,
+Loop 2320 — OTHER SUBSCRIBER INFORMATION(Situational) Loop Repeat: 10                                        A record is inserted into SUBMITTED_CLAIM_OTHER_SUBSCRIBER  table for each repetition of 2320 loop.,,,S,,,,,,
+SBR,Segment - SBR Other Subscriber Information (Situational),,,,,,,,
+2320.SBR01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim",R,"P : Primary
+S : Secondary
+T : Tertiary",,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,,,Not taking this as part of the PSD requirement
+2320.SBR02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,R,"01 Spouse
+18 Self
+19 Child
+20 Employee
+21 Unknown
+39 Organ Donor
+40 Cadaver Donor
+53 Life Partner
+G8 Other Relationship",,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"Relationship_To_Insured
+Relationship to insured subscriber",,
+2320.SBR03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Insured Group or Policy Number",S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,,,
+2320.SBR04,Name,Other Insured Group Name,S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,,,
+2320.SBR05,Insurance Type Code,Code identifying the type of insurance policy within a specific insurance program,S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,,,
+2320.SBR09,Claim Filing Indicator Code,Code identifying type of claim,S,,"MB :Medicare Part B
+MA: Medicare Part A
+MC: Medicaid",SUBMITTED_CLAIM_OTHER_SUBSCRIBER,,,
+CAS,Segment - CAS Claim Level Adjustments (Situational),,,,,,,,
+2320.CAS01,Claim Adjustment Group Code,Code identifying the general category of payment adjustment,R,"CO : Contractual Obligations
+CR : Correction and Reversals
+OA : Other adjustments
+PI : Payor Initiated Reductions
+PR : Patient Responsibility",,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE,,
+2320.CAS02,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_REASON_CODE_1,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS03,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_AMT_1,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS04,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_QTY_1,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS05,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_REASON_CODE_2,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS06,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_AMT_2,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS07,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_QTY_2,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS08,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_REASON_CODE_3,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS09,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_AMT_3,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS10,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_QTY_3,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS11,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_REASON_CODE_4,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS12,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_AMT_4,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS13,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_QTY_4,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS14,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_REASON_CODE_5,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS15,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_AMT_5,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS16,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_QTY_5,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS17,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_REASON_CODE_6,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS18,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_AMT_6,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2320.CAS19,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LEVEL_ADJUSTMENTS,CLAIM_ADJUSTMENT_GROUP_CODE.CLAIM_ADJUSTMENT_QTY_6,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+AMT,Segment - AMT Coordination of Benefits (COB) Payer Paid Amount (Situational),,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,D : Payor Amount Paid,,,,,
+2320.AMT02,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,PAYER_AMOUNT_PAID,,
+AMT,Segment - AMT Remaining Patient Liability (Situational),,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,EAF :  Amount Owed,,,,,
+2320.AMT02,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,,,
+AMT,Segment - AMT Coordination of Benefits (COB) Total Non-covered Amount (Situational),,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,A8 :  Noncovered Charges - Actual,,,,,
+2320.AMT02,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,NONCOVERED_CHARGES,,
+OI,Segment - OI Other Insurance Coverage Information (Required),,,,,,,,
+2320.OI03,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response/Benefits Assignment Certification Indicator,R,"N : No
+W : Not Applicable
+Use code ‘W’ when the patient refuses to assign
+benefits.
+Y :  Yes",,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"BENEFITS_ASSIGNMENT_CERTIFICATION_INDICATOR
+Benefits assignment certification indicator",,
+2320.OI04,Patient Signature Source Code,"Code indicating how the patient or subscriber authorization signatures were
+obtained and how they are being retained by the provider",S,,,,,,
+2320.OI06,Release of Information Code,Code indicating whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations,R,"I  : Informed Consent to Release Medical Information
+Y : Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim",,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"INFORMATION_RELEASE_CERTIFICATION_INDICATOR
+Information release certification indicator",,
+MOA,Segment - MOA Outpatient Adjudication Information (Situational),A record is inserted into SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO  table for each repetition of MOA segment.,,,,,,,
+2320.MOA01,Percentage as Decimal,"Percentage expressed as a decimal (e.g., 0.0 through 1.0 represents 0% through
+100%)",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"REIMBURSEMENT_RATE
+Reimbulsement rate",,
+2320.MOA02,Monetary Amount,Monetary amount,S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"HCPCS_PAYABLE_AMOUNT
+HCPCS payable amount",,
+2320.MOA03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"CLAIM_PAYMENT_REMARK_CODE_1
+Claim payment remark code 1",,
+2320.MOA04,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"CLAIM_PAYMENT_REMARK_CODE_2
+Claim payment remark code 2",,
+2320.MOA05,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"CLAIM_PAYMENT_REMARK_CODE_3
+Claim payment remark code 3",,
+2320.MOA06,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"CLAIM_PAYMENT_REMARK_CODE_4
+Claim payment remark code 4",,
+2320.MOA07,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"CLAIM_PAYMENT_REMARK_CODE_5
+Claim payment remark code 5",,
+2320.MOA08,Monetary Amount,Monetary Amount/End Stage Renal Disease Payment Amount,S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,"ESRD_PAYMENT_AMOUNT
+ESRD payment amount",,
+2320.MOA09,Monetary Amount,"Monetary Amount/ Non-Payable Professional Component Billed
+Amount",S,,,SUBMITTED_CLAIM_MEDICARE_OUTPATIENT_INFO,NON_PAYABLE_PROF_COMP_BILLED_AMOUNT,,
+Loop 2330A —  OTHER SUBSCRIBER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Subscriber Name (Required),,,,,,,,
+2330A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,IL : Insured or Subscriber,,,,,
+2330A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2330A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,OTHER_INSURED_LAST_NAME,,
+2330A.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,OTHER_INSURED_FIRST_NAME,,
+2330A.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,OTHER_INSURED_MIDDLE_NAME,,
+2330A.NM107,Name Suffix,Suffix to individual name,S,E,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,OTHER_INSURED_NAME_SUFFIX,,
+2330A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,"II : Standard Unique Health Identifier for each Individual
+in the United States
+MI :Member Identification Number",,,,,
+2330A.NM109,Identification Code,Code identifying a party or other code,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,OTHER_INSURED_INDENTIFICATION_CODE,,
+N3,Segment - N3 Other Subscriber Address (Situational),,,,,,,,
+2330A.N301,Address Information,Address Information,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"OTHER_INSURED_ADDRESS_LINE_1
+Other Insured Subscriber Address Line1",,
+2330A.N302,Address Information,Address Information,S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"OTHER_INSURED_ADDRESS_LINE_2
+Other Insured Subscriber Address Line2",,
+N4,Segment - N4 Other Subscriber City/State/ZIP Code (Situational),,,,,,,,
+2330A.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"OTHER_INSURED_CITY
+Other Insured Subscriber City",,
+2330A.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"OTHER_INSURED_STATE
+Other Insured Subscriber State",,
+2330A.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"OTHER_INSURED_ZIP
+Other Insured Subscriber Zip",,
+2330A.N404,Country Code,Code identifying the country,S,,,,,,
+2330A.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Other Subscriber Secondary Information (Situational),,,,,,,,
+2330A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,SY :  Social Security Number,,,,,
+2330A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier / Other Insured Additional Identifier",R,,,SUBMITTED_CLAIM_OTHER_SUBSCRIBER,"OTHER_INSURED_ADDITIONAL_IDENTIFIER
+Other insured additional identifier",,
+Loop 2330B — OTHER PAYER NAME (Situational) Loop Repeat: 1   A record is inserted into  SUBMITTED_CLAIM_OTHER_PAYER  table for each 2330B loop.,,,,,,,,,
+NM1,Segment - NM1 Other Payer Name (Required),,,,,,,,
+2330B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PR : Payer,,,,,
+2330B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :  Non-Person Entity,,,,,
+2330B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_NAME,,
+2330B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",R,"PI :  Payor Identification
+XV : Centers for Medicare and Medicaid Services PlanID",,,,,
+2330B.NM109,Identification Code,Code identifying a party or other code,R,,,SUBMITTED_CLAIM_OTHER_PAYER,"OTHER_PAYER_PRIMARY_IDENTIFIER
+Other payor primary identifier",,
+N3,Segment - N3 Other Payer Address (Situational),,,,,,,,
+2330B.N301,Address Information,Address Information,R,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_ADD_1,,
+2330B.N302,Address Information,Address Information,S,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_ADD_2,,
+N4,Segment - N4 Other Payer City/State/ZIP Code (Situational),,,,,,,,
+2330B.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_CITY,,
+2330B.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_STATE,,
+2330B.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_ZIP,,
+2330B.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_OTHER_PAYER,CLAIM_OTHER_PAYER_COUNTRY,,
+2330B.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+DTP,Segment - DTP Claim Check or Remittance Date (Situational),,,,,,,,
+2330B.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,573 : Date Claim Paid,,,,,
+2330B.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2330B.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,20210305,SUBMITTED_CLAIM_OTHER_PAYER,Adjuntication or payment date,,
+REF,Segment - REF Other Payer Secondary Identifier (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"2U : Payer Identification Number
+EI : Employer’s Identification Number
+FY : Claim Office Number
+NF : National Association of Insurance Commissioners
+(NAIC) Code",,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Other Payer Secondary Identifier",R,,22105302412107COA,,,,
+REF,Segment - REF Other Payer Prior Authorization Number (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Other Payer Prior Authorization Number",R,,,,,,
+REF,Segment - REF Other Payer Referral Number (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F :  Referral Number,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/  Other Payer Prior Authorization or Referral
+Number",R,,,,,,
+REF,Segment - REF Other Payer Claim Adjustment Indicator (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,T4 : Signal Code,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ : Other Payer Claim Adjustment Indicator",R,,,,,,
+REF,Segment - REF Other Payer Claim Control Number (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F8 : Original Reference Number,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ : Other Payer’s Claim Control Number",R,,,SUBMITTED_CLAIM_OTHER_PAYER,,,
+Loop 2330C — OTHER PAYER REFERRING PROVIDER (Situational)  Loop Repeat: 2,,,,,,,,,
+NM1,Segment - NM1 Other Payer Referring Provider (Situational),,,,,,,,
+2330C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"DN : Referring Provider
+P3 : Primary Care Provider",,,,,
+2330C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+REF,Segment - REF Other Payer Referring Provider Secondary Identification (Required),,,,,,,,
+2330C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,,,,
+2330C.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier  /Other Payer Referring Provider Identifier,R,,,,,,
+Loop 2330D — OTHER PAYER RENDERING PROVIDER (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Rendering Provider (Situational),,,,,,,,
+2330D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 :Other Payer Referring Provider Identifier,,,,,
+2330D.NM102,Entity Type Qualifier,Code qualifying the type of entity /Other Payer Referring Provider Identifier,R,"1 :Person
+2 :Non-Person Entity",,,,,
+REF,Segment - REF Other Payer Rendering Provider Secondary Identification (Required),,,,,,,,
+2330D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B :State License Number
+1G :Provider UPIN Number
+G2 :Provider Commercial Number
+LU :Location Number",,,,,
+2330D.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier /Other Payer Referring Provider Identifier,R,,,,,,
+Loop 2330E — OTHER PAYER SERVICE FACILITY LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Service Facility Location (Situational),,,,,,,,
+2330E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,77 : Service Location,,,,,
+2330E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :Non-Person Entity,,,,,
+REF,Segment - REF Other Payer Service Facility Location Secondary Identification (Required),,,,,,,,
+2330E.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2330E.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier /Other Payer Service Facility Location Secondary
+Identifie",R,,,,,,
+Loop 2330F  — OTHER PAYER SUPERVISING PROVIDER (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Supervising Provider (Situational),,,,,,,,
+2330F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DQ : Supervising Physician,,,,,
+2330F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+REF,Segment - REF Other Payer Supervising Provider Secondary Identification (Required),,,,,,,,
+2330F.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2330F.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Other Payer Supervising Provider Identifier",R,,,,,,
+Loop 2330G — OTHER PAYER BILLING PROVIDER  (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Billing Provider (Situational),,,,,,,,
+2330G.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,85 : Billing Provider,,,,,
+2330G.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+REF,Segment - REF Other Payer Billing Provider Secondary Identification (Required),,,,,,,,
+2330G.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2330G.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Other Payer Billing Provider Identifier",R,,,,,,
+Loop 2400  — SERVICE LINE NUMBER(Required) Loop Repeat: 50                    A record is inserted into SUBMITTED_CLAIM_LINE  table for each occurrence of 2400 Loop.,,,,,,,,,
+LX,Segment - LX Service Line Number (Required),,,,,,,,
+2400.LX01,Assigned Number,Number assigned for differentiation within a transaction set,R,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"SUBMITTED_LINE_NUMBER
+Submitted Claim Line number",,
+,,,,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"SUBMITTED_LINE_NUMBER
+Submitted line number",,
+SV1,Segment - SV1 Professional Service (Required),,,,,,,,
+2400.SV101.01,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID (234)",R,"HC  :  Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+ER : Jurisdiction Specific Procedure and Supply Codes
+IV :Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+WK :Advanced Billing Concepts (ABC) Codes",,,,,
+2400.SV101.02,Product/Service ID,identifying number for a product or service,R,,90837,SUBMITTED_CLAIM_LINE,SERVICE_CODE,,
+2400.SV101.03,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,HE,SUBMITTED_CLAIM_LINE,PROCEDURE_MOD_1,,
+2400.SV101.04,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,SUBMITTED_CLAIM_LINE,PROCEDURE_MOD_2,,
+2400.SV101.05,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,SUBMITTED_CLAIM_LINE,PROCEDURE_MOD_3,,
+2400.SV101.06,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,SUBMITTED_CLAIM_LINE,PROCEDURE_MOD_4,,
+2400.SV101.07,Description,A free-form description to clarify the related data elements and their content,S,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV102,Monetary Amount,Monetary Amount,R,,233.19,SUBMITTED_CLAIM_LINE,LINE_ITEM_AMOUNT,,CHECK WITH AMBILY
+2400.SV103,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,"UN : Unit
+MJ : Minutes",,SUBMITTED_CLAIM_LINE,LINE_ITEM_UNITS,,
+2400.SV104,Quantity,Numeric value of quantity,R,,,SUBMITTED_CLAIM_LINE,LINE_ITEM_QUANTITY,,
+,,,,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV105,Facility Code Value,"Code identifying where services were, or may be, performed; the first and second positions of the Uniform Bill Type Code for Institutional Services or the Place of Service Codes for Professional or Dental Services.",S,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV107.01,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,R,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV107.02,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,S,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV107.03,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,S,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV107.04,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,S,,,SUBMITTED_CLAIM_LINE,,,
+2400.SV109,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response /Emergency Indicator,S,Y :Yes,,SUBMITTED_CLAIM_LINE,,,
+2400.SV111,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response /EPSDT Indicator,S,Y :Yes,,SUBMITTED_CLAIM_LINE,,,
+2400.SV112,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response/ Family Planning Indicator,S,Y :Yes,,,,,
+2400.SV115,Copay Status Code,"Code indicating whether or not co-payment requirements were met on a line by
+line basis",S,0 : Copay exempt,,,,,
+SV5,Segment - SV5 Durable Medical Equipment Service (Situational),,,,,,,,
+2400.SV501.01,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,"HC : Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes",,,,,
+2400.SV501.02,Product/Service ID,Identifying number for a product or service,R,,,,,,
+2400.SV502,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",R,DA: Days,,,,,
+2400.SV503,Quantity,Numeric value of quantity,R,,,,,,
+2400.SV504,Monetary Amount,Monetary Amount,R,,,,,,
+2400.SV505,Monetary Amount,Monetary Amount,R,,,,,,
+2400.SV506,Frequency Code,Code indicating frequency or type of activities or actions being reported,R,"1 :Weekly
+4 :Monthly
+6 :Daily",,,,,
+PWK,Segment - PWK Line Supplemental Information (Situational),,,,,,,,
+2400.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,,,,,,
+2400.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be sent",R,,,,,,
+2400.PWK05,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,AC :  Attachment Control Number,,,,,
+2400.PWK06,Identification Code,Code identifying a party or other code,S,,,,,,
+PWK,Segment - PWK Durable Medical Equipment Certificate of Medical Necessity Indicator (Situational),,,,,,,,
+2400.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,CT : Certification,,,,,
+2400.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be
+sent",R,"AB :Previously Submitted to Payer
+AD :Certification Included in this Claim
+AF :Narrative Segment Included in this Claim
+AG :No Documentation is Required
+NS :Not Specified",,,,,
+CR1,Segment - CR1 Ambulance Transport Information (Situational),,,,,,,,
+2400.CR101,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",S,LB : Pound,,,,,
+2400.CR102,Weight,Numeric value of weight,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,PATIENT_WEIGHT,,
+2400.CR104,Ambulance Transport Reason Code,Code indicating the reason for ambulance transport,R,"A : Patient was transported to nearest facility
+B : Patient was transported for the benefit of a preferred physician
+C : Patient was transported for the nearness of family members
+D : Patient was transported for the care of a specialist
+E : Patient Transferred to Rehabilitation Facility",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_REASON_CODE,,
+2400.CR105,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,DH : Miles,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_UNITS,,
+2400.CR106,Quantity,Transport Distance,R,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_TRANSPORT_DISTANCE,,
+2400.CR109,Description,"Round Trip Purpose Description. Required when the ambulance service is for a round
+trip.",S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PURPOSE_DESC,,
+2400.CR110,Description,Stretcher Purpose Description,S,,,,,,
+CR3,Segment - CR3 Durable Medical Equipment Certification (Situational),,,,,,,,
+2400.CR301,Certification Type Code,Code indicating the type of certification,R,"I : Initial
+R : Renewal
+S : Revised",,,,,
+2400.CR302,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,MO : Months,,,,,
+2400.CR303,Quantity,Numeric value of quantity,R,,,,,,
+CRC,Segment - CRC Ambulance Certification (Situational),,,,,,,,
+2400.CRC01,Code Category,Specifies the situation or category to which the code applies,R,07 : Ambulance Certification,,,,,
+2400.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"Y : Yes
+N : No",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code",,
+2400.CRC03,Condition Indicator,Code indicating a condition,R,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code1",,
+2400.CRC04,Condition Indicator,Code indicating a condition when a second condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code2",,
+2400.CRC05,Condition Indicator,Code indicating a condition when a third condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code3",,
+2400.CRC06,Condition Indicator,Code indicating a condition when a fourth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code4",,
+2400.CRC07,Condition Indicator,Code indicating a condition when a fifth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,"CONDITION_CODE_APPLIES_INDICATOR
+Ambulance condition code5",,
+CRC,Segment - CRC Hospice Employee Indicator (Situational),,R,,,,,,
+2400.CRC01,Code Category,Specifies the situation or category to which the code applies,R,70 : Hospice,,,,,
+2400.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"Y : Yes
+N : No",,SUBMITTED_CLAIM_LINE,,,
+2400.CRC03,Condition Indicator,Code indicating a condition,R,65 : Open,,,,,
+CRC,Segment - CRC Condition Indicator/Durable Medical Equipment (Situational),,,,,,,,
+2400.CRC01,Code Category,Specifies the situation or category to which the code applies,R,09 : Durable Medical Equipment Certification,,,,,
+2400.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"Y : Yes
+N : No",,,,,
+2400.CRC03,Condition Indicator,Code indicating a condition,R,"38 :  Certification signed by the physician is on file at the
+supplier’s office
+ZV : Replacement Item",,,,,
+2400.CRC04,Condition Indicator,Code indicating a condition,S,"38 :  Certification signed by the physician is on file at the
+supplier’s office
+ZV : Replacement Item",,,,,
+DTP,Segment - DTP Date - Service Date (Required),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,472 : Service,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,"RD8 :  Range of Dates Expressed in Format CCYYMMDDCCYYMMDD
+D8 : Date Expressed in Format CCYYMMDD",,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,20201112,SUBMITTED_CLAIM_LINE,LINE_SERVICE_DT,"01-08 -If we receive date format  CCYYMMDD We need to map both start date and end date
+
+
+byte 1-8 in the format YYYY-MM-DD",
+,,,,,,SUBMITTED_CLAIM_LINE,,byte 10-17 in the format YYYY-MM-DD,
+DTP,Segment - DTP Date - Prescription Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,471 : Prescription,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP DATE - Certification Revision/Recertification Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,607 :  Certification Revision,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Begin Therapy Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,463 : Begin Therapy,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Last Certification Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,461 : Last Certification,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Last Seen Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,304 : Latest Visit or Consultation,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Test Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,"738 :Most Recent Hemoglobin or Hematocrit or Both
+739 :Most Recent Serum Creatine",,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Shipped Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,011 : Shipped,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Last X-ray Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,455 : Last X-Ray,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Initial Treatment Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,454:  Initial Treatment,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+QTY,Segment - QTY Ambulance Patient Count (Situational),,,,,,,,
+2400.QTY01,Quantity Qualifier,Code specifying the type of quantity,R,PT : Patients,,,,,
+2400.QTY02,Quantity,Numeric value of quantity,R,,,SUBMITTED_CLAIM_LINE,AMBULANCE_PATIENT_COUNT,,
+QTY,Segment - QTY Obstetric Anesthesia Additional Units (Situational),,,,,,,,
+2400.QTY01,Quantity Qualifier,Code specifying the type of quantity,R,FL : Units,,,,,
+2400.QTY02,Quantity,Numeric value of quantity,R,,,,,,
+MEA,Segment - MEA Test Result (Situational),,,,,,,,
+2400.MEA01,Measurement Reference ID Code,Code identifying the broad category to which a measurement applies,R,"OG Original
+TR Test Results",,,,,
+2400.MEA02,Measurement Qualifier,"Code identifying a specific product or process characteristic to which a
+measurement applies",R,"HT Height
+R1 Hemoglobin
+R2 Hematocrit
+R3 Epoetin Starting Dosage
+R4 Creatinine",,,,,
+2400.MEA03,Measurement Value,The value of the measurement,R,,,,,,
+CN1,Segment - CN1 Contract Information (Situational),,,,,,,,
+2400.CN101,Contract Type Code,Code identifying a contract type,R,"01 : Diagnosis Related Group (DRG)
+02 : Per Diem
+03 : Variable Per Diem
+04 : Flat
+05 : Capitated
+06 : Percent
+09 : Other",,,,,
+2400.CN102,Monetary Amount,Monetary Amount,S,,,,,,
+2400.CN103,"Percent, Decimal Format",Percent given in decimal format,S,,,,,,
+2400.CN104,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /: Contract Code",S,,,,,,
+2400.CN105,Terms Discount Percent,"Terms discount percentage, expressed as a percent, available to the purchaser if
+an invoice is paid on or before the Terms Discount Due Date",S,,,,,,
+2400.CN106,Version Identifier,"Revision level of a particular format, program, technique or algorithm",S,,,,,,
+REF,Segment - REF Line Item Control Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,6R : Provider Control Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Repriced Line Item Reference Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9B : Repriced Line Item Reference Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Adjusted Repriced Line Item Reference Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9D : Adjusted Repriced Line Item Reference Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Prior Authorization (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2400.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2400.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Mammography Certification Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EW : Mammography Certification Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Clinical Laboratory Improvement Amendment (CLIA) Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"X4 : Clinical Laboratory Improvement Amendment
+Number",,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Immunization Batch Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,BT : Batch Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Referral Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F  :Referral Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2400.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2400.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+AMT,Segment - AMT Sales Tax Amount (Situational),,,,,,,,
+2400.AMT01,Amount Qualifier Code,Code to qualify amount,R,T :Tax,,,,,
+2400.AMT02,Monetary Amount,Monetary Amount,R,,,,,,
+AMT,Segment - AMT Postage Claimed Amount (Situational),,,,,,,,
+2400.AMT01,Amount Qualifier Code,Code to qualify amount,R,F4 : Postage Claimed,,,,,
+2400.AMT02,Monetary Amount,Monetary Amount,R,,,,,,
+K3,Segment - K3 File Information (Situational),,,,,,,,
+2400.K301,Fixed Format Information,Data in fixed format agreed upon by sender and receiver,R,,,,,,
+NTE,Segment - NTE Line Note (Situational),,,,,,,,
+2400.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,"ADD :Additional Information
+DCP: Goals, Rehabilitation Potential, or Discharge Plans",,SUBMITTED_CLAIM_LINE,,,
+2400.NTE02,Description,A free-form description to clarify the related data elements and their content,R,,,SUBMITTED_CLAIM_LINE,,,
+NTE,Segment - NTE Third Party Organization Notes (Situational),,,,,,,,
+2400.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,TPO : Third Party Organization Notes,,SUBMITTED_CLAIM_LINE,,,
+2400.NTE02,Description,A free-form description to clarify the related data elements and their content,R,,,SUBMITTED_CLAIM_LINE,,,
+PS1,Segment - PS1 Purchased Service Information (Situational),,,,,,,,
+2400.PS101,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+2400.PS102,Monetary Amount,Monetary Amount,R,,,,,,
+HCP,Segment - HCP Line Pricing/Repricing Information (Situational),,,,,,,,
+2400.HCP01,Pricing Methodology,"Code specifying pricing methodology at which the claim or line item has been
+priced or repriced",R,"00: Zero Pricing (Not Covered Under Contract)
+01: Priced as Billed at 100%
+02 :Priced at the Standard Fee Schedule
+03 :Priced at a Contractual Percentage
+04 : Bundled Pricing
+05 : Peer Review Pricing
+06 : Per Diem Pricing
+07 : Flat Rate Pricing
+08  :Combination Pricing
+09 : Maternity Pricing
+10 : Other Pricing
+11 : Lower of Cost
+12 : Ratio of Cost
+13 : Cost Reimbursed
+14 : Adjustment Pricing",,,,,
+2400.HCP02,Monetary Amount,Monetary Amount,R,,,,,,
+2400.HCP03,Monetary Amount,Monetary Amount,S,,,,,,
+2400.HCP04,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifie /Repricing Organization Identifier",S,,,,,,
+2400.HCP05,Rate,Rate expressed in the standard monetary denomination for the currency specified,S,,,,,,
+2400.HCP06,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /Repriced Approved Ambulatory Patient Group
+Code",S,,,,,,
+2400.HCP07,Monetary Amount,,S,,,,,,
+2400.HCP09,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",S,"ER : Jurisdiction Specific Procedure and Supply Codes
+HC :Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+IV : Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+WK : Advanced Billing Concepts (ABC) Codes",,,,,
+2400.HCP10,Product/Service ID,Identifying number for a product or service,S,,,,,,
+2400.HCP11,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",S,"MJ : Minutes
+UN: Unit",,,,,
+2400.HCP12,Quantity,Numeric value of quantity,S,,,,,,
+2400.HCP13,Reject Reason Code,Code assigned by issuer to identify reason for rejection,S,"T1 :Cannot Identify Provider as TPO (Third Party
+Organization) Participant
+T2 :Cannot Identify Payer as TPO (Third Party
+Organization) Participant
+T3 :Cannot Identify Insured as TPO (Third Party
+Organization) Participant
+T4 :Payer Name or Identifier Missing
+T5 :Certification Information Missing
+T6 :Claim does not contain enough information for repricing",,,,,
+2400.HCP14,Policy Compliance Code,Code specifying policy compliance,S,"1 :Procedure Followed (Compliance)
+2:Not Followed - Call Not Made (Non-Compliance Call
+Not Made)
+3: Not Medically Necessary (Non-Compliance NonMedically Necessary)
+4 :Not Followed Other (Non-Compliance Other)
+5 : Emergency Admit to Non-Network Hospital",,,,,
+2400.HCP15,Exception Code,"Code specifying the exception reason for consideration of out-of-network health
+care services",S,"1 :Non-Network Professional Provider in Network
+Hospital
+2 :Emergency Care
+3: Services or Specialist not in Network
+4 :Out-of-Service Area
+5 :State Mandates
+6 :Other",,,,,
+Loop 2410  — DRUG IDENTIFICATION Drug identification Loop Repeat: 1,,,,,,,,,
+LIN,Segment - LIN Drug identification (Situational),,,,,,,,
+2410.LIN02,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,N4 : National Drug Code in 5-4-2 Format,,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,DRUG_CODE,Map N4 as 'ND',
+2410.LIN03,Product/Service ID,Identifying number for a product or service,R,,,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,DRUG_PRODUCT_ID,,
+CTP,Segment - CTP Drug Quantity (Required),,,,,,,,
+2410.CTP04,Quantity,Numeric value of quantity,R,,,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,DRUG_QUANTITY,,
+2410.CTP05-1,COMPOSITE UNIT OF MEASURE-Unit or Basis for Measurement Code,"To identify a composite unit of measure. Code specifying the units in which a value is being expressed, or
+manner in which a measurement has been taken",R,"F2 : International Unit
+GR : Gram
+ME :Milligram
+ML :Milliliter
+UN :Unit",,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,DRUG_QUANTITY_MEASURE,,
+REF,Segment - REF Prescription or Compound Drug Association Number (Situational),,,,,,,,
+2410.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"VY : Link Sequence Number
+XZ : Pharmacy Prescription Number",,,,,
+2410.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+Loop 2420A  — RENDERING PROVIDER NAME(Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Renderring Physician Name (Situational),,,,,,,,
+2420A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 : Rendering Provider,,,,,
+2420A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2420A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_LINE,Last Name of Rendering Provider,,
+2420A.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_LINE,First Name of Rendering Provider,,
+2420A.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_LINE,Middle Name of Rendering Provider,,
+2420A.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_LINE,Name Suffix of Rendering Provider,,
+2420A.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code,S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420A.NM109,Identification Code,Code identifying a party or other code /: Rendering Provider Identifier,S,1000959250,,SUBMITTED_CLAIM_LINE,Unique Identifier for a rendering Provider,,
+PRV,Segment - PRV Rendering Provider Specialty Information (Situational),,,,,,,,
+2420A.PRV01,Provider Code,Code identifying the type of provider,R,PE : Performing,,,,,
+2420A.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC : Health Care Provider Taxonomy Code,,,,,
+2420A.PRV03,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,1041C0700X,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+REF,Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,,,
+2420A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU : Location Number",,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420A.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420A.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420B  — PURCHASED SERVICE PROVIDER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Purchased Service Provider Name (Situational),,,,,,,,
+2420B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,QB : Purchase Service Provider,,,,,
+2420B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2420B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420B.NM109,Identification Code,Code identifying a party or other code,S,,,,,,
+REF,Segment - REF Purchased Service Provider Secondary Identification (Situational),,,,,,,,
+2420B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,,,,
+2420B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2420B.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420B.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420C  — SERVICE FACILITY LOCATION NAME  (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Service Facility Location Name (Situational),,,,,,,,
+2420C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,77 : Service Location,,,,,
+2420C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :Non-Person Entity,,,,,
+2420C.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420C.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420C.NM109,Identification Code,Code identifying a party or other code,S,,,,,,
+N3,Segment - N3 Service Facility Location Address (Required),,,,,,,,
+2420C.N301,Address Information,Address Information,R,,,,,,
+2420C.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Service Facility Location City, State, ZIP Code (Required)",,,,,,,,
+2420C.N401,City Name,Free-form text for city name,R,,,,,,
+2420C.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2420C.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2420C.N404,Country Code,Code identifying the country,S,,,,,,
+2420C.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Service Facility Location Secondary Identification (Situational),,,,,,,,
+2420C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"LU : Location Number
+G2 : Provider Commercial Number",,,,,
+2420C.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2420C.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420C.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420D — SUPERVISING PROVIDER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Supervising Provider Name (Situational),,,,,,,,
+2420D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DQ : Supervising Physician,,,,,
+2420D.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+2420D.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420D.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420D.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420D.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420D.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code,S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420D.NM109,Identification Code,Code identifying a party or other code,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+REF,Segment - REF Supervising Provider Secondary Identification (Situational),,,,,,,,
+2420D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU: Location Number",,,,,
+2420D.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420D.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420D.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420E — ORDERING PROVIDER NAME (Situational) Loop Repeat: 1,,,R,,,,,,
+NM1,Segment - NM1 Ordering Provider Name (Situational),,,,,,,,
+2420E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",R,DK :Ordering Physician,,,,,
+2420E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+2420E.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420E.NM109,Identification Code,Code identifying a party or other code,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+N3,Segment - N3 Ordering Provider Address (Situational),,,,,,,,
+2420E.N301,Address Information,Address Information,R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.N302,Address Information,Address Information,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+N4,"Segment - N4 Ordering Provider City, State, ZIP Code (Situational)",,,,,,,,
+2420E.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,byte 1-5,
+2420E.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,byte 6-9,
+2420E.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,"Map to the value ""US"" if not present",
+2420E.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Ordering Provider Secondary Identification (Situational),,,,,,,,
+2420E.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,SUBMITTED_CLAIM_CLAIMLINE_PROVIDER,,,
+2420E.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U  :Payer Identification Number,,,,,
+2420E.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+PER,Segment - PER Ordering Provider Contact Information (Situational),,,,,,,,
+2420E.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC -  Information Contact,,,,,
+2420E.PER02,Name,Submitter Contact Name,S,<<Submitter Name>>,,,,,
+2420E.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2420E.PER04,Communication Number,Complete communications number including country or area code when applicable,R,,,,,,
+2420E.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2420E.PER06,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+2420E.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2420E.PER08,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+Loop 2420F — REFERRING PROVIDER NAME (Situational) Loop Repeat: 2,,,,,,,,,
+NM1,Segment - NM1 Referring Provider Name (Situational),,,,,,,,
+2420F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",R,"DN :Referring Provider
+P3 :Primary Care Provider",,,,,
+2420F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,
+2420F.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,SUBMITTED_CLAIM_LINE,"REFERRING_PROVIDER_LAST_NAME
+Last Name of Referring Provider",If  2420F.NM101  = DN,
+2420F.NM104,Name First,Individual first name,S,,,SUBMITTED_CLAIM_LINE,"REFERRING_PROVIDER_FIRST_NAME
+First Name of Referring Provider",If  2420F.NM101  = DN,
+2420F.NM105,Name Middle,Individual middle name or initial,S,,,SUBMITTED_CLAIM_LINE,"REFERRING_PROVIDER_MIDDLE_NAME
+Middle Name of Referring Provider",If  2420F.NM101  = DN,
+2420F.NM107,Name Suffix,Suffix to individual name,S,,,SUBMITTED_CLAIM_LINE,"REFERRING_PROVIDER_NAME_SUFFIX
+Name Suffix of Referring Provider",If  2420F.NM101  = DN,
+2420F.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420F.NM109,Identification Code,Code identifying a party or other code,S,,,SUBMITTED_CLAIM_LINE,"REFERRING_PROVIDER_IDENTIFIER
+Unique Identifier for a refering Provider",If  2420F.NM101  = DN,
+REF,Segment - REF Referring Provider Secondary Identification (Situational),,,,,,,,
+2420F.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,,,,
+2420F.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2420F.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420F.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420G — AMBULANCE PICK-UP LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Pick-up Location (Situational),,,,,,,,
+2420G.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PW : Pickup Address,,,,,
+2420G.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+N3,Segment- N3 Ambulance Pick-up Location Address (Required),,,,,,,,
+2420G.N301,Address Information,Address Information,R,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PICKUP_ADD_1,,
+2420G.N302,Address Information,Address Information,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PICKUP_ADD_2,,
+N4,"Segment - N4 Ambulance Pick-up Location City, State, ZIP Code (Required)",,,,,,,,
+2420G.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PICKUP_ADD_CITY,,
+2420G.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PICKUP_ADD_STATE,,
+2420G.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PICKUP_ADD_ZIP,,
+2420G.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_PICKUP_ADD_COUNTRY,"Map to the value ""US"" if not present",
+2420G.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2420H  — AMBULANCE DROP-OFF LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Drop-off Location (Situational),,,,,,,,
+2420H.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,45 :  Drop-off Location,,,,,
+2420H.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2420H.NM103,Name Last or Organization Name,Individual last name or organizational name,S,,,SUBMITTED_CLAIM_LINE,AMBULANCE_DROPOFF_LOCATION_NAME,,
+N3,Segment - N3 Ambulance Drop-off Location Address (Required),,,,,,,,
+2420H.N301,Address Information,Address Information,R,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_DROPOFF_ADD_1,,
+2420H.N302,Address Information,Address Information,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_DROPOFF_ADD_2,,
+N4,"Segment - N4 Ambulance Drop-off Location City, State, ZIP Code (Required)",,,,,,,,
+2420H.N401,City Name,Free-form text for city name,R,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_DROPOFF_ADD_CITY,,
+2420H.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_DROPOFF_ADD_STATE,,
+2420H.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_DROPOFF_ADD_ZIP,,
+2420H.N404,Country Code,Code identifying the country,S,,,SUBMITTED_CLAIM_LINE_AMBULANCE_CERTIFICATION,AMB_DROPOFF_ADD_COUNTRY,"Map to the value ""US"" if not present",
+2420H.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2430   — LINE ADJUDICATION INFORMATION(Situational) Loop Repeat: 15,,,,,,,,,
+SVD,Segment - SVD Line Adjudication Information (Situational),,,,,,,,
+2430.SVD01,Identification Code,Code identifying a party or other code,R,,611X1,,,,
+2430.SVD02,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,SERVICE_LINE_PAID_AMOUNT,,
+,,,,,,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,SERVICE_LINE_ALLOWED_AMOUNT,Sum netpaid amount (2430.SVD02) and CAS*PR amounts for the payer in line level - 2430 loop and map to this field,
+2430.SVD03.01,Product/Service ID Qualifier,Code identifying the type/source of the descriptive number used in Product/Service ID,R,"ER : Jurisdiction Specific Procedure and Supply Codes
+HC : Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+IV :Home Infusion EDI Coalition (HIEC) Product/Service
+Code",HC,,,,
+2430.SVD03.02,Product/Service ID,Identifying number for a product or service,R,,90837,,,,
+2430.SVD03.03,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,HE,,,,
+2430.SVD03.04,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,,,,
+2430.SVD03.05,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,,,,
+2430.SVD03.06,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,,,,
+2430.SVD03.07,Description,"A free-form description to clarify the related data elements and their
+content",S,,,,,,
+2430.SVD05,Quantity,Numeric value of quantity/: Paid Service Unit Count,R,,,,,,
+2430.SVD06,Assigned Number,Number assigned for differentiation within a transaction set/: Bundled or Unbundled Line Number,S,,,,,,
+CAS,Segment - CAS Line Adjustment (Situational),,,,,,,,
+2430.CAS01,Claim Adjustment Group Code,Code identifying the general category of payment adjustment,R,"CO : Contractual Obligations
+CR : Correction and Reversals
+OA : Other adjustments
+PI : Payor Initiated Reductions
+PR : Patient Responsibility",,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE,,
+2430.CAS02,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_REASON_CODE_1,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS03,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_AMT_1,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS04,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_QTY_1,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS05,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_REASON_CODE_2,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS06,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_AMT_2,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS07,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_QTY_2,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS08,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_REASON_CODE_3,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS09,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_AMT_3,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS10,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_QTY_3,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS11,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_REASON_CODE_4,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS12,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_AMT_4,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS13,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_QTY_4,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS14,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_REASON_CODE_5,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS15,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_AMT_5,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS16,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_QTY_5,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS17,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_REASON_CODE_6,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS18,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_AMT_6,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+2430.CAS19,Quantity,Numeric value of quantity,S,,,SUBMITTED_CLAIM_LINE_LEVEL_ADJUSTMENTS,CLAIM_LINE_ADJUSTMENT_GROUP_CODE.CLAIM_LINE_ADJUSTMENT_QTY_6,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+DTP,Segment - DTP Line Check or Remittance Date (Required),,,,,,,,
+2430.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,573 : Date Claim Paid,,,,,
+2430.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :Date Expressed in Format CCYYMMDD,,,,,
+2430.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,20210526,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,CLAIM_LINE_REMITTENCE_DATE,"In the format YYYY-MM-DD
+Map the first instance when we have 2430.DTP segment  under more than claim line for same SVD01.",
+AMT,Segment - AMT Remaining Patient Liability (Situational),,,,,,,,
+2430.AMT01,Amount Qualifier Code,Code to qualify amounT,R,EAF : Amount Owed,,,,,
+2430.AMT02,Monetary Amount,Monetary Amount,R,,,SUBMITTED_CLAIM_CLAIMLINE_OTHERDETAILS,,,
+Loop 2440  — FORM IDENTIFICATION CODE (Situational) Loop Repeat: >1,,,,,,,,,
+LQ,Segment - LQ Form Identification Code (Situational),,,,,,,,
+2440.LQ01,Code List Qualifier Code,Code identifying a specific industry code list,R,"AS : Form Type Code
+UT : Centers for Medicare and Medicaid Services (CMS)
+Durable Medical Equipment Regional Carrier
+(DMERC) Certificate of Medical Necessity (CMN)
+Forms",,,,,
+2440.LQ02,Industry Code,Code indicating a code from a specific industry code list,R,,,,,,
+FRM,Segment - FRM Supporting Documentation (Required),,,,,,,,
+2440.FRM01,Assigned Identification,Alphanumeric characters assigned for differentiation within a transaction set,R,,,,,,
+2440.FRM02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response/ Question Response,S,"N No
+W Not Applicable
+Y Yes",,,,,
+2440.FRM03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",S,,,,,,
+2440.FRM04,Date,"Date expressed as CCYYMMDD where CC represents the first two digits of the
+calendar year",S,,,,,,
+2440.FRM05,"Percent, Decimal Format","Percent given in decimal format (e.g., 0.0 through 100.0 represents 0% through
+100%)",S,,,,,,
+Segment SE - Transaction Set Trailer (Required),,,,,,,,,
+SE,SE Transaction Set Trailer (Required),,R,,,,,,
+SE01,Number of Included Segments,"Total number of segments included in a transaction set including ST and SE
+segments",R,,Count Of ST - 74,,,,
+SE02,Transaction Set Control Number,"Identifying control number that must be unique within the transaction set
+functional group assigned by the originator for a transaction set.  It must be identical to ST02.",R,,ST02 Value - 319003402,,,,
+Segment GE - Functional Group Trailer  (Required),,,,,,,,,
+GE,GE Functional Group Trailer (Required),,R,,,,,,
+GE01,Number of Transaction Sets Included,"Total number of transaction sets included in the functional group or interchange
+(transmission) group",R,,Count Of GS - 1,,,,
+GE02,Group Control Number,Assigned number originated and maintained by the sender .  It must be identical to GS06.,R,,319003402,,,,
+Segment IEA -  Interchange Control Trailer(Required),,,,,,,,,
+IEA,IEA Interchange Control Trailer (Required),,R,,,,,,
+IEA01,Number of Included Functional Groups,A count of the number of functional groups included in an interchange,R,,Count Of ISA - 1,,,,
+IEA02,Interchange Control Number,A control number assigned by the interchange sender.  It must be identical to ISA13,R,,ISA13 Value - 319003402,,,,

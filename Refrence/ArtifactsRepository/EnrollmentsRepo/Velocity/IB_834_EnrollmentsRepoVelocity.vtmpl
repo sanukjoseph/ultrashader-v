@@ -1,0 +1,10 @@
+{
+  "eventName": ${eventName},
+  "executionReferenceId": "${executionReferenceId}",
+  "feedback": {
+    "messageUUID": "${messageUUID}",
+    "messageCreateTimeUTC": "${messageCreateTimeUTC}",
+    "jobStatus": "${jobStatus}",
+    "jobCode": "${jobCode}"
+}
+}

@@ -1,0 +1,10 @@
+Roaster Type,Northiside
+Roaster Format (Inbound),Excel (.xlsx)
+Roaster Sheets in Scope,New Providers
+,
+Inbound File Path,<To be Determined>
+Outbound File Path,<To be Determined>
+,
+I  Network Format (Outbound),Comma Separated (.csv)
+Outbound File name,Northiside.csv
+Include Headers in output,Yes

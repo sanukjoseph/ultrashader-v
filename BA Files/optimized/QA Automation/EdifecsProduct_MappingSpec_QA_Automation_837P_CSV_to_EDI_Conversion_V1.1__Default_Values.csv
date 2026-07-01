@@ -1,0 +1,12 @@
+Field in CSV,Claim/Line Level Record,Default value/Mapping logic
+Claimid,Claim Level/Line Level,An incremental value which is unique for each claim record in the file  (P1/P2/P3).
+Scenarios,Claim Level,Blank
+EdiFilename,Claim Level,Name of the IB EDI 837P file
+totalClaimCount,Claim Level,Total number of claims in the IB file
+Entry_Date,Claim Level,Processing date/time in the format: YYYY-MM-DDTHH:mm:ss
+Claim_Source,Claim Level,Refer the ClaimsourceLookup crosswalk in IB 837 and populate.
+Claim_Delivery_Type,Claim Level,Refer the ClaimsourceLookup crosswalk in IB 837 and populate.
+Payee_Type_Field,Claim Level,Hardcode as 'Supplier'
+Benefit_Plan_Type,Claim Level,Hardcode as 1 (medical)
+claim_Payor_Type,Claim Level,Hardcode as '1 '
+End_of_record,Claim Level/Line Level,Hardcode as 'EOR'

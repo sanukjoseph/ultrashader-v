@@ -1,0 +1,53 @@
+,,,,/providerType conversional copy,
+/authorizationStatus - 2000E.HCR01,,,,2010EA/2010F.NM101,Conversional copy
+2000E.HCR01,,/authorizationStatus,,71 Attending Physician,Practitioner
+A1,Certified in total,APPROVED,,72 Operating Physician,Practitioner
+A2,Certified - partial,PARTIALLY_APPROVED,,73 Other Physician,Other
+A3,Not Certified,NOT_APPROVED,,77 Service Location,Supplier_Location
+A4,Pended,,,DD Assistant Surgeon,Practitioner
+A6,Modified,APPROVED,,DK Ordering Physician,Practitioner
+CT,Contact Payer,,,DN Referring Provider,Practitioner
+NA,No Action Required,NOT_APPROVED,,FA Facility,Supplier
+C,Cancelled,,,G3 Clinic,Other
+,,,,P3 Primary Care Provider,Practitioner
+,,,,QB Purchase Service Provider,Other
+/serviceSetStatus - 2000F.HCR01 or 2000E.HCR01,,,,QV Group Practice,Other
+2000E/2000F.HCR01,,/serviceSetStatus,,SJ Service Provider,Supplier
+A1,Certified in total,APPROVED,,AAJ Admitting Services,Other
+A3,Not Certified,DENIED,,"1T Physician, Clinic or Group Practice",Other
+A4,Pended,,,DQ Supervising Physician,Practitioner
+A6,Modified,APPROVED,,,
+CT,Contact Payer,,,,
+NA,No Action Require,UNNECESSARY,,,
+C,Cancelled,,,,
+,,,,,
+,,,,,
+/requestedAdmitStatusCode,,,,,
+"If UM04-02 = A, Take the Second byte of UM04-01",,,,,
+1,INPATIENT,,,,
+2,INPATIENT,,,,
+3,OUTPATIENT,,,,
+"If UM04-02 = B, Take UM04-01",,,,,
+11,OUTPATIENT,,,,
+12,OUTPATIENT,,,,
+19,OUTPATIENT,,,,
+22,OUTPATIENT,,,,
+23,OUTPATIENT,,,,
+24,OUTPATIENT,,,,
+41,OUTPATIENT,,,,
+42,OUTPATIENT,,,,
+50,OUTPATIENT,,,,
+52,OUTPATIENT,,,,
+53,OUTPATIENT,,,,
+54,OUTPATIENT,,,,
+60,OUTPATIENT,,,,
+62,OUTPATIENT,,,,
+65,OUTPATIENT,,,,
+71,OUTPATIENT,,,,
+72,OUTPATIENT,,,,
+81,OUTPATIENT,,,,
+21,INPATIENT,,,,
+51,INPATIENT,,,,
+55,INPATIENT,,,,
+56,INPATIENT,,,,
+61,INPATIENT,,,,

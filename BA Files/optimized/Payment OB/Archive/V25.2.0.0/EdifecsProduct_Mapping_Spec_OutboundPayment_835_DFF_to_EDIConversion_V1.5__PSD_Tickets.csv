@@ -1,0 +1,8 @@
+S/No,PSD Ticket#,Clarification From Customer
+1,503,"1. Current payment HRP webservice and DFF data - it fetches the original submitted Insured ID or matched data?  Based on above, changes needed on DFF file, Edifecs mapping to map   insured/patient names separately as per TR3.
+ 1. Step-1  evaluate DFF
+ 2. Evaluate the impact in existing customers
+
+2. We do not have placeholder for dependents in DFF yet, need to add that and perform mapping according to that in Edifecs"
+2,"502, 500, 499","1. Details related to bundling and unbundling fields has to be shared in DFF before we proceed with Edifecs Mapping.
+2. We can discuss on this once Theju is back"

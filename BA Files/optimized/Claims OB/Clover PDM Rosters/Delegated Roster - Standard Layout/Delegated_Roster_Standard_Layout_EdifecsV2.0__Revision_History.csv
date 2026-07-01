@@ -1,0 +1,18 @@
+,Revision History,,,,
+,,,,,
+,V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+,1.0,28-05-2025,Prasanth Obla,,"Initial Version
+• Mapping Specs"
+,2.0,10-06-2025,Deepthi Marella,Prashanth Obla,Updated the change in the Reject File 1 naming format
+,,6/12/25,Deepthi Marella,Prashanth Obla,Updated the File naming convention for Full File rejection
+,,,Prashanth Obla,,"Updated ""PCP or Specialiry"" field logic (removed SPS)"
+,,,Deepthi Marella,Prashanth Obla,Updated Tax ID logic with Pre and post validation
+,,18-06-2025,Deepthi Marella,Prashanth Obla,"Updated The File Naming Convention
+1. ""Vendor-name = Input File Name""
+2. Full File Rejection File Naming convention"
+,,8/12/25,Deepthi Marella,Prashanth Obla,"Updated lower case values in the below fields
+1. Hospital Based?
+2. Provider's Primary Location?
+3. List Location in Directory?
+4. Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)
+5. Gender"

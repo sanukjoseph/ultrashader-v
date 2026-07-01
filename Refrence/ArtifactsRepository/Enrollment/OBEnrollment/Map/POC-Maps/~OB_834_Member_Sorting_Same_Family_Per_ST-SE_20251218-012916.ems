@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Map Version="3" ModelVersion="4" ModelRevision="1" LastCPID="3670">
+	<Properties Category="Buffers">
+		<Property Name="Buf_1/ID">7</Property>
+		<Property Name="Buf_1/Name">Subscriber</Property>
+		<Property Name="Buf_1/Type">2</Property>
+		<Property Name="Buf_1/Storage">1</Property>
+		<Property Name="Buf_1/Path">/Transaction(ID = '834')/Loop(ID = '2000'){1}</Property>
+		<Property Name="Buf_2/ID">8</Property>
+		<Property Name="Buf_2/Name">Dependent</Property>
+		<Property Name="Buf_2/Type">2</Property>
+		<Property Name="Buf_2/Storage">1</Property>
+		<Property Name="Buf_2/Path">/Transaction(ID = '834')/Loop(ID = '2000'){2}</Property>
+	</Properties>
+	<Properties Category="BusinessGroups">
+		<Property Name="1/ID">7</Property>
+		<Property Name="1/Name">InternalProperties</Property>
+		<Property Name="2/ID">11</Property>
+		<Property Name="2/Name">DataView_Activation</Property>
+	</Properties>
+	<Properties Category="BusinessTabs">
+		<Property Name="1/ID">7</Property>
+		<Property Name="2/ID">11</Property>
+		<Property Name="2/TopReserve">156</Property>
+		<Property Name="2/LeftReserve">140</Property>
+	</Properties>
+	<Properties Category="Features">
+		<Property Name="StrictVariablesNaming">true</Property>
+		<Property Name="SupportSrcXmlDataExistenceFilter">true</Property>
+	</Properties>
+	<Properties Category="GlobalUserNoteLabels">
+		<Property Name="{328ba7f4-6f56-4cfc-8e4b-92dbd39e2018}">Description</Property>
+	</Properties>
+	<Properties Category="LogicalStructure">
+		<Property Name="DV_1/ID">3</Property>
+		<Property Name="DV_1/Name">Subscriber</Property>
+		<Property Name="DV_1/LN_1/Storage">5</Property>
+		<Property Name="DV_2/ID">4</Property>
+		<Property Name="DV_2/Name">Dependent</Property>
+		<Property Name="DV_2/LN_1/Storage">8</Property>
+	</Properties>
+	<Properties Category="Summary">
+		<Property Name="Author">UST Global</Property>
+		<Property Name="Version">1.0</Property>
+		<Property Name="Company">UST Global</Property>
+		<Property Name="Status">Draft</Property>
+		<Property Name="CreatedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="CreationDate">1765524956</Property>
+		<Property Name="ModifiedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="ModificationDate">1766039357</Property>
+	</Properties>
+	<Sources>
+		<ExternalStorage ID="1" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Source</Property>
+				<Property Name="Location">..\..\Guideline\OB_834_EDI_TARGET.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">EDI</Property>
+				<Property Name="EntryNodeID">834</Property>
+				<Property Name="EntryNodeName">Benefit Enrollment and Maintenance</Property>
+				<Property Name="GuidelineType">X12</Property>
+				<Property Name="InternalID">{DE592B08-679B-4572-8AD6-6128249510C9}</Property>
+				<Property Name="Standard">HIPAA</Property>
+				<Property Name="Version">V5010X220A1</Property>
+			</Properties>
+			<Properties Category="InstancedNodes">
+				<Property Name="1/Path">/Transaction(ID = '834')/Loop(ID = '2000')</Property>
+				<Property Name="1/Type">KeyBasedComplex</Property>
+				<Property Name="1/Instance_1/CustomName">Subscriber</Property>
+				<Property Name="1/Instance_1/Field_1/Path">Segment(ID = 'INS')/Element(ID = '1073')</Property>
+				<Property Name="1/Instance_1/Field_1/Keys">Y</Property>
+				<Property Name="1/Instance_2/CustomName">Dependent</Property>
+				<Property Name="1/Instance_2/Field_1/Path">Segment(ID = 'INS')/Element(ID = '1073')</Property>
+				<Property Name="1/Instance_2/Field_1/Keys">N</Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="Interchange">InterchangeAuthorizationInfoQual</Property>
+				<Property Name="Interchange">InterchangeAuthorizationInfo</Property>
+				<Property Name="Interchange">InterchangeSecurityInfoQual</Property>
+				<Property Name="Interchange">InterchangeSecurityInfo</Property>
+				<Property Name="Interchange">InterchangeSenderQual</Property>
+				<Property Name="Interchange">InterchangeSenderID</Property>
+				<Property Name="Interchange">InterchangeReceiverQual</Property>
+				<Property Name="Interchange">InterchangeReceiverID</Property>
+				<Property Name="Interchange">InterchangeDate</Property>
+				<Property Name="Interchange">InterchangeTime</Property>
+				<Property Name="Interchange">InterchangeControlStandard_RepeatingSeparator</Property>
+				<Property Name="Interchange">InterchangeControlVersion</Property>
+				<Property Name="Interchange">InterchangeControlNumber</Property>
+				<Property Name="Interchange">InterchangeAckRequested</Property>
+				<Property Name="Interchange">InterchangeUsageIndicator</Property>
+				<Property Name="Interchange">SubelementDelimiter</Property>
+				<Property Name="Interchange">InterchangeChildCount</Property>
+				<Property Name="Interchange">SegmentDelimiter</Property>
+				<Property Name="Interchange">ElementDelimiter</Property>
+				<Property Name="Interchange">RepeatingSeparator</Property>
+				<Property Name="Interchange/Group">GroupID</Property>
+				<Property Name="Interchange/Group">GroupSenderID</Property>
+				<Property Name="Interchange/Group">GroupReceiverID</Property>
+				<Property Name="Interchange/Group">GroupDate</Property>
+				<Property Name="Interchange/Group">GroupTime</Property>
+				<Property Name="Interchange/Group">GroupControlNumber</Property>
+				<Property Name="Interchange/Group">GroupAgencyCode</Property>
+				<Property Name="Interchange/Group">GroupVersionNumber</Property>
+				<Property Name="Interchange/Group">GroupChildCount</Property>
+				<Property Name="Interchange/Group/Transaction">TransactionID</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="143" Path="/Transaction(ID = '834')/Loop(ID = '2000'){1}"/>
+				<ConnectionPoint ID="2061" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfoQual')"/>
+				<ConnectionPoint ID="2063" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfo')"/>
+				<ConnectionPoint ID="2065" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfoQual')"/>
+				<ConnectionPoint ID="2067" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfo')"/>
+				<ConnectionPoint ID="2069" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderQual')"/>
+				<ConnectionPoint ID="2071" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderID')"/>
+				<ConnectionPoint ID="2073" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverQual')"/>
+				<ConnectionPoint ID="2075" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverID')"/>
+				<ConnectionPoint ID="2077" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeDate')"/>
+				<ConnectionPoint ID="2079" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeTime')"/>
+				<ConnectionPoint ID="2081" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlStandard_RepeatingSeparator')"/>
+				<ConnectionPoint ID="2083" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlVersion')"/>
+				<ConnectionPoint ID="2085" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlNumber')"/>
+				<ConnectionPoint ID="2087" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAckRequested')"/>
+				<ConnectionPoint ID="2089" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeUsageIndicator')"/>
+				<ConnectionPoint ID="2091" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SubelementDelimiter')"/>
+				<ConnectionPoint ID="2093" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeChildCount')"/>
+				<ConnectionPoint ID="2095" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SegmentDelimiter')"/>
+				<ConnectionPoint ID="2097" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'ElementDelimiter')"/>
+				<ConnectionPoint ID="2099" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'RepeatingSeparator')"/>
+				<ConnectionPoint ID="2101" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupID')"/>
+				<ConnectionPoint ID="2103" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupSenderID')"/>
+				<ConnectionPoint ID="2105" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupReceiverID')"/>
+				<ConnectionPoint ID="2107" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupDate')"/>
+				<ConnectionPoint ID="2109" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupTime')"/>
+				<ConnectionPoint ID="2111" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupControlNumber')"/>
+				<ConnectionPoint ID="2113" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupAgencyCode')"/>
+				<ConnectionPoint ID="2115" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupVersionNumber')"/>
+				<ConnectionPoint ID="2117" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupChildCount')"/>
+				<ConnectionPoint ID="2119" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Level(Name = 'Transaction')/Field(Name = 'TransactionID')"/>
+			</ConnectionPoints>
+		</ExternalStorage>
+		<ExternalStorage ID="5" Type="LogicalStorage">
+			<Properties>
+				<Property Name="Name">SubscriberLoop</Property>
+				<Property Name="Buffer">7</Property>
+			</Properties>
+			<Properties Category="Sorting">
+				<Property Name="KeyField">/Segment(ID = 'REF')/Element(ID = '127')</Property>
+			</Properties>
+			<ConnectionPoints/>
+		</ExternalStorage>
+		<ExternalStorage ID="8" Type="LogicalStorage">
+			<Properties>
+				<Property Name="Name">DependentLoop</Property>
+				<Property Name="Buffer">8</Property>
+			</Properties>
+			<Properties Category="Sorting">
+				<Property Name="KeyField">/Segment(ID = 'REF')/Element(ID = '127')</Property>
+			</Properties>
+			<ConnectionPoints/>
+		</ExternalStorage>
+	</Sources>
+	<Targets>
+		<ExternalStorage ID="2" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Target</Property>
+				<Property Name="Location">..\..\Guideline\OB_834_EDI_TARGET.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">EDI</Property>
+				<Property Name="EntryNodeID">834</Property>
+				<Property Name="EntryNodeName">Benefit Enrollment and Maintenance</Property>
+				<Property Name="GuidelineType">X12</Property>
+				<Property Name="InternalID">{DE592B08-679B-4572-8AD6-6128249510C9}</Property>
+				<Property Name="Standard">HIPAA</Property>
+				<Property Name="Version">V5010X220A1</Property>
+			</Properties>
+			<Properties Category="InstancedNodes">
+				<Property Name="1/Path">/Transaction(ID = '834')/Loop(ID = '2000')</Property>
+				<Property Name="1/Instance_1/CustomName">Subscriber</Property>
+				<Property Name="1/Instance_2/CustomName">Dependent</Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="Interchange">InterchangeAuthorizationInfoQual</Property>
+				<Property Name="Interchange">InterchangeAuthorizationInfo</Property>
+				<Property Name="Interchange">InterchangeSecurityInfoQual</Property>
+				<Property Name="Interchange">InterchangeSecurityInfo</Property>
+				<Property Name="Interchange">InterchangeSenderQual</Property>
+				<Property Name="Interchange">InterchangeSenderID</Property>
+				<Property Name="Interchange">InterchangeReceiverQual</Property>
+				<Property Name="Interchange">InterchangeReceiverID</Property>
+				<Property Name="Interchange">InterchangeDate</Property>
+				<Property Name="Interchange">InterchangeTime</Property>
+				<Property Name="Interchange">InterchangeControlStandard_RepeatingSeparator</Property>
+				<Property Name="Interchange">InterchangeControlVersion</Property>
+				<Property Name="Interchange">InterchangeControlNumber</Property>
+				<Property Name="Interchange">InterchangeAckRequested</Property>
+				<Property Name="Interchange">InterchangeUsageIndicator</Property>
+				<Property Name="Interchange">SubelementDelimiter</Property>
+				<Property Name="Interchange">InterchangeChildCount</Property>
+				<Property Name="Interchange">SegmentDelimiter</Property>
+				<Property Name="Interchange">ElementDelimiter</Property>
+				<Property Name="Interchange">RepeatingSeparator</Property>
+				<Property Name="Interchange/Group">GroupID</Property>
+				<Property Name="Interchange/Group">GroupSenderID</Property>
+				<Property Name="Interchange/Group">GroupReceiverID</Property>
+				<Property Name="Interchange/Group">GroupDate</Property>
+				<Property Name="Interchange/Group">GroupTime</Property>
+				<Property Name="Interchange/Group">GroupControlNumber</Property>
+				<Property Name="Interchange/Group">GroupAgencyCode</Property>
+				<Property Name="Interchange/Group">GroupVersionNumber</Property>
+				<Property Name="Interchange/Group">GroupChildCount</Property>
+				<Property Name="Interchange/Group/Transaction">TransactionID</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="2062" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfoQual')"/>
+				<ConnectionPoint ID="2064" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfo')"/>
+				<ConnectionPoint ID="2066" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfoQual')"/>
+				<ConnectionPoint ID="2068" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfo')"/>
+				<ConnectionPoint ID="2070" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderQual')"/>
+				<ConnectionPoint ID="2072" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderID')"/>
+				<ConnectionPoint ID="2074" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverQual')"/>
+				<ConnectionPoint ID="2076" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverID')"/>
+				<ConnectionPoint ID="2078" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeDate')"/>
+				<ConnectionPoint ID="2080" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeTime')"/>
+				<ConnectionPoint ID="2082" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlStandard_RepeatingSeparator')"/>
+				<ConnectionPoint ID="2084" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlVersion')"/>
+				<ConnectionPoint ID="2086" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlNumber')"/>
+				<ConnectionPoint ID="2088" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAckRequested')"/>
+				<ConnectionPoint ID="2090" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeUsageIndicator')"/>
+				<ConnectionPoint ID="2092" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SubelementDelimiter')"/>
+				<ConnectionPoint ID="2094" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeChildCount')"/>
+				<ConnectionPoint ID="2096" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SegmentDelimiter')"/>
+				<ConnectionPoint ID="2098" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'ElementDelimiter')"/>
+				<ConnectionPoint ID="2100" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'RepeatingSeparator')"/>
+				<ConnectionPoint ID="2102" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupID')"/>
+				<ConnectionPoint ID="2104" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupSenderID')"/>
+				<ConnectionPoint ID="2106" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupReceiverID')"/>
+				<ConnectionPoint ID="2108" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupDate')"/>
+				<ConnectionPoint ID="2110" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupTime')"/>
+				<ConnectionPoint ID="2112" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupControlNumber')"/>
+				<ConnectionPoint ID="2114" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupAgencyCode')"/>
+				<ConnectionPoint ID="2116" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupVersionNumber')"/>
+				<ConnectionPoint ID="2118" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupChildCount')"/>
+				<ConnectionPoint ID="2120" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Level(Name = 'Transaction')/Field(Name = 'TransactionID')"/>
+				<ConnectionPoint ID="3670" Path="/Transaction(ID = '834')/Loop(ID = '2000'){1}"/>
+			</ConnectionPoints>
+			<ReverseConnectionPoints/>
+		</ExternalStorage>
+	</Targets>
+	<Functions>
+		<Function ID="15" Template="ActivateDataView">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">11</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="DataViewID">3</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab11/XPos">160</Property>
+				<Property Name="Tab11/YPos">-176</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="3664" FP="_AP" Name="activation"/>
+			</ConnectionPoints>
+		</Function>
+	</Functions>
+	<Connectors>
+		<Connector OutputCP="2061" InputCP="2062">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2063" InputCP="2064">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2065" InputCP="2066">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2067" InputCP="2068">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2069" InputCP="2070">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2071" InputCP="2072">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2073" InputCP="2074">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2075" InputCP="2076">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2077" InputCP="2078">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2079" InputCP="2080">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2081" InputCP="2082">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2083" InputCP="2084">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2085" InputCP="2086">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2087" InputCP="2088">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2089" InputCP="2090">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2091" InputCP="2092">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2093" InputCP="2094">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2095" InputCP="2096">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2097" InputCP="2098">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2099" InputCP="2100">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2101" InputCP="2102">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2103" InputCP="2104">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2105" InputCP="2106">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2107" InputCP="2108">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2109" InputCP="2110">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2111" InputCP="2112">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2113" InputCP="2114">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2115" InputCP="2116">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2117" InputCP="2118">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2119" InputCP="2120">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">7</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="143" InputCP="3670">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">11</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">3</Property>
+			</Properties>
+		</Connector>
+	</Connectors>
+</Map>

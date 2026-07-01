@@ -1,0 +1,58 @@
+import org.apache.commons.lang.StringUtils
+
+exchange = context.exchange
+properties = exchange.properties
+messages = exchange.messages
+message = messages.first()
+messageBodyInputStream = message.bodyAsSmartStream.inputStream
+
+InputStreamReader isr = new InputStreamReader(messageBodyInputStream)
+BufferedReader br = new BufferedReader(isr)
+def auditEventNumber = properties.get('auditEventNumber')
+//def Customization = properties.get('Customization')
+
+// Flag to check if the event has been logged
+def alreadyLogged = properties.get("alreadyLogged") ?: false
+
+if (auditEventNumber == "1" && !alreadyLogged) {
+    
+    properties.put("processStageName", "EDIFECS-Validation")
+	properties.put("processstatus", "SUCCESS")
+	
+	
+
+    context.createExchangeResponse(properties, messageBodyInputStream)
+    properties.put("alreadyLogged", true)
+}
+
+else if (auditEventNumber == "2") {
+   
+    properties.put("processStageName", "EDIFECS-Validation")
+	properties.put("processmessage", "Edifecs Validation Error")
+properties.put("processstatus", "FAILURE")
+    context.createExchangeResponse(properties, messageBodyInputStream)
+
+}
+
+else if (auditEventNumber == "3") {
+   
+    properties.put("processStageName", "EDIFECS-Conversion")
+	
+    properties.put("processstatus", "SUCCESS")
+    context.createExchangeResponse(properties, messageBodyInputStream)
+}
+
+else if (auditEventNumber == "4") {
+   
+    properties.put("processStageName", "EDIFECS-Conversion")
+	properties.put("processmessage", "Edifecs Translator Error")
+properties.put("processstatus", "FAILURE")
+    
+    context.createExchangeResponse(properties, messageBodyInputStream)
+	
+	
+}
+// Clear the alreadyLogged flag if needed for the next execution
+if (auditEventNumber != "1") {
+    properties.remove("alreadyLogged")
+}

@@ -1,0 +1,9 @@
+Pointers To Implementation Team.,
+UDTs and Other IDs,Values which needs to be loaded to HRP as UDT/Other Ids should be mapped to <qualifierlist>. From Product standpoint all 2000.REF values are loaded to <qualifierlist>
+Benefitplan,"EDI values which are used to dervie benefit plan should be mapped to </benefitPlanMatchData>.
+
+From product standpoint 2300.HD04 is mapped for medicare/medicaid and 2300.REF*CE is mapped for Commercial. If this is different for implementaions, appropriate changes needs to be done in Adaptor."
+Versioning,"Product Mapping is done to create HRP versions for Amend and Terminate. Refer the asOfDate tab.
+If Versioning is not needed, /enrollment/asOfDate can be hardcoded as 1/1/1800."
+Provider Information (Loop 2310),"Product mapping is done on the expectaion that, input edi will contain either Practitioner Id /Supplier Id. Customisations needs to be done if there is any difference in this expectation."
+Reporting Category (Loop 2700),This loop is not handled from Product Core since it is implementaion specific. If needed mapping needs to handled in Adaptor.

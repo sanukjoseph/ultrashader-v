@@ -1,0 +1,120 @@
+Individual Relationship Codes,,Insurance Line Code - 2300.HD03,,Service Type Code - 2320.COB04,,Responsibility Type code,,,MAINTENANCE REASON CODES  - 2000.INS04,
+2000.INS02,Value in HRP.,2300.HD03,HRP value,2320.COB04,HRP value,2100G.NM101,HRP value,,INS04,HRP value
+01,Spouse,AG,Preventative Care/Wellness,1,1,EI Executor of Estate,2,,01,01
+02,Father or Mother,AK,Mental Health,35,2,EXS  Ex-spouse,9,,02,02
+03,Grandmother or Grandfather,DEN,Dental,AL,4,J6 Power of Attorney,5,,03,3
+04,Grandson or Granddaughter,FAC,Facility,,,GD Guardian,GD,,04,04
+05,Uncle or Aunt,HE,Hearing,,,QD Responsible Party,QD,,05,05
+06,Nephew or Niece,HLT,Health,,,,,,06,06
+07,Cousin,LTC,Long-Term Care,,,,,,07,07
+08,Adopted Child,LTD,Long-Term Disability,,,,,,08,08
+10,Foster Child,MM,Major Medical,,,,,,09,09
+11,Son-in-law or Daughter-in-law,MOD,Mail Order Drug,,,,,,10,10
+12,Brother-in-law or Sister-in-law,PDG,Prescription Drug,,`,,,,11,11
+13,Mother-in-law or Father-in-law,POS,Point of service,,,,,,12,12
+14,Brother or Sister,PPO,Preferred Provider Organizatiion,,,,,,13,13
+15,Ward,STD,Short-Term Disability,,,,,,14,14
+16,Stepparent,VIS,Vision,,,,,,15,15
+17,Stepson or Stepdaughter,HMO,Health Maintenance Organization,,,,,,16,16
+18,Self,,,,,,,,17,17
+19,Child,,,,,,,,18,18
+23,Sponsored Dependent,,,,,,,,19,19
+24,Dependent of a Minor Dependent,,,,,,,,20,20
+25,Ex-spouse,,,,,,,,21,21
+26,Guardian,,,,,,,,22,22
+31,Court Appointed Guardian,,,,,,,,23,23
+38,Collateral Dependent,,,,,,,,24,24
+53,Life Partner,,,,,,,,25,25
+60,Annuitant,,,,,,,,26,26
+D2,Trustee,,,,,,,,27,27
+G8,Other Relationship,,,,,,,,28,28
+G9,Other Relative,,,,,,,,29,29
+,,,,,,,,,30,30
+,,,,,,,,,31,31
+,,,,,,,,,32,32
+,,,,,,,,,33,33
+,,,,,,,,,34,34
+,,,,,,,,,35,35
+,,,,,,,,,36,36
+,,,,,,,,,37,37
+,,,,,,,,,38,38
+,,,,,,,,,39,39
+,,,,,,,,,40,40
+,,,,,,,,,41,41
+,,,,,,,,,42,42
+,,,,,,,,,43,43
+,,,,,,,,,44,44
+,,,,,,,,,45,45
+,,,,,,,,,46,46
+,,,,,,,,,47,47
+,,,,,,,,,48,48
+,,,,,,,,,49,49
+,,,,,,,,,4A,4A
+,,,,,,,,,4B,4B
+,,,,,,,,,4C,4C
+,,,,,,,,,50,50
+,,,,,,,,,51,51
+,,,,,,,,,52,52
+,,,,,,,,,53,53
+,,,,,,,,,54,54
+,,,,,,,,,55,55
+,,,,,,,,,56,56
+,,,,,,,,,57,57
+,,,,,,,,,58,58
+,,,,,,,,,59,59
+,,,,,,,,,60,60
+,,,,,,,,,61,61
+,,,,,,,,,62,62
+,,,,,,,,,63,63
+,,,,,,,,,64,64
+,,,,,,,,,65,65
+,,,,,,,,,66,66
+,,,,,,,,,67,67
+,,,,,,,,,68,68
+,,,,,,,,,69,69
+,,,,,,,,,70,70
+,,,,,,,,,71,71
+,,,,,,,,,72,72
+,,,,,,,,,73,73
+,,,,,,,,,75,75
+,,,,,,,,,76,76
+,,,,,,,,,77,77
+,,,,,,,,,78,78
+,,,,,,,,,79,79
+,,,,,,,,,80,80
+,,,,,,,,,81,81
+,,,,,,,,,82,82
+,,,,,,,,,83,83
+,,,,,,,,,84,84
+,,,,,,,,,85,85
+,,,,,,,,,86,86
+,,,,,,,,,87,87
+,,,,,,,,,88,88
+,,,,,,,,,89,89
+,,,,,,,,,90,90
+,,,,,,,,,91,91
+,,,,,,,,,92,92
+,,,,,,,,,93,93
+,,,,,,,,,94,94
+,,,,,,,,,95,95
+,,,,,,,,,96,96
+,,,,,,,,,97,97
+,,,,,,,,,AA,AA
+,,,,,,,,,AB,AB
+,,,,,,,,,AC,AC
+,,,,,,,,,AD,AD
+,,,,,,,,,AE,AE
+,,,,,,,,,AF,AF
+,,,,,,,,,AG,AG
+,,,,,,,,,AH,AH
+,,,,,,,,,AI,AI
+,,,,,,,,,AJ,AJ
+,,,,,,,,,AL,AL
+,,,,,,,,,EC,EC
+,,,,,,,,,XB,XB
+,,,,,,,,,XI,XI
+,,,,,,,,,XL,XL
+,,,,,,,,,XM,XM
+,,,,,,,,,XN,XN
+,,,,,,,,,XT,XT
+,,,,,,,,,ZZ,ZZ

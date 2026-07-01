@@ -1,0 +1,61 @@
+##,I Network Fields,Northside Fields Mapping,Source file/tab name,Mapping Rules,
+1,Service Market,,,Leave it Blank,
+2,Provider NPI,Provider NPI,New Providers,,
+3,First Name,First Name,New Providers,,
+4,Last Name,Last Name,New Providers,,
+5,Degree,Degree,New Providers,,
+6,Primary Specialty,Taxonomy,New Providers,,
+7,Secondary Specialty,,,Leave it Blank,
+8,PCP or Specialist?,PCP_SPC_HospBased,New Providers,"It contains PCP, SPC,Hospital Based, Urgent Care",
+9,Hospitalist?,PCP_SPC_HospBased,New Providers,"set this to ""Y"" when PCP_SPC_HospBased=""Hospital Based""
+otherwise set this to ""N""",
+10,Board Certified?,Board Status,New Providers,,
+11,Board Name (certifying board name),Medical Board,New Providers,,
+12,License #,GA License Number,New Providers,"Do not Map if one of the following values are received (Pending, Not Required) or If its just CHARACTERS (I.e. Allow numeric or alphanumeric only)",
+13,DEA #,DEA#,New Providers,"Do not Map if one of the following values are received (Pending, Not Required) or If its just CHARACTERS (I.e. Allow numeric or alphanumeric only)",
+14,CDS # (If Applicable),CDS #,,Leave it Blank,
+15,Social Security #,Social Security #,,Leave it Blank,
+16,Medical School Name,Medical School information,New Providers,,
+17,Medical School Grad Year,Graduate Date,New Providers,"Map only the year ""YYYY"" from this date",
+18,DOB,DOB,New Providers,"Convert date format to ""MM-DD-YYYY""",
+19,Gender,Gender,New Providers,,
+20,Additional Languages?,,,Leave it Blank,
+21,Active Date,Requested Effective Date,New Providers,"Convert date format to ""MM-DD-YYYY""",
+22,Practice/Group Name,Practice Name,New Providers,,
+23,Practice/Group NPI,Group NPI,New Providers,,
+24,Provider's Primary Location?,,New Providers,"Default it to ""N""",
+25,List Location in Directory?,List in Directory_Y or N,New Providers,"Default it to ""Y"" in case if its no values is received",
+26,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",,New Providers,"Default it to ""Y"" in case of no values present","Setting the value to ""Y"" as discussed with Mahe"
+27,Provider Email,,,Leave it Blank,
+28,Service Address,Address,New Providers,,
+29,Service Address 2,Address_2,New Providers,,
+30,Service Location City,City,New Providers,,
+31,Service Location State,State,New Providers,,
+32,Service Location Zip,Zip Code,New Providers,Map only first 5 digit numeric,
+33,Service Location County,Provider Address County,New Providers,,
+34,Service Location Phone,Phone,New Providers,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000",
+35,Service Location Fax,Fax,New Providers,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000",
+36,Tax ID,Tax ID,New Providers,"Remove ""-""",
+37,Remit Address,Remittance Address,NS Billing Information,Pull the remittance address details based on Tax ID and Group NPI,
+38,Remit Address 2,,,Leave it Blank,
+39,Remit Address City,City,NS Billing Information,,
+40,Remit Address State,State,NS Billing Information,,
+41,Remit Address Zip,Zip,NS Billing Information,Map only first 5 digit numeric,
+42,Billing Phone,Phone,NS Billing Information,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000",
+43,Billing Fax,Fax,NS Billing Information,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000",

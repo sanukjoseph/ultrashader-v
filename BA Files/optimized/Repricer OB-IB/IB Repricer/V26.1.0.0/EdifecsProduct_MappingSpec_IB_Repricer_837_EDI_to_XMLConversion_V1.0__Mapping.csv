@@ -1,0 +1,58 @@
+EDILoopID. Segment,EDI Data Element Name,EDI Element Description,Enumeration Values,XSD Field Name,Field Description,X12 Element 837I,X12 Element 837P,Mapping Logic,Custom Field,Notes
+,,,,ClaimRepricingIBRequestRoot/header/inputFilename,Inbound EDI File Name,Populate the IB file name,Populate the IB file name,,,These fields are used for internal reference. Not loaded to HRP UI
+,,,,ClaimRepricingIBRequestRoot/header/inputFileId,This will be UniqueFile ID({UID}) from profile process flow,,,,,
+,,,,ClaimRepricingIBRequestRoot/header/totalInputTransaction,Shows the total number of claim records in IB file.,Populate the total claim count in IB file,Populate the total claim count in IB file,,,
+,,,,ClaimRepricingIBRequestRoot/header/inputFileType,,,,,,
+,,,,ClaimRepricingIBRequestRoot/header/totalClaimCount,Shows the total number of claim records.,,,,,
+,,,,ClaimRepricingIBRequestRoot/header/totalXMLTransactionCount,Shows the total number of claim records in a single xml file,Hardcoded as 1,Hardcoded as 1,,,
+,,,,ClaimRepricingIBRequestRoot/header/fileCreationDate,File created date.,"Processing date/time in the format:
+YYYY-MM-DD T HH:mm:ss:sss","Processing date/time in the format:
+YYYY-MM-DD T HH:mm:ss:sss",,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,,ClaimRepricingIBRequestRoot/header/correlationId,Unique string or alphanumeric value identifying each file.,This will be ISA06 from IB EDI file,This will be ISA06 from IB EDI file,,,
+,,,,ClaimRepricingIBRequestRoot/header/correlationIdDesc,,,,,,
+ISA06,Interchange Sender ID,"Identification code published by the sender for other parties to use as the receiver
+ID to route data to them; the sender always codes this value in the sender ID
+element",,ClaimRepricingIBRequestRoot/header/senderId,This will be ISA06 from IB EDI file,ISA06,ISA06,,,
+ISA08,Interchange Receiver ID,Receiver Id,,ClaimRepricingIBRequestRoot/header/receiverId,This will be ISA08 from IB EDI file,ISA08,ISA08,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/recordCount,Shows the total number of /ClaimRepricingSubmitRequestRecord tags  in a single xml file,,,,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/recordId,Unique Record Number or ID to identify each claim in a file,A unique Identifier,A unique Identifier,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/rayId,,GUID,GUID,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/recordIdDesc,,,,,,
+2300.REF02,Reference Identification,Repricer control number,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/hccClaimNumber,HCC ID of the repriced claim.,2300.REF02,2300.REF02,When 2300.REF01 = D9,,
+2300.HCP06,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/calculatedDRG,Approved DRG.,2300.HCP06,2300.HCP06,,Yes,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/calculatedDRGType,"Enumerated value specifying the
+DRG type (MS DRG, APR DRG, or
+AP DRG).",Hardcode as 'APR DRG',Hardcode as 'APR DRG',Populate only if we have value in 2300.HCP06.,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/repricerName,"Name of the repricing
+organization.",,,,Yes,Should be able to populate Repricer name  based on ISA06/2300.HCP04 /file name
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/repricerID,ID of the repricing organization.,,,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/allowedAmount,Allowed amount.,2400.HCP02,2400.HCP02,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/healthrulesDecisionCode,"An enumerated value that can be
+either of the following:
+Priced, Denied, Not Contracted.",2400.HCP01,2400.HCP01,"00 : Not contracted
+01 to 14  :Priced
+Spaces/Null : Denied",,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/hipaaDecisionCode,"Either this or
+healthRulesDecisionCode
+is populated, not both.",,,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/benefitNetworkName,Benefit network.,,,,Yes,Custom Field. Should be able to populate benefit network name from the network code send in EDI.
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/responseDate,"Date the response was
+received.",Processing Date Expressed in Format CCYY-MM-DD,Processing Date Expressed in Format CCYY-MM-DD,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/messageCodes/messageCode,Repricer message code.,,,,Yes,"Custom Requirement.
+Can be used to map any repricer messages.
+Also should be able to map the message text corresponding to the messagecode supplied in EDI.
+Adaptor logic in Product:
+Populate from 2400.K301. If this is not present, populate from 2400.NTE*TPO.
+If 2400.K301 and 2400.NTE*TPO is not present, popualte from 2300.NTE*ADD for 837I /2300.NTE*TPO for 837P."
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/messageCodes/messageCodeType,"An enumerated value that can be
+either of the following:
+1. RepricerMessage
+2. HealthRulesMessage",HealthRulesMessage,HealthRulesMessage,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/messageCodes/messageText,Text of the repricer message.,,,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/messageCodes/policyName,"If the message is the result of a
+HealthRules policy, the name of the
+policy.",NA,NA,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/denialMessageCode/codeSetName,,NA,NA,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/denialMessageCode/codeEntry,,NA,NA,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/denialMessageCode/shortName,,NA,NA,,,
+,,,,ClaimRepricingIBRequestRoot/ClaimRepricingIBRequest/ClaimRepricingSubmitRequestRecordList/ClaimRepricingSubmitRequestRecord/repricingClaimInput/deliveredService/hccClaimLineNumber,HealthRule Payor internal service line number,2400.LX01,2400.LX01,,,

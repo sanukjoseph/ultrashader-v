@@ -1,0 +1,36 @@
+Group,Fields,Sub Fields,Data Type,Mandatory (Present in all Audit points),Mandatory (Present in atleast one Audit Point),Sample Values,Description,Comments
+inputDetails,inputId,,String,Y,,Value passed is  - {UID}- Uniqie for each file,Unique ID of the input file received from source.,
+,inputFileName,,String,,,Input Filename of the PFF file received with filename extension,Name of the input file received from source.,
+,inputType,,String,,,,Defines the type of input file - API or File,
+,paymentSourceName,,String,,,"PROVIDER SETTLEMENT
+CHECK RECONCILIATION",,
+,tenantIdentifier,,String,,,,A new field tenantIdentifier has been added under the inputDetails block. This should be passed to iPlus.,Field to send the vendor name(CHC or PNC or Zing) and should be configurable
+,totalTransactions,,Integer,,,,"Total no. of transactions/Record received in API/File
+The value should be trigger for each audit event",
+,totalSuccessCount,,Integer,,,,Total Number of successfully processed records,NA for Edifecs
+,totalFailureCount,,Integer,,,,Total Number of failed records,NA for Edifecs
+,inputArchiveFilename,,String,,,Input Filename of the PFF file archived in s3 with filename extension,Name of the input file after archiving the input file.,
+,fileLoadStatus,,String,,,,,
+process,processStageName,,String,Y,,,Represent the name of the process stage which post the Audit point.,
+,processStatus,,String,Y,,"MESSAGE READ
+PROCESSED
+MESSAGE PUBLISHED",Represent the Intermediate or Final status of the process stage which posts the Audit point.,
+,processMessage,,String,,,"Connection-timeout
+Rejected",Specific information of a particular step after the process is completed.,
+,processInputArchiveFilename,,String,,,Input Filename of the PFF file received with filename extension,Name of the input Archive file of the process stage which posts the Audit point.,This field is required only if Edifecs is archiving the Input File
+,processOutputArchiveFilename,,String,,,NA,Name of the output Archive file of the process stage which posts the Audit point.,This field is required only if Edifecs is archiving the Output File
+,auditTime,,DateTime,Y,,"The time the audit trigger event got generated in YYYY-MM-DD HH:MM:SS.SSS format
+Sample: 2025-08-07 10:49:02.993",Auditing time of each audit point,Format changed and Updated based on Dev confirmation
+identifiers,rayIdentifier,,String,Y,Y,544EBB07-F93F-431F-A5A8-1A496F8E29C5,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",Mandatory for record level
+,recordIdentifier,,String,Y,Y,CFD38507-277B-4342-857D-EE220D971AFE,Unique Identifier for transaction level. Will be different when reprocess a same record.,
+,recordIdentifierFromSource,,String,,,,"1. Provider Settlement - EPP ID+check number
+2. Check Recon - Group code+check number",
+,retriedReferenceIdentifier,,String,,,NA,"This field indicates unique identifier for a transaction that has been retried.
+Note: If implementation team want to retry the failed record using the archived file, we have to populate. Can be ignored this for now.",
+payment,paymentNumber,,String,,,Actual Payment Id,Payment ID,
+,checkNumber,,String,,,,Unique ID for each Payment transaction,
+,paymentStatus,,String,,,,The process status of the transaction,
+,hrpResponse,cvcId,Integer,,,,,NA for Edifecs
+,,hrpResponseStatus,String,,,,,
+,archive,paymentRequestArchiveFilename,String,,,,"Unique identifier for each claim, will be different when the claim is reprocessed",
+,,paymentResponseArchiveFilename,String,,,,"Claim HCC ID - Unique ID for each claim, will remain unchanged when reprocessed",

@@ -1,0 +1,46 @@
+2000.INS02,,,,2100A.LUI02,
+HIPAA Relationship Codes,,,,Language codes,
+Code,Populate as,,",",Lang Codes,Language Shortname
+1,Spouse,,,amh,Amharic
+3,Parent,,,ara,Arabic
+4,Grandparent,,,BSI,Bassi
+5,Grandchild,,,chi,Chinese
+6,Uncle or Aunt,,,dan,Danish
+7,Nephew or Niece,,,dut,Dutch
+8,Cousin,,,eng,English
+9,Adopted Child,,,Far,Farsi
+10,Foster Child,,,fre,French
+11,Son/Daughter-inlaw,,,ger,German
+12,Brother/Sister-inlaw,,,gre,Greek
+13,Mother/Fatherin-law,,,guj,Gujarati
+14,Sibling,,,hat,Haitian Creole
+15,Ward,,,heb,Hebrew
+16,Stepparent,,,hin,Hindi
+17,Stepchild,,,hun,Hungarian
+18,Self,,,igb,Igbo
+19,Child,,,IND,Indian
+23,Sponsored Dependent,,,ira,Iranian
+24,Dependent of a Minor Dependent,,,ita,Italian
+25,Ex-spouse,,,jpn,Japanese
+26,Guardian,,,kor,Korean
+31,Court Appointed Guardian,,,cmn,Mandarin
+38,Collateral Dependent,,,NU,Not Used
+53,Life Partner,,,NU,Not Used
+60,Annuitant,,,oth,Other
+D2,Trustee,,,PAK,Pakistani
+G8,Other Relationship,,,per,Persian
+G9,Other Relative,,,PH,Philipina
+,,,,pol,Polish
+,,,,por,Portuguese
+,,,,rom,Romanian
+,,,,rus,Russian
+,,,,spa,Spanish
+,,,,swe,Swedish
+,,,,tgl,Tagalog
+,,,,tha,Thai
+,,,,tur,Turkish
+,,,,ukr,Ukrainian
+,,,,urdu,Urdu
+,,,,vie,Vietnamese
+,,,,yor,Yoruba
+,,,,yug,Yugoslavian

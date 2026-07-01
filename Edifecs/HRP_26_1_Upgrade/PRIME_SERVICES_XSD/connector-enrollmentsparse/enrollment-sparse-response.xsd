@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by Rebecca Stevenson (HEALTHEDGE SOFTWARE INC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns="http://www.healthedge.com/connector/schema/enrollmentsparseresponse"
+		   xmlns:tns="http://www.healthedge.com/connector/schema/enrollmentsparseresponse"
+		   xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+		   xmlns:subsidy="http://www.healthedge.com/connector/schema/subsidy"
+		   xmlns:hicn="http://www.healthedge.com/connector/schema/medicarehicn"
+		   xmlns:cobpolicy="http://www.healthedge.com/connector/schema/cobpolicy"
+		   xmlns:memberfactors="http://www.healthedge.com/connector/schema/memberfactors"
+		   xmlns:payeebankaccount="http://www.healthedge.com/connector/schema/payeebankaccounts"
+		   xmlns:enrollment="http://www.healthedge.com/connector/schema/enrollmenttypes"
+		   targetNamespace="http://www.healthedge.com/connector/schema/enrollmentsparseresponse"
+		   elementFormDefault="unqualified" version="4.1">
+	<xs:annotation>
+		<xs:documentation>
+		DISCLAIMER
+		This  pre-release software provided by HealthEdge Inc. is a work-in-progress.
+		HealthEdge provides pre-release information to early adopters for the purpose of design and planning.
+		It has no warranty either explicit or implied and is subject to change. 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/medicarehicn" schemaLocation="../connector-medicarehicn/MedicareHICNInfo.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/cobpolicy" schemaLocation="../connector-cobpolicy/cobPolicy.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/subsidy" schemaLocation="../connector-subsidy/subsidies.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/memberfactors" schemaLocation="../connector-memberfactors/memberFactors.xsd"/>
+	<xs:import namespace="http://www.healthedge.com/connector/schema/payeebankaccounts" schemaLocation="../connector-payeebankaccounts/payeeBankAccounts.xsd"/>
+	<xs:import namespace="http://www.healthedge.com/connector/schema/enrollmenttypes" schemaLocation="enrollment-types.xsd"/>
+
+    <xs:element name="enrollmentResponse" type="EnrollmentResponseType"/>
+
+	<xs:complexType name="EnrollmentResponseType">
+		<xs:sequence>
+            <xs:element name="transactionId" type="base:String60Type" minOccurs="0" maxOccurs="1" />
+			<xs:element name="subscriptionId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Subscription for which the enrollment was submitted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subscriberId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Subscriber for whom the enrollment was submitted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="informationSource" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Source system for the enrollment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="base:ServiceStatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Enrollment status. SUCCESS (transaction complete without errors or validation failures), FAILURE (system or validation error), NOCHANGE (request resulted in no net subscription, so was not submitted).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="enrollmentType" type="EnrollmentTransactionType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The type of enrollment. Add (new enrollment), Amend (update to existing enrollment), Term (termination), or Reinstate (reinstatement of previous enrollment).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="accountChangeStatus" type="base:ServiceStatusType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="accountChangeCVCId" type="xs:long" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="binderPaymentStatus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="transactionInformation" type="base:TransactionInformationType" minOccurs="0"/>
+			<xs:element name="secondaryTransactionInformation" type="base:TransactionInformationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="member" type="MemberResponseType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="reportingCategory" type="ReportingCategoryResponseType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="errors" type="base:ErrorsType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Exception string in case of system error.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+            <xs:element name="subsidyResponse" type="subsidy:SubscriptionSubsidyResponseType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="cobPolicyResponse" type="cobpolicy:COBPolicyResponseType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="medicareHICNResponse" type="hicn:MedicareHICNInfoResponseType" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="memberFactorsResponse" type="memberfactors:MemberFactorsResponseType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="payeeBankAccountResponse" type="payeebankaccount:PayeeBankAccountsResponseType" minOccurs="0" maxOccurs="1" />
+			<!--  populated in case of FAILURE -->
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReportingCategoryResponseType">
+		<xs:sequence>	
+			<xs:element name="subscriberResponsibleAmount" type="base:CurrencyType" minOccurs="0"/>
+			<xs:element name="accountResponsibleAmount" type="base:CurrencyType" minOccurs="0"/>
+			<xs:element name="startDate" type="xs:string" minOccurs="0"/>
+			<xs:element name="endDate" type="xs:string" minOccurs="0"/>
+		</xs:sequence>	
+	</xs:complexType>
+	<xs:complexType name="MemberResponseType">
+		<xs:sequence>
+			<xs:element name="memberId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>ID of the member for whom the enrollment was submitted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+            <xs:element name="maintenanceOverride" type="xs:boolean" default="true" minOccurs="0" maxOccurs="1" />
+            <xs:element name="maintenanceOverrideResult" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="lastName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Last name of the member for whom the enrollment was submitted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="firstName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>First name of the member for whom the enrollment was submitted.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dob" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date of birth of the member for whom the enrollment was submitted. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endorsementDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Endorsement date for the enrollment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" type="base:ServiceStatusType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Enrollment status. SUCCESS (transaction complete without errors or validation failures), FAILURE (system or validation error), NOCHANGE (request resulted in no net subscription, so was not submitted).</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="planSelection" type="PlanSelectionType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="providerSelection" type="ProviderSelectionType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="transactionInformation" type="base:TransactionInformationType" minOccurs="0"/>
+			<xs:element name="secondaryTransactionInformation" type="base:TransactionInformationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="individualMappingInfo" type="IndividualMappingInfo" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="memberInputID" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The input member ID, used for auditing and traceability.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manualReviewList" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="listMode" type="base:ListActionType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="manualReview" type="enrollment:MemberManualReviewType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IndividualMappingInfo">
+		<xs:sequence>
+			<xs:element name="status" type="base:ServiceStatusType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="message" type="base:String50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="errors" type="base:ErrorsType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PlanSelectionType">
+		<xs:sequence>
+			<xs:element name="enrolledPlan" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Plan in which the member is enrolled.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Start date of the plan.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="endDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>End date of the plan.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="disenrollDate" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Disenrollment date of the plan.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="disenrollReason" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Reason for disenrollment.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="waiveBenefitWaitingPeriod" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProviderSelectionType">
+		<xs:sequence>
+			<xs:element name="practitioner" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Pracitioner name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="practitionerNPI" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Practitioner National Provider ID.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pcp" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>If true, practitioner is PCP.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="supplierNetwork" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>supplier network name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="startDate" type="xs:string" minOccurs="0"/>
+			<xs:element name="endDate" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="EnrollmentTransactionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ADD"/>
+			<xs:enumeration value="AMEND"/>
+			<xs:enumeration value="TERMINATE"/>
+			<xs:enumeration value="REINSTATE"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

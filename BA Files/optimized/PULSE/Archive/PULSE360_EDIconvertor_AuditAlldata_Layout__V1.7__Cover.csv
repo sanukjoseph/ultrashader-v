@@ -1,0 +1,23 @@
+,,,PULSE360,,,
+,,,,,,
+,,,,,,
+,,,EDI/Paper convertor Audit & Rejection details - Layout specification,,,
+,,,Version : V1.6,,,
+,,,,,,
+,,,,,,
+,#,Version,Changelog,Updated Date,Updated by,Approved by
+,1,V1.0,Initial version,8/12/21,Parvathy Sreekumar (Product Engineer),Dhanuja Sasankan(Product Manager)
+,2,V1.1,"i.  Updated two additional fields in enrollment layout version
+ii. Added layout for Claims",12/20/21,Parvathy Sreekumar (Product Engineer),Dhanuja Sasankan(Product Manager)
+,2,V1.2,Additional fields added to the Enrollment layout,12/29/21,Parvathy Sreekumar (Product Engineer),Dhanuja Sasankan(Product Manager)
+,3,V1.3,Added Claims layout,1/6/22,Parvathy Sreekumar (Product Engineer),Dhanuja Sasankan(Product Manager)
+,4,V1.4,Added Payments Layout,2/22/22,Parvathy Sreekumar (Product Engineer),Dhanuja Sasankan(Product Manager)
+,5,V1.5,"Updated Payment layout with
+1. Added Payment type field
+2. Updated the length of HRP file name
+3.Updated the datatype and format for check date
+4.Updated the datatype and length of check amount",3/9/22,Parvathy Sreekumar (Product Engineer),Dhanuja Sasankan(Product Manager)
+,6,v1.6,"Updated Enrollment, Claims and Payment layout with
+
+1. First Encountered Error message alone should be sent by EDI Convertor",12/9/22,Varadharajan Ravi (Product Owner),Dhanuja Sasankan(Product Manager)
+,7,v1.7,Updated Error Code & Error Description Column and Included Transaction created date column in existing place holder field,5/22/24,Nirmalkumar Janardhanan (Product Owner),

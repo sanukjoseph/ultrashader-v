@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by Rebecca Stevenson (HEALTHEDGE SOFTWARE INC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+           xmlns:member="http://www.healthedge.com/connector/schema/membership"
+           xmlns:subsc="http://www.healthedge.com/connector/schema/subscription"
+           xmlns:enroll="http://www.healthedge.com/connector/schema/enrollment"
+           xmlns:minput="http://www.healthedge.com/connector/schema/matchinput"
+           xmlns="http://www.healthedge.com/connector/schema/enrollmentlookup"
+           xmlns:tns="http://www.healthedge.com/connector/schema/enrollmentlookup"
+           targetNamespace="http://www.healthedge.com/connector/schema/enrollmentlookup" elementFormDefault="unqualified"
+           version="4.0">
+    <xs:annotation>
+        <xs:documentation>
+            DISCLAIMER
+            This pre-release software provided by HealthEdge Inc. is a work-in-progress.
+            HealthEdge provides pre-release information to early adopters for the purpose of design and planning.
+            It has no warranty either explicit or implied and is subject to change.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/membership" schemaLocation="membership.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/subscription" schemaLocation="subscription.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/enrollment" schemaLocation="enrollment.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../connector-common-schema/match-input.xsd"/>
+
+
+
+    <xs:element name="membershipLookupResponse" type="MembershipResponseType"/>
+    <xs:element name="membershipLookupCriteria" type="MembershipLookupType"/>
+    <xs:complexType name="MembershipLookupType">
+        <xs:complexContent>
+            <xs:extension base="minput:MemberMatchInputType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="subscriptionLookupResponse" type="SubscriptionResponseType"/>
+    <xs:element name="subscriptionLookupCriteria" type="SubscriptionLookupType"/>
+    <xs:complexType name="SubscriptionLookupType">
+        <xs:complexContent>
+            <xs:extension base="minput:MemberMatchInputType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    
+    <xs:element name="enrollmentLookupResponse" type="EnrollmentResponseType"/>
+    <xs:element name="enrollmentLookupCriteria" type="EnrollmentLookupType"/>
+    <xs:complexType name="EnrollmentLookupType">
+        <xs:complexContent>
+            <xs:extension base="minput:MemberMatchInputType">
+            <xs:sequence>
+            <xs:element name="latestEndorsementEffectiveDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="MembershipResponseType">
+        <xs:sequence>
+            <xs:element ref="member:membership" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SubscriptionResponseType">
+        <xs:sequence>
+            <xs:element ref="subsc:subscription" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="EnrollmentResponseType">
+        <xs:sequence>
+            <xs:element ref="enroll:enrollment" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>

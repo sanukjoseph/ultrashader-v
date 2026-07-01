@@ -1,0 +1,18 @@
+Revision History,,,,
+,,,,
+,,,,
+,,,,
+V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+2,02/16/23,Mithun M,Shijila M,Initial Version
+2.4,45224,Ambily Raj,Rameshwar Singh,"Added mapping for /medicaidDual Tag.
+Mapping Logic changes for fields in FLG transaction"
+3,04/29/24,Ambily Raj,Rameshwar Singh,Changes to accommodate the new tags in XSD - INTP-8177
+3.1,05/17/24,Ambily Raj,Rameshwar Singh,Changes to accommodate the new tags in XSD - INTP-8521
+3.2,08/17/24,Ambily Raj,Rameshwar Singh,Changes for PSD-2424
+3.3,09/03/24,Ambily Raj,Rameshwar Singh,"1. Added mapping for new fields 162,163 and 164(SOGI Chgs)
+2. Updated mapping for Fields 59, 60, 61(since codeset is updated in HE V24.1) and Fields 65 -71 (since tags are available in HE V24.1 XSD).
+3.Changes for PSD-3334(Field No 23) and PSD-3374 (Field no 73)
+4. Added mapping for PWO transaction fields."
+3.4,2/12/24,Ambily Raj,Rameshwar Singh,Changes for IB enrollment LCN
+3.5,4/15/25,Ambily Raj,Rameshwar Singh,Added mapping for M3P fields.
+3.6,2/6/26,Ambily Raj,Rameshwar Singh,Changes for Enrollment Config Suite. Added the tags LOB and State.

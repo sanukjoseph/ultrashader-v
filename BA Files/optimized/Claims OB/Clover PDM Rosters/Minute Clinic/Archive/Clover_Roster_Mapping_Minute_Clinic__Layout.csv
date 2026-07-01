@@ -1,0 +1,176 @@
+##,Fields,Mandatory/Optional,Length,Format,Pre-Mapping Validation Rules
+1,Status,M,100,String,
+2,LastName,M,50,String,"Reject -
+ IF EMPTY"
+3,FirstName,M,50,String,"Reject -
+ IF EMPTY"
+4,MiddleInitial,O,10,String,
+5,Degree,M,25,String,"Reject -
+ IF EMPTY"
+6,BirthDate,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM/DD/YYYY)"
+7,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female)"
+8,NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC"
+9,TaxonomyCode,M,10,Alphanumeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10
+
+Example - 208M00000X"
+10,Specialty,O,100,String,
+11,CAQH,O,50,String,
+12,State,O,2,String,
+13,FacilityName,M,100,String,"Reject -
+ IF EMPTY"
+14,GroupNPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC"
+15,TaxID,M,10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10"
+16,Telephone,O,50,String,
+17,Fax,O,50,String,
+18,ApplicationType,O,100,String,
+19,Initialappointment,O,100,String,
+20,Lastappointment,O,100,String,"Reject -
+ IF EMPTY"
+21,Nextappointment,O,100,String,"Reject -
+ IF EMPTY"
+22,EducationType,O,100,String,
+23,EducationName,O,200,String,"Reject -
+ IF EMPTY"
+24,EducationAddress,O,100,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE"
+25,EducationCity,O,100,String,"Reject -
+ IF EMPTY"
+26,EducationState,O,100,String,
+27,EducationZip,O,100,String,"Reject -
+ IF EMPTY"
+28,EducationFrom,O,100,String,
+29,EducationTo,O,100,String,
+30,EducationDegreeEarned,O,100,String,
+31,BoardName,O,50,String,
+32,CertificationNumber,O,50,String,
+33,InitialCertification,O,50,String,
+34,ExpiredDate,O,50,String,
+35,StateLicenseType,O,200,String,
+36,StateLicenseState,O,50,String,
+37,StateLicenseNumber,O,50,String,
+38,StateLicenseIssued,O,50,String,
+39,StateLicenseExpired,O,50,String,
+40,RNLicenseType,O,200,String,
+41,RNLicenseState,O,50,String,
+42,RNMultistate,O,50,String,
+43,MultistateCoverage,O,50,String,
+44,RNLicenseNumber,O,50,String,
+45,RNLicenseIssued,O,50,String,
+46,RNLicenseExpired,O,50,String,
+47,DEALicenseType,O,200,String,
+48,DEALicenseState,O,50,String,
+49,DEALicenseNumber,O,50,String,
+50,DEALicenseIssued,O,50,String,
+51,DEALicenseExpired,O,50,String,
+52,ControlledSubstanceLicenseType,O,200,String,
+53,ControlledSubstanceLicenseState,O,50,String,
+54,ControlledSubstanceLicenseNumber,O,50,String,
+55,ControlledSubstanceLicenseIssued,O,50,String,
+56,ControlledSubstanceLicenseExpired,O,50,String,
+57,PrescriptiveAuthorityLicenseType,O,50,String,
+58,PrescriptiveAuthorityLicenseState,O,50,String,
+59,PrescriptiveAuthorityLicenseNumber,O,50,String,
+60,PrescriptiveAuthorityLicenseIssued,O,50,String,
+61,PrescriptiveAuthorityLicenseExpired,O,50,String,
+62,MedicareContractType-1,O,25,String,
+63,MedicareContractName-1,O,50,String,
+64,MedicareIDNumber-1,O,50,String,
+65,MedicareContractType-2,O,25,String,
+66,MedicareContractName-2,O,50,String,
+67,MedicareIDNumber-2,O,50,String,
+68,MedicareContractType-3,O,25,String,
+69,MedicareContractName-3,O,50,String,
+70,MedicareIDNumber-3,O,50,String,
+71,MedicareContractType-4,O,25,String,
+72,MedicareContractName-4,O,50,String,
+73,MedicareIDNumber-4,O,50,String,
+74,MedicareContractType-5,O,25,String,
+75,MedicareContractName-5,O,50,String,
+76,MedicareIDNumber-5,O,50,String,
+77,MedicareContractType-6,O,25,String,
+78,MedicareContractName-6,O,50,String,
+79,MedicareIDNumber-6,O,50,String,
+80,MedicareContractType-7,O,25,String,
+81,MedicareContractName-7,O,50,String,
+82,MedicareIDNumber-7,O,50,String,
+83,MedicareContractType-8,O,25,String,
+84,MedicareContractName-8,O,50,String,
+85,MedicareIDNumber-8,O,50,String,
+86,MedicareContractType-9,O,25,String,
+87,MedicareContractName-9,O,50,String,
+88,MedicareIDNumber-9,O,50,String,
+89,MedicaidContractType-1,O,25,String,
+90,MedicaidContractName-1,O,50,String,
+91,MedicaidIDNumber-1,O,50,String,
+92,MedicaidJoinedDate-1,O,25,String,
+93,MedicaidNotifiedDate-1,O,25,String,
+94,MedicaidContractType-2,O,25,String,
+95,MedicaidContractName-2,O,50,String,
+96,MedicaidIDNumber-2,O,50,String,
+97,MedicaidJoinedDate-2,O,25,String,
+98,MedicaidNotifiedDate-2,O,25,String,
+99,MedicaidContractType-3,O,25,String,
+100,MedicaidContractName-3,O,50,String,
+101,MedicaidIDNumber-3,O,50,String,
+102,MedicaidJoinedDate-3,O,25,String,
+103,MedicaidNotifiedDate-3,O,25,String,
+104,MedicaidContractType-4,O,25,String,
+105,MedicaidContractName-4,O,50,String,
+106,MedicaidIDNumber-4,O,50,String,
+107,MedicaidJoinedDate-4,O,25,String,
+108,MedicaidNotifiedDate-4,O,25,String,
+109,MedicaidContractType-5,O,25,String,
+110,MedicaidContractName-5,O,50,String,
+111,MedicaidIDNumber-5,O,50,String,
+112,MedicaidJoinedDate-5,O,25,String,
+113,MedicaidNotifiedDate-5,O,25,String,
+114,MedicaidContractType-6,O,25,String,
+115,MedicaidContractName-6,O,50,String,
+116,MedicaidIDNumber-6,O,50,String,
+117,MedicaidJoinedDate-6,O,25,String,
+118,MedicaidNotifiedDate-6,O,25,String,
+119,MedicaidContractType-7,O,25,String,
+120,MedicaidContractName-7,O,50,String,
+121,MedicaidIDNumber-7,O,50,String,
+122,MedicaidJoinedDate-7,O,25,String,
+123,MedicaidNotifiedDate-7,O,25,String,
+124,MedicaidContractType-8,O,25,String,
+125,MedicaidContractName-8,O,50,String,
+126,MedicaidIDNumber-8,O,50,String,
+127,MedicaidJoinedDate-8,O,25,String,
+128,MedicaidNotifiedDate-8,O,25,String,
+129,MedicaidContractType-9,O,25,String,
+130,MedicaidContractName-9,O,50,String,
+131,MedicaidIDNumber-9,O,50,String,
+132,MedicaidJoinedDate-9,O,25,String,
+133,MedicaidNotifiedDate-9,O,25,String,
+134,MedicaidContractType-10,O,25,String,
+135,MedicaidContractName-10,O,50,String,
+136,MedicaidIDNumber-10,O,50,String,
+137,MedicaidJoinedDate-10,O,25,String,
+138,MedicaidNotifiedDate-10,O,25,String,
+139,MedicalGroup-1,O,100,String,
+140,IDNumber-1,O,50,String,
+141,Address-1,M,100,String,
+142,City-1,M,50,String,
+143,Zip-1,M,50,String,
+144,County-1,O,50,String,
+145,State,M,2,String,
+146,BillingAddress-1,M,100,String,
+147,BillingCity-1,M,50,String,
+148,BillingState-1,M,2,String,
+149,BillingZip-1,M,50,String,

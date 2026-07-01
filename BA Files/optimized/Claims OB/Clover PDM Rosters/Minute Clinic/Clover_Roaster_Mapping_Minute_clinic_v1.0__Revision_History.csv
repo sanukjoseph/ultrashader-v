@@ -1,0 +1,17 @@
+,Revision History,,,,
+,,,,,
+,V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+,0.1,21-03-2025,Prashanth Obla,,"Initial Version
+• Mapping Specs
+• Story Detailing"
+,,09-06-2025,Deepthi Marella,Prashanth Obla,"Virtual Providers - Prevalidation:
+Updated RNMultistate to
+'Y' or 'N', 'y' or 'n' from 'Y' or 'N'"
+,,6/11/25,Prashanth Obla,,County-1 changed to Optional from Mandatory
+,1.0,6/16/25,Deepthi Marella,,State Cross Walk tab included
+,,6/17/25,Deepthi Marella,,Updated the File Requirement tab with latest File Name appended with the Tab Name
+,,6/17/25,Prashanth Obla,,Updated IDNumber-1 field to Numeric from String in Core Providers & Virtual Providers - Prevalidation sheet
+,,6/18/25,Deepthi Marella,Prashanth Obla,"Updated The File Naming Convention
+1. ""Vendor-name = Input File Name""
+2. Full File Rejection File Naming convention"
+,,6/23/25,Deepthi Marella,Prashanth Obla,Updated Tax id length as '9-10'

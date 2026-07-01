@@ -1,0 +1,18 @@
+membership_full_file_data,,,,
+Column Name,Data Type,Nullable,Edifecs mapping,
+record_id,varchar(36),No,Recordid,Primary key
+file_id,varchar(36),Yes,ediFileId,
+file_name,varchar(250),Yes,ediFilename,
+file_date,datetime,Yes,"DTP*007(pls check the date format of table), If not available Process date",
+top_account_id,varchar(50),Yes,REF*38,
+subscriber_id,varchar(50),Yes,2000.REF*0F,
+member_id,varchar(50),Yes,2000.REF*23 (commercial),2000.REF*0F(medicare/medicaid)
+family_id,varchar(50),Yes,2000.REF*0F,
+first_name,varchar(107),Yes,2100A.NM104 (2100A.NM101*1L),
+last_name,varchar(107),Yes,2100A.NM103 (2100A.NM101*1L),
+SSN,varchar(12),Yes,"2100A.NM109 (2100A.NM101*1L,2100A.NM108 is 34  )",
+DOB,date,Yes,2100A.DMG02 (pls check the date format of table),
+relationship,varchar(50),Yes,2000.INS02,
+gender,char(1),Yes,"2100A.DMG03 ( M=Male,F=Female,U=Unknown)",
+created_by,varchar(30),No,,
+created_on,datetime2(7),No,,

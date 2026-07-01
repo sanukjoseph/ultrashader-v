@@ -1,0 +1,20 @@
+Transaction Type (INS03),asofDate,/enrollment/member/qualifier/startDate,/enrollment/member/qualifier/endDate
+CREATE (021),"2300.DTP*348 (In case of multiple HD segments, traverse thru all HD segments with HD01 = 021, and take the earliest of 2300.DTP*348)
+
+If 2300.DTP*348 is not present, populate from 2000.DTP*356",Same as asofDate,Will not populate this tag.
+,,,
+,,,
+,,,
+CHANGE (001),2000.DTP*303,Same as asofDate,Will not populate this tag.
+TERMINATE (024),"2300.DTP*349 (In case of multiple HD segments, traverse thru all HD segments with HD01 = 024, and take the earliest of 2300.DTP*349)
+
+If 2300.DTP*349 is not present, populate from 2000.DTP*357",Will not populate this tag.,Same as asofDate
+,,,
+,,,
+REINSTATE(025),"Same as CREATE
+2300.DTP*348 (In case of multiple HD segments, traverse thru all HD segments with HD01 = 021, and take the earliest of 2300.DTP*348)
+
+If 2300.DTP*348 is not present, populate from 2000.DTP*356","Same as CREATE
+2300.DTP*348 (In case of multiple HD segments, traverse thru all HD segments with HD01 = 021, and take the earliest of 2300.DTP*348)
+
+If 2300.DTP*348 is not present, populate from 2000.DTP*356",Will not populate this tag.

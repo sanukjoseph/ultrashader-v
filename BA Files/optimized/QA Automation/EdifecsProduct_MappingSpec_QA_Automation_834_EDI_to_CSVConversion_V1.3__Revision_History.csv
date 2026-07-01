@@ -1,0 +1,13 @@
+Revision History,,,,
+,,,,
+,,,,
+,,,,
+V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+1.0,16-06-2023,Ambily Raj,Shijila M,Baselined.
+1.1,05-10-2023,Ambily Raj,Shijila M,"To Incorporate changes suggested by Automation Team
+1. Header record section not required , header record details needs to populated inside the member detail record itself.
+2. If possible, Dates in the csv generated should be in the format yyyy-mm-dd."
+1.2,05-10-2023,Ambily Raj,Shijila M,Made all fields except Subscriber ID as Situational.
+1.3,10/30/23,Ambily Raj,Shijila M,"Added new fields to the layout as per the request from IBC QA automation team.
+1. Immigration_Status
+2.Effectuation_Date_*"

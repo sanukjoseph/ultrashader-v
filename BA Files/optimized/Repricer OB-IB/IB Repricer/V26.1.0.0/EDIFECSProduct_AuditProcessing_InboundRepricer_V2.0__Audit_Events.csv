@@ -1,0 +1,14 @@
+processStageName,processStatus,processMessage,JSON TRIGGER EVENT,Comments
+edifecs:message received,MESSAGE READ,File Level,When the inbound IB file is received via mount path,
+edifecs:message received,ERROR,,,Do we need this event?
+edifecs:validation,PROCESSED,,"After the Validations, if it’s a good record",
+edifecs:validation failed,ERROR,"Detailed Error details in below format( for EDI )
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.","After the Validations, if it’s a bad record",
+edifecs:conversion,PROCESSED,,After the XML conversion if it’s a success,
+edifecs:conversion failed,ERROR,"Detailed Error details in below format( for EDI )
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",After the XML conversion if it’s a failure,
+,,,,
+edifecs:file level validation error,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",Incase of Interchange related errors like Parsing Error or Incorrect Info in ISA & GS,
+edifecs:validation failed,ERROR,Duplicate_File_<FileName>,,
+edifecs:validation failed,ERROR,Duplicate_Interchange_<SenderId>_<ReciverId>_<Time>_<Date>_<InterchangeControlNumber>,,

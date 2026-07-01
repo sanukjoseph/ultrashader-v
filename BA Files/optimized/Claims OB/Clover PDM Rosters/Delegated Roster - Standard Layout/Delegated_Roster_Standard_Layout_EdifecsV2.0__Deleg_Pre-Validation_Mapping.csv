@@ -1,0 +1,120 @@
+##,Source & Target Fields,Mandatory/Optional,Length,Format,Pre-Mapping Validation Rules,Mapping Rules,Comments,
+1,Service Market,O,100,String,,Direct Map,,
+2,Provider NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",Direct Map,,
+3,First Name,M,50,String,"Reject -
+ IF EMPTY",Direct Map,,
+4,Last Name,M,50,String,"Reject -
+ IF EMPTY",Direct Map,,
+5,Degree,M,25,String,"Reject -
+ IF EMPTY",Direct Map,,
+6,Primary Specialty,M,200,String,"Reject -
+ IF EMPTY","1. Lookup Primary Specialty against Taxonomy Code in Crosswalk if length = 10 characters.
+  - if found, direct map the input
+  - If not found, go to step 2
+2. Lookup Primary Specialty against Taxonomy Description in Crosswalk if length <> 10 characters.
+  - if found, Map Code returned from the crosswalk
+  - If not found, Reject the record","New Updated Logic.
+Refer to the Taxonomy Crosswalk in the document",
+7,Secondary Specialty,O,200,String,,Direct Map,,
+8,PCP or Specialist?,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (PCP, SPECIALIST, Specialist)","Map as per the crosswalk below -
+PCP -> ""PCP""
+SPECIALIST or Specialist -> ""Specialist""",Deepthi: Added the value - 'Specialist',
+9,Hospital Based?,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (Y, N, YES, NO, Yes, No, yes, no, y, n)","Map ""Yes"" if ""Y"" or ""YES"" or ""Yes"" or ""yes"" or ""y""
+Map ""No"" if ""N"" or ""NO"" or ""No"" or ""no"" or ""n""","Deepthi: Added the value - 'Yes', 'No'",
+10,Board Certified?,O,50,String,,Do not Map,,
+11,Board Name (certifying board name),O,150,String,,Do not Map,,
+12,DEA Number,O,50,String,,Do not Map,,
+13,CDS (If Applicable),O,50,String,,Do not Map,,
+14,Medical License Number,O,50,String,,Do not Map,,
+15,Medical School Name,O,150,String,,Do not Map,,
+16,Medical School Grad Year,O,50,String,,Do not Map,,
+17,Social Security Number,O,11,String,,Do not Map,,
+18,DOB,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)","Convert date format to ""MM-DD-YYYY""",,
+19,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female, MALE, FEMALE, male, female)","Map ""Male"" if input value is ""M"" or ""Male"" or ""MALE"" or ""male""
+Map ""Female"" if input value is ""F"" or ""Female"" or ""FEMALE"" or ""female""","Deepthi: Added the value - 'MALE', 'FEMALE'",
+20,Original Credential Date,O,50,String,,Do not Map,,
+21,Most Recent Credential Date,O,50,String,,Do not Map,,
+22,Next Reappointment Date,O,50,String,,Do not Map,,
+23,Additional Languages?,O,100,String,,Direct Map,,
+24,Active Date,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)","Convert date format to ""MM-DD-YYYY""",,
+25,Practice/Group Name,M,200,String,"Reject -
+ IF EMPTY",Direct Map,,
+26,Practice/Group NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",Direct Map,Option,
+27,Site Name,O,200,String,,Direct Map,,
+28,Provider's Primary Location?,M,5,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (Y, N, YES, NO, Yes, No, yes, no, y, n)","Map ""Yes"" if ""Y"" or ""YES"" or ""Yes"" or ""yes"" or ""y""
+Map ""No"" if ""N"" or ""NO"" or ""No"" or ""no"" or ""n""","Deepthi: Added the value - 'Yes', 'No'",
+29,List Location in Directory?,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (Y, N, YES, NO, Yes, No, yes, no, y, n)","Map ""Yes"" if ""Y"" or ""YES"" or ""Yes"" or ""yes"" or ""y""
+Map ""No"" if ""N"" or ""NO"" or ""No"" or ""no"" or ""n""","Deepthi: Added the value - 'Yes', 'No'",
+30,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",M,150,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (Y, N, YES, NO, Yes, No, yes, no, y, n)","Map ""Yes"" if ""Y"" or ""YES"" or ""Yes"" or ""yes"" or ""y""
+Map ""No"" if ""N"" or ""NO"" or ""No"" or ""no"" or ""n""","Deepthi: Added the value - 'Yes', 'No'",
+31,Provider Email,O,150,String,,Do not Map,,?
+32,Service Address,M,100,String,"Reject -
+ IF EMPTY",Direct Map,,
+33,Service Address 2,O,100,String,,Direct Map,,
+34,Service Location City,M,50,String,"Reject -
+ IF EMPTY",Direct Map,,
+35,Service Location State,M,50,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE LIST",Direct Map,,
+36,Service Location Zip,M,50,String,"Reject -
+ IF EMPTY or
+ IF Length < 5",Map only first 5 digit numeric,Deepthi: To be discussed if first digit is '0',
+37,Service Location County,O,50,String,,Direct Map,,
+38,Service Location Phone,M,50,String,"Reject -
+ IF EMPTY","Remove ""("" if exists
+Remove ""-"" if exists
+Remove Spaces if exists
+Convert to phone number format (xxxxxxxxxx) if not in the format xxxxxxxxxx
+Expected formats - (856) 508-1000, 856-508-1000, 1234567890",New Updated Logic,
+39,Service Location Fax,O,50,String,,"Remove ""("" if exists
+Remove ""-"" if exists
+Remove Spaces if exists
+Convert to phone number format (xxxxxxxxxx) if not in the format xxxxxxxxxx
+Expected formats - (856) 508-1000, 856-508-1000, 1234567890",New Updated Logic,
+40,Tax ID,M,9-10,String,"Pre Validation:
+Reject -
+ IF EMPTY
+Post Validation:
+Reject -
+If Lenght <>9","Remove ""-"" if present",,
+41,Remit Address,M,100,String,"Reject -
+ IF EMPTY",Direct Map,,
+42,Remit Address 2,O,100,String,,Direct Map,,
+43,Remit Address City,M,50,String,"Reject -
+ IF EMPTY",Direct Map,,
+44,Remit Address State,M,50,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE",Direct Map,,
+45,Remit Address Zip,M,50,String,"Reject -
+ IF EMPTY or
+ IF Length < 5",Map only first 5 digit numeric,,
+46,Billing Phone,O,50,String,,"Remove ""("" if exists
+Remove ""-"" if exists
+Remove Spaces if exists
+Convert to phone number format (xxxxxxxxxx) if not in the format xxxxxxxxxx
+Expected formats - (856) 508-1000, 856-508-1000, 1234567890",New Updated Logic,
+47,Billing Fax,O,50,String,,"Remove ""("" if exists
+Remove ""-"" if exists
+Remove Spaces if exists
+Convert to phone number format (xxxxxxxxxx) if not in the format xxxxxxxxxx
+Expected formats - (856) 508-1000, 856-508-1000, 1234567890",New Updated Logic,

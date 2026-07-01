@@ -1,0 +1,258 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns="http://www.healthedge.com/connector/schema/supplierlocationlookup"
+		   xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+		   targetNamespace="http://www.healthedge.com/connector/schema/supplierlocationlookup"
+		   elementFormDefault="unqualified" version="4.1">
+
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+
+	<xs:element name="supplierLocationLookupResponse" type="SupplierLocationLookupResponseType"/>
+	<xs:element name="supplierLocationLookupInput" type="SupplierLocationLookupInputType"/>
+
+	<xs:complexType name="SupplierLocationLookupInputType">
+				<xs:sequence>
+					<xs:element name="supplierLocationReference" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationHccIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationNationalProviderId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="onlyPCP" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="otherName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="asOfDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="endorsementDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="includeTerminated" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SupplierLocationType">
+				<xs:sequence>
+					<xs:element name="supplierReference" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierHccIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationReference" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationHccIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="endorsementEffectiveDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>					
+					<xs:element name="supplierLocationNationalProviderId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="pcp" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="isAutoAssignedAsPCP" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="otherNames" type="base:OtherNamesListType" minOccurs="0" maxOccurs="unbounded" />
+					<xs:element name="practiceAddress" type="AddressInformationType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="language" type="base:LanguageSpokenType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="claimPaymentPayee" type="PayeeSelectionType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="capitatedPaymentPayee" type="PayeeSelectionType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="supplierLocationUDTList" type="base:UDTListType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="effectiveStartDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="isHandicapAccessible" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="isHospital" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="primaryLocationIndicator" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="locationPanels" type="LocationPanelsType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="locationPracticeInformation" type="LocationPracticeInformationType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="instanceActiveCode" type="InstanceActiveCodeType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="generalCorrespondenceAddress" type="CorrespondenceInformationType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="otherCorrespondenceAddressList" type="CorrespondenceInformationType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="otherIdNumberList" minOccurs="0" maxOccurs="1">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="listMode" type="base:ListActionType" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="identificationNumber" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="supplierClassification" type="ClassificationListType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="remittanceType" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="paymentType" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="weeklyHoursOfOperation" type="WeeklyHoursOfOperationType" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="benefitNetworkList" type="BenefitNetworkList" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="versionEndDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="BenefitNetworkList">
+		<xs:sequence>
+			<xs:element name="BenefitNetwork" type="BenefitNetworkType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="BenefitNetworkType">
+		<xs:sequence>
+			<xs:element name="benefitNetworkId" type="xs:long" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="benefitNetworkName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="benefitNetworkDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SupplierLocationLookupResponseType">
+		<xs:sequence>
+			<xs:element name="SupplierLocationLookup" type="SupplierLocationType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="base:ErrorStatusGroup"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="PayeeSelectionType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Supplier"/>
+			<xs:enumeration value="Location"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InstanceActiveCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ACTIVE"/>
+			<xs:enumeration value="TERMINATED"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="ClassificationListType">
+		<xs:sequence>
+			<xs:element name="updateMode" type="base:ListUpdateModeType"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="classification" type="ClassificationType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ClassificationType">
+		<xs:sequence>
+			<xs:element name="classificationIdentifier" type="xs:long" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="code" type="base:String50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="LocationPanelsType">
+		<xs:sequence>
+			<xs:element name="panel" type="LocationPanelType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="LocationPanelType">
+		<xs:sequence>
+			<xs:element name="panelStatusCode" type="PanelStatusCodeType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="allowReturningMembersToClosedPanel" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="allowFamilyMembersToClosedPanel" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="maxNumberOfMembers" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="panelTypes" type="LocationPanelTypesType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="LocationPanelTypesType">
+		<xs:sequence>
+			<xs:element name="panelType" type="base:CodeEntryType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+
+	<xs:simpleType name="PanelStatusCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Open"/>
+			<xs:enumeration value="Closed"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:complexType name="LocationPracticeInformationType">
+		<xs:sequence>
+			<xs:element name="panelGenderCode " type="base:GenderCodeType" nillable="true" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="maxAgeSeen"  type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="minAgeSeen"  type="xs:int" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CorrespondenceInformationType">
+		<xs:sequence>
+			<xs:element name="emailAddress" type="base:EmailAddressValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="addressInfo" type="AddressInformationType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="contacts" type="ContactListType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="correspondenceUsageType" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AddressInformationType">
+		<xs:sequence>
+			<xs:element name="postalAddress" type="base:PostalAddressType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="addressPhones" type="AddressPhoneType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="AddressPhoneType">
+		<xs:sequence>
+			<xs:element name="addressPhone" type="base:TelephoneNumberType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ContactListType">
+		<xs:sequence>
+			<xs:element name="contact" type="ContactType" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ContactType">
+		<xs:sequence>
+			<xs:element name="title" type="base:String50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="emailAddress" type="base:EmailAddressValueType"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="personName" type="base:PersonNameType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="telephones" type="TelephoneType"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="usageType" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="TelephoneType">
+		<xs:sequence>
+			<xs:element name="telephone" type="base:TelephoneNumberType"  minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="WeeklyHoursOfOperationType">
+		<xs:sequence>
+			<xs:element name="monday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="tuesday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="wednesday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="thursday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="friday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="saturday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="sunday" type="OpenCloseTimesType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OpenCloseTimesType">
+		<xs:sequence>
+			<xs:element name="openCloseTime" type="OpenCloseTimeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OpenCloseTimeType">
+		<xs:sequence>
+			<xs:element name="openTime" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="openTimeAMPM" type="AMPMType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="closeTime" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="closeTimeAMPM" type="AMPMType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AMPMType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AM"/>
+			<xs:enumeration value="PM"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	
+
+	
+<!--
+	
+
+	<xs:complexType name="OrganizationInformationType">
+		<xs:sequence>
+			<xs:element name="primaryName" type="base:String200Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="taxId" type="base:String50Type" minOccurs="0" maxOccurs="1" />
+			<xs:element name="otherNames" type="OtherNamesType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="OtherNamesType">
+		<xs:sequence>
+			<xs:element name="otherName" type="OtherOrganizationNameUsedType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+-->
+	
+	
+
+	
+
+
+</xs:schema>

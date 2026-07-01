@@ -1,0 +1,702 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Map Version="3" ModelVersion="4" ModelRevision="1" LastCPID="106">
+	<Properties Category="BusinessGroups">
+		<Property Name="1/ID">1</Property>
+		<Property Name="1/Name">RecordType1</Property>
+		<Property Name="2/ID">2</Property>
+		<Property Name="2/Name">RecordType2</Property>
+		<Property Name="3/ID">3</Property>
+		<Property Name="3/Name">Header</Property>
+	</Properties>
+	<Properties Category="BusinessTabs">
+		<Property Name="1/ID">3</Property>
+		<Property Name="2/ID">1</Property>
+		<Property Name="3/ID">2</Property>
+		<Property Name="3/LeftReserve">14</Property>
+	</Properties>
+	<Properties Category="Features">
+		<Property Name="StrictVariablesNaming">true</Property>
+		<Property Name="SupportSrcXmlDataExistenceFilter">true</Property>
+	</Properties>
+	<Properties Category="GlobalUserNoteLabels">
+		<Property Name="{4fbf5e7d-26f3-458e-aaa8-d70af854e912}">Description</Property>
+	</Properties>
+	<Properties Category="Summary">
+		<Property Name="Author">UST Global</Property>
+		<Property Name="Version">1.0</Property>
+		<Property Name="Company">UST Global</Property>
+		<Property Name="Status">Draft</Property>
+		<Property Name="CreatedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="CreationDate">1752837354</Property>
+		<Property Name="ModifiedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="ModificationDate">1758191441</Property>
+	</Properties>
+	<Properties Category="Variables">
+		<Property Name="LastVarID">5</Property>
+		<Property Name="1/ID">2</Property>
+		<Property Name="1/Name">EPC_Draft_Number</Property>
+		<Property Name="2/ID">3</Property>
+		<Property Name="2/Name">EPC_Account_Number</Property>
+		<Property Name="3/ID">4</Property>
+		<Property Name="3/Name">Payment_Type</Property>
+		<Property Name="4/ID">5</Property>
+		<Property Name="4/Name">Form_Code</Property>
+	</Properties>
+	<Sources>
+		<ExternalStorage ID="1" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Source</Property>
+				<Property Name="Location">..\Guideline\IB_Payments_ProviderSettlement_PFF_Source.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">PositionalFlatFile</Property>
+				<Property Name="EntryNodeID">PFF</Property>
+				<Property Name="EntryNodeName">Provider Settlement Guideline</Property>
+				<Property Name="GuidelineType">Positional</Property>
+				<Property Name="InternalID">{BEF31032-7A65-412C-8F0B-93409A7C2CD0}</Property>
+				<Property Name="Standard">PFF</Property>
+				<Property Name="Version"></Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="_EntireDocument">inputId</Property>
+				<Property Name="_EntireDocument">inputType</Property>
+				<Property Name="_EntireDocument">inputFileName</Property>
+				<Property Name="_EntireDocument">inputArchiveFileName</Property>
+				<Property Name="_EntireDocument">totalTransactions</Property>
+				<Property Name="_EntireDocument">XMLfileCreationDate</Property>
+				<Property Name="_EntireDocument">senderId</Property>
+				<Property Name="_EntireDocument">receiverId</Property>
+				<Property Name="_EntireDocument">recordIdentifier</Property>
+				<Property Name="_EntireDocument">sourceTypeIdentifier</Property>
+				<Property Name="_EntireDocument">rayIdentifier</Property>
+				<Property Name="_EntireDocument">recordIdentifierFromSource</Property>
+				<Property Name="_EntireDocument">IB_Payments_Vendor</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="4" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 001')"/>
+				<ConnectionPoint ID="11" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 001')/Field(ID = '1.011')"/>
+				<ConnectionPoint ID="18" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 001')/Field(ID = '1.013')"/>
+				<ConnectionPoint ID="24" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 001')/Field(ID = '1.026')"/>
+				<ConnectionPoint ID="30" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 001')/Field(ID = '1.027')"/>
+				<ConnectionPoint ID="39" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 002')/Field(ID = '2.013')"/>
+				<ConnectionPoint ID="41" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 002')/Field(ID = '2.015')"/>
+				<ConnectionPoint ID="43" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 002')/Field(ID = '2.022')"/>
+				<ConnectionPoint ID="45" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 002')/Field(ID = '2.030')"/>
+				<ConnectionPoint ID="52" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 002')"/>
+				<ConnectionPoint ID="62" Path="/InternalProperties/Field(Name = 'inputId')"/>
+				<ConnectionPoint ID="64" Path="/InternalProperties/Field(Name = 'inputType')"/>
+				<ConnectionPoint ID="66" Path="/InternalProperties/Field(Name = 'inputFileName')"/>
+				<ConnectionPoint ID="68" Path="/InternalProperties/Field(Name = 'inputArchiveFileName')"/>
+				<ConnectionPoint ID="70" Path="/InternalProperties/Field(Name = 'totalTransactions')"/>
+				<ConnectionPoint ID="72" Path="/InternalProperties/Field(Name = 'XMLfileCreationDate')"/>
+				<ConnectionPoint ID="74" Path="/InternalProperties/Field(Name = 'senderId')"/>
+				<ConnectionPoint ID="76" Path="/InternalProperties/Field(Name = 'receiverId')"/>
+				<ConnectionPoint ID="78" Path="/InternalProperties/Field(Name = 'recordIdentifier')"/>
+				<ConnectionPoint ID="80" Path="/InternalProperties/Field(Name = 'sourceTypeIdentifier')"/>
+				<ConnectionPoint ID="82" Path="/InternalProperties/Field(Name = 'rayIdentifier')"/>
+				<ConnectionPoint ID="100" Path="/InternalProperties/Field(Name = 'recordIdentifierFromSource')"/>
+				<ConnectionPoint ID="101" Path="/Message(ID = 'PFF')/Record(ID = 'Record Type 001')/Field(ID = '1.014')"/>
+				<ConnectionPoint ID="105" Path="/InternalProperties/Field(Name = 'IB_Payments_Vendor')"/>
+			</ConnectionPoints>
+		</ExternalStorage>
+	</Sources>
+	<Targets>
+		<ExternalStorage ID="2" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Target</Property>
+				<Property Name="Location">..\..\IBPaymentsCommon\Guideline\IB_Payments_XML_Target.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentID"></Property>
+				<Property Name="DocumentType">XMLSchema</Property>
+				<Property Name="GuidelineType">XML Schema</Property>
+				<Property Name="InternalID">{2D1F8553-7682-47D3-97B7-CD83488D2CD1}</Property>
+				<Property Name="Standard"></Property>
+				<Property Name="Version"></Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="9" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'recordIdentifierFromSource')"/>
+				<ConnectionPoint ID="16" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'additionalPaymentInformation')/complexType(name = 'additionalPaymentInformation')/sequence/element(name = 'externalPaymentId')"/>
+				<ConnectionPoint ID="22" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'criteria')/complexType(name = 'paymentStatusSearchCriteria')/sequence/element(name = 'bankAccountNumber')"/>
+				<ConnectionPoint ID="27" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'customParameters')/complexType(name = 'customParameters')/sequence/element(name = 'paymentTypeCode')"/>
+				<ConnectionPoint ID="33" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'customParameters')/complexType(name = 'customParameters')/sequence/element(name = 'formCode')"/>
+				<ConnectionPoint ID="53" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'customParameters')/complexType(name = 'customParameters')/sequence/element(name = 'networkName')"/>
+				<ConnectionPoint ID="54" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'criteria')/complexType(name = 'paymentStatusSearchCriteria')/sequence/element(name = 'checkNumber')"/>
+				<ConnectionPoint ID="55" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'criteria')/complexType(name = 'paymentStatusSearchCriteria')/sequence/element(name = 'checkAmount')"/>
+				<ConnectionPoint ID="56" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'customParameters')/complexType(name = 'customParameters')/sequence/element(name = 'paymentId')"/>
+				<ConnectionPoint ID="63" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputId')"/>
+				<ConnectionPoint ID="65" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputType')"/>
+				<ConnectionPoint ID="67" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputFileName')"/>
+				<ConnectionPoint ID="69" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputArchiveFileName')"/>
+				<ConnectionPoint ID="71" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'totalTransactions')"/>
+				<ConnectionPoint ID="73" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'XMLfileCreationDate')"/>
+				<ConnectionPoint ID="75" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'senderId')"/>
+				<ConnectionPoint ID="77" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'receiverId')"/>
+				<ConnectionPoint ID="79" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'recordIdentifier')"/>
+				<ConnectionPoint ID="81" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'sourceTypeIdentifier')"/>
+				<ConnectionPoint ID="83" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'rayIdentifier')"/>
+				<ConnectionPoint ID="102" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'additionalPaymentInformation')/complexType(name = 'additionalPaymentInformation')/sequence/element(name = 'externalPaymentDate')"/>
+			</ConnectionPoints>
+			<ReverseConnectionPoints/>
+		</ExternalStorage>
+	</Targets>
+	<Functions>
+		<Function ID="4" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">2</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">48</Property>
+				<Property Name="Tab1/YPos">-96</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="10" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="6" Name="Set Value" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">320</Property>
+				<Property Name="Tab1/YPos">-64</Property>
+				<Property Name="Tab3/XPos">324</Property>
+				<Property Name="Tab3/YPos">-50</Property>
+				<Property Name="Tab2/XPos">324</Property>
+				<Property Name="Tab2/YPos">-61</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="15" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="36" FP="A" Name="value" DirectValue="{2}"/>
+				<ConnectionPoint ID="14" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="7" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">3</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">80</Property>
+				<Property Name="Tab1/YPos">-160</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="17" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="8" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">384</Property>
+				<Property Name="Tab1/YPos">-144</Property>
+				<Property Name="Tab3/XPos">356</Property>
+				<Property Name="Tab3/YPos">-78</Property>
+				<Property Name="Tab2/XPos">356</Property>
+				<Property Name="Tab2/YPos">-89</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="21" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="20" FP="A" Name="value" DirectValue="{3}"/>
+				<ConnectionPoint ID="19" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="9" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">4</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">16</Property>
+				<Property Name="Tab1/YPos">-192</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="23" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="10" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">256</Property>
+				<Property Name="Tab1/YPos">-208</Property>
+				<Property Name="Tab3/XPos">292</Property>
+				<Property Name="Tab3/YPos">-118</Property>
+				<Property Name="Tab2/XPos">292</Property>
+				<Property Name="Tab2/YPos">-129</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="26" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="28" FP="A" Name="value" DirectValue="{4}"/>
+				<ConnectionPoint ID="25" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="11" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">5</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">48</Property>
+				<Property Name="Tab1/YPos">-224</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="29" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="12" Template="SetValue">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">224</Property>
+				<Property Name="Tab1/YPos">-96</Property>
+				<Property Name="Tab3/XPos">436</Property>
+				<Property Name="Tab3/YPos">-77</Property>
+				<Property Name="Tab2/XPos">436</Property>
+				<Property Name="Tab2/YPos">-88</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="34" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="32" FP="A" Name="value" DirectValue="{5}"/>
+				<ConnectionPoint ID="31" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="13" Name="JavaScript Input_RecordType2" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">// Retrieving the record set or creating the recordset
+myRS1 = ec_VariableHelper.GetRecordSet(&quot;RecordType2&quot;);
+// Creating an empty array and Getting the value by index and assigning it to the array.
+ resArr1 = new Array();
+ 
+ for(i=0;i&lt;3;i++)
+ {
+ 	resArr1[i] = ec_DataHelper.GetValueByIndex(i);
+ }
+//Updating the newly inserted row with the values from the array
+myRS1.insertRow();
+myRS1.updateRow(resArr1);
+ec_VariableHelper.SetRecordSet(&quot;RecordType2&quot;, myRS1, true);
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">64</Property>
+				<Property Name="Tab2/YPos">0</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="37" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="40" FP="A" Pos="1" Name="value2">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="42" FP="A" Pos="2" Name="value3">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="38" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="14" Name="JavaScript Output_RecordType2" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var myRS = ec_VariableHelper.GetRecordSet(&quot;RecordType2&quot;);
+myRS.last();
+var Fields = myRS.getFields(); // Retrieve the fields inside the recordSet 
+for(var i=0;i&lt;Fields.length;i++)
+{
+	ec_ResultHelper.ReportResultByIndex(i,Fields[i].trim());
+}
+ 
+ 
+
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">112</Property>
+				<Property Name="Tab2/YPos">-80</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="51" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="46" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="47" FP="X" Pos="0" Name="result1"/>
+				<ConnectionPoint ID="48" FP="X" Pos="1" Name="result2"/>
+				<ConnectionPoint ID="49" FP="X" Pos="2" Name="result3"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="15" Name="JavaScript Input_CheckAmt" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">// Retrieving the record set or creating the recordset
+myRS1 = ec_VariableHelper.GetRecordSet(&quot;CheckAmt&quot;);
+// Creating an empty array and Getting the value by index and assigning it to the array.
+ resArr1 = new Array();
+ 
+ for(i=0;i&lt;1;i++)
+ {
+ 	resArr1[i] = ec_DataHelper.GetValueByIndex(i);
+ }
+//Updating the newly inserted row with the values from the array
+myRS1.insertRow();
+myRS1.updateRow(resArr1);
+ec_VariableHelper.SetRecordSet(&quot;CheckAmt&quot;, myRS1, true);
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">64</Property>
+				<Property Name="Tab2/YPos">-224</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="58" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="57" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="16" Name="JavaScript Output_CheckAmt" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var myRS = ec_VariableHelper.GetRecordSet(&quot;CheckAmt&quot;);
+myRS.last();
+var RS = myRS.getRow(); // Retrieve the row number of the recordSet
+var FinalAmt=0;
+while(RS&gt;0)
+{
+var Fields = myRS.getFields(); // Retrieve the fields inside the recordSet
+ec_ResultHelper.println(Fields[0]);	
+FinalAmt=FinalAmt + +Fields[0];
+myRS.previous();
+RS = myRS.getRow();
+}
+ FinalAmt = (FinalAmt / 100).toFixed(2);// Convert amt to decimal format
+ec_ResultHelper.ReportResultByIndex(0,FinalAmt.trim());
+
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab2/XPos">64</Property>
+				<Property Name="Tab2/YPos">-288</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="60" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="61" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="59" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="20" Template="Trim">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="paddings">{Space}</Property>
+				<Property Name="type">0</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">480</Property>
+				<Property Name="Tab1/YPos">-80</Property>
+				<Property Name="Tab3/XPos">484</Property>
+				<Property Name="Tab3/YPos">-66</Property>
+				<Property Name="Tab2/XPos">484</Property>
+				<Property Name="Tab2/YPos">-77</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="91" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="90" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="21" Template="Trim">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="paddings">{Space}</Property>
+				<Property Name="type">0</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">480</Property>
+				<Property Name="Tab1/YPos">-128</Property>
+				<Property Name="Tab3/XPos">532</Property>
+				<Property Name="Tab3/YPos">-78</Property>
+				<Property Name="Tab2/XPos">532</Property>
+				<Property Name="Tab2/YPos">-89</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="93" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="92" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="23" Template="Trim">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="paddings">{Space}</Property>
+				<Property Name="type">0</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">448</Property>
+				<Property Name="Tab1/YPos">-176</Property>
+				<Property Name="Tab3/XPos">516</Property>
+				<Property Name="Tab3/YPos">-141</Property>
+				<Property Name="Tab2/XPos">516</Property>
+				<Property Name="Tab2/YPos">-152</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="97" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="96" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="24" Template="Trim">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="paddings">{Space}</Property>
+				<Property Name="type">0</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">416</Property>
+				<Property Name="Tab1/YPos">-256</Property>
+				<Property Name="Tab3/XPos">436</Property>
+				<Property Name="Tab3/YPos">-166</Property>
+				<Property Name="Tab2/XPos">436</Property>
+				<Property Name="Tab2/YPos">-177</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="99" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="98" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="25" Name="Conditional Copy -ExternalPaymentDate" Template="ConditionalCopy">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="if_1/conditions/expression_1/arg1">103</Property>
+				<Property Name="if_1/conditions/expression_1/arg1/type">2</Property>
+				<Property Name="if_1/conditions/expression_1/operation">0</Property>
+				<Property Name="if_1/conditions/expression_1/operation/type">0</Property>
+				<Property Name="if_1/conditions/expression_1/arg2">PNC</Property>
+				<Property Name="if_1/actions/assignment_1/lvalue">104</Property>
+				<Property Name="if_1/actions/assignment_1/lvalue/type">2</Property>
+				<Property Name="if_1/actions/assignment_1/rvalue">106</Property>
+				<Property Name="if_1/actions/assignment_1/rvalue/type">2</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">160</Property>
+				<Property Name="Tab1/YPos">-288</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="103" FP="A" Pos="0" Name="PaymentsVendor">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="106" FP="A" Pos="1" Name="DraftDate">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="104" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+	</Functions>
+	<Connectors>
+		<Connector OutputCP="11" InputCP="10"/>
+		<Connector OutputCP="18" InputCP="17"/>
+		<Connector OutputCP="4" InputCP="21">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="24" InputCP="23"/>
+		<Connector OutputCP="4" InputCP="26">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="30" InputCP="29"/>
+		<Connector OutputCP="4" InputCP="34">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="4" InputCP="15">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="39" InputCP="37"/>
+		<Connector OutputCP="41" InputCP="40"/>
+		<Connector OutputCP="52" InputCP="51">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="47" InputCP="53"/>
+		<Connector OutputCP="48" InputCP="54"/>
+		<Connector OutputCP="45" InputCP="42"/>
+		<Connector OutputCP="49" InputCP="56"/>
+		<Connector OutputCP="43" InputCP="58"/>
+		<Connector OutputCP="52" InputCP="60">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="59" InputCP="55"/>
+		<Connector OutputCP="62" InputCP="63">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="64" InputCP="65">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="66" InputCP="67">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="68" InputCP="69">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="70" InputCP="71">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="72" InputCP="73">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="74" InputCP="75">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="76" InputCP="77">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="78" InputCP="79">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="80" InputCP="81">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="82" InputCP="83">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">3</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="14" InputCP="91"/>
+		<Connector OutputCP="90" InputCP="16"/>
+		<Connector OutputCP="19" InputCP="93"/>
+		<Connector OutputCP="92" InputCP="22"/>
+		<Connector OutputCP="31" InputCP="97"/>
+		<Connector OutputCP="96" InputCP="33"/>
+		<Connector OutputCP="25" InputCP="99"/>
+		<Connector OutputCP="98" InputCP="27"/>
+		<Connector OutputCP="100" InputCP="9">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="105" InputCP="103"/>
+		<Connector OutputCP="101" InputCP="106"/>
+		<Connector OutputCP="104" InputCP="102"/>
+	</Connectors>
+</Map>

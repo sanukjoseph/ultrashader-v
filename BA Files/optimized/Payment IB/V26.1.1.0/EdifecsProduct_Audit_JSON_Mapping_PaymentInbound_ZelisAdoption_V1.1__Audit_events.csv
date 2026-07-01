@@ -1,0 +1,15 @@
+Payment Inbound,,,,,
+Process Stage Name,Process Status,Process Message,File Level/Record level,JSON Trigger Event,Description
+edifecs:file received,FILE RECEIVED,,File Level,When the inbound Payment IB file is received via Listener,As soon as IB file is picked up by Edifecs for processing (File level)
+edifecs:file validation,PROCESSED,,File Level,File level Validation,Start of validations and spilting (File Level )
+edifecs:file validation,ERROR,Error description,Blank File - File Level,"This audit will be sent at any stage, in case of error in the transaction",Empty files - failed in file level validation
+edifecs:message split,PROCESSED,,Record level,When the inbound Payment IB file is split into record level,Once the record level split happens
+edifecs:publish completed,MESSAGE PUBLISHED,,Record level,Send the grouped json to java queue,
+,,,,,
+Success,,,,,
+edifecs:file received,FILE RECEIVED,,,,
+edifecs:file validation,PROCESSED,,,,
+,,,,,
+Error Scenario 1,,,,,
+edifecs:file received,FILE RECEIVED,,,,
+edifecs:file validation,ERROR,,,,

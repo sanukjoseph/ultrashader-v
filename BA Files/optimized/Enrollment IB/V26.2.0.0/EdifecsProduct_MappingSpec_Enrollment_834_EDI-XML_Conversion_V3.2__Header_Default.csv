@@ -1,0 +1,35 @@
+XML Fields,Explanation for the logic
+<header:header>,
+<ediFilename>20230115 231031148_COB_Scenario_8_cob_medicare.txt</ediFilename>,Shows the filename of 834 EDI
+<ediFileId>pJLBhchSblYJxOla</ediFileId>,This will be UniqueFile ID({UID}) from profile process flow
+<ediFileType>daily</ediFileType>,Need to identify the type of edi file based upon the transaction maintenance code property kept in guideline at entire document level
+<ediArchiveFileName>xxx</ediArchiveFileName>,EDI Archived file name
+<totalEdiTransaction>1</totalEdiTransaction>,This shows the number of edi transactions(INS segment) in 834 EDI
+<totalMemberCount>1</totalMemberCount>,This shows the number of unique member count in 834 EDI
+<totalXMLTransactionCount>1</totalXMLTransactionCount>,This shows the number of xml transactionCount in converted XML
+<XMLfileCreationDate>2023-01-01-05:00</XMLfileCreationDate>,This shows the current date time stamp with which xml is created
+<correlationId>pJLBhchSblYJxOla</correlationId>,UniqueFile ID({UID}) from profile process flow
+<senderId>COMEDASSISTPROG</senderId>,This will be ISA06 from EDI
+<receiverId>6563837</receiverId>,This will be ISA08 from EDI
+<termByAbsenceContext>,"Hardcode as 'TBA_APPLICABLE_ACCOUNT' ( only applicable for TBA profile, when account (REF*38)  found TBA eligible )"
+<LOB>,"Dervied from sender id using configurable mapping.
+Allowed Values - Medicaid, Medicare, Medicare Advantage, Commercial, CHIP, Commercial Group, Medigap, ACA, Medicare Supplement"
+<State>,"Dervied from sender id using configurable mapping.
+State Must be in Full name format (e.g., California, New York, Georgia)"
+<enrollmentSparseSubmitRequestRecordList>,
+<recordCount> -,Shows the total number of <enrollmentSparseSubmitRequestRecord> in a single xml file
+<enrollmentSparseSubmitRequestRecord>,
+<ediMemberRecordSequence>,Shows the member record sequence from EDI ( just increment by 1)
+<recordId>,"This will be unique for each record inside <enrollmentSparseSubmitRequestRecord> tag . This has to match the audit entry as well.
+This will be GUID from profile process flow . Sample :c5f22a77-f16a-4a14-8150-bff90b9e8e10"
+<recordIdFromSource>,
+<memberIdentifier>,This will be populated from 2000.REF*0F
+<sourceTypeIdentifier>,"This will be ""EDIFECS_Inbound834_daily"""
+<rayId>,"This will be unique for each record inside <enrollmentSparseSubmitRequestRecord> tag. It should be different from recordid.
+This will be GUID from profile process flow . Sample :c5f22a77-f16a-4a14-8150-bff90b9e8e10"
+<tenantId>,Hardcode as 'Product'
+<referenceIdentifier>,Leave it blank from Products
+<retriedReferenceIdentifier>,Leave it blank from Products
+/enrollment/cascadeTerms,Set as 'True'
+/enrollment/cascadeCancels,Set as 'True'
+/enrollment/cascadeReinstate,Set as 'False'

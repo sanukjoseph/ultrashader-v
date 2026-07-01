@@ -1,0 +1,29 @@
+{
+"""inputDetails"":"
+{
+"""inputId"": ""go8BmJfr5La763da"","
+"""inputFileName"": ""IB_Payment_ProviderSettlement_greaterline_checknumber0paymentidblank.dat"","
+"""inputType"": ""PROVIDER_SETTLEMENT"","
+"""totalTransactions"":2,"
+"""inputArchiveFilename"": ""Input_IB_Payment_ProviderSettlement_greaterline_checknumber0paymentidblank.dat"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""Edifecs-Validation"","
+"""processStatus"": ""PROCESSED"","
+"""processInputArchiveFilename"": ""IB_Payment_ProviderSettlement_greaterline_checknumber0paymentidblank.dat"","
+"""auditTime"": ""2025-08-11 02:57:57.652"""
+"},"
+"""identifiers"":"
+{
+"""rayIdentifier"": ""544EBB07-F93F-431F-A5A8-1A496F8E29C5"","
+"""recordIdentifier"": ""CFD38507-277B-4342-857D-EE220D971AFE"","
+"""recordIdentifierFromSource"": ""EPP000000509415414000000015051"""
+"},"
+"""payment"":"
+{
+"""paymentNumber"": ""15051"","
+"""checkNumber"":""000000015051"""
+}
+}

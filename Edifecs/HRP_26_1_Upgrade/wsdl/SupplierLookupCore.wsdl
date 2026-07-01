@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+                    xmlns:tns="http://healthedge.com" 
+                    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+                    xmlns="http://schemas.xmlsoap.org/wsdl/" 
+                    xmlns:providerlookup="http://www.healthedge.com/connector/schema/providerlookup"
+                    targetNamespace="http://healthedge.com">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.healthedge.com/connector/schema/providerlookup" schemaLocation="../PRIME_SERVICES_XSD/connector-providerlookup/providerlookup.xsd"/>
+        </xsd:schema>
+        <xsd:schema>
+                <xsd:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/base-types.xsd" />
+        </xsd:schema>
+        <xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/match-input.xsd" />
+		</xsd:schema>
+    </types>
+    <message name="supplierLookupCriteriaInput">
+        <part name="input" element="providerlookup:supplierLookupCriteria"/>
+    </message>
+    <message name="supplierLookupListResponseOutput">
+        <part name="output" element="providerlookup:supplierLookupListResponse"/>
+    </message>
+    <portType name="SupplierLookupPortType">
+        <operation name="getAll">
+            <input message="tns:supplierLookupCriteriaInput"/>
+            <output message="tns:supplierLookupListResponseOutput"/>
+        </operation>       
+    </portType>
+    <binding name="SupplierLookupBinding" type="tns:SupplierLookupPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getAll">
+            <soap:operation soapAction="http://healthedge.com/getAll"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SupplierLookup">
+        <port name="SupplierLookupPort" binding="tns:SupplierLookupBinding">
+            <soap:address location="http://localhost:7001/cprime-integration-webservices/SupplierLookup"/>
+        </port>
+    </service>
+</definitions>

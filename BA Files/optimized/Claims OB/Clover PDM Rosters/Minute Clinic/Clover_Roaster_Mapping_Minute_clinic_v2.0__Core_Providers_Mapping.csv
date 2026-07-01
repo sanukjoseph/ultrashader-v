@@ -1,0 +1,67 @@
+Target Fields,Mandatory/Optional,Length,Format,Minute Clinic Mapping,Mapping rules
+Service Market,O,100,String,,Leave it Blank
+Provider NPI,M,10,Numeric,NPI,
+First Name,M,50,String,FirstName,
+Last Name,M,50,String,LastName,
+Degree,M,25,String,Degree,
+Primary Specialty,M,200,String,TaxonomyCode,
+Secondary Specialty,O,200,String,,Leave it Blank
+PCP or Specialist?,M,50,String,,Default to Specialist
+Hospital Based?,M,50,String,,Default to 'N'
+Board Certified?,O,50,String,,Leave it Blank
+Board Name (certifying board name),O,150,String,,Leave it Blank
+DEA Number,O,50,String,,Leave it Blank
+CDS (If Applicable),O,50,String,,Leave it Blank
+Medical License Number,O,50,String,,Leave it Blank
+Medical School Name,O,150,String,,Leave it Blank
+Medical School Grad Year,O,50,String,,Leave it Blank
+Social Security Number,O,11,String,,Leave it Blank
+DOB,M,12,Date,BirthDate,"Convert date format to ""MM-DD-YYYY"""
+Gender,M,10,String,Gender,"Map ""Male"" if input value is ""M"" or ""Male"" or ""MALE""
+Map ""Female"" if input value is ""F"" or ""Female"" or ""FEMALE"""
+Original Credential Date,O,50,String,,Leave it Blank
+Most Recent Credential Date,O,50,String,,Leave it Blank
+Next Reappointment Date,O,50,String,,Leave it Blank
+Additional Languages?,O,100,String,,Leave it Blank
+Active Date,M,12,Date,Initialappointment,"Convert date format to ""MM-DD-YYYY"""
+Practice/Group Name,M,200,String,FacilityName,
+Practice/Group NPI,M,10,Numeric,GroupNPI,
+Site Name,O,200,String,,Leave it Blank
+Provider's Primary Location?,M,5,String,,"Default it to ""N"""
+List Location in Directory?,M,50,String,,"Default it to ""Y"""
+"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",M,150,String,,"Default it to ""Y"""
+Provider Email,O,150,String,,Leave it Blank
+Service Address,M,100,String,Address-1,
+Service Address 2,O,100,String,,Leave it Blank
+Service Location City,M,50,String,City-1,
+Service Location State,M,50,String,State-1,"If length of state is <> 2 characters
+ Lookup State names against crosswalk to get the 2 digit code and map that code
+Else
+ Map the input state as-is
+
+Exclude the records when State code is not in (TX, NJ, GA, SC, PA)"
+Service Location Zip,M,50,String,Zip-1,Map only first 5 digit numeric
+Service Location County,O,50,String,County-1,
+Service Location Phone,M,50,String,Telephone,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+Service Location Fax,O,50,String,Fax,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+Tax ID,M,10-Sep,String,TaxID,"Remove ""-"""
+Remit Address,M,100,String,BillingAddress-1,
+Remit Address 2,O,100,String,,Leave it Blank
+Remit Address City,M,50,String,BillingCity-1,
+Remit Address State,M,50,String,BillingState-1,"""If length of state is <> 2 characters
+ Lookup State names against crosswalk to get the 2 digit code and map that code
+Else
+ Map the input state as-is
+
+Exclude the records when State code is not in (TX, NJ, GA, SC, PA)"""
+Remit Address Zip,M,50,String,BillingZip-1,Map only first 5 digit numeric
+Billing Phone,O,50,String,,Leave it Blank
+Billing Fax,O,50,String,,Leave it Blank

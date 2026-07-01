@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns="http://www.healthedge.com/connector/schema/memberfactors" 
+    xmlns:tns="http://www.healthedge.com/connector/schema/memberfactors" 
+    xmlns:base="http://www.healthedge.com/connector/schema/basetypes" 
+    xmlns:minput="http://www.healthedge.com/connector/schema/matchinput"    
+    targetNamespace="http://www.healthedge.com/connector/schema/memberfactors" elementFormDefault="unqualified" version="5.0">
+
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../connector-common-schema/match-input.xsd"/>
+    
+    <xs:element name="memberFactors" type="MemberFactorsType"/>
+    <xs:complexType name="MemberFactorsType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:group ref="MemberFactorsGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:group name="MemberFactorsGroup">
+        <xs:sequence>
+            <xs:element name="membershipIdentifier" type="xs:long" minOccurs="0" maxOccurs="1"/>       
+            <xs:element name="memberMatchData" type="minput:MemberMatchInputType" minOccurs="0" maxOccurs="1"/> 
+			<xs:element name="memberFactorCore" type="MemberFactorsCoreType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="MemberFactorsCoreType">
+        <xs:group ref="MemberFactorsCore"/>
+    </xs:complexType>
+    <xs:group name="MemberFactorsCore">
+        <xs:sequence>
+            <xs:element name="updateMode" type="UpdateModeType" minOccurs="0" maxOccurs="1"/>           
+			<xs:element name="memberFactors" type="MemberFactorSetType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    
+    <xs:element name="memberFactorsResponse" type="MemberFactorsResponseType"/>
+    <xs:complexType name="MemberFactorsResponseType">
+        <xs:sequence>
+        	<xs:element name="originalMemberFactorsInput" type="MemberFactorsType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="status" type="base:ServiceStatusType" minOccurs="0"/>
+            <xs:element name="errors" type="base:ErrorsType" minOccurs="0" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>Exception string in case of system error.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>            
+    </xs:complexType>            
+	
+	<xs:simpleType name="UpdateModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Create"/>
+			<xs:enumeration value="Amend"/>
+			<xs:enumeration value="Replace"/>
+			<xs:enumeration value="Delete"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+    <xs:complexType name="MemberFactorSetType">
+        <xs:group ref="MemberFactorSetGroup"/>
+    </xs:complexType>
+    <xs:group name="MemberFactorSetGroup">
+        <xs:sequence>
+			<xs:element name="memberFactor" type="MemberFactorType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="MemberFactorType">
+        <xs:group ref="MemberFactorGroup"/>
+    </xs:complexType>
+    <xs:group name="MemberFactorGroup">
+        <xs:sequence>
+			<xs:element name="factorType" type="base:CodeEntryInputType" minOccurs="1" maxOccurs="1" />
+			<xs:element name="factorDateRanges" type="MemberFactorDateRangeType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:group>
+
+    <xs:complexType name="MemberFactorDateRangeType">
+        <xs:group ref="MemberFactorDateRangeGroup"/>
+    </xs:complexType>
+    <xs:group name="MemberFactorDateRangeGroup">
+        <xs:sequence>
+			<xs:element name="factorStartDate" type="xs:date" minOccurs="1" maxOccurs="1" />
+			<xs:element name="factorEndDate" type="xs:date" minOccurs="0" maxOccurs="1" />
+			<xs:element name="factorQualifier" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1" />
+			<xs:element name="factorValue" type="xs:decimal" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+    </xs:group>
+             
+</xs:schema>

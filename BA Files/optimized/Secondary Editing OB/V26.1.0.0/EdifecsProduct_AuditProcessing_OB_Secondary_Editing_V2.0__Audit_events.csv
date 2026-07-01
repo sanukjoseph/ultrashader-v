@@ -1,0 +1,7 @@
+processStageName,processStatus,processMessage,JSON TRIGGER EVENT,Comments
+EDIFECS-Conversion,PROCESSED,,After the XML conversion if it’s a success,
+EDIFECS-Conversion,FAILURE,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",After the XML conversion if it’s a failure,
+EDIFECS-Validation,SUCCESS,,"After the Validations, if it’s a good record",
+EDIFECS-Validation,FAILURE,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.","After the Validations, if it’s a bad record",

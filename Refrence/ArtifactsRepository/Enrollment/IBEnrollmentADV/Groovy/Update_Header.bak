@@ -1,0 +1,78 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+import org.apache.commons.lang.StringUtils;
+import java.io.*;
+ 
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+ 
+messageBodyInputStream = message.bodyAsSmartStream.inputStream;
+
+ 
+InputStreamReader isr = new InputStreamReader(messageBodyInputStream);
+BufferedReader br = new BufferedReader(isr);
+ 
+exchProperties.each{ k, v -> msgHeaders.put(k, v) }
+ 
+String line = "";
+ 
+StringBuilder dataBuilder = new StringBuilder();
+String recordCountString = "<enrollmentSparseSubmitRequestRecord>";
+int recordCount = 0;
+ 
+while((line=br.readLine())!=null) 
+{
+	dataBuilder.append(line).append("\r\n");
+	int recordCountLine = StringUtils.countMatches(line, recordCountString);
+	recordCount = recordCount+ recordCountLine;
+}
+ 
+String UniqueFileID = msgHeaders.get("DFFFileId");
+String EdiFileName = msgHeaders.get("EdiFileName");
+String UniqueSubscriberCount = msgHeaders.get("UniqueSubscriberCount");
+String inputArchiveFilename = msgHeaders.get("inputArchiveFilename");
+ 
+String EdiFileType = msgHeaders.get("FileType");
+String correlationId = msgHeaders.get("correlationId");
+String planCount = msgHeaders.get("planCount");
+ 
+String XMLFileCreationDate = msgHeaders.get("XMLFileCreationDate");
+ 
+String TotalEdiTransaction = msgHeaders.get("TotalEdiTransaction");
+ 
+String TotalMemberCount = msgHeaders.get("TotalMemberCount");
+ 
+String SenderId = msgHeaders.get("senderId");
+String ReceiverId = msgHeaders.get("senderId");
+ 
+String TotalXmlTransactionCount = msgHeaders.get("TotalXmlTransactionCount");
+ 
+def finalString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+"<enrollmentSparseIBRequestRoot xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:enroll=\"http://www.ust-global.com/schema/enrollmentsparse\" xmlns:base=\"http://www.healthedge.com/connector/schema/basetypes\" xmlns:stl=\"http://www.codesynthesis.com/xmlns/xsstl\" xmlns:subscription=\"http://www.healthedge.com/connector/schema/subscriptionsparse\" xmlns:subsidy=\"http://www.healthedge.com/connector/schema/subsidy\" xmlns:enrollmenttypes=\"http://www.healthedge.com/connector/schema/enrollmenttypes\" xmlns:payeeBankAccount=\"http://www.healthedge.com/connector/schema/payeebankaccounts\" xmlns:minput=\"http://www.healthedge.com/connector/schema/matchinput\" xmlns:membership=\"http://www.ust-global.com/schema/membershipsparse\" xmlns:membershipsparse=\"http://www.healthedge.com/connector/schema/membershipsparse\" xmlns:hicn=\"http://www.healthedge.com/connector/schema/medicarehicn\" xmlns:cobpolicy=\"http://www.healthedge.com/connector/schema/cobpolicy\" xmlns:membercomplianceprogram=\"http://www.healthedge.com/connector/schema/membercomplianceprogram\" xmlns:memberfactors=\"http://www.healthedge.com/connector/schema/memberfactors\" xmlns:sparseResp=\"http://www.healthedge.com/connector/schema/enrollmentsparseresponse\" xmlns:membercare=\"http://www.healthedge.com/connector/schema/membercarereserve\" xmlns:enrollment=\"http://www.healthedge.com/connector/schema/enrollmentsparse\">" +
+"<header>" +
+"<ediFilename>"+EdiFileName+"</ediFilename>"+
+"<ediFileId>"+UniqueFileID+"</ediFileId>"+
+"<ediFileType>"+EdiFileType+"</ediFileType>"+
+"<ediArchiveFileName>"+inputArchiveFilename+"</ediArchiveFileName>"+
+"<totalEdiTransaction>"+UniqueSubscriberCount+"</totalEdiTransaction>"+
+"<totalMemberCount>"+UniqueSubscriberCount+"</totalMemberCount>"+
+"<totalXMLTransactionCount>"+TotalXmlTransactionCount+"</totalXMLTransactionCount>"+
+"<XMLfileCreationDate>"+XMLFileCreationDate+"</XMLfileCreationDate>"+
+"<correlationId>"+correlationId+"</correlationId>"+
+"<senderId>"+SenderId+"</senderId>"+
+"<receiverId>"+ReceiverId+"</receiverId>"+
+"</header>" +
+"<enrollmentSparseIBRequest>" +
+"<enrollmentSparseSubmitRequestRecordList>" +
+"<recordCount>"+recordCount+"</recordCount>" +
+dataBuilder.toString() +
+"</enrollmentSparseSubmitRequestRecordList>" +
+"</enrollmentSparseIBRequest>" +
+"</enrollmentSparseIBRequestRoot>";
+ 
+newMessageBody = finalString.toString();
+ 
+ProxyMessage newMessage = context.createNewMessage(newMessageBody, message.getHeaders())
+context.createExchangeResponse(msgHeaders, newMessage);

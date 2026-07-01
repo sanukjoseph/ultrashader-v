@@ -1,0 +1,28 @@
+Group,Fields,Values,Usage,Description,
+inputDetails,inputId,"Value passed is  - {UID}- Uniqie for each file
+Example - -dtBkcCHu9bkKu8O",Mandatory,File id,
+,inputFileName,Input Filename of the EDI file received with filename extension,,Name of the input file received from source.,
+,inputType,Hardcode as 'EDI',,,
+,sourceTypeIdentifier,"Repricer Name
+Should be able to populate Repricer name  based on ISA06/2300.HCP04 /file name from the Inbound repricer crosswalk. Must be a configurable field",,Identifier to find from where we received(Starting point) the initial Transaction/Record. Configurable field,
+,claimsDefinition,Hardcode as Repricer,Mandatory,,
+,tenantIdentifier,"Hardcode as 'PRODUCT'( Configurable field)
+""Hardcode as """"Product"""" in adaptor.properties file and assign to variable"""" tenantIdentifier""""
+and call in profile """,,"Identifier for the implementation team, Configurable field",
+,totalTransactions,Total no. of Claims in file,Mandatory,,
+,inputArchiveFilename,Input Filename of the DFF/EDI file archived in s3 with filename extension,,Name of the input file after archiving the input file.,
+process,processStageName,Refer Audit events Tab,Mandatory,Represent the name of the process stage which post the Audit point.,
+,processStatus,Refer Audit events Tab,Mandatory,Represent the Intermediate or Final status of the process stage which posts the Audit point.,
+,processMessage,Refer Audit events Tab,,Specific information of a particular step after the process is completed.,
+,processInputArchiveFilename,Input Filename of the DFF/EDI file received with filename extension,,Name of the input Archive file of the process stage which posts the Audit point.,
+,processOutputArchiveFilename,NA,,Name of the output Archive file of the process stage which posts the Audit point.,
+,auditTime,"The time the audit trigger event got generated in yyyy-MM-dd HH:mm:ss.SSSSSSSSS format
+2024-08-05 00:24:16:480",Mandatory,Auditing time of each audit point,"Need to confirm on Format - Indhu to confirm
+ as of now we are having 2024-08-05 00:24:16:480
+- pls proceed with same format"
+identifiers,rayIdentifier,GUID,Mandatory for record level,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",
+,recordIdentifier,GUID,Mandatory for record level,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",
+,recordIdentifierFromSource,Same as recordIdentifier,,,
+claims,,,,,
+,claimId,2300.REF*D9(EDI),,HCC id of the claim,
+,claimStatus,"Hardcode as ""Needs Repricing""",,,

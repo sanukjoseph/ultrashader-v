@@ -1,0 +1,174 @@
+Sheet Name,Field Name,Mandatory/optional,Length,Format,Pre-Mapping Validation Rules,Sample Values
+Core Providers,Status,O,100,String,,Reappointment - Medicaid Update
+Core Providers,LastName,M,50,String,,Jose
+Core Providers,FirstName,M,50,String,,Reny
+Core Providers,MiddleInitial,O,50,String,,
+Core Providers,Degree,M,25,String,,FNP
+Core Providers,BirthDate,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)",4/15/74
+Core Providers,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female, MALE, FEMALE)",F
+Core Providers,NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",1942844121
+Core Providers,TaxonomyCode,M,10,Alphanumeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10
+
+Example - 208M00000X",363LF0000X
+Core Providers,Specialty,O,100,String,,Family Nurse Practitioner
+Core Providers,CAQH,O,50,String,,14952378
+Core Providers,State,O,50,String,,TX
+Core Providers,FacilityName,M,100,String,"Reject -
+ IF EMPTY","MinuteClinic Diagnostic of Texas, LLC"
+Core Providers,GroupNPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",1609076330
+Core Providers,TaxID,M,9-10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10",20-4768243
+Core Providers,Telephone,M,20,String,"Reject -
+ IF EMPTY",(866) 389-2727
+Core Providers,Fax,O,20,String,,(401) 216-3854
+Core Providers,Initialappointment,O,12,Date,,12/2/21
+Core Providers,Lastappointment,O,12,Date,,11/21/24
+Core Providers,Nextappointment,O,12,Date,,11/21/27
+Core Providers,EducationType,O,50,String,,Graduate School
+Core Providers,EducationName,O,100,String,,Molloy College
+Core Providers,EducationAddress,O,100,String,,1000 Hempstead Ave
+Core Providers,EducationCity,O,50,String,,Rockville Centre
+Core Providers,EducationState,O,2,String,,NY
+Core Providers,EducationZip,O,20,String,,11570
+Core Providers,EducationFrom,O,12,Date,,1/16/13
+Core Providers,EducationTo,O,12,Date,,5/14/17
+Core Providers,EducationDegreeEarned,O,25,String,,MSN
+Core Providers,BoardName,O,100,String,,ANCC
+Core Providers,CertificationNumber,O,50,String,,2018075458
+Core Providers,InitialCertification,O,12,Date,,12/31/18
+Core Providers,ExpiredDate,O,12,Date,,12/30/28
+Core Providers,StateLicenseType,O,50,String,,NP License
+Core Providers,StateLicenseState,O,2,String,,TX
+Core Providers,StateLicenseNumber,O,50,String,,1032426
+Core Providers,StateLicenseIssued,O,12,Date,,7/1/21
+Core Providers,StateLicenseExpired,O,12,Date,,4/30/26
+Core Providers,RNLicenseType,O,50,String,,RN License
+Core Providers,RNLicenseState,O,2,String,,TX
+Core Providers,RNMultistate,O,2,String,"Y' or 'N', 'y' or 'n'",N
+Core Providers,MultistateCoverage,O,200,String,,
+Core Providers,RNLicenseNumber,O,50,String,,1032426
+Core Providers,RNLicenseIssued,O,12,Date,,6/17/21
+Core Providers,RNLicenseExpired,O,12,Date,,4/30/26
+Core Providers,DEALicenseType,O,10,String,,DEA
+Core Providers,DEALicenseState,O,2,String,,TX
+Core Providers,DEALicenseNumber,O,50,String,,MJ6849903
+Core Providers,DEALicenseIssued,O,12,Date,,11/4/21
+Core Providers,DEALicenseExpired,O,12,Date,,12/31/24
+Core Providers,ControlledSubstanceLicenseType,O,50,String,,Controlled Substance
+Core Providers,ControlledSubstanceLicenseState,O,2,String,,SC
+Core Providers,ControlledSubstanceLicenseNumber,O,50,String,,5425267
+Core Providers,ControlledSubstanceLicenseIssued,O,12,Date,,11/9/21
+Core Providers,ControlledSubstanceLicenseExpired,O,12,Date,,4/1/25
+Core Providers,PrescriptiveAuthorityLicenseType,O,50,String,,Prescriptive Authority License
+Core Providers,PrescriptiveAuthorityLicenseState,O,2,String,,TX
+Core Providers,PrescriptiveAuthorityLicenseNumber,O,50,String,,39697
+Core Providers,PrescriptiveAuthorityLicenseIssued,O,12,Date,,7/1/21
+Core Providers,PrescriptiveAuthorityLicenseExpired,O,12,Date,,4/30/26
+Core Providers,MedicareContractType-1,O,20,String,,Medicare
+Core Providers,MedicareContractName-1,O,50,String,,TX Medicare - 00Y393
+Core Providers,MedicareIDNumber-1,O,50,String,,1Z3443
+Core Providers,MedicareContractType-2,O,20,String,,Medicare
+Core Providers,MedicareContractName-2,O,50,String,,TX Medicare - 00Y742
+Core Providers,MedicareIDNumber-2,O,50,String,,2X2156
+Core Providers,MedicareContractType-3,O,20,String,,Medicare
+Core Providers,MedicareContractName-3,O,50,String,,TX Medicare - 0A4580
+Core Providers,MedicareIDNumber-3,O,50,String,,2X2154
+Core Providers,MedicareContractType-4,O,20,String,,Medicare
+Core Providers,MedicareContractName-4,O,50,String,,TX Medicare - 0A4581
+Core Providers,MedicareIDNumber-4,O,50,String,,CVDCUI
+Core Providers,MedicareContractType-5,O,20,String,,Medicare
+Core Providers,MedicareContractName-5,O,50,String,,TX Medicare - 0A4582
+Core Providers,MedicareIDNumber-5,O,50,String,,2X2155
+Core Providers,MedicareContractType-6,O,20,String,,Medicare
+Core Providers,MedicareContractName-6,O,50,String,,TX Medicare - 0A4583
+Core Providers,MedicareIDNumber-6,O,50,String,,2X2158
+Core Providers,MedicareContractType-7,O,20,String,,Medicare
+Core Providers,MedicareContractName-7,O,50,String,,TX Medicare - 0A5997
+Core Providers,MedicareIDNumber-7,O,50,String,,1Z3445
+Core Providers,MedicareContractType-8,O,20,String,,
+Core Providers,MedicareContractName-8,O,50,String,,
+Core Providers,MedicareIDNumber-8,O,50,String,,
+Core Providers,MedicaidContractType-1,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-1,O,50,String,,TX Medicaid TRD - Little Elm
+Core Providers,MedicaidIDNumber-1,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-1,O,12,Date,,7/8/23
+Core Providers,MedicaidNotifiedDate-1,O,12,Date,,11/1/24
+Core Providers,MedicaidContractType-2,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-2,O,50,String,,TX Medicaid TRD - Cross Roads
+Core Providers,MedicaidIDNumber-2,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-2,O,12,Date,,5/14/23
+Core Providers,MedicaidNotifiedDate-2,O,12,Date,,6/5/24
+Core Providers,MedicaidContractType-3,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-3,O,50,String,,TX Medicaid TRD - Plano-DallasPkwy
+Core Providers,MedicaidIDNumber-3,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-3,O,12,Date,,5/14/23
+Core Providers,MedicaidNotifiedDate-3,O,12,Date,,6/5/24
+Core Providers,MedicaidContractType-4,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-4,O,50,String,,TX Medicaid TRD - Prosper
+Core Providers,MedicaidIDNumber-4,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-4,O,12,Date,,3/5/23
+Core Providers,MedicaidNotifiedDate-4,O,12,Date,,3/25/24
+Core Providers,MedicaidContractType-5,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-5,O,50,String,,TX Medicaid TRD - Plano-Coit Rd
+Core Providers,MedicaidIDNumber-5,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-5,O,12,Date,,8/7/22
+Core Providers,MedicaidNotifiedDate-5,O,12,Date,,9/5/23
+Core Providers,MedicaidContractType-6,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-6,O,50,String,,TX Medicaid TRD - South Austin
+Core Providers,MedicaidIDNumber-6,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-6,O,12,Date,,8/7/23
+Core Providers,MedicaidNotifiedDate-6,O,12,Date,,9/5/23
+Core Providers,MedicaidContractType-7,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-7,O,50,String,,TX Medicaid TRD - Frisco
+Core Providers,MedicaidIDNumber-7,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-7,O,12,Date,,4/10/22
+Core Providers,MedicaidNotifiedDate-7,O,12,Date,,4/22/23
+Core Providers,MedicaidContractType-8,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-8,O,50,String,,TX Medicaid TRD - Frisco - Eldorado Pkwy
+Core Providers,MedicaidIDNumber-8,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-8,O,12,Date,,4/10/22
+Core Providers,MedicaidNotifiedDate-8,O,12,Date,,4/22/23
+Core Providers,MedicaidContractType-9,O,20,String,,Medicaid
+Core Providers,MedicaidContractName-9,O,50,String,,TX Medicaid TRD - Flower Mound
+Core Providers,MedicaidIDNumber-9,O,50,String,,1942844121
+Core Providers,MedicaidJoinedDate-9,O,12,Date,,12/2/21
+Core Providers,MedicaidNotifiedDate-9,O,12,Date,,8/22/22
+Core Providers,MedicaidContractType-10,O,20,String,,
+Core Providers,MedicaidContractName-10,O,50,String,,
+Core Providers,MedicaidIDNumber-10,O,50,String,,
+Core Providers,MedicaidJoinedDate-10,O,12,Date,,
+Core Providers,MedicaidNotifiedDate-10,O,12,Date,,
+Core Providers,MedicalGroup-1,O,100,String,,Little Elm
+Core Providers,IDNumber-1,O,50,String,,08336
+Core Providers,Address-1,M,100,String,"Reject -
+ IF EMPTY",2591 FM 423
+Core Providers,City-1,M,50,String,"Reject -
+ IF EMPTY",LITTLE ELM
+Core Providers,State-1,M,50,String,"Reject -
+ IF EMPTY",TX
+Core Providers,Zip-1,M,20,String,"Reject -
+ IF EMPTY or
+ IF Length < 5",75068-6664
+Core Providers,County-1,O,50,String,"Reject -
+ IF EMPTY",Denton
+Core Providers,BillingAddress-1,M,100,String,"Reject -
+ IF EMPTY",P.O.Box 8447
+Core Providers,BillingCity-1,M,50,String,"Reject -
+ IF EMPTY",BELFAST
+Core Providers,BillingState-1,M,50,String,"Reject -
+ IF EMPTY",ME
+Core Providers,BillingZip-1,M,20,String,"Reject -
+ IF EMPTY or
+ IF Length < 5",04915-8447

@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		   xmlns="http://www.healthedge.com/connector/schema/subsidy"
+		   xmlns:tns="http://www.healthedge.com/connector/schema/subsidy"
+		   xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+		   targetNamespace="http://www.healthedge.com/connector/schema/subsidy"
+		   elementFormDefault="unqualified" version="4.0">
+
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+
+	<xs:element name="subsidy" type="SubscriptionSubsidyType"/>
+	<xs:element name="subsidyResponse" type="SubscriptionSubsidyResponseType"/>	
+	<xs:complexType name="SubscriptionSubsidyType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:element name="subscriptionHccId" type="base:String50Type">
+						<xs:annotation>
+							<xs:documentation>The business identifier for the subscription - Required</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="otherBillRecipientHccId" type="base:String50Type">
+						<xs:annotation>
+							<xs:documentation>The business identifier for the bill recipient - Required</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="benefitPlanTypeCode" type="base:CodeEntryInputType">
+						<xs:annotation>
+							<xs:documentation>The benefit plan type this subsidy should be applied to - Required</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="billingCategoryCode" type="base:CodeEntryInputType">
+						<xs:annotation>
+							<xs:documentation>The billing category this subsidy should be applied to - Required</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="dateRanges">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="updateMode" type="base:ListUpdateModeType" minOccurs="0" maxOccurs="1"/>
+								<xs:element name="dateRange" type="SubsidyDateRangeType" minOccurs = "1" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SubscriptionSubsidyResponseType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:element name="subscriptionHccId" type="base:String50Type" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The business identifier for the subscription - Optional</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="subsidyId" type="base:String50Type" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The business identifier for the Subscription Subsidy - Optional</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="status" type="base:ServiceStatusType" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>SubscriptionSubsidy status. SUCCESS (transaction complete without errors or validation failures), FAILURE (system or validation error).
+					</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="errors" type="base:ErrorsType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Exception string in case of system or validation error.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SubsidyDateRangeType">
+		<xs:sequence>
+			<xs:element name="startDate" type="xs:date">
+				<xs:annotation>
+					<xs:documentation>The start date of the subsidy - Required</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="throughDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The through date of the subsidy - Optional</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="amount" type="base:CurrencyType">
+				<xs:annotation>
+					<xs:documentation>The doller amount of the subsidy (per month) - Required</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- lookup start -->
+
+	<xs:element name="subsidyReferenceLookupCriteria" type="SubsidyReferenceLookupCriteriaType" />
+	<xs:element name="subsidyReferenceLookupResponse" type="SubsidyReferenceLookupResponseType" />
+
+	<xs:complexType name="SubsidyReferenceLookupCriteriaType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:group ref="SubsidyLookupGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SubsidyReferenceLookupResponseType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:element name="subsidyIdentifier" type="base:IdentifierType" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:group ref="SubsidyLookupGroup"/>
+					<xs:group ref="base:ErrorStatusGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:group name="SubsidyLookupGroup">
+		<xs:sequence>
+			<xs:element name="subscriptionHccId" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+			<xs:element name="otherBillReceipientHccId" type="xs:string" minOccurs="0" maxOccurs="1"></xs:element>
+			<xs:element name="benefitPlanTypeCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"></xs:element>
+			<xs:element name="billingCategoryCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"></xs:element>
+
+			<xs:element name="asOfDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+
+</xs:schema>

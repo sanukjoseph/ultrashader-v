@@ -1,0 +1,69 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+import com.edifecs.etools.commons.io.SmartStream;
+import java.io.*;
+import java.util.*;
+
+
+// Access the exchange and message data
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+
+// Read the input stream content into a string
+messageBodyInputStream = message.getBodyAsSmartStream().getInputStream();
+String messageContent = new String(messageBodyInputStream.readAllBytes());
+
+
+exchProperties.each { k, v -> msgHeaders.put(k, v) }
+
+// Split the input data into individual lines
+String[] tempLines = messageContent.split("[\\r\\n]+");
+
+// Initialize variables
+char CR = (char) 0x0D;
+char LF = (char) 0x0A;
+
+// Create a map to hold subscriber IDs and their corresponding lines
+Map<String, List<String>> subscriberToLinesMap = new HashMap<>();
+
+// Process each line
+for (String tempLine : tempLines) {
+    String[] parts = tempLine.split("\\|");
+    if (parts.length >= 2) {
+        String transactionType = parts[0];
+        String subscriberID = parts[1];
+        
+        if (!subscriberToLinesMap.containsKey(subscriberID)) {
+            subscriberToLinesMap.put(subscriberID, new ArrayList<>());
+        }
+        
+        if ("DEM".equals(transactionType)) {
+            subscriberToLinesMap.get(subscriberID).add(0, tempLine);
+        } else {
+            subscriberToLinesMap.get(subscriberID).add(tempLine);
+        }
+    }
+}
+
+// Generate the final data string using StringBuilder
+StringBuilder finalDataStringBuilder = new StringBuilder();
+
+for (String subscriberID : subscriberToLinesMap.keySet()) {
+    List<String> lines = subscriberToLinesMap.get(subscriberID);
+    
+    for (String line : lines) {
+        finalDataStringBuilder.append(line).append(CR).append(LF);
+    }
+}
+
+String finalDataString = finalDataStringBuilder.toString();
+
+// Create a new message headers map
+def newMsgHeaders = [:]
+exchProperties.each { k, v -> newMsgHeaders.put(k, v) }
+
+// Create a new message and send the response
+ProxyMessage newMessage = context.createNewMessage(finalDataString, newMsgHeaders);
+context.createExchangeResponse(msgHeaders, newMessage);

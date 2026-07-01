@@ -1,0 +1,265 @@
+import org.apache.commons.lang.StringUtils
+import java.time.LocalDateTime
+import java.time.Duration
+import java.time.format.DateTimeFormatter
+exchange = context.exchange
+properties = exchange.properties
+messages = exchange.messages
+message = messages.first()
+messageBodyInputStream = message.bodyAsSmartStream.inputStream
+InputStreamReader isr = new InputStreamReader(messageBodyInputStream)
+BufferedReader br = new BufferedReader(isr)
+def auditEventNumber = properties.get('auditEventNumber')
+def ValidationAuditStartDateTime = properties.get('ValidationAuditStartDateTime')
+def ValidationAuditEndDateTime = properties.get('ValidationAuditEndDateTime')
+def ConversionAuditStartDateTime = properties.get('ConversionAuditStartDateTime')
+def ConversionAuditEndDateTime = properties.get('ConversionAuditEndDateTime')
+
+if ((auditEventNumber == "1") || (auditEventNumber == "8"))
+{
+    context.createExchangeResponse(properties, "")
+
+}
+
+ if(auditEventNumber == "2" ) 
+ {
+	for (int i = 0;i<2;i++)
+	{
+		if(i == 0)
+       {   
+
+			properties.put("AdaptorStatus","PROCESS_START")	;
+			properties.put("ProcessStageName","EDIFECS-Validation")	;
+			properties.put("AdaptorAuditDateTime",ValidationAuditStartDateTime);
+            context.createExchangeResponse(properties, messageBodyInputStream)
+			
+		}
+ 
+   	else
+ 
+		{
+ 
+			properties.put("AdaptorStatus","PROCESS_END");
+			properties.put("ProcessStageName","EDIFECS-Validation");
+			properties.put("AdaptorAuditDateTime",ValidationAuditEndDateTime);
+            context.createExchangeResponse(properties, messageBodyInputStream)
+		}
+		
+ 
+	}
+ }	
+  
+  else if(auditEventNumber == "3")
+ {
+ 
+ 
+	for (int k = 0;k<2;k++)
+ 
+    {   
+		if(k== 0)
+ 
+		{   
+
+			properties.put("AdaptorStatus","PROCESS_START")	;
+			properties.put("ProcessStageName","EDIFECS-Validation")	;
+			properties.put("AdaptorErrorMessage","");
+			properties.put("AdaptorAuditDateTime",ValidationAuditStartDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+
+		else
+		{
+		 
+ 
+			properties.put("AdaptorStatus","ERROR");
+			properties.put("ProcessStageName","EDIFECS-Validation");
+			properties.put("AdaptorErrorMessage","Edifecs HIPAA Validation Error");
+			properties.put("AdaptorAuditDateTime",ValidationAuditEndDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+		
+
+    }
+ 
+  }  
+   else if(auditEventNumber == "4")
+	{
+ 
+ 
+	for (int l = 0;l<2;l++)
+ 
+	{
+		
+       
+ 
+		if(l== 0)
+ 
+		{   
+
+			properties.put("AdaptorStatus","PROCESS_START")	;
+			properties.put("ProcessStageName","EDIFECS-Conversion")	;
+			properties.put("AdaptorErrorMessage","");
+			properties.put("AdaptorAuditDateTime",ConversionAuditStartDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+
+		else
+		{
+		 
+			properties.put("AdaptorStatus","ERROR");
+			properties.put("ProcessStageName","EDIFECS-Conversion");
+			properties.put("AdaptorErrorMessage","Edifecs Translator Error");
+			properties.put("AdaptorAuditDateTime",ConversionAuditEndDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+		
+
+ }
+ 
+  } 
+else if(auditEventNumber == "5" )
+	{
+ 
+ 
+	for (int j = 0;j<3;j++)
+ 
+	{
+		
+		 if(j == 0)
+ 
+		{   
+           
+			properties.put("AdaptorStatus","PROCESS_START")	;
+			properties.put("ProcessStageName","EDIFECS-Conversion")	;
+			properties.put("AdaptorAuditDateTime",ConversionAuditStartDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+			
+			
+ 
+ 
+		}
+ 
+		else if(j==1)
+ 
+		{
+ 
+			properties.put("AdaptorStatus","PROCESS_END");
+			properties.put("ProcessStageName","EDIFECS-Conversion");
+			properties.put("AdaptorAuditDateTime",ConversionAuditEndDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+            
+		}
+		else
+		{
+		 
+             // Convert ConversionAuditEndDateTime to LocalDateTime
+            LocalDateTime conversionEndDateTime = LocalDateTime.parse(ConversionAuditEndDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"))
+			// Add 10 milliseconds 
+            LocalDateTime publishedDateTime = conversionEndDateTime.plus(Duration.ofMillis(10)) 
+            String MesssagePublishedAuditDateTime = publishedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"))
+			properties.put("AdaptorStatus","MESSAGE_PUBLISHED");
+			properties.put("ProcessStageName","EDIFECS");
+			properties.put("AdaptorAuditDateTime",MesssagePublishedAuditDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+            
+		}
+		
+		
+
+ }
+ 
+  }  
+    
+   
+   else if(auditEventNumber == "6" )
+	{
+ 
+ 
+	for (int j = 0;j<3;j++)
+ 
+	{
+		
+
+ 
+		if(j == 0)
+ 
+		{   
+
+			properties.put("AdaptorStatus","PROCESS_START")	;
+			properties.put("ProcessStageName","EDIFECS-Conversion")	;
+			properties.put("AdaptorAuditDateTime",ConversionAuditStartDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+ 
+		else if(j==1)
+ 
+		{
+ 
+			properties.put("AdaptorStatus","PROCESS_END");
+			properties.put("ProcessStageName","EDIFECS-Conversion");
+			properties.put("AdaptorAuditDateTime",ConversionAuditEndDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+		else
+		{
+		 
+ 
+			// Convert ConversionAuditEndDateTime to LocalDateTime
+            LocalDateTime conversionEndDateTime = LocalDateTime.parse(ConversionAuditEndDateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"))
+			// Add 10 milliseconds 
+            LocalDateTime publishedDateTime = conversionEndDateTime.plus(Duration.ofMillis(10)) 
+            String MesssagePublishedAuditDateTime = publishedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"))
+			properties.put("AdaptorStatus","MESSAGE_PUBLISHED");
+			properties.put("ProcessStageName","EDIFECS");
+			properties.put("AdaptorAuditDateTime",MesssagePublishedAuditDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+		}
+		
+
+ }
+ 
+  }  
+  else if(auditEventNumber == "7")
+	{
+ 
+ 
+	for (int l = 0;l<2;l++)
+ 
+	{
+		
+
+ 
+		if(l== 0)
+ 
+		{   
+
+			properties.put("AdaptorStatus","PROCESS_START")	;
+			properties.put("ProcessStageName","EDIFECS-Conversion")	;
+			properties.put("AdaptorErrorMessage","");
+			properties.put("AdaptorAuditDateTime",ConversionAuditStartDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+
+		else
+		{
+		 
+ 
+			properties.put("AdaptorStatus","ERROR");
+			properties.put("ProcessStageName","EDIFECS-Conversion");
+			properties.put("AdaptorErrorMessage","Edifecs Translator Error");
+			properties.put("AdaptorAuditDateTime",ConversionAuditEndDateTime);
+			context.createExchangeResponse(properties, messageBodyInputStream)
+ 
+		}
+		
+
+ }
+ 
+  }  

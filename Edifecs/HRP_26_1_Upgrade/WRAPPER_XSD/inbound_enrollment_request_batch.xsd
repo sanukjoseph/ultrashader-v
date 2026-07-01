@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:enroll="http://www.ust-global.com/schema/enrollmentsparse"
+	xmlns:membercare="http://www.healthedge.com/connector/schema/membercarereserve"
+		   xmlns:enrollment="http://www.healthedge.com/connector/schema/enrollmentsparse"
+	elementFormDefault="qualified" version="4.1">
+
+	<xs:annotation>
+		<xs:documentation>
+			Wrapper Request XSD for Enrollment
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:import namespace="http://www.ust-global.com/schema/enrollmentsparse"		schemaLocation="enrollment-sparse-wrapper.xsd" />
+	<xs:import namespace="http://www.healthedge.com/connector/schema/membercarereserve"		schemaLocation="../PRIME_SERVICES_XSD/membercarereserve.xsd" />
+	<xs:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparse"    schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/enrollment-sparse.xsd" />
+
+
+	<!-- **** Wrapper for submit operation - Start **** -->
+
+	<xs:element name="header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ediFilename" type="xs:string" />
+				<xs:element name="ediFileId" type="xs:string" />
+				<xs:element name="ediFileType" type="xs:string" />
+				<xs:element name="ediArchiveFileName" type="xs:string" />
+				<xs:element name="totalEdiTransaction"  type="xs:int" />
+				<xs:element name="totalMemberCount"  type="xs:int" />
+				<xs:element name="totalXMLTransactionCount"  type="xs:int" />
+				<xs:element name="XMLfileCreationDate" type="xs:date" />
+				<xs:element name="correlationId" type="xs:string" />
+				<xs:element name="correlationIdDesc" type="xs:string" 	minOccurs="0" />
+				<xs:element name="senderId" type="xs:string" />
+				<xs:element name="receiverId" type="xs:string" />
+				<xs:element name="termByAbsenceContext" type="termByAbsenceContext" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Defining inbound record of submit operation -->
+	<xs:element name="enrollmentSparseSubmitRequestRecord" type="EnrollmentSparseSubmitRequestRecord"/>
+	<xs:complexType name="EnrollmentSparseSubmitRequestRecord">
+		<xs:sequence>
+			<xs:element name="ediMemberRecordSequence" type="xs:string" />
+			<xs:element name="actionCode" type="xs:string" />
+			<xs:element name="recordId" type="xs:string" minOccurs="0" />
+			<xs:element name="recordIdFromSource" type="xs:string" />
+			<xs:element name="sourceTypeIdentifier" type="xs:string" />
+			<xs:element name="memberIdentifier" type="xs:string" />
+			<xs:element name="recordIdDesc" type="xs:string"	minOccurs="0" />
+			<xs:element name="enrollment" type="enroll:EnrollmentType" />
+			<xs:element name="rayId" type="xs:string" minOccurs="0" />
+			<xs:element name="tenantId" type="xs:string" minOccurs="0" />
+			<xs:element name="referenceIdentifier" type="xs:string" minOccurs="0" />
+			<xs:element name="retriedReferenceIdentifier" type="xs:string" minOccurs="0" />
+			<xs:element ref="membercare:memberCareReserve" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<!-- Defining list of inbound record of submit operation -->
+	<xs:element name="enrollmentSparseSubmitRequestRecordList">
+		<xs:complexType>
+			<xs:sequence>
+			    <xs:element name="recordCount" type="xs:int" />
+				<xs:element ref="enrollmentSparseSubmitRequestRecord"  minOccurs="1" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- ***** Wrapper for submit operation - End ***** -->
+
+
+	<!-- Defining Enrollment Inbound Element for all inbound requests -->
+	<xs:element name="enrollmentSparseIBRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="enrollmentSparseSubmitRequestRecordList"
+					minOccurs="1" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- Defining the root element for all Enrollment Inbound operations -->
+	<xs:element name="enrollmentSparseIBRequestRoot" type="EnrollmentSparseIBRequestRoot"/>
+		<xs:complexType name="EnrollmentSparseIBRequestRoot">
+			<xs:sequence>
+				<xs:element ref="header"/>
+				<xs:element ref="enrollmentSparseIBRequest" maxOccurs="unbounded"
+					minOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+
+	<!-- Enrollment Adaptor Request -->
+	<xs:simpleType name="ConnectionModeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="API" />
+			<xs:enumeration value="QUEUE" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="EnrollmentAdaptorRequest" type="EnrollmentAdaptorRequest"/>
+
+	<xs:complexType name="EnrollmentAdaptorRequest">
+		<xs:sequence>
+			<xs:element ref="enrollmentSparseIBRequestRoot"  />
+			<xs:element name="commit" type="xs:boolean" />
+			<xs:element name="connectionMode" type="ConnectionModeType"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="EnrollmentQueueRequestRecord" type="EnrollmentQueueRequestRecord"/>
+
+	<xs:complexType name="EnrollmentQueueRequestRecord">
+		<xs:sequence>
+			<xs:element name="actionCode" type="xs:string" />
+			<xs:element name="recordId" type="xs:string" />
+			<xs:element name="enrollmentType" type="enrollment:EnrollmentType" />
+			<xs:element name="commit" type="xs:boolean" />
+			<xs:element name="connectionMode" type="ConnectionModeType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="termByAbsenceContext">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TBA_APPLICABLE_ACCOUNT"/>
+			<xs:enumeration value="TBA_GENERATED_XML"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
+

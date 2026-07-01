@@ -1,0 +1,89 @@
+{
+  "inputDetails": {
+  #if($DFFFileId != "" and $DFFFileId != "(N/A)" and $DFFFileId != "{Prp[DFFFileId]}")
+	"inputId": "${DFFFileId}",
+	#{else}#end
+	#if($inputType != "" and $inputType != "(N/A)" and $inputType != "{Prp[inputType]}")
+	"inputType": "${inputType}",
+	#{else}#end
+	#if($UniqueSubscriberCount != "" and $UniqueSubscriberCount != "(N/A)" and $UniqueSubscriberCount != "{Prp[UniqueSubscriberCount]}")
+	"totalTransactions": "${UniqueSubscriberCount}",
+	#{else}#end
+	#if($FileName != "" and $FileName != "(N/A)" and $FileName != "{Prp[FileName]}")
+	"inputFileName": "${FileName}",
+	#{else}#end
+	#if($inputArchiveFilename != "" and $inputArchiveFilename != "(N/A)" and $inputArchiveFilename != "{Prp[inputArchiveFilename]}")
+	"inputArchiveFilename": "${inputArchiveFilename}"
+	#{else}#end
+	},
+   "process": {
+   #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $MessageRead =="Yes")
+	"processStageName": "${ProcessStageName}",
+  #{else}#end
+  #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $MessageRead =="No")
+	"processStageName": "${ProcessStageName}",
+  #{else}#end
+  #if($adaptorErrorMessage != "" and $adaptorErrorMessage != "(N/A)" and $adaptorErrorMessage != "{Prp[adaptorErrorMessage]}"and $MapErrorFlag == "Yes")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+  #if($adaptorErrorMessage != "" and $adaptorErrorMessage != "(N/A)" and $adaptorErrorMessage != "{Prp[adaptorErrorMessage]}"and $PlanVoidFlag == "Yes")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+  #if($adaptorErrorMessage != "" and $adaptorErrorMessage != "(N/A)" and $adaptorErrorMessage != "{Prp[adaptorErrorMessage]}"and $ErrorFlag =="No")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+  #if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[AdaptorStatus]}" and $MessageRead =="Yes")
+	"processStatus": "${AdaptorStatus}",
+  #{else}#end
+  #if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[AdaptorStatus]}" and $MessageRead =="No")
+	"processStatus": "${AdaptorStatus}",
+  #{else}#end
+  #if($processInputArchiveFilename != "" and $processInputArchiveFilename != "(N/A)" and $processInputArchiveFilename != "{Prp[processInputArchiveFilename]}")
+	"processInputArchiveFilename": "${FileName}",
+	#{else}#end
+	#if($InputRecepitDate != "" and $InputRecepitDate != "(N/A)" and $InputRecepitDate != "{Prp[InputRecepitDate]}")
+	"auditTime": "${InputRecepitDate}"
+	#{else}#end
+   },
+   "identifiers": {
+    #if($RayIdentifier != "" and $RayIdentifier != "(N/A)" and $RayIdentifier != "{Prp[RayIdentifier]}")
+	"rayIdentifier": "${RayIdentifier}",
+	#{else}#end
+	#if($record_Identifier != "" and $record_Identifier != "(N/A)" and $record_Identifier != "{Prp[record_Identifier]}")
+	"recordIdentifier": "${record_Identifier}",
+    #{else}#end
+	#if($TenantIdentifier != "" and $TenantIdentifier != "(N/A)" and $TenantIdentifier != "{Prp[TenantIdentifier]}")
+	"tenantIdentifier": "${TenantIdentifier}",
+    #{else}#end
+	#if($sourceTypeIdentifier != "" and $sourceTypeIdentifier != "(N/A)" and $sourceTypeIdentifier != "{Prp[sourceTypeIdentifier]}")
+	"sourceTypeIdentifier": "${sourceTypeIdentifier}",
+    #{else}#end
+	#if($record_Identifier != "" and $record_Identifier != "(N/A)" and $record_Identifier != "{Prp[record_Identifier]}")
+	"recordIdentifierFromSource": "${record_Identifier}"
+    #{else}#end
+   },
+   "membership": {
+    #if($SubscriberID != "" and $SubscriberID != "(N/A)" and $SubscriberID != "{Prp[SubscriberID]}")
+	"subscriptionIdentificationNumber": "${SubscriberID}",
+    #{else}#end
+	#if($SubscriberID != "" and $SubscriberID != "(N/A)" and $SubscriberID != "{Prp[SubscriberID]}")
+	"memberIdentifier": "${SubscriberID}",
+    #{else}#end
+	"member": {
+	#if($MemberFirstName != "" and $MemberFirstName != "(N/A)" and $MemberFirstName != "{Prp[MemberFirstName]}")
+	"firstName": "${MemberFirstName}",
+    #{else}#end
+	#if($MemberLastName != "" and $MemberLastName != "(N/A)" and $MemberLastName != "{Prp[MemberLastName]}")
+	"lastName": "${MemberLastName}",
+    #{else}#end
+    #if($MemberDOB != "" and $MemberDOB != "(N/A)" and $MemberDOB != "{Prp[MemberDOB]}")
+	"dob": "${MemberDOB}",
+    #{else}#end	
+	#if($Relationship != "" and $Relationship != "(N/A)" and $Relationship != "{Prp[MemberDOB]}")
+	"relationshipToSubscriber": "${Relationship}"
+    #{else}#end
+   }
+   }
+	
+}
+

@@ -1,0 +1,36 @@
+,FILE Summary,"This file should be populated with ALL Provider payment records that edifecs received  from HPSCIL/HRP, and populate the status of each record to denote if they are  succesfully converted to 835 and transmitted to Payment vendor. PULSE360 application needs this information to identify the fallout of data that happened within edifecs and thus to balance the inbound and outbound data within the ecosystem.",,,,,
+,FILE Naming convention,"UST_<EDI_Converter>_<PaymentVendor_Name>_ProviderPayment_<Healthplan>_<Frequency>_<generatedTimeStamp>.csv
+Example: UST_Edifecs_PNC_ProviderPayment_HHO_<Daily>_12082021144200.csv",,,,,
+,File Type,csv,,,,,
+,,,,,,,
+,,,,,,,
+S.No,Field Name,Description,Data Type,Length,Required/Optional from Vendor,Default Value,Comments
+1,Layout Converter Name,"Name of the Electronic health data exchange tool which recieves Payment records from HRP/CIL sources and convert them to 835 format
+Example - Edifecs/Mercator etc",VARCHAR,100,R,,"This is a must have data and if this field is not provided by the EDI convertor, PULSE dashboard will not provide a categorical view with respect to vendor name"
+2,Payment Type,Member payment / provider payment,VARCHAR,50,O,,This field is required to differentiate if the payment feed is for Member payment or provider payment.
+2,835_File_Name,The name of file(Outbound)  in which the EDI convertor sent Payment Data in 835 EDI to the payment vendor,VARCHAR,255,R,,"This is a Must have field for PULSE to calculate the transaction requests per file per day.
+This filename should help to segregate the list of distinct files received from source and hence it is recommended to add created/received timestamp in the name for uniqueness of file name."
+3,HRP File Name,Name of the file(Inbound to edi convertor) in which payment information is received from HRP,VARCHAR,255,R,,File name is required to group records according to each file and do the balancing.
+4,EDI file Type,Frequency of the file,VARCHAR,15,R,Daily or Monthly,Must be populated with the source file frequency.
+5,Check Number,Key Identifier column to track the payment transaction status,VARCHAR,255,R,,Key Identifier  column which helps to track the transaction end to end. This field is displayed in the front end.
+6,Check Date,Date of the Check Issued,Date,,R,Format : YYYY-MM-DD,This is a key field that needs to be displayed in the front end. Format : YYYY-MM-DD
+7,Check Amount,Payment Amount in the check,Decimal,"(12,2)",R,,This is a key field that needs to be displayed in the front end
+8,Claim Number,Unique ID for each claim generated within HRP.,VARCHAR,100,O,,Needs to be shown in the front end
+9,Patient_Control_No,Unique ID of a patient in a claim,VARCHAR,100,O,,Needs to be shown in the front end
+10,Patient_Name,Name of Patient,VARCHAR,100,O,,Needs to be shown in the front end
+11,Payment Vendor Name,Name of the bank which processes the payment,VARCHAR,255,R,,This field needs to be displayed in the front end
+12,Status,Accepted/Rejected/On-Hold/Other status (if any),VARCHAR,1,R,A or R or H or O,"A - Accepted -For good records that can be pushed to the Claims Adjudication process
+R - Rejected - For bad records
+H - OnHold - For records under review by the Vendor
+O - Other
+
+This field help to categorise the records into different Data check points for the balancing purpose. Major field which is a must have for the PULSE Dashboard to perform Balancing"
+13,Error_code,"Rejection Code , if the record is not successfully converted to 835",VARCHAR,100,O,Blank or NULL,To be populated with the first encountered error for rejected records only . This error code will be displayed in PULSE dashboard if available.
+14,Error message,Reason for rejection,VARCHAR,8000,Conditional,,To be populated with the first encountered error for rejected records only . This error description will be displayed in PULSE dashboard and is a must have field for rejected records.
+15,Additional_col1,Additional column to accommodate any customization,VARCHAR,100,O,Blank or NULL,
+16,Additional_col2,Additional column to accommodate any customization,VARCHAR,50,O,Blank or NULL,
+17,Additional_col3,Additional column to accommodate any customization,VARCHAR,20,O,Blank or NULL,
+18,Additional_col4,Additional column to accommodate any customization,VARCHAR,20,O,Blank or NULL,
+19,Additional_col5,Additional column to accommodate any customization,VARCHAR,20,O,Blank or NULL,
+20,Sent Date,Date on which the 835 file sent to the bank,Timestamp,NA,R,,"The expected format is 'yyyy-mm-dd,hh:mm:ss' This Date will help to do the balancing per day.This is applicable for records that are successfully sent to the bank."
+21,Receipt_date,The Date by when EDI covertor received the Payment file from HRP/CIL.,DateTime,23,R,,This is a must have data and Should be populated in 'yyyy-mm-dd hh:mm:ss.SSS' format. Thisis mandatory field without which balancing on daily basis can't be achieved.This a major filter condition that is implimented in PULSE Dashboard

@@ -1,0 +1,100 @@
+##,,Mandatory/Optional,Length,Format,Pre-Mapping Validation Rules
+1,Provider NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC"
+2,Last Name,M,50,String,"Reject -
+ IF EMPTY"
+3,First Name,M,50,String,"Reject -
+ IF EMPTY"
+4,Middle Name,O,10,String,
+5,Degree,M,25,String,"Reject -
+ IF EMPTY"
+6,Board Specialty 1,M,100,String,"Reject -
+ IF EMPTY"
+7,Board Specialty 2,O,100,String,"Same record need to split into 2 separate records with the specialty on this field if the below condition matches
+IF PRESENT AND Primary Specialty <> Secondary Specialty
+    Split and map an additional record with the specialty into I N/w output"
+8,Specialist or PCP,O,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (PCP, SPECIALIST)"
+9,Provider-based Facility,O,50,String,
+10,Board Certified,O,50,String,
+11,Board 1,O,100,String,
+12,Board Status 1,O,50,String,
+13,Board Effective Date 1,O,50,String,
+14,Board Exp Date 1,O,50,String,
+15,Board 2,O,100,String,
+16,Board Status 2,O,50,String,
+17,Board Effective Date 2,O,50,String,
+18,Board Exp Date 2,O,50,String,
+19,PA DEA,O,50,String,
+20,PA DEA Exp Date,O,50,String,
+21,NJ DEA,O,50,String,
+22,NJ DEA Exp Date,O,50,String,
+23,NJ CDS,O,50,String,
+24,NJ CDS Exp Date,O,50,String,
+25,PA Medical License,O,50,String,
+26,PA Med License Exp Date,O,50,String,
+27,NJ Medical License,O,50,String,
+28,NJ Med License Exp Date,O,50,String,
+29,DOB,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)"
+30,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female)"
+31,Languages,O,100,String,
+32,Effective Date,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)"
+33,Group Name,M,200,String,"Reject -
+ IF EMPTY"
+34,Group NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC"
+35,Is Primary?,O,50,String,
+36,Print Suppress,O,50,String,
+37,Panel Status,O,50,String,
+38,Provider Email,O,100,String,
+39,Address 1,M,100,String,
+40,Address 2,O,100,String,
+41,Address City,M,50,String,
+42,Address State,M,2,String,
+43,Address Zip,M,50,String,
+44,County,O,100,String,
+45,Phone,M,50,String,"Reject -
+ IF EMPTY"
+46,Fax,O,50,String,
+47,TIN,M,10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10"
+48,Legal Business Name,O,200,String,
+49,Billing Address,M,100,String,
+50,Billing City,M,50,String,
+51,Billing State,M,2,String,
+52,Billing Zip,M,50,String,
+53,Group Name,M,200,String,
+54,CAQH ID,O,50,String,
+55,Education,O,50,String,
+56,Education From Date,O,50,String,
+57,Education To Date,O,50,String,
+58,Train Specialty 1,O,50,String,
+59,US/Canada Residency 1,O,100,String,
+60,US/Canada Residency From Date 1,O,50,String,
+61,US/Canada Residency To Date 1,O,50,String,
+62,Train Specialty 2,O,50,String,
+63,US/Canada Residency 2,O,100,String,
+64,US/Canada Residency From Date 2,O,50,String,
+65,US/Canada Residency To Date 2,O,50,String,
+66,Train Specialty 3,O,50,String,
+67,US/Canada Residency 3,O,100,String,
+68,US/Canada Residency From Date 3,O,50,String,
+69,US/Canada Residency To Date 3,O,50,String,
+70,Foreign Residency,O,100,String,
+71,Foreign Residency From Date,O,50,String,
+72,Foreign Residency To Date,O,50,String,
+73,ORG ID (Penn Medicine Use; Do Not Delete),O,50,String,
+74,Plan Code (Penn Medicine Use; Do Not Delete),O,50,String,
+75,Provider ID (Penn Medicine Use Only; Do Not Delete),O,50,String,
+76,Link (Penn Medicine Use Only; Do Not Delete),O,50,String,
+77,Provider Number or PAR,O,50,String,

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+           xmlns="http://www.healthedge.com/connector/schema/providerlookup"
+           xmlns:tns="http://www.healthedge.com/connector/schema/providerlookup"
+           targetNamespace="http://www.healthedge.com/connector/schema/providerlookup" elementFormDefault="unqualified"
+           version="4.2">
+    <xs:annotation>
+        <xs:documentation>
+            DISCLAIMER
+            This pre-release software provided by HealthEdge Inc. is a work-in-progress.
+            HealthEdge provides pre-release information to early adopters for the purpose of design and planning.
+            It has no warranty either explicit or implied and is subject to change.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+
+    <xs:element name="practitionerReferenceLookupResponse" type="PractitionerReferenceLookupResponseType"/>
+    <xs:complexType name="PractitionerReferenceLookupResponseType">
+        <xs:complexContent>
+            <xs:extension base="ProviderResponseType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="practitionerReferenceLookupCriteria" type="PractitionerReferenceLookupType">
+        <xs:annotation>
+            <xs:documentation>Practitioner information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="PractitionerReferenceLookupType">
+        <xs:complexContent>
+            <xs:extension base="base:PractitionerReferenceType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="practitionerReferenceByRoleLookupResponse" type="PractitionerByRoleResponseType">
+        <xs:annotation>
+            <xs:documentation>Practitioner Role information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType  name="PractitionerByRoleResponseType">
+        <xs:sequence>
+            <xs:element name="practitionerByRoleReference" type="base:PractitionerByRoleReferenceType" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="practitionerReferenceByRoleLookupCriteria" type="PractitionerByRoleReferenceLookupType">
+        <xs:annotation>
+            <xs:documentation>Practitioner Role information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="PractitionerByRoleReferenceLookupType">
+        <xs:complexContent>
+            <xs:extension base="base:PractitionerByRoleReferenceType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="practitionerLookupListResponse" type="PractitionerDetailResponseType"/>
+    <xs:element name="practitionerLookupCriteria" type="PractitionerLookupType">
+        <xs:annotation>
+            <xs:documentation>Practitioner's information used during retrieval of details.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="PractitionerLookupType">
+        <xs:complexContent>
+            <xs:extension base="ProviderBatchLookupInputType">
+            	<xs:sequence>
+            		<xs:element name="endorsementEffectiveDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>               	
+            		<xs:element name="practitionerReferenceId" type="base:IdentifierType" minOccurs="0" maxOccurs="1"/>
+            		<xs:element name="practitionerId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            		<xs:element name="practitionerFirstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            		<xs:element name="practitionerLastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            	</xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="supplierLocationReferenceLookupResponse" type="SupplierLocationReferenceLookupResponseType"/>
+    <xs:complexType name="SupplierLocationReferenceLookupResponseType">
+        <xs:complexContent>
+            <xs:extension base="ProviderResponseType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="supplierLocationReferenceLookupCriteria" type="SupplierLocationReferenceLookupType">
+        <xs:annotation>
+            <xs:documentation>Supplier information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="SupplierLocationReferenceLookupType">
+        <xs:complexContent>
+            <xs:extension base="base:SupplierLocationReferenceType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="supplierReferenceLookupResponse" type="SupplierReferenceLookupResponseType"/>
+    <xs:complexType name="SupplierReferenceLookupResponseType">
+        <xs:complexContent>
+            <xs:extension base="ProviderResponseType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="supplierReferenceLookupCriteria" type="SupplierReferenceLookupType">
+        <xs:annotation>
+            <xs:documentation>Supplier information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="SupplierReferenceLookupType">
+        <xs:complexContent>
+            <xs:extension base="base:SupplierReferenceType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="submittedSupplierReferenceLookupResponse" type="SubmittedSupplierReferenceLookupResponseType"/>
+    <xs:complexType name="SubmittedSupplierReferenceLookupResponseType">
+        <xs:complexContent>
+            <xs:extension base="ProviderResponseType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="submittedSupplierReferenceLookupCriteria" type="SubmittedSupplierReferenceLookupType">
+        <xs:annotation>
+            <xs:documentation>Submitted Supplier information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="SubmittedSupplierReferenceLookupType">
+        <xs:complexContent>
+            <xs:extension base="base:SubmittedSupplierReferenceType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="supplierLookupListResponse" type="SupplierDetailResponseType"/>
+    <xs:element name="supplierLookupCriteria" type="SupplierLookupType">
+        <xs:annotation>
+            <xs:documentation>Supplier's information used during retrieval of details.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="SupplierLookupType">
+        <xs:complexContent>
+            <xs:extension base="ProviderBatchLookupInputType">
+            	<xs:sequence>
+            		<xs:element name="endorsementEffectiveDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>            	
+            		<xs:element name="supplierReferenceId" type="base:IdentifierType" minOccurs="0" maxOccurs="1"/>
+            		<xs:element name="supplierName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+	       			<xs:element name="supplierNPI" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="supplierHccId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+	        		<xs:element name="supplierOtherIdentificationNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+	        		<xs:element name="supplierTaxId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+         		</xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ProviderBatchLookupInputType">
+        <xs:sequence>
+            <xs:element name="onlyPCP" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="asOfDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="includeTerminated" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProviderResponseType">
+        <xs:sequence>
+            <xs:element name="practitionerReference" type="base:PractitionerReferenceType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="supplierReference" type="base:SupplierReferenceType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="submittedSupplierReference" type="base:SubmittedSupplierReferenceType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="supplierLocationReference" type="base:SupplierLocationReferenceType" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="PractitionerDetailResponseType">
+        <xs:sequence>
+            <xs:element name="practitionerDetail" type="PractitionerDetailType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SupplierDetailResponseType">
+        <xs:sequence>
+            <xs:element name="supplierDetail" type="SupplierDetailType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>    
+    <xs:complexType name="PractitionerDetailType">
+        <xs:sequence>
+            <xs:element name="hccID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:PractitionerInformationGroup"/>
+            <xs:element name="activeCode" type="ProviderActiveCodeType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="firstActiveDate" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="practitionerCredential" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="practitionerLanguage" type="base:LanguageSpokenType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="practitionerIdDetail" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="correspondenceAddress" type="ProviderAddressType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="practitionerLicense" type="LicenseType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="RaceOrEthnicityCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="primarySpecialty" type="SpecialtyType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="secondarySpecialty" type="SpecialtyType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="specialtyList" type="SpecialtyListType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="practitionerCredentialing" type="PractitionerCredentialing" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="practitionerUDTList" type="ProviderUDTListType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="benefitNetworkList" type="BenefitNetworkList" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="otherCorrespondenceAddressList" type="ProviderOtherAddressType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="versionEndDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="otherNames" type="ProviderOtherNamesType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SupplierDetailType">
+        <xs:sequence>
+            <xs:group ref="base:SupplierInformationGroup"/>
+            <xs:element name="versionEndDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="endorsementEffectiveDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="endorsementExpirationDate" type="xs:date" minOccurs="0" maxOccurs="1"/>            
+            <xs:element name="activeCode" type="ProviderActiveCodeType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="otherOrganizationName" type="base:LongNameType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="otherIdDetail" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="correspondenceAddress" type="ProviderAddressType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="supplierLicense" type="LicenseType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="supplierUDTList" type="ProviderUDTListType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="benefitNetworkList" type="BenefitNetworkList" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="otherCorrespondenceAddressList" type="ProviderOtherAddressType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="supplierClassType" type="SpecialtyListType" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="supplierNetworkLookupListResponse" type="SupplierNetworkDetailResponseType"/>
+    <xs:element name="supplierNetworkLookupCriteria" type="SupplierNetworkLookupType">
+        <xs:annotation>
+            <xs:documentation>Supplier network's information used during retrieval of details.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="SupplierNetworkLookupType">
+       	<xs:sequence>
+	   		<xs:element name="supplierNetworkIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+	   		<xs:element name="networkHccIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="networkName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="networkOtherIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="asOfDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="endorsementEffectiveDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SupplierNetworkDetailResponseType">
+        <xs:sequence>
+            <xs:element name="supplierNetworkDetail" type="SupplierNetworkDetailType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SupplierNetworkDetailType">
+        <xs:sequence>
+        	<xs:element name="supplierNetworkIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        	<xs:element name="hccIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="receiptDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="supplierNetworkName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="versionEndDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="effectiveStartDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="pcpPanelStatus" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+        	<xs:element name="networkType" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="PaymentHold" type="base:PaymentHoldType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="otherIdDetail" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="parentNetworks" type="ParentNetworkType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="claimReview" type="base:ClaimReviewType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="benefitNetwork" type="BenefitNetworkType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="taxEntity" type="TaxEntityType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="generalCorrespondence" type="base:CorrespondenceInfoType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="otherCorrespondence" type="base:CorrespondenceInfoListType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ParentNetworkType">
+        <xs:sequence>
+        	<xs:element name="supplierNetworkIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="hccIdentifier" type="xs:string" minOccurs="0" maxOccurs="1"/>        	
+        	<xs:element name="effectiveStartDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BenefitNetworkType">
+   	 	<xs:sequence>
+            <xs:element name="benefitNetworkId" type="xs:long" minOccurs="0" maxOccurs="1"/>
+   			<xs:element name="benefitNetworkName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+   			<xs:element name="benefitNetworkDescription" type="xs:string" minOccurs="0" maxOccurs="1"/>
+   		</xs:sequence>
+   	</xs:complexType>
+    <xs:complexType name="LicenseType">
+        <xs:sequence>
+            <xs:group ref="base:LicenseNumberGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProviderAddressType">
+        <xs:sequence>
+            <xs:element name="emailAddress" type="base:EmailAddressSimpleType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="correspondenceAddress" type="base:PostalAddressType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="phoneNumber" type="ProviderPhoneType" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="correspondenceUsageType" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProviderPhoneType">
+        <xs:sequence>
+            <xs:group ref="base:TelephoneNumberGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SpecialtyListType">
+        <xs:sequence>
+            <xs:element name="specialty" type="SpecialtyType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:complexType name="SpecialtyType">
+        <xs:sequence>
+            <xs:group ref="SpecialtyGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:group name="SpecialtyGroup">
+		<xs:annotation>
+			<xs:documentation>Provider Specialty Information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="specialtyCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="specialtyName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	
+    <xs:complexType name="PractitionerCredentialing">
+        <xs:sequence>
+            <xs:element name="medicalSchoolInfo" type="MedicalSchoolInfo" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="residencyInfo" type="ResidencyInfo" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="generalCredentialInfo" type="Credentialing" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:complexType name="MedicalSchoolInfo">
+        <xs:sequence>
+            <xs:group ref="MedicalSchoolInfoGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:group name="MedicalSchoolInfoGroup">
+		<xs:annotation>
+			<xs:documentation>Medical School Information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="schoolName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>	
+	<xs:complexType name="ResidencyInfo">
+        <xs:sequence>
+            <xs:group ref="ResidencyInfoGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:group name="ResidencyInfoGroup">
+		<xs:annotation>
+			<xs:documentation>Residency Information</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="residencyProgramName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="residencySpecialty" type="SpecialtyType" minOccurs="0" maxOccurs="1"/>			
+		</xs:sequence>
+	</xs:group>
+    <xs:complexType name="Credentialing">
+        <xs:sequence>
+            <xs:group ref="CredentialingGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:group name="CredentialingGroup">
+        <xs:annotation>
+            <xs:documentation>Credential Information</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dateSentToCredentialEntity" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="originalEffectiveStartDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="effectiveStartDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="effectiveEndDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="recredentialDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="credentialResponsibilityEntity" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="credentialStatus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="stateApprovalInfo" type="StateApprovalInfo" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="credentialSourceInfo" type="CredentialSourceInfo" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="StateApprovalInfo">
+        <xs:sequence>
+            <xs:group ref="StateApprovalInfoGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CredentialSourceInfo">
+        <xs:sequence>
+            <xs:group ref="CredentialSourceInfoGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:group name="StateApprovalInfoGroup">
+        <xs:annotation>
+            <xs:documentation>State Approval Information</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="stateGivingApproval" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="countryGivingApproval" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="boardCertificationInfo" type="BoardCertificationInfo" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="BoardCertificationInfo">
+        <xs:sequence>
+            <xs:group ref="BoardCertificationInfoGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:group name="BoardCertificationInfoGroup">
+        <xs:annotation>
+            <xs:documentation>Board Certification Information</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="certificationStatus" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="boardApprovedSpecialty" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="CredentialSourceInfoGroup">
+        <xs:annotation>
+            <xs:documentation>Credential Source Information</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="credentialSourceName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="credentialSourceCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+	<xs:simpleType name="ProviderActiveCodeType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active"/>
+			<xs:enumeration value="Terminated"/>			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProviderUDTListType">
+		<xs:sequence>
+			<xs:element name="udtList" type="base:UDTListType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+    <xs:complexType name="TaxEntityType">
+        <xs:sequence>
+            <xs:element name="taxId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="taxName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="BenefitNetworkList">
+        <xs:sequence>
+            <xs:element name="BenefitNetwork" type="BenefitNetworkType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProviderOtherAddressType">
+        <xs:sequence>
+            <xs:element name="providerOtherCorrAddress" type="ProviderAddressType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ProviderOtherNamesType">
+        <xs:sequence>
+            <xs:element name="otherNameUsed" type="OtherNameType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OtherNameType">
+        <xs:sequence>
+            <xs:element name="personName" type="OtherPersonName" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="otherNameType" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OtherPersonName">
+        <xs:sequence>
+            <xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="middleName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="prefixCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="nameSuffixList" type="NameSuffixListType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="credentialSuffixList" type="CredentialSuffixListType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="NameSuffixListType">
+        <xs:sequence>
+            <xs:element name="nameSuffix" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="CredentialSuffixListType">
+        <xs:sequence>
+            <xs:element name="credentialSuffix" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,50 @@
+Group,Fields,Description,Edifecs Mapping - EDI 834,Edifecs Mapping - DFF
+inputDetails,inputId,Input file id,"Value passed is  - {UID}- Unique for each file
+Example - -dtBkcCHu9bkKu8O","Value passed is  - {UID}- Unique for each file
+Example - -dtBkcCHu9bkKu8O"
+,inputType,Defines the type of input - API or File,"Hardcode as ""FILE""","Hardcode as ""FILE"""
+,totalTransactions,Total no. of transactions/Record received in API/File,Total Number of member records in a file -,Total Number of member records in a file -
+,inputFileName,Name of the input file received from source.,Input Filename of the EDI file received with filename extension,Input DFF Filename received with filename extension
+,fileLoadStatus,,ERROR'  only for file level rejections,ERROR'  only for file level rejections
+,inputArchiveFilename,EDI Archive File name,Input Filename of the EDI file archived in s3 with filename extension,Input Filename of the DFF file archived in s3 with filename extension
+process,processStageName,Represent the name of the process stage which post the Audit point.,Refer Audit events Tab,Refer Audit events Tab
+,processStatus,Represent the Intermediate or Final status of the process stage which posts the Audit point.,Refer Audit events Tab,Refer Audit events Tab
+,processMessage,Specific information of a particular step after the process is completed.,Refer Audit events Tab,Refer Audit events Tab
+,processInputArchiveFilename,Name of the input Archive file of the process stage which posts the Audit point.,Input Filename of the EDI file archived in s3 with filename extension,Input Filename of the DFF file archived in s3 with filename extension
+,processOutputArchiveFilename,Name of the output Archive file of the process stage which posts the Audit point.,,
+,auditTime,Auditing time of each audit point,The time the audit trigger event got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,The time the audit trigger event got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format
+"identifiers
+
+
+(This block is not needed for File level Rejections)",rayIdentifier,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split/Derieved, passed across various system, reprocessed.",UUID,UUID
+,recordIdentifier,Unique Identifier for transaction level. Will be different when reprocess/Derive another record from a same record.,A Unique Record Identifier,A Unique Record Identifier
+,tenantIdentifier,Unique identifier for the implementation team.,"This will be a custom field and needs to be hardcoded. From Products, this will be Hardcoded as ""Product"".","This will be a configurable field . From Products, this will be Hardcoded as ""Product""."
+,sourceTypeIdentifier,Identifier to find from where we received(Starting point) the initial Transaction/Record.,"EDIFECS_Inbound834_daily
+
+EDIFECS_InboundEnrollment_FileLevelError (In case of file level rejection)",EDIFECS_ADV_DFF
+,recordIdentifierFromSource,Plae holder to add any record identifier from Source.,We will post the same Record Identifier. But we give option for Implementation team to update in Adaptor layer.,We will post the same Record Identifier. But this will be configurable.
+,referenceIdentifier,Place holder to add any specific Reference Identifier based on Business Requirement,NA,NA
+,retriedReferenceIdentifier,This field indicates unique identifier for a transaction that has been retried,NA,NA
+membership,subscriptionIdentificationNumber,Id used to group a subscription,2000.REF*0F,Claims SubscriberID Number (Field No 2)
+,memberIdentifier,Unique identifier for member from input file,"This will be a custom field
+2000.REF*0F",Claims SubscriberID Number (Field No 2)
+,subscriptionIdHrp,"Subscription ID received from HRP, when record is loaded and HRP response has the Member HCC ID",NA,NA
+,subscriberIdHrp,"Subscriber ID received from HRP, when record is loaded and HRP response has the Member HCC ID",NA,NA
+,memberIdHrp,"Member Id received from HRP, when record is loaded and HRP response has the Member HCC ID",NA,NA
+,cvcId,"Uniquie ID received from HRP, when record is loaded and HRP response has the Member HCC ID",NA,NA
+,enrollmentRequestXMLArchiveFilename,"Name of requestXMLArchive file, which will be sent to HRP to load",,
+,enrollmentResponseXMLArchiveFilename,"Name of file - When we receive response from HRP, HRP response will be created as a XMLArchive file",,
+"membership/member
+
+*Latest requested detail from input",firstName,Member First name from the Request.,2100A.NM104,Member’s First Name (Field No 9)
+,lastName,Member Last name from the Request.,2100A.NM103,Member’s Last Name (Field No 4)
+,dob,Member DOB from the Request.,"2100A.DMG02, Format :YYYY-MM-DD",Member Date of Birth (Field No 14)
+,relationshipToSubscriber,Member Relation to Subscriber from the Request.,2000.INS02 (need conversion copy),"Subscriber Flag (Field No 5), If Y - Self"
+"membership/planInfo
+
+*Could be multiple segments based on number of plans from the request.",accountId,Account ID from the Request.,NA,NA
+,hrpPlanId,Plan ID(s) from the request.,NA,NA
+,hrpPlanName,Plan Name(s) from the request.,NA,NA
+,PlanBeginDate,Respective begin date of the above plan,NA,NA
+,PlanEndDate,Respective end date of the above plan,NA,NA
+,PlanType,Respective plan type of the above plan,NA,NA

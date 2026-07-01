@@ -1,0 +1,420 @@
+EDI LoopID.Segment,EDI Data Element Name,EDI Element Description,Usage,Enumeration Values,Sample values,Hardcoded Values,TABLE/COLUMN NAME,Mapping Logic
+ISA,,,,,,,,
+ISA01,Authorization Information Qualifier,Authorization Information Qualifier,R,"00 No Authorization Information Present (No Meaningful Information in I02)
+03 Additional Data Identification",,"Hardcode as ""00""",,
+ISA02,Authorization Information,Authorization Information,R,,,Leave it blank,,
+ISA03,Security Information Qualifier,Security Information Qualifier,R,"00 No Security Information Present (No Meaningful Information in I04)
+01 Password",,"Hardcode as ""00""",,
+ISA04,Security Information,Security Information,R,,,Leave it blank,,
+ISA05,Interchange ID Qualifier,Interchange ID Qualifier,R,ZZ Mutually Defined,,"Hardcode as ""ZZ""",,
+ISA06,Interchange Sender ID,Interchange Sender ID,R,,,,RECEIVERID,
+ISA07,Interchange ID Qualifier,Interchange ID Qualifier,R,ZZ Mutually Defined,,"Hardcode as ""ZZ""",,
+ISA08,Interchange Receiver ID,Interchange Receiver ID,R,,,,SENDERID,
+ISA09,Interchange Date,Interchange Date,R,,,"Map this value from  current date in the format of ""YYMMDD""",,
+ISA10,Interchange Time,Interchange Time,R,,,Map this value from   current time in the format of HHMM,,
+ISA11,Repetition Separator,Repetition Separator,R,,,"Hardcode as ""^""",,
+ISA12,Interchange Control Version Number,Interchange Control Version Number,R,,,Hardcode as “00501”,,
+ISA13,Interchange Control Number,Interchange Control Number,R,,,Unique ISA control number needs to generated in Edifecs for each EDI file.,,
+ISA14,Acknowledgment Requested,Acknowledgment Requested,R,"0 No Interchange Acknowledgment Requested
+1 Interchange Acknowledgment Requested (TA1)",,"Hardcode as ""0""",,
+ISA15,Interchange Usage Indicator,Interchange Usage Indicator,R,"P Production Data
+T Test Data",,"""P""  if it is a Production region
+""T""  if it is a Non-Production region",,
+ISA16,Component Element Separator,Component Element Separator,R,,,"Hardcode  as "":""",,
+GS,Segment: Functional Group Header,,R,,,,,
+GS01,Functional Identifier Code,Code identifying a group of application related transaction sets,R,,,Hardcode as “HN”,,
+GS02,Application Sender's Code,Code identifying party sending transmission; codes agreed to by trading partners,R,,,,RECEIVERID,
+GS03,Application Receiver's Code,Code identifying party receiving transmission; codes agreed to by trading partners,R,,,,SENDERID,
+GS04,Date,Date the Group Header is created.,R,,,"Map this value from  current date in the format of ""YYYYMMDD""",,
+GS05,Time,"Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)",R,,,"Map this value from current Time in the format of ""HHMM""",,
+GS06,Group Control Number,Assigned number originated and maintained by the sender,R,,,Generate unique ID In EDIFECS (1-9 Bytes),,
+GS07,Responsible Agency Code,Code identifying the issuer of the standard; this code is used in conjunction with Data Element 480,R,X : Accredited Standards Committee X12,,"Hardcode as ""X""",,
+GS08,Version / Release / Industry Identifier Code,"Code indicating the version, release, subrelease, and industry identifier of the EDI standard being used, including the GS and GE segments; if code in DE455 in GS segment is X, then in DE 480 positions 1-3 are the version number; positions 4-6 are the release and subrelease, level of the version; and positions 7-12 are the industry or trade association identifiers (optionally assigned by user); if code in DE455 in GS segment is T, then other formats are allowed",R,,,"Hardcode as ""005010X214""",,
+ST,Segment: Transaction Set Header,,R,,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,R,,,Hardcode as 277,,
+ST02,Transaction Set Control Number,Identifying control number that must be unique within the transaction set functional group assigned by the originator for a transaction set,R,,,Generate unique ID In EDIFECS,,
+ST03,Implementation Convention Reference,Reference assigned to identify Implementation Convention,R,,,"Hardcode as ""005010X214""",,
+BHT Beginning of Hierarchical Transaction,,,R,,TR3 Example: BHT*0085*08*0000221*20060201*1635*TH~,,,
+BHT01,Hierarchical Structure Code,,R,"0085 Information Source, Information Receiver, Provider of Service, Patient",,Hardcode as'0085',,
+BHT02,Transaction Set Purpose Code,,R,08 Status,,Hardcode as '08',,
+BHT03,Reference Identification,,R,"The inventory file number of the transmission assigned by the Information
+Source’s system. This number operates as a transaction (batch) control number.",,Generate unique ID In EDIFECS,,
+BHT04,Date,,R,,,"Current date , CCYYMMDD",,
+BHT05,Time,,R,,,"Current time HHMM,",,
+BHT06,Transaction Type Code,,R,TH Receipt Acknowledgment Advice,,Hardcode as 'TH',,
+2000A HL Information Source Level   Max -1,,,R,,TR3 Example: TR3 Example: HL*1**20*1,,,
+2000A.HL01,Hierarchical ID Number,,,,,"HL01 must begin with the value ""1"" and increment by one each time an HL is used in the transaction. Only numeric values are allowed in HL01.",,
+2000A.HL03,Hierarchical Level Code,,,20 Information Source,,Hardcode as '20',,
+2000A.HL04,Hierarchical Child Code,,,1 Additional Subordinate HL Data Segment in This Hierarchical Structure.,,Hardcode as 1,,
+2100A NM1 Information Source Name Max-1,,,O,,TR3 Example: NM1*PR*2*ABC INSURANCE*****PI*12345~,,,
+2100A NM101,Entity Identifier Code,,R,"AY Clearinghouse
+PR Payer",,Hardcode as 'PR',,
+2100A NM102,Entity Type Qualifier,,R,2 Non-Person Entity,,Hardcode as '2',,
+2100A NM103,Name Last or Organization Name,,R,,,,PAYER_NAME,
+2100A NM108,Identification Code Qualifier,,R,"46 Electronic Transmitter Identification Number (ETIN)
+ FI Federal Taxpayer's Identification Number
+ PI Payor Identification
+ XV Centers for Medicare and Medicaid Services PlanID",,Hardcode as '46',,
+2100A NM109,Identification Code,,R,,,,PAYER_ID,
+TRN Transmission Receipt Control Identifier,,,R,,TR3 Example: TRN*1*734C542B43064BE0B9BE3D2AFFB8FF46~,,,
+2200A TRN01,Trace Type Code,,R,1 Current Transaction Trace Numbers,,Hardcode as '1',,
+2200A TRN02,Reference Identification,,R,"This is a unique trace number that identifies a specific transaction. This
+number is assigned by the Information Source.",,Unique Id,,
+DTP Information Source Receipt Date,,,O,,TR3 Example: TR3 Example: DTP*050*D8*20060228,,,
+2200A DTP01,Date/Time Qualifier,,R,050 Received,,Hardcode as '050',,
+2200A DTP02,Date Time Period Format Qualifier,,R,D8 Date Expressed in Format CCYYMMDD,,D8,,
+2200A DTP03,Date Time Period,,R,,,,CLAIM_RECEIVED_DATE,
+DTP Information Source Process Date MAX-1,,,O,,DTP*009*D8*20060301~,,,
+2200A DTP01,Date/Time Qualifier,,R,009 Process,,Hardcode as '009',,
+2200A DTP02,Date Time Period Format Qualifier,,R,D8 Date Expressed in Format CCYYMMDD,,D8,,
+2200A DTP03,Date Time Period,,R,,,,CLAIM_RECEIVED_DATE,
+HL Information Receiver Level MAX-1,,,R,,TR3 Example: HL*2*1*21*1,,,
+2000B HL01,Hierarchical ID Number,,R,,,Incremental value,,
+2000B HL02,Hierarchical Parent ID Number,,R,,,Hierarchical Parent ID Number,,
+2000B HL03,Hierarchical Level Code,,R,21 Information Receiver,,Hardcode as '21',,
+2000B HL04,Hierarchical Child Code,,R,"0 No Subordinate HL Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03=U, reject entire transaction. Used when the Information Receiver STC03=U, reject entire transaction.
+ 1 Additional Subordinate HL Data Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03 = WQ, accept entire transmission.",,Hardcode as '1',,
+NM1 Information Receiver Name,,,O,,NM1*41*1*SMITH*ROBERT*J***46*188888000A~,,,
+2100B NM101,Entity Identifier Code,,R,41 Submitter,,Hardcode as '41',,
+2100B NM102,Entity Type Qualifier,,R,"1 Person
+ 2 Non-Person Entity",,"Hardcode as '1'  if  SUBMITTER_FNAME is not blank , Else
+Hardcode as '2'",,
+2100B NM103,Name Last or Organization Name,,R,,,,SUBMITTER_LNAME,
+2100B NM104,Name First,,O,,,,SUBMITTER_FNAME,
+2100B NM105,Name Middle,,O,,,,SUBMITTER_MNAME,
+2100B NM108,Identification Code Qualifier,,R,46 Electronic Transmitter Identification Number (ETIN),,Hardcode as '46',,
+2100B NM109,Identification Code,,R,,,,SUBMITTER_ID,
+TRN Information Receiver Application Trace Identifier,,,O,,,,,
+2200B TRN01,Trace Type Code,,R,2 Referenced Transaction Trace Numbers,,Hardcode as '2',,
+2200B TRN02,Reference Identification,,R,,,,EXTERNAL_CLAIM_BATCH_NO,
+STC Information Receiver Status Information,,,O,,,,,
+2200B STC01,Health Care Claim Status,,R,,,,,
+2200B STC01-01,Industry Code,,R,,,,Refer Xwalk,Implementaion teams to configure the xwalk based on their requirement
+2200B STC01-02,Industry Code,,R,,,,Refer Xwalk,
+2200B STC01-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ AY Clearinghouse
+ PR Payer",,Hardcode as 'PR',,
+2200B STC02,Date,,R,CCYYMMDD,,CCYYMMDD- Current date,,
+2200B STC03,Action Code,,R,"U Reject
+ User Note 1: User Note 1:
+ Required when the entire claim transaction (ST-SE) is rejected due to submitter
+ level errors. No subordinate HL information is reported.
+ Required when the entire claim transaction (ST-SE) is rejected due to submitter
+ level errors. No subordinate HL information is reported.
+ WQ Accept
+ User Note 1: User Note 1:
+ Required when code value “U” is not used. At least one subordinate HL loop must
+ be reported.",,,Refer Xwalk,
+2200B STC04,Monetary Amount,,R,,,,BILLED_AMT,
+2200B STC10,Health Care Claim Status,,O,,,,,
+2200B STC10-01,Industry Code,,R,,,,,
+2200B STC10-02,Industry Code,,R,,,,,
+2200B STC10-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ AY Clearinghouse
+ PR Payer",,,,
+2200B STC11,Health Care Claim Status,,O,,,,,
+2200B STC11-01,Industry Code,,R,,,,,
+2200B STC11-02,Industry Code,,R,,,,,
+2200B STC11-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ AY Clearinghouse
+ PR Payer",,,,
+QTY Total Accepted Quantity,,,O,,QTY*90*1,,,
+2200B QTY01,Quantity Qualifier,,R,90  Acknowledged Quantity,,Hardcode as '90',,
+2200B QTY02,Quantity,,R,,Total Accepted Quantity,,,"total number of claims accepted in ST-SE, since one ST-SE contains only one claim, this will be 1."
+QTY Total Rejected Quantity,,,O,,,,,
+2200B QTY01,Quantity Qualifier,,R,AA Unacknowledged Quantity,,,,
+2200B QTY02,Quantity,,R,,Total Rejected Quantity,,,
+AMT Total Accepted Amount,,,O,,,,,
+2200B AMT01,Amount Qualifier Code,,R,YU In Process,,Hardcode as 'YU'',,
+2200B AMT02,Total Accepted Amount,,R,,,,BILLED_AMT,"total dollar amount of claims accepted in ST-SE.  Since one ST-SE contains only one claim, this will be BILLED_AMT of that claim."
+AMT Total Rejected Amount,,,O,,,,,
+2200B AMT01,Amount Qualifier Code,,R,YY Returned,,,,
+2200B AMT02,Monetary Amount,,R,,,,,total dollar amount of claims rejected
+HL Billing Provider of Service Level,,,,,HL*3*2*19*1,,,
+2000C HL01,Hierarchical ID Number,,R,,,Incremental value,,
+2000C HL02,Hierarchical Parent ID Number,,R,,,Hierarchical Parent ID Number,,
+2000C HL03,Hierarchical Level Code,,R,19 Provider of Service,,Hardcode as '19',,
+2000C HL04,Hierarchical Child Code,,R,"0 No Subordinate HL Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03=U, reject entire transaction. Used when the Information Receiver STC03=U, reject entire transaction.
+ 1 Additional Subordinate HL Data Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03 = WQ, accept entire transmission.",,Hardcode as '1',,
+NM1 Billing Provider Name,,,O,,,,,
+2100C NM101,Entity Identifier Code,,R,85 Billing Provider,,Hardcode as '85',,
+2100C NM102,Entity Type Qualifier,,R,"1 Person
+ 2 Non-Person Entity",,"Hardcode as '1'  if  BILLINGPROVIDER_FNAME is not blank , Else
+Hardcode as '2'",,
+2100C NM103,Name Last or Organization Name,,R,,,,BILLINGPROVIDER_LNAME,
+2100C NM104,Name First,,O,,,,BILLINGPROVIDER_FNAME,
+2100C NM105,Name Middle,,O,,,,BILLINGPROVIDER_MNAME,
+2100C NM107,Name Suffix,,O,,,,BILLINGPROVIDER_SUFFIX,
+2100C NM108,Identification Code Qualifier,,R,"FI
+ Federal Taxpayer's Identification Number
+ XX Centers for Medicare and Medicaid Services National Provider Identifier",,"Hardcode as 'XX""",,
+2100C NM109,Identification Code,,R,,,,BILLINGPROVIDER_ID,
+TRN Provider of Service Information Trace Identifier,,,O,,,,,
+2200C TRN01,Trace Type Code,,R,1 Current Transaction Trace Numbers,,Hardcode as '1',,
+2200C TRN02,Reference Identification,,R,,,Unique Id,,
+STC Billing Provider Status Information,,,O,,,,,
+2200C STC01,Health Care Claim Status,,R,,,,,
+2200C STC01-01,Industry Code,,R,,,,Refer Xwalk,Implementaion teams to configure the xwalk based on their requirement
+2200C STC01-02,Industry Code,,R,,,,Refer Xwalk,
+2200C STC01-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ AY Clearinghouse
+ PR Payer",,Hardcode as 'PR',,
+2200C STC03,Action Code,,R,"U Reject
+ User Note 1: User Note 1:
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ WQ Accept",,,Refer Xwalk,
+2200C STC04,Monetary Amount,,R,,,,BILLED_AMT,
+2200C STC10,Health Care Claim Status,,O,,,,,
+2200C STC10-01,Industry Code,,R,,,,,
+2200C STC10-02,Industry Code,,R,,,,,
+2200C STC10-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ AY Clearinghouse
+ PR Payer",,,,
+2200C STC11,Health Care Claim Status,,O,,,,,
+2200C STC11-01,Industry Code,,R,,,,,
+2200C STC11-02,Industry Code,,R,,,,,
+2200C STC11-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ AY Clearinghouse
+ PR Payer",,,,
+REF Provider Secondary Identifier,,,O,,,,,
+2200C REF01,Reference Identification Qualifier,,R,"0B
+ State License Number
+ 1G Provider UPIN Number
+ G2 Provider Commercial Number
+ LU Location Number
+ SY Social Security Number
+ TJ
+ Federal Taxpayer's Identification Number",,,,
+2200C REF02,Reference Identification,,R,,,,,
+"QTY
+ Total Accepted Quantity",,,O,,,,,
+2200C QTY01,Quantity Qualifier,,R,QA Quantity Approved,,Hardcode as 'QA',,
+2200C QTY02,Quantity,,R,,,,,"total number of claims accepted in ST-SE, since one ST-SE contains only one claim, this will be 1."
+QTY Total Rejected Quantity,,,O,,,,,
+2200C QTY01,Quantity Qualifier,,R,QC Quantity Disapproved,,,,
+2200C QTY02,Quantity,,R,,,,,
+AMT Total Accepted Amount,,,O,,,,,
+2200C AMT01,Amount Qualifier Code,,R,YU In Process,,Hardcode as 'YU'',,
+2200C AMT02,Monetary Amount,,R,,,,BILLED_AMT,"total dollar amount of claims accepted in ST-SE.  Since one ST-SE contains only one claim, this will be BILLED_AMT of that claim."
+AMT Total Rejected Amount,,,O,,,,,
+2200C AMT01,Amount Qualifier Code,,R,YY Returned,,,,
+2200C AMT02,Monetary Amount,,R,,,,,
+HL  Patient Level,,,O,,,,,
+2000D HL01,Hierarchical ID Number,,R,,,Incremental value,,
+2000D HL02,Hierarchical Parent ID Number,,R,,,Hierarchical Parent ID Number,,
+2000D HL03,Hierarchical Level Code,,R,PT Patient,,Hardcode as 'PT',,
+NM1 Patient Name,,,O,,,,,
+2100D NM101,Entity Identifier Code,,R,QC Patient,,Hardcode as 'QC',,
+2100D NM102,Entity Type Qualifier,,R,1 Person,,Hardcode as '1',,
+2100D NM103,Name Last or Organization Name,,R,,,,PATIENT_LNAME,
+2100D NM104,Name First,,O,,,,PATIENT_FNAME,
+2100D NM105,Name Middle,,O,,,,PATIENT_MNAME,
+2100D NM107,Name Suffix,,O,,,,PATIENT_SUFFIX,
+2100D NM108,Identification Code Qualifier,,R,"II Standard Unique Health Identifier for each Individual in the United States
+ User Note 1:
+ Required if the HIPAA Individual Patient Identifier is mandated for use. If not
+ required use MI.
+ Required if the HIPAA Individual Patient Identifier is mandated for use. If not
+ required use MI.
+ MI Member Identification Number",,Hardcode as 'MI',,
+2100D NM109,Identification Code,,R,,,,PATIENT_ID,
+TRN Provider of Service Information Trace Identifier,,,O,,,,,
+2200D TRN01,Trace Type Code,,R,2 Referenced Transaction Trace Numbers,,Hardcode as '2',,
+2200D TRN02,Reference Identification,,R,Patient Control Number,,,PATIENT_CONTROL_NUMER,
+"STC Claim Level Status
+ Information",Max: >1,,O,,,,,
+2200D STC01,Health Care Claim Status,,R,,,,,
+2200D STC01-01,Industry Code,,R,,,,Refer Xwalk tab,This configurable xwalk. Implementaion teams to configure the xwalk based on their requirement
+2200D STC01-02,Industry Code,,R,,,,Refer Xwalk tab,
+2200D STC01-03,Entity Identifier Code,,O,"03 Dependent
+ 1P Provider
+ 1Z Home Health Care
+ 40 Receiver
+ 41 Submitter
+ 71 Attending Physician
+ 72 Operating Physician
+ 73 Other Physician
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ DK Ordering Physician
+ DN Referring Provider
+ DQ Supervising Physician
+ FA Facility
+ GB Other Insured
+ HK Subscriber
+ IL Insured or Subscriber
+ LI Independent Lab
+ PR Payer
+ QB Purchase Service Provider
+ QC Patient
+ QD Responsible Party
+ TL Testing Laboratory
+ TU Third Party Repricing Organization (TPO)
+ MSC Mammography Screening Center
+ PRP Primary Payer
+ SEP Secondary Payer
+ TTP Tertiary Payer",,Hardcode as PR,,
+2200D STC02,Status Information Effective Date,,R,,,CCYYMMDD- Current date,,
+2200D STC03,Action Code,,R,"U Reject
+ User Note 1: User Note 1:
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ WQ Accept",,,Refer Xwalk,
+2200D STC04,Monetary Amount,,R,,,,BILLED_AMT,
+2200D STC10,Health Care Claim Status,,O,,,,,
+2200D STC10-01,Industry Code,,R,,,,,
+2200D STC10-02,Industry Code,,R,,,,,
+2200D STC10-03,Entity Identifier Code,,O,"03 Dependent
+ 1P Provider
+ 1Z Home Health Care
+ 40 Receiver
+ 41 Submitter
+ 71 Attending Physician
+ 72 Operating Physician
+ 73 Other Physician
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ DK Ordering Physician
+ DN Referring Provider
+ DQ Supervising Physician
+ FA Facility
+ GB Other Insured
+ HK Subscriber
+ IL Insured or Subscriber
+ LI Independent Lab
+ PR Payer
+ QB Purchase Service Provider
+ QC Patient
+ QD Responsible Party
+ TL Testing Laboratory
+ TU Third Party Repricing Organization (TPO)
+ MSC Mammography Screening Center
+ PRP Primary Payer
+ SEP Secondary Payer
+ TTP Tertiary Payer",,,,
+2200D STC11,Health Care Claim Status,,O,,,,,
+2200D STC11-01,Industry Code,,R,,,,,
+2200D STC11-02,Industry Code,,R,,,,,
+2200D STC11-03,Entity Identifier Code,,O,"3 Dependent
+ 1P Provider
+ 1Z Home Health Care
+ 40 Receiver
+ 41 Submitter
+ 71 Attending Physician
+ 72 Operating Physician
+ 73 Other Physician
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ DK Ordering Physician
+ DN Referring Provider
+ DQ Supervising Physician
+ FA Facility
+ GB Other Insured
+ HK Subscriber
+ IL Insured or Subscriber
+ LI Independent Lab
+ PR Payer
+ QB Purchase Service Provider
+ QC Patient
+ QD Responsible Party
+ TL Testing Laboratory
+ TU Third Party Repricing Organization (TPO)
+ MSC Mammography Screening Center
+ PRP Primary Payer
+ SEP Secondary Payer
+ TTP Tertiary Payer",,,,
+2200D STC12,Free-form Message Text,,O,,,,,
+"REF
+ Payer Claim Control Number",,,O,,,,,
+2200D REF01,Reference Identification Qualifier,,R,1K Payor's Claim Number,,Hardcode as '1K',,
+2200D REF02,Reference Identification,,R,,,,CLAIM_HCCID,
+REF Claim Identifier Number For Clearinghouse and Other Transmission Intermediaries,,,O,,,,,
+2200D REF01,Reference Identification Qualifier,,R,D9 Claim Number,,Hardcode as 'D9',,
+2200D REF02,Reference Identification,,R,,,,CLEARINGHOUSE_TRACENO,
+REF Institutional Bill Type Identification,,,O,,,,,
+2200D REF01,Reference Identification Qualifier,,R,BLT Billing Type,,Hardcode as 'BLT',,Only if CLAIM_TYPE is I
+2200D REF02,Reference Identification,,R,,,,Concatenate FACILITY_TYPE_CODE and FREQUENCY_CODE,Only if CLAIM_TYPE is I
+DTP Claim Level Service Date,,,O,,,,,
+2200D DTP01,Date/Time Qualifier,,R,472 Service,,Hardcode as '472',,
+2200D DTP02,Date Time Period Format Qualifier,,R,"D8 Date Expressed in Format CCYYMMDD
+ RD8 Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD",,"D8 if SERIVICE_DATE is in format CCYYMMDD
+RD8 if SERIVICE_DATE is in format CCYYMMDD -CCYYMMDD",,
+2200D DTP03,Date Time Period,,R,,,,SERVICE_DATE,
+"SVC
+ Service Line Information",,,O,,,,,
+2220D SVC01,Composite Medical Procedure Identifier,,R,,,,,
+2220D SVC01-01,Product/Service ID Qualifier,,R,"AD American Dental Association Codes
+ ER Jurisdiction Specific Procedure and Supply Codes
+ HC Health Care Financing Administration Common Procedural Coding System
+ (HCPCS) Codes
+HP Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility
+ Rate Code
+ IV Home Infusion EDI Coalition (HIEC) Product/Service Code
+ NU National Uniform Billing Committee (NUBC) UB92 Codes
+ WK Advanced Billing Concepts (ABC) Codes",,,,
+2220D SVC01-02,Product/Service ID,,R,,,,,
+2220D SVC01-03,Procedure Modifier,,O,,,,,
+2220D SVC01-04,Procedure Modifier,,O,,,,,
+2220D SVC01-05,Procedure Modifier,,O,,,,,
+2220D SVC01-06,Procedure Modifier,,O,,,,,
+2220D SVC02,Monetary Amount,,R,,,,,
+2220D SVC04,Product/Service ID,,O,,,,,
+2220D SVC07,Quantity,,O,,,,,
+"SE
+ Transaction Set Trailer",,,R,,,,,
+SE01,Number of Included Segments,,R,,,"Total number of segments included in a transaction set including ST and SE
+segments",,
+SE02,Transaction Set Control Number,,R,,,Same as ST02,,
+GE Functional Group Trailer (Required),,,,,,,,
+GE01,,Number of Transaction Sets Included,R,,,Count Of GS,,
+GE02,,Group Control Number,R,,,GS06 Value,,
+IEA Interchange Control Trailer (Required),,,,,,,,
+IEA01,,Number of Included Functional Groups,R,,,Count Of ISA,,
+IEA02,,Interchange Control Number,R,,,ISA13 Value,,

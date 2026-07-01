@@ -1,0 +1,59 @@
+XML Field,HRP Element Description,Cotiviti-Inst,Cotiviti-Prof,Mapping Logic,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputId,,UID,UID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputType,,"""INST""","""PROF""",,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/totalTransaction,,no of input in  file - total number of lines,no of input in  file - total number of lines,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputFilename,,IB DFF name with filename extension,IB DFF name with filename extension,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/inputArchiveFilename,,Archived file name with filename extension,Archived file name with filename extension,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/totalClaimCount,,No of claims in DFF,No of claims in DFF,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/totalXMLTransactionCount,,1 (1 claim each file),1 (1 claim each file),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/XMLfileCreationDate,,2008-06-16T07:12:48(format),2008-06-16T07:12:48(format),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/senderId,,Cotiviti Inst,Cotiviti Prof,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/header/receiverId,,Hardcode as 'Product',Hardcode as 'Product',,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/recordCount,,1 (1 claim each file),1 (1 claim each file),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/recordIdentifier,,GUID,GUID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/rayIdentifier,,GUID,GUID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/tenantIdentifier,,NA,NA,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/SourceTypeIdentifier,,Cotiviti,Cotiviti,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/recordIdentifierFromSource,,Same as recordIdentifier,Same as recordIdentifier,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/referenceIdentifier,,NA,NA,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/hccClaimNumber,HCC Claim number,CLAIM_ID,CLAIM_ID,,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/hccLineNumber,Line number,LINE_SEQ,LINE_SEQ,"Remove leading zeros if present.
+
+i.e.  If the DFF is having 0001, populate hccLineNumber as 1.",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/subUnit,,SUB_UNITS,SUB_UNITS,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recHcpcs,,REC_HCPCS,REC_HCPCS,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier01,,REC_MOD_01,REC_MOD_01,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier02,,REC_MOD_02,REC_MOD_02,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier03,,REC_MOD_03,REC_MOD_03,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier04,,REC_MOD_04,REC_MOD_04,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier05,,REC_MOD_05,REC_MOD_05,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier06,,REC_MOD_06,REC_MOD_06,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier07,,REC_MOD_07,REC_MOD_07,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/recModifier08,"Identifies the type of external edit to apply to the identified claim or claim
+line:
+DENY_LINE – Denies the specified claim or claim line; no other values are required.
+PARTIAL_DENY – Adjust the units in a claim line. You must supply both originalUnits and adjustmentUnits.
+APPLY_PERCENTAGE — Adjust the payment amount. The
+adjustmentPercentage represents the final value to use for the claim (line).",REC_MOD_08,REC_MOD_08,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/actionType,Reason code,REC_LINE_STATUS,REC_LINE_STATUS,,"‘P’ = Pay
+‘D’ = Deny
+‘E’ = Pend
+‘C’ = Change/Adjust
+‘I’ = Information
+'V' = CV Pend"
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/reasons/reason/code,Reson code Description,"REASON1_ID
+REASON2_ID
+REASON3_ID","REASON1_ID
+REASON2_ID
+REASON3_ID","NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/reasons/reason/description,,"reason1Id + Space + "" Action Reason""
+reason2Id + Space + "" Action Reason""
+reason3Id + Space + "" Action Reason""","reason1Id + Space + "" Action Reason""
+reason2Id + Space + "" Action Reason""
+reason3Id + Space + "" Action Reason""","NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/originalUnits,,ALLOWED_UNITS,ALLOWED_UNITS,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/adjustedUnits,,REC_UNITS,REC_UNITS,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/adjustmentPercentage,Must be a CodeEntry that has been defined in HealthRules Payer,REC_PCT,REC_PCT,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/claimLines/claimLine/actions/action/userMessageCode,,REASON1_ID,REASON1_ID,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/adjustmentReasonCode,,1 (hardcoded),1 (hardcoded),,
+ClaimEditingAdaptorRequest/ClaimEditingIBRequestRoot/ClaimEditingIBRequest/ClaimEditingRequestRecordList/ClaimEditingRequestRecord/externalEditClaim/adjustmentLogNote,,REC_LINE_STATUS of Line 1,REC_LINE_STATUS of Line 1,"NOT APPLICABLE FOR REC_LINE_STATUS = ""P""",

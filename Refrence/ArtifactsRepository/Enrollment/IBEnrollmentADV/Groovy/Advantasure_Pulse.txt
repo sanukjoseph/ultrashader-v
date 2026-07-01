@@ -1,0 +1,766 @@
+// Importing the ProxyMessage class from the com.edifecs.etools.xeserver.proxy package
+ 
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+// Importing the SmartStream class from the com.edifecs.etools.commons.io package
+ 
+import com.edifecs.etools.commons.io.SmartStream;
+// Importing the NodeChild class from the groovy.util.slurpersupport package
+ 
+import groovy.util.slurpersupport.NodeChild;
+import java.util.ArrayList;
+// Importing all classes from the java.io package
+ 
+import java.io.*;
+
+exchange = context.exchange;
+ 
+exchProperties = exchange.properties;
+ 
+messages = exchange.messages;
+ 
+message = messages[0];
+ 
+msgHeaders = message.headers;
+
+exchProperties.each // Iterate over each property in the 'exchProperties' object
+ 
+{
+ 
+	k, v-> msgHeaders.put(k, v)  // Add the key-value pair to the 'msgHeaders' object
+ 
+}
+messageBodyInputStream = message.getBodyAsSmartStream().getInputStream(); // Get the body of the 'message' object as a SmartStream and retrieve its InputStream
+def root = new XmlSlurper().parse(messageBodyInputStream); // Parse the InputStream using XmlSlurper and assign the resulting object to 'root'
+StringBuilder errorBuilder = new StringBuilder();// Create a StringBuilder object
+// Create a List
+ 
+List snipListFile;
+ 
+List snipList;
+
+// Create a StringBuilder to store file-level errors
+ 
+StringBuilder fileLevelErrors;
+
+def InputFileName;
+ 
+def EDIfileType;
+def UniqueFileID;
+ 
+def RecordIdentifier;
+ 
+def FileReceiptDate;
+ 
+def Statuscode;
+def dataReportErrorBrief;
+ 
+def dataReportErrorMsg;
+ 
+def dataReportErrorID;
+ 
+def dataReportSnipCategory;
+ 
+def dataReporCoverageSnip;
+def SubscriberID;
+ 
+def MemberID;
+ 
+def MemberFirstName;
+ 
+def MemberMiddleName;
+ 
+def MemberLastName;
+def SubscriberFirstName;
+ 
+def SubscriberLastName;
+ 
+def SubscriberMiddleName;
+def MemberDOB;
+ 
+def GroupID;
+def MessageErrorBrief;
+ 
+def MessageErrorMsg;
+ 
+def MessageSnipCategory;
+ 
+def MessageCoverageSnip;
+ 
+def MessageErrorID;
+ 
+def planCount;
+ 
+int dataReportErrorcount = 0;
+ 
+def EntireDocumentErrorTotal = '';
+ 
+def RecordCount;
+
+root.each  // Iterate over each DataReportNode in the 'root' object
+ 
+{
+ 
+	DataReportNode ->
+ 
+	Statuscode = DataReportNode.@StatusCode;
+	fileLevelErrorIDMap = new HashMap<String, String> ();
+ 
+	snipListFile = new ArrayList();
+ 
+    println("1grouid");
+ 
+	DataReportNode.Fields.Field.each  // Iterate over each Field within  DataReportNode
+ 
+	{
+ 
+		DataReportField ->
+		fileLevelErrors = new StringBuilder();
+		String entireDocumentField = DataReportField.@Name;
+		if (entireDocumentField == "FileName")
+ 
+		{
+ 
+			InputFileName = DataReportField.text();
+ 
+		}
+ 
+		if (entireDocumentField == "XMLFileCreationDate")
+ 
+		{
+ 
+			FileReceiptDate = DataReportField.text();
+ 
+		}
+ 
+			if (entireDocumentField == "planCount")
+ 
+		       {
+ 
+			   planCount = DataReportField.text();
+ 
+			   //println("in"+planCount)
+ 
+		        }
+ 
+				//println(planCount)
+ 
+ 
+	for (NodeChild error: DataReportNode.Errors.Error)  // Iterate over each 'Error' child node within 'DataReportNode.Errors'
+ 
+	{
+ 
+		dataReportErrorBrief = error.Brief.text().toString();
+ 
+		dataReportErrorMsg = error.Msg.text().toString();
+ 
+		dataReportSnipCategory = error.@Category;
+ 
+		dataReportErrorID = error.@ID;
+		if (dataReportSnipCategory == 'Rejecting')
+ 
+		{
+ 
+			dataReporCoverageSnip = error.@SNIP.text().toString();
+ 
+			if (!snipListFile.contains(dataReporCoverageSnip))
+ 
+			{
+ 
+				snipListFile.add(dataReporCoverageSnip);
+ 
+			}
+			dataReportErrorcount = dataReportErrorcount + 1;
+			String dataReportErrorcounter = Integer.toString(dataReportErrorcount);
+			fileLevelErrors.append("EntireDocumentError" + "${dataReportErrorcounter}" + " " + "${dataReportErrorBrief}" + "${dataReportErrorMsg}");
+ 
+			def keyValueED = "EntireDocument" + dataReportErrorcounter;
+ 
+			fileLevelErrorIDMap.put(keyValueED, dataReportErrorID);
+ 
+			break;
+ 
+		}
+ 
+	}
+	DataReportNode.ErrorStatistics.each
+ 
+	{
+ 
+		errorStatistics ->
+ 
+			EntireDocumentErrorTotal = errorStatistics.ErrorTotal.text().toString();
+ 
+	}
+ 
+	root.GroupNode.each // Iterate over each GroupNode in the 'root' object
+ 
+			{
+ 
+				Message ->
+ 
+				int MessageErrorcount = 0;
+				Message.Fields.Field.each // Iterate over each Field within each Message
+ 
+				{
+ 
+					MessageField ->
+ 
+					String MessageFields = MessageField.@Name;
+ 
+					if (MessageFields == "SubscriberID")
+ 
+					{
+ 
+						SubscriberID = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "SubscriberID")
+ 
+					{
+ 
+						MemberID = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "MemberFirstName")
+ 
+					{
+ 
+						MemberFirstName = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "MemberLastName")
+ 
+					{
+ 
+						MemberLastName = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "MemberMiddleName")
+ 
+					{
+ 
+						MemberMiddleName = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageField == "MemberFirstName")
+ 
+					{
+ 
+						SubscriberFirstName = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "MemberLastName")
+ 
+					{
+ 
+						SubscriberLastName = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageField == "MemberMiddleName")
+ 
+					{
+ 
+						SubscriberMiddleName = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "MemberDOB")
+ 
+					{
+ 
+						MemberDOB = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "GroupID")
+ 
+					{
+ 
+						GroupID = MessageField.text().trim();
+ 
+					}
+ 
+					if (MessageFields == "UniqueFileID")
+ 
+		            {
+ 
+			        UniqueFileID = MessageField.text();
+ 
+		            }
+ 
+					if (MessageFields == "RecordIdentifier")
+ 
+		           {
+ 
+			       RecordIdentifier = MessageField.text();
+ 
+		           }
+ 
+				   if (MessageFields == "RecordCount")
+ 
+		           {
+ 
+			       RecordCount = MessageField.text();
+ 
+		           }
+ 
+ 
+				}
+ 
+				for (NodeChild error: Message.Errors.Error)   // Iterate over each 'Error' child node within 'Message.Errors'
+ 
+				{
+ 
+					MessageErrorBrief = error.Brief.text().toString();
+ 
+					MessageErrorMsg = error.Msg.text().toString();
+ 
+					MessageSnipCategory = error.@Category;
+ 
+					MessageErrorID = error.@ID;
+ 
+					if (MessageSnipCategory == 'Rejecting')
+ 
+					{
+ 
+						MessageCoverageSnip = error.@SNIP.text().toString();
+ 
+						if (!snipListFile.contains(MessageCoverageSnip))
+ 
+						{
+ 
+							snipListFile.add(MessageCoverageSnip);
+ 
+						}
+ 
+						MessageErrorcount = MessageErrorcount + 1;
+ 
+						String MessageErrorcounter = Integer.toString(MessageErrorcount);
+ 
+						fileLevelErrors.append("Record Error description " + "${MessageErrorBrief}" +"${MessageErrorMsg}").append(",");
+ 
+						def keyValueMessage = "Message" + MessageErrorcounter;
+ 
+						fileLevelErrorIDMap.put(keyValueMessage, MessageErrorID);
+ 
+ 
+					}
+ 
+					break;
+ 
+				}
+ 
+ 
+	}
+ 
+	}
+ 
+}
+if(Statuscode == "A" || Statuscode == "P" )
+ 
+{
+ 
+def recordIDArray = RecordIdentifier.split("\\|")
+ 
+
+				for(int i =0;i<recordIDArray.length;i++)
+ 
+				{
+ 
+											  // Append values to errorBuilder
+ 
+												errorBuilder.append("Edifecs");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(InputFileName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Daily");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Advantasure");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(UniqueFileID);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(recordIDArray[i]);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberID);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberFirstName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberMiddleName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberLastName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberDOB);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Self");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(GroupID);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Medicare");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(Statuscode);
+ 
+												errorBuilder.append(",");
+ 
+ 
+												if (!fileLevelErrorIDMap.isEmpty())
+ 
+												{
+ 
+												for (Map.Entry<String, String> entry: fileLevelErrorIDMap.entrySet())
+ 
+												{// Iterate over each entry in the fileLevelErrorIDMap
+ 
+								                 String fileLevelErrorIDFromMap = entry.getValue(); // Get the value (fileLevelErrorIDFromMap) from the current entry
+ 
+													if (fileLevelErrorIDMap?.size() == 1) errorBuilder.append(fileLevelErrorIDFromMap);  // Append fileLevelErrorIDFromMap to errorBuilder
+ 
+												}
+ 
+												}
+ 
+												errorBuilder.append(",");
+ 
+												if (!fileLevelErrors.isEmpty())
+ 
+												{
+ 
+												errorBuilder.append(fileLevelErrors.toString());
+ 
+												errorBuilder.append(",");
+ 
+												}
+ 
+												else
+ 
+												{
+ 
+													errorBuilder.append(",").append(",");
+ 
+												}
+ 
+												errorBuilder.append(EntireDocumentErrorTotal).append(',');
+ 
+								                 //Check for the SNIP erros and append 'Y' if present else append 'N'
+ 
+												if (snipListFile.contains("1"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("2"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("3"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("4"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("5"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("6"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("7"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+								                errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(FileReceiptDate);
+ 
+												errorBuilder.append("\r\n");
+ 
+ 
+			}
+ 
+}
+ 
+else if(Statuscode == "R")
+ 
+{
+ 
+		                                        errorBuilder.append("Edifecs");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(InputFileName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Daily");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Advantasure");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(UniqueFileID);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(RecordCount);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberID);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberFirstName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberMiddleName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberLastName);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(MemberDOB);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Self");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(GroupID);
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append("Medicare");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(Statuscode);
+ 
+												errorBuilder.append(",");
+ 
+ 
+												if (!fileLevelErrorIDMap.isEmpty())
+ 
+												{
+ 
+												for (Map.Entry<String, String> entry: fileLevelErrorIDMap.entrySet())
+ 
+												{// Iterate over each entry in the fileLevelErrorIDMap
+ 
+								                 String fileLevelErrorIDFromMap = entry.getValue(); // Get the value (fileLevelErrorIDFromMap) from the current entry
+ 
+													if (fileLevelErrorIDMap?.size() == 1) errorBuilder.append(fileLevelErrorIDFromMap);  // Append fileLevelErrorIDFromMap to errorBuilder
+ 
+												}
+ 
+												}
+ 
+												errorBuilder.append(",");
+ 
+												if (!fileLevelErrors.isEmpty())
+ 
+												{
+ 
+												errorBuilder.append(fileLevelErrors.toString());
+ 
+												errorBuilder.append(",");
+ 
+												}
+ 
+												else
+ 
+												{
+ 
+													errorBuilder.append(",").append(",");
+ 
+												}
+ 
+												errorBuilder.append(EntireDocumentErrorTotal).append(',');
+ 
+								                 //Check for the SNIP erros and append 'Y' if present else append 'N'
+ 
+												if (snipListFile.contains("1"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("2"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("3"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("4"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("5"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("6"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+												if (snipListFile.contains("7"))
+ 
+													errorBuilder.append("N").append(',');
+ 
+												else
+ 
+													errorBuilder.append("Y").append(',');
+ 
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+								                errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(",");
+ 
+												errorBuilder.append(FileReceiptDate);
+ 
+												errorBuilder.append("\r\n");
+ 
+}
+ 
+                                               // Convert the contents of 'errorBuilder' to a string
+ 
+												newMessageBody = errorBuilder.toString();
+												// Create a new message using 'newMessageBody' and the headers from the original message
+ 
+												ProxyMessage newMessage = context.createNewMessage(newMessageBody, message.getHeaders());
+												// Create an exchange response with 'msgHeaders' and 'newMessage'
+ 
+												context.createExchangeResponse(msgHeaders, newMessage);

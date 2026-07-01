@@ -1,0 +1,24 @@
+Both Check Recon & Provider Settlement,,,,,
+Process Stage Name,Process Status,Process Message,File Level/Record level,JSON Trigger Event,Description
+edifecs:message received,MESSAGE READ,,File Level,When the inbound Payment IB file is received via Listener,As soon as IB file is picked up by Edifecs for processing (File level)
+edifecs:validation,PROCESSED,,File Level & Record level,Validations started for the payment records,Start of validations (File Level & Record level)
+edifecs:validation failed,ERROR,Error description,"Blank File - File Level
+Error records - Record level","This audit will be sent at any stage, in case of error in the transaction",One or more records failed validation and were flagged (File Level & Record level)
+edifecs:conversion,PROCESSED,,Record Level,"Splitting, grouping and conversion of payment records to XML format started",Edifecs begins XML conversion after validations (Record Level)
+edifecs:conversion failed,ERROR,,Record Level,"This audit will be sent at any stage, in case of error in the transaction",XML conversion failed after validations (Record Level)
+edifecs:publish completed,MESSAGE PUBLISHED,,Record Level,Converted payment XML sent to Check Reconciliation adaptor,Edifecs sends grouped and valid XML to Check Recon Adaptor (Record Level)
+,,,,,
+Success,,,,,
+edifecs:message received,MESSAGE READ,,,,
+edifecs:validation,PROCESSED,,,,
+edifecs:conversion,PROCESSED,,,,
+edifecs:publish completed,MESSAGE PUBLISHED,,,,
+,,,,,
+Error Scenario 1,,,,,
+edifecs:message received,MESSAGE READ,,,,
+edifecs:validation failed,ERROR,,,,
+,,,,,
+Error Scenario 2,,,,,
+edifecs:message received,MESSAGE READ,,,,
+edifecs:validation,PROCESSED,,,,
+edifecs:conversion failed,ERROR,,,,

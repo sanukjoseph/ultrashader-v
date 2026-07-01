@@ -1,0 +1,25 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage
+
+void execute() {
+    def exchange = context.exchange
+    def message = exchange.messages[0]
+
+    // Read body as string
+    String messageContent = new String(message.getBodyAsSmartStream().getInputStream().readAllBytes())
+
+    // Process each line: remove first field
+    List<String> cleanedLines = messageContent.readLines().collect { line ->
+        def parts = line.split("\\|")
+        return parts.size() > 1 ? parts[1..-1].join('|') : ""
+    }
+
+    // Join back with CRLF
+    String output = cleanedLines.join("\r\n") + "\r\n"
+
+    // Send output as a new message
+    def headers = ["Processed": "true"]
+    ProxyMessage newMessage = context.createNewMessage(output, headers)
+    context.createExchangeResponse(headers, newMessage)
+}
+
+execute()

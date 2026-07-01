@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.healthedge.com/connector/schema/cobpolicy"
+		   xmlns:tns="http://www.healthedge.com/connector/schema/cobpolicy"
+		   xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+		   targetNamespace="http://www.healthedge.com/connector/schema/cobpolicy"
+		   elementFormDefault="unqualified" version="4.1">
+
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+
+	<xs:element name="cobPolicyList" type="COBPolicyListType"/>
+	<xs:element name="cobPolicy" type="COBPolicyType"/>
+	<xs:element name="cobPolicyResponse" type="COBPolicyResponseType"/>
+	<xs:complexType name="COBPolicyResponseType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:sequence>
+                    <xs:element name="memberHccID" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="status" type="base:ServiceStatusType" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="cobPolicy" minOccurs="0" maxOccurs="unbounded">
+		                <xs:complexType>
+		                    <xs:sequence>
+		                        <xs:element name="cobPolicyId" type="base:String300Type" minOccurs="0" maxOccurs="1"/>
+		                        <xs:element name="groupNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		                        <xs:element name="transactionType" type="base:TransactionType" minOccurs="0" maxOccurs="1"/>
+		                    </xs:sequence>
+		                </xs:complexType>
+		            </xs:element>
+                    <xs:element name="errors" type="base:ErrorsType" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+	<xs:complexType name="COBPolicyListType">
+        <xs:sequence>
+            <xs:element name="memberHccID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="cobPolicy" type="COBPolicyType" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+	<xs:complexType name="COBPolicyType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:group ref="COBPolicyGroup"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:group name="COBPolicyGroup">
+		<xs:sequence>
+			<xs:element name="cobPolicyIdentifier" type="xs:int" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="cobPolicyId" type="base:String300Type" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="leadSourceForOtherInsuranceCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="relationshipToSubscriberDefinitionReference" type="base:ReferenceType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="otherInsuranceCompanyName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="policyType" type="base:OIPolicyTypeDomainType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="courtOrderedCoverage" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="policyHolderName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="benefitPlanName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="groupNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="memberId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="benefitPlanTypeCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="dateRanges" type="COBPolicyDateRangeType" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="subscriberIdList" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="subscriberName" type="base:PersonNameType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="subscriberDOB" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="subscriberGender" type="base:GenderCodeType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="rxInfo" type="RxInfoType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="correspondenceInfo" type="CorrespondenceInformationType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="carrierIds" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="serviceCategoryList" type="ServiceCategoryList" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="COBPolicyDateRangeType">
+		<xs:sequence>
+			<xs:element name="startDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="endDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="responsibilitySequenceCode" type="base:ResponsibilitySequenceType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="OBDReasonCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RxInfoType">
+		<xs:sequence>
+			<xs:element name="rxBin" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="pcn" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="rxGroup" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="rxId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="rxPhoneNumber" type="xs:string" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CorrespondenceInformationType">
+		<xs:group ref="CorrespondenceInformationGroup"/>
+	</xs:complexType>
+	<xs:group name="CorrespondenceInformationGroup">
+		<xs:sequence>
+			<xs:element name="emailAddress" type="base:EmailAddressValueType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="addressInfo" type="AddressInfoType" minOccurs="0" maxOccurs="1" />
+			
+			<!-- Only one should be set.  If more than one is populated, the first one encountered, in this,
+			     order, will be used.   -->
+            <xs:element name="supplierCorrespondenceUsageCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="supplierLocationCorrespondenceUsageCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="accountCorrespondenceUsageCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+    <xs:complexType name="AddressInfoType">
+        <xs:sequence>
+            <xs:element name="postalAddress" type="base:PostalAddressType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="addressPhoneList" type="base:TelephoneNumberType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+	<!-- COB Policy Lookup Types START -->
+	<xs:element name="cobPolicyLookupCriteria" type="COBPolicyLookupInputType"/>
+	<xs:complexType name="COBPolicyLookupInputType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:element name="memberHccId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:element name="asOfDate" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="cobPolicyLookupListResponse" type="COBPolicyReferenceType">
+		<xs:annotation>
+			<xs:documentation>Member ID is used for matching during a search.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:complexType name="COBPolicyReferenceType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:element name="memberHccId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:sequence>
+						<xs:element name="cobPolicyId" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:element name="asOfDate" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					<xs:group ref="base:ErrorStatusGroup"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ServiceCategoryType">
+		<xs:sequence>
+			<xs:element name="serviceCategoryName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="serviceCategoryType" type="xs:string" minOccurs="1" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceCategoryList">
+		<xs:sequence>
+			<xs:element name="listMode" type="base:ListActionType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="serviceCategory" type="ServiceCategoryType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- COB Policy Lookup Types END -->
+    
+</xs:schema>

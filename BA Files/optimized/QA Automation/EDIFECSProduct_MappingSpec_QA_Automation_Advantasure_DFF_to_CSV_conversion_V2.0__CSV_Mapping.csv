@@ -1,0 +1,324 @@
+Advantasure fields,,,,,,,,HRP,,,HE - Enrollment Sparse,,
+No,field,Type,,Details,Sample,Description,,,,,CSV Mapping,Mapping Logics,Comments
+1,Transaction Type,ALL,3,,D,The transaction type that is being output and determines which fields will be populated on the record.,,NA,Not needed,NA,NA,,
+,,,,,,,,,,,,,
+,,,,,,LOV:,,,,,,,
+,,,,,,▪    DEM (Demographics) – Non spanable always contains the latest value,,,,,,,
+,,,,,,▪    ADR – Address History,,,,,,,
+,,,,,,▪    PLN – Plan Enrollment History,,,,,,,
+,,,,,,▪    PWO – Premium Withhold,,,,,,,
+,,,,,,▪    LIS – Low Income Subsidy,,,,,,,
+,,,,,,▪    LEP – Late Enrollment Penalty,,,,,,,
+,,,,,,▪    FLG – Flag set in the system,,,,,,,
+,,,,,,▪    BRK – Broker,,,,,,,
+,,,,,,▪    PCP – Primary Care Physician,,,,,,,
+,,,,,,▪    GRP – Group/Subgroup information,,,,,,,
+,,,,,,▪    RDR – Rider,,,,,,,
+,,,,,,▪    COB – Coordination of Benefits,,,,,,,
+,,,,,,▪    MCD - Medicaid,,,,,,,
+2,Claims SubscriberID Number,ALL,11,Member Details,369258147,Unique ID assigned to each member generally assigned by the Claims system,Field may be blank if a member is new and has not been assigned an ID by the client,Subscrier/Member HCCID,Y,Member - ID details,ClaimsSubscriberIDNumber,,"a.Member will maintain the same subscriber ID when switching plans (e.g. HMO to PPO and Vice Versa)
+b. Member will maintain their original subscriber id even if they were disenrolled and reenrolled into the same plan or a different plan
+c. Member will maintain their original subscriber id if they are reinstated (no gap in coverage)"
+3,Start Date,ALL,8,PCP/Enroll History,20080101,Span start date,Start date of the span indicated by the specific transaction type of each record,"Start Date for each transaction type
+When Transaction type is PLN - this is the Benefit start date
+When Transaction type is PCP - this is the PCP start date",Y,"Member  - Plan
+Member - provider",BenefitPlanStartDate_X,"When Transaction Tupe = PLN
+
+Populate it based on the number of occurences PLN Transaction.",
+4,End Date,ALL,8,PCP/Enroll History,20081231,Span end date,End date of the span indicated by the specific transaction type of each record,"End Date for each transaction type
+When Transaction type DEM comes along with an END Date (a date in field 4) - this is the Benefit end date and PCP end date.
+When Transaction type is PCP - this is the PCP end date",Y,"Member  - Plan
+Member - provider",BenefitPlanEndDate_X,"When Transaction Tupe = PLN
+
+Populate it based on the number of occurences PLN Transaction.",
+5,Subscriber Flag,DEM,1,System Logic,Y,"LOV: Y = Yes, or Null",Will always be Y on DEM record and be blank on all other records.,General: Subscriber Relationship,Y,Member Details,SubscriberFlag,,
+6,MBI,ALL,12,Member Details,357269487A,"Medicare Beneficiary Identifier (MBI) of the
+member in the system",,Medicare: Medicare Beneficary ID,Y,Member- Medicare,MBI,,
+7,Member Name,DEM,105,System Logic,John Smith,First name Last Name,Created by combining first name and last name,General: Primary Name,Y,Member - Demographic,,,
+8,Member’s Last Name,DEM,50,Member Details,Smith,Last name of the member in the system,"Note: if member has suffix (e.g. Jr.), it will be appended to the last name",General: Primary Name,Y,Member - Demographic,MemberLastName,,
+9,Member’s First Name,DEM,50,Member Details,John,First name of the member in the system,,General: Primary Name,Y,Member - Demographic,MemberFirstName,,
+10,Middle Initial,DEM,1,Member Details,T,Member middle initial in the system,,General: Primary Name,Y,Member - Demographic,MiddleInitial,,
+11,Member’s Title,DEM,10,Member Details,Mr,"Title or prefix of the member in the system. LOV: Mr, Ms, or Mrs",,General: Primary Name,Y,Member - Demographic,MemberTitle,,
+12,Member Status,DEM,20,Member Details,"ACTIVE
+PENDING
+TERM SUBMITTED
+DENIED
+
+We will process any member status in EDIFECS",Current status of the member in the Advantasure system,The current status of the member will be sent (see Member Status Values),General: Status ?? (top most of the screen),Y,Member - Demographic,MemberStatus,,
+13,Alternate Member ID,DEM,11,Member Details,,Alternate member ID issued by the client,ID number is separate from the family link indicator number,General: Other ID,Y,Member - ID details,AlternateMemberID,,
+14,Member Date of Birth,DEM,8,Member Details,19400528,Member’s date of birth in format YYYYMMDD,,General : Birth Date,Y,Member- Demograohic,MemberDateofBirth,Date format - YYYY-MM-DD,
+15,Member Date of Death,DEM,8,Member Details,20080624,Member’s date of death in format YYYYMMDD,,General : Date of Death,Y,Member- Demograohic,MemberDateofDeath,Date format - YYYY-MM-DD,
+16,Member Gender,DEM,1,Member Details,M,LOV: M = Male; F = Female; U=Unknown,,General : Gender,Y,Member- Demograohic,MemberGender,"If the input field is 'M' then hardcode as 'Male'
+If the input field is 'F' then hardcode as 'Female'
+Else, if we get any other input field then hardcode as 'Unknown'",
+17,Member Social Security Number,DEM,9,Member Details,159357852,Member’s social security number,Will only populate if SSN is populated on Member Details field but is not collected or required for an MA application,General : SSN,Y,Member- Demograohic,MemberSocialSecurityNumber,"Format of tax identification number - 161-11-7187.
+
+Include hyphen as per the example mentioned above",
+18,Address Type,ADR,9,PCP/Enroll History,Permanent,Type of address listed on this ADR record,Will be blank for DEM,NA,Y,NA,,,
+19,Member Permanent Address 1,"DEM,",55,PCP/Enroll History,123 Main Street,Address line 1 of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,Contact: Residential Address,Y,Member - Contact,MemberPermanentAddress _1,,
+20,Member Permanent Address 2,"DEM,",55,PCP/Enroll History,Apt 201,Address line 2 of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberPermanentAddress _2,,
+21,Member Permanent Address 3,"DEM,",55,PCP/Enroll History,,Address line 3 of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberPermanentAddress _3,,
+22,Member Permanent City,"DEM,",30,PCP/Enroll History,Cambridge,City of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberPermanentCity,,
+23,Member Permanent County,"DEM,",30,PCP/Enroll History,Middlesex,County of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberPermanentCounty,,
+24,Member Permanent State,"DEM,",2,PCP/Enroll History,MA,State of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberPermanentState,,
+25,Member Permanent SCC,"DEM, ADR",5,PCP/Enroll History,25017,Unique code used by SSA to identify each combination of State and County,DEM transaction: contains most recent address,,N,,,,
+26,Member Permanent Zip Code,"DEM,",9,PCP/Enroll History,02138 (5 Digit) 021389999 (9 Digit),Zip Code of the Permanent Residence Address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberPermanentZipCode,,
+27,Member Mailing Address 1,"DEM,",55,PCP/Enroll History,,Address line 1 of the mailing address of the member in the system,DEM transaction: contains most recent address,Contact:Correspondence Address,Y,,MemberMailingAddress_1,,
+28,Member Mailing Address 2,"DEM,",55,PCP/Enroll History,,Address line 2 of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberMailingAddress_2,,
+29,Member Mailing Address 3,"DEM,",55,PCP/Enroll History,,Address line 3 of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberMailingAddress_3,,
+30,Member Mailing City,"DEM,",30,PCP/Enroll History,,City of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberMailingCity,,
+31,Member Mailing State,"DEM,",2,PCP/Enroll History,,State of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberMailingState,,
+32,Member Mailing Zip Code,"DEM,",9,PCP/Enroll History,02138 (5 Digit) 021389999 (9 Digit),Zip code of the mailing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberMailingZipCode,,
+33,Member Billing Address 1,"DEM,",55,PCP/Enroll History,,Address line 1 of the billing address of the member in the system,DEM transaction: contains most recent address,Contact: Billing Address,Y,,MemberBillingAddress_1,,
+34,Member Billing Address 2,"DEM,",55,PCP/Enroll History,,Address line 2 of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberBillingAddress_2,,
+35,Member Billing Address 3,"DEM,",55,PCP/Enroll History,,Address line 3 of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberBillingAddress_3,,
+36,Member Billing City,"DEM,",30,PCP/Enroll History,,City of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberBillingCity,,
+37,Member Billing State,"DEM,",2,PCP/Enroll History,,State of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberBillingState,,
+38,Member Billing Zip Code,"DEM,",9,PCP/Enroll History,02138 (5 Digit) 021389999 (9 Digit),Zip code of the billing address of the member in the system,DEM transaction: contains most recent address,,Y,,MemberBillingZipCode,"byte1-5zipcode
+byte6-9extensioncode",
+39,Member Home Phone Number,DEM,10,Member Details,5552227654,Primary phone number for contact,No dashes or hyphens,Contact:Phone number,Y,,MemberHomePhoneNumber,,
+40,Alternate Member Phone Number,DEM,10,Member Details,5552345612,"Alternate phone number can be mobile, office, or other voice line",No dashes or hyphens,Contact:Phone number,Y,,AlternateMemberPhoneNumber,,
+41,Member Email Address,DEM,60,Member Details,jsmith@add ress.com,Email address supplied by member on the election form,,Contact:Email,Y,,MemberEmailAddress,,
+42,Name of Emergency Contact,DEM,200,Member Details,Jane Good,Name of individual to be contacted in case of emergency,,"Couldn’t locate in HRP UI for other responsible
+PHI- Personal Representatives",N,"NA
+Member - PHI","FirstNameofEmergencyContact
+LastNameofEmergencyContact",The Full name is sent across the file. Based on spaces we need to split First name and Last name.,
+43,Emergency Contact Relationship to Member,DEM,50,Member Details,Daughter,Emergency contacts relationship to member,,Couldn’t locate in HRP UI,Y,NA,EmergencyContactRelationshiptoMember,,
+44,Emergency Contact Phone Number,DEM,10,Member Details,5551347629,Emergency contact phone number,,Couldn’t locate in HRP UI,Y,NA,EmergencyContactPhoneNumber,,
+45,"ID Card Trigger flag
+The significance of this field",DEM,1,Member Details,Y,Flag indicates if a new ID Card is requested LOV: Y = Yes; N = No,Flag will be reset to No after the file is generated,NA,Not needed,NA,NA,,
+46,Endangered Member Flag,DEM,1,Member Details,Y,Flag indicates that member is endangered/at risk; LOV: Y = Yes; N = No,"If Y, member is at risk from family member or cohabiting person",PHI:Confidential communication,,Member-PHI,EndangeredMemberFlag,,
+47,Member in OOA Process,DEM,1,Member Details,Y,Flag indicating that the member is currently in the Out Of Area process; LOV: Y = Yes; N = No,,,,,,,
+48,Source for placing in OOA process,DEM,30,Member Details,Returned Mail,Provides source of information that placed member in the OOA process,Source could be a TRC received from CMS or an update by a user,Couldn’t locate in HRP UI,N,NA,NA,,
+49,Date of Move,DEM,8,Member Details,20120416,"Date member moved out of the service area, in the format YYYYMMDD",Date of move can be prospective or retroactive,Couldn’t locate in HRP UI,N,NA,NA,,
+50,Move Deadline,DEM,8,Member Details,20121131,Date calculated by the system based on client logic after which member will be Involuntarily disenrolled,Date Involuntary Termination will be triggered based on move date,Couldn’t locate in HRP UI,N,NA,NA,,
+51,Medicaid ID,DEM,14,Member Details,612452885,Medicaid number of the member in the system,,General:Other ID,,Member - ID details,MedicaidID,,
+52,Medicare Part A Eff Date,DEM,8,IEQ,20000101,YYYYMMDD,Value received in response to latest IEQ,Medicare: Part A,Y,Member- Medicare,MedicarePartAEffDate,Date format - YYYY-MM-DD,Map from field '3'
+53,Medicare Part A End Date,DEM,8,IEQ,,YYYYMMDD,Value received in response to latest IEQ – usually blank (open),Medicare: Part A,Y,Member- Medicare,MedicarePartAEndDate,Date format - YYYY-MM-DD,
+54,Medicare Part B Eff Date,DEM,8,IEQ,20020301,YYYYMMDD,Value received in response to latest IEQ,Medicare: Part B,Y,Member- Medicare,MedicarePartBEffDate,Date format - YYYY-MM-DD,
+55,Medicare Part B End Date,DEM,8,IEQ,,YYYYMMDD,Value received in response to latest IEQ usually blank (open),Medicare: Part B,Y,Member- Medicare,MedicarePartBEndDate,Date format - YYYY-MM-DD,
+56,Medicare Part D Eff Date,DEM,8,IEQ,20020401,YYYYMMDD,Value received in response to latest IEQ,Medicare: Part D,Y,Member- Medicare,MedicarePartDEffDate,Date format - YYYY-MM-DD,
+57,Medicare Part D End Date,DEM,8,IEQ,20120430,YYYYMMDD,Value received in response to latest IEQ – usually blank (open),Medicare: Part D,Y,Member- Medicare,MedicarePartDEndDate,Date format - YYYY-MM-DD,
+58,Language Code,DEM,3,Member Details,SPA,Language code selected on Member Details screen,Refer Language Codes in the Advantasure specification document,General:Language,Y,Member-Demographic,LanguageCode,refer crosswalk,
+59,Alternative Format Large Print,DEM,1,Member Details,Y,Flag indicating materials requested in large print format; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,AlternativeFormatLargePrint,,
+60,Alternative Format Braille,DEM,1,Member Details,Y,Flag indicating materials requested in Braille format; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,AlternativeFormatBraille,,
+61,Alternative Format Audio Tape,DEM,1,Member Details,Y,Flag indicating materials requested in audio tape format; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,AlternativeFormatAudioTape,,
+62,Fax Number,DEM,10,Member Details,8885552222,Fax number with no hyphens or special characters,Client-specific,Contact:Phone number,Y,Member-Contact,FaxNumber,,
+63,"In LEP Process Status
+If in LEP process, what are the processes",DEM,1,Member Details,Y,Indicates whether the member is in the LEP queue/creditable coverage determination process; LOV: Y = Yes; N = No,,Couldn’t locate in HRP UI,N,NA,NA,,
+64,"Authorized Rep Name
+Available in UI,",DEM,105,Member Details,Nancy James,Name of individual listed as Authorized Representative on member record. Formerly POA Name field.,,PHI:POA,Y,Member-PHI,"AuthorizedRepFirstName, AuthorizedRepLastName",The Full name is sent across the file. Based on spaces we need to split First name and Last name.,
+65,"Authorized Rep
+Address 1",DEM,55,Member Details,123 Main,"Authorized Rep address line 1 from member
+record. Formerly POA Address 1 field.",,,Y,,AuthorizedRepAddress_1,,
+66,"Authorized Rep
+Address 2",DEM,55,Member Details,Apt 2,"Authorized Rep address line 2 from member
+record. Formerly POA Address 2 field.",,,Y,,AuthorizedRepAddress_2,,
+67,"Authorized Rep
+Address 3",DEM,55,Member Details,,Not applicable and not displayed on UI. Formerly POA Address 3 field.,NA,,Not needed,,AuthorizedRepAddress_3,,
+68,Authorized Rep City,DEM,30,Member Details,Las Vegas,"Authorized Rep city from member record.
+Formerly POA City field.",,,Y,,AuthorizedRepCity,,
+69,"Authorized Rep
+County",DEM,30,Member Details,Henderson,Authorized Rep county from member record. Formerly POA County field.,,,Y,,AuthorizedRepCounty,,
+70,Authorized Rep State,DEM,2,Member Details,NV,"Authorized Rep state from member record.
+Formerly POA State field.",,,Y,,AuthorizedRepState,,
+71,Authorized Rep Zip Code,DEM,9,Member Details,,Authorized Rep zip code from member record. Formerly POA Zip Code field.,,,Y,,AuthorizedRepZipCode,,
+72,"Authorized Rep Phone
+Number",DEM,10,Member Details,5554445678,"Authorized Rep phone number from member
+record. Formerly POA Phone Number field.",,,Y,,AuthorizedRepPhoneNumber,,
+73,"Authorized Rep
+Relationship",DEM,30,Member Details,Son,"Authorized Rep relationship from member
+record. Formerly POA Relationship field.",,,Y,,AuthorizedRepRelationship,,
+74,Race Code,DEM,128,Member Details,999,See ‘CMS OEC Race and Ethnicity Values’ section for LOV,"Multiple values can be within this one field. Values will be comma separated. IE: 999, 499",Not available,Y,Race,Race_1/Race_2/Race_3/Race_4/Race_5,"Multiple values can be send across the Memout file for a member. Values will be comma seperated. Populate depend on the number of occurences
+
+Please refer the cross walk table 'Race Values' for code entry mapping",
+75,ikaUniqueID,DEM,11,System,1234,Unique sequential number assigned by internal process,,NA,Not needed,NA,NA,,Seena04/06: Adv team confirmed this id is used for Adv internal processing and this is not fed to upstream/downstream processing
+76,Family Link Indicator,DEM,12,Member Details,987654321,ID number used by the client to link family members together in commercial systems,,Couldn’t locate in HRP UI,NA,NA,NA,,
+77,In Premium Delinquency Process,DEM,1,Member Details,Y,Flag indicating if member is currently in the Premium Delinquency process,,Couldn’t locate in HRP UI,N,NA,NA,,
+78,Ethnicity,DEM,128,Member Details,CUB,See ‘CMS OEC Race and Ethnicity Values’ section for LOV,"Multiple values can be within this one field. Values will be comma separated. IE: CUB, OTH",General : Ethnicity,Y,Member - Demographic,Ethnicity_1/Ethnicity_2/Ethnicity_3/Ethnicity_4/Ethnicity_5,"Multiple values can be send across the Memout file for a member. Values will be comma seperated. Populate depend on the number of occurences
+
+Refer the cross walk table 'Ethnicity Values' for code entry mapping",
+79,Filler Field,DEM,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+80,Filler Field,DEM,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+81,Filler Field,DEM,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+82,PCP ID/Provider Number,PCP,25,PCP/Enroll History,IM29867,Provider number or PCP ID for MA and MAPD plans,Information is captured from PCP & Enrollment History,Provider,Y,Provider - Practitioner,"ProviderNumber_X
+
+X : 1 to 10",Populate it based on the number of occurences of PCP Transaction.,
+,,,,,,,,,,,"PCP_StartdateX
+X : 1 to 10","Populate from Start Date of PCP transaction.
+Date format - YYYY-MM-DD",
+,,,,,,,,,,,"PCP_EnddateX
+X : 1 to 10","Populate from End Date of PCP transaction.
+Date format - YYYY-MM-DD",
+83,PCP/Provider Address Suffix,PCP,20,PCP/Enroll History,567423,Client-specific,If applicable,Couldn’t locate in HRP UI,N,NA,NA,,
+84,PCP/Provider Eff Date,PCP,8,PCP/Enroll History,20120401,PCP effective date as listed in the member record,Information is captured from PCP & Enrollment History,Provider Choice,Y,Member - Provider,No need to map.,,
+85,Filler Field,PCP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+86,Filler Field,PCP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+87,Broker Name,BRK,105,Application,Amy Cooper,Name of selling broker,,Subscriber:Broker Selection,Y,Member- Broker,,,
+88,Broker Code,BRK,10,Application,J3905,Broker code,,Subscriber:Broker Selection,Y,Member- Broker,,,
+89,Broker Association/Agency,BRK,10,Application,4,Agency code,,Subscriber:Broker Selection,Y,Member- Broker,,,
+90,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+91,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+92,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+93,Filler Field,BRK,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+94,Creditable Coverage Flag,LEP,1,System Logic,N,LOV: Y = Yes; N = No,This value is always NULL,NA,Not needed,NA,NA,,
+95,LEP Number of Uncovered Months,LEP,3,PCP/Enroll History,18,Number of months for which a member did not have creditable drug coverage,,Medicare : Part D LEP,Y,Member-Medicare,LEPNumberofUncoveredMonths_X,Populate it based on the number of occurences of LEP Transaction.,
+,,,,,,,,,,,PartDLEPStartdateX,"Populate from Start Date of LEP transaction.
+Date format - YYYY-MM-DD",
+,,,,,,,,,,,PartDLEPEnddateX,"Populate from End Date of LEP transaction.
+Date format - YYYY-MM-DD",
+96,Part D LEP Amount,LEP,6,PCP/Enroll History,4.4,Member LEP amount received from CMS,,Medicare : Part D LEP,Y,Member-Medicare,PartDLEPAmount_X,Populate it based on the number of occurences of LEP Transaction.,
+97,PartD LEP Waived Amount,LEP,6,PCP/Enroll History,1,Data from CMS,,Medicare : Part D LEP,Y,Member-Medicare,PartDLEPWaivedAmount_X,Populate it based on the number of occurences of LEP Transaction.,
+98,PartD LEP Subsidy Amount,LEP,6,PCP/Enroll History,1,Data from CMS,,Medicare : Part D LEP,Y,Member-Medicare,PartDLEPSubsidyAmount_X,Populate it based on the number of occurences of LEP Transaction.,
+99,LEP Source,LEP,6,PCP/Enroll History,TRR,"LOV: LISLEP, MPWR, TRR, Other",,couldn't locate in HRP,N,NA,NA,,
+100,Filler Field,LEP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+101,Filler Field,LEP,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+102,Current LIS Premium Subsidy,LIS,6,Plan set up value,34.2,Subsidy amount that CMS contributes toward Part D premium,,Medicare Part D LIS,Y,Member: Medicare,CurrentLISPremiumSubsidy_X,Populate it based on the number of occurences of LIS Transaction.,
+,,,,,,,,,,,PartDLISPStartdateX,"Populate from Start Date of LIS transaction.
+Date format - YYYY-MM-DD",
+,,,,,,,,,,,PartDLISEnddateX,"Populate from End Date of LIS transaction.
+Date format - YYYY-MM-DD",
+103,PartD LIS Subsidy Level,LIS,3,PCP/Enroll History,50,"LOV: 000, 025, 050, 075, and 100",,Medicare Part D LIS,Y,Member: Medicare,PartDLISSubsidyLevel_X,Populate it based on the number of occurences of LIS Transaction.,
+104,PartD LIS Copay Category,LIS,1,PCP/Enroll History,4,"LOV: 0, 1, 2, 3, 4",,Medicare Part D LIS,Y,Member: Medicare,PartDLISCopayCategory_X,Populate it based on the number of occurences of LIS Transaction.,
+105,LIS Source Code,LIS,50,PCP/Enroll History,A,LOV: A = Applicant; D = Deemed,,Couldn’t locate in HRP UI,N,NA,NA,,
+106,Filler Field,LIS,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+107,Filler Field,LIS,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+108,Contract Number,PLN,5,PCP/Enroll History,H1234,Contract number (K#) of the current plan,,Benefit Plan Configurtaion,Y,NA,ContractNumber_X,Populate it based on the number of occurences of PLN transaction.,
+109,PBP Number,PLN,3,PCP/Enroll History,67,PBP number for the plan,,Benefit Plan Configurtaion,Y,NA,PBPNumber_X,Populate it based on the number of occurences of PLN transaction.,
+110,Segment,PLN,3,Claims Eligibility,5,"Plan segment number, if applicable",Value is only for segmented plans and has a unique relationship with the county in which a member resides,Benefit plan configuration,Y,NA,NA,,
+111,Group ID,PLN / GRP,25,Claims Eligibility,56129R,Group number associated with the member’s,,General:Account,Y,Member-Account,GroupID_X,Populate it based on the number of occurences of PLN transaction.,
+,,,,,,plan,,,,,,,
+112,Subgroup,GRP,20,Claims Eligibility,1000,Subgroup number associated with the,,NA,Not needed,NA,No need to map,,
+,,,,,,member’s plan,,,,,,,
+113,Class ID,PLN,25,Claims Eligibility,,Client-specific,,May be Benefit plan configuration,Y,NA,NA,,
+114,Plan Code,PLN,3,Claims Eligibility,,Client-specific,,Benefit Plan,Y,Member - Coverage,,,
+115,Disenrollment Reason code (DRC),PLN,2,Plan Span,,Disenrollment Reason Code,"Refer to the CMS PCUG for the latest
+Disenrollment Reason Codes.
+Always populated",Not Available,N,Member-Coverage,DisenrollmentReasoncode_DRC_X,"Populate it based on the number of occurences of PLN transaction.
+
+refer Crosswalk 'Dis Enrollment Reason Code'",
+116,Filler Field,PLN,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+117,Filler Field,PLN,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+118,Filler Field,PLN,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+119,Signature Date,PLN,8,Application data,20120210,Date that the application was signed by applicant or POA in the format YYYYMMDD,,Not Available,N,Member-Coverage,SignatureDate_X,"Date format - YYYY-MM-DD
+
+Populate it based on the number of occurences of PLN transaction.",
+120,CSNP Disenrollment Eff. Date,PLN,8,System Logic,20120901,Chronic Special Need Plan Disenrollment Eff date,,Couldn’t locate in HRP UI,N,NA,,,
+121,Election Type,PLN,300,Application data,,Election type,Will contain a value only if the last transaction is enrollment or PBP change,Couldn’t locate in HRP UI,N,NA,ElectionType_X,Populate it based on the number of occurences of PLN transaction.,
+122,Term Reason Code,PLN,20,PCP/Enroll History,DOD,Termination reason code listed in the Plan Override section of PCP & Enrollment History,Not always populated,Benefit Plan,Y,Member-Coverage,,,
+123,Plan Rider,RDR,1,Claims Eligibility,,LOV: D = Dental; V = Vision; R= Rx,,Benefit plan configuration,Y,NA,NA,,
+124,Rider Code,RDR,50,Claims Eligibility,,Code used to identify specific rider benefit,,Benefit plan configuration,Y,NA,NA,,
+125,Filler Field,RDR,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+126,Filler Field,RDR,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+127,Payment Method Type,PWO,20,PCP/Enroll History,SSA,Member premium payment option,No Premium; Receive monthly bill; EFT/APO;CC; RRB; SSA; No data,NA,NA,NA,PaymentMethodType_X,,
+,,,,,,,,,,,PWOStartdate_X,"Date format - YYYY-MM-DD
+
+Populate it based on the number of occurences of PWO transaction.",
+,,,,,,,,,,,PWOEnddate_X,"Date format - YYYY-MM-DD
+
+Populate it based on the number of occurences of PWO transaction.",
+128,Premium Withhold Option,PWO,1,PCP/Enroll History,SSA,Premium Withhold Option submitted to CMS; LOV: D= Bill; S= SSA; R= RRB,,,,,PremiumWithholdOption_X,Populate it based on the number of occurences of PWO transaction.,
+129,Name of Account Holder,PWO,105,PCP/Enroll History,John Smith,Account holder name listed on member record,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+130,Account Number,PWO,20,PCP/Enroll History History,78912378900,Account number listed on member record,NACHA/BizTalk encrypted eff spring 2023,,,,,,
+131,Bank Routing Number,PWO,20,PCP/Enroll History,123456789,Bank routing number listed on member record,NACHA/BizTalk encrypted eff spring 2023,,,,,,
+132,Bank Account Type,PWO,1,PCP/Enroll History,C,"LOV: C = Checking, S = Savings",If applicable,,,,,,
+133,Credit Card Type,PWO,50,PCP/Enroll History,,Credit card type selected in the system,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+134,Credit Card Account Holder Name,PWO,105,PCP/Enroll History,,Credit card type selected in the system,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+135,Credit Card Number,PWO,16,PCP/Enroll History,,Credit card number,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+136,Credit card Security Code,PWO,3,PCP/Enroll History,,Credit card security code from back of card,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+137,Credit Card Expiration Date,PWO,6,PCP/Enroll History,,Expiration date of the credit card in the format YYYYMM,No longer supported. Value is always blank,NA,Not needed,NA,NA,,
+138,Filler Field,PWO,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+139,Filler Field,PWO,50,PCP/Enroll History,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+140,Hospice Flag,FLG,1,PCP/Enroll History,Y,Member has a Hospice flag; LOV: Y = Yes; N = No U=Unknown,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Medicare and General tab,Y,Member - Health Indicators,HospiceFlag_X,"Map only if Hospice Flag = Y.
+
+
+Populate it based on the number of occurences of FLG trasaction,",
+,,,,,,,,,,,HospiceFlagStartdate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,HospiceFlagEnddate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+141,Medicaid Flag,FLG,1,PCP/Enroll History,Y,Member has a Medicaid flag; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Couldn’t locate in HRP UI,N,NA,MedicaidFlag_X,"Map only if Medicaid Flag = Y.
+
+
+Populate it based on the number of occurences of FLG trasaction,",
+,,,,,,,,,,,MedicaidFlagStratDate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,MedicaidFlagEndDate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+143,Institutional Flag,FLG,1,PCP/Enroll History,Y,"Member is a resident of an institution; LOV: Y = Yes; N = No, U=Unknown",Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Medicare,Y,Member - Health Indicators,InstitutionalFlag_X,"Map only if Institutional Flag = Y.
+
+
+Populate it based on the number of occurences of FLG trasaction,",
+,,,,,,,,,,,InstitutionalFlagStartDate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,InstitutionalFlagEndDate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+144,ESRD Flag,FLG,1,PCP/Enroll History,Y,Member has ESRD; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,Medicare,Y,Member - Health Indicators,ESRDFlag_X,"Map only if ESRD  Flag = Y.
+
+
+Populate it based on the number of occurences of FLG trasaction,",
+,,,,,,,,,,,ESRDFlagStartDate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,ESRDFlagEndDate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+145,Transplant Flag,FLG,1,PCP/Enroll History,Y,Member received a transplant; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,TransplantFlag_X,"Map only if Transplant  Flag = Y.
+
+
+Populate it based on the number of occurences of FLG trasaction,",
+,,,,,,,,,,,TransplantFlagStartDate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,TransplantFlagEndDate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+146,Dialysis Flag,FLG,1,PCP/Enroll History,Y,Member is on Dialysis; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,DialysisFlag_X,"Map only if Dialysis  Flag = Y.
+
+
+Populate it based on the number of occurences of FLG trasaction,",
+,,,,,,,,,,,DialysisFlagStartDate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,DialysisFlagEndDate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+147,Disabled Flag,FLG,1,PCP/Enroll History,Y,Member is on Dialysis; LOV: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,DisabledFlag_X,"If Disabled Flag = Y, map /isHandicapped as True
+If Disabled Flag = N, map /isHandicapped as False
+
+Populate it based on the number of occurences of FLG trasaction",
+,,,,,,,,,,,DisabledFlagStartDate_X,"Date format - YYYY-MM-DD
+Populate from Start Date of FLG  transaction",
+,,,,,,,,,,,DisabledFlagEndDate_X,"Date format - YYYY-MM-DD
+Populate from End Date of FLG transaction",
+148,Plan Override Indicator,FLG,1,PCP/Enroll History,Y,Plan override indicator: Y = Yes; N = No,Source can be TRR or user update. Each status flag record in the system will send a separate record on this file,couldn't locate in HRP,N,NA,,,
+149,Dual Status Code,MCD,2,PCP/Enroll History,,"Member has Medicaid Dual Status in Medicaid Eligibility History.
+LOV: 01, 02, 03, 04, 05, 06, 08, 09, 99",Values will be captured from MCMD processing or user updates,Medicare,Y,Member - Medicare,DualStatusCode_X,Populate it based on the number of occurences of MCD transaction.,
+,,,,,,,,,,,MCD_StartdateX,"Date format - YYYY-MM-DD
+
+Populate from Start Date of MCD transaction.",
+,,,,,,,,,,,MCD_EnddateX,"Date format - YYYY-MM-DD
+
+Populate from End Date of MCD transaction",
+150,Medicaid Record Type,MCD,1,PCP/Enroll History,,"Dual Status record type; LOV: A = Audited, V = Valid",Values will be captured from MCMD processing or user updates,Couldn’t locate in HRP UI,N,NA,xml TAG not available in Sparse,,
+151,COB Update Date,COB,8,CMS Files,,YYYYMMDD,Client-specific,Date,Y,Member-COB,COBUpdateDate_X,"Populate it based on the number of occurences.
+
+Date format - YYYY-MM-DD",
+,,,,,,,,,,,COBStartdate_X,"Date format - YYYY-MM-DD
+
+Populate start date from COB transaction",
+,,,,,,,,,,,COBEnddate_X,"Date format - YYYY-MM-DD
+Populate from End Date of COB transaction",
+152,Name of Other Coverage,COB,50,CMS Files,,Other insurance name,Client-specific,COB,Y,Member - COB,NameofOtherCoverage_X,Populate it based on the number of occurences of COB transaction.,
+153,Subscriber ID of Other Coverage,COB,20,CMS Files,,Other insurance ID number,Client-specific,COB,Y,Member - COB,SubscriberIDofOtherCoverage_X,Populate it based on the number of occurences of COB transaction.,
+154,Group ID of other Coverage,COB,20,CMS Files,,Other insurance group number,Client-specific,COB,Y,Member - COB,GroupIDofotherCoverage_X,Populate it based on the number of occurences of COB transaction.,
+155,Kind of Other Insurance,COB,3,CMS Files,,Type of other insurance,Client-specific,COB,Y,Member - COB,KindofOtherInsurance_X,Populate it based on the number of occurences of COB transaction.,
+156,Name of Other Insurance Company,COB,200,CMS Files,,Name of other insurance company,Client-specific,COB,Y,Member - COB,NameofOtherInsuranceCompany_X,Populate it based on the number of occurences of COB transaction.,
+157,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+158,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+159,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+160,M3P Term Reason,M3P,50,PCP/Enroll History,,"LOV: V = Voluntary, I = Involuntary If a member’s M3P span has an end date, there must be a termination reason populated",M3P Term Reason,NA,Not needed,NA,"M3PTermReason_X
+M3PStartdate_X
+M3PEnddate_X","Date format - YYYY-MM-DD
+
+Populate start date/end date from M3P transaction",
+161,Filler Field,,50,,,Filler Field – to be used for future enhancements,,NA,Not needed,NA,NA,,
+162,Gender Identity,DEM,50,Member Details,,"This element will populate with the code that is stored on the member details table. If a gender code also has an associated free text element, both will display within this field delimited by a comma.",,NA,Not needed,NA,GenderIdentity,,
+163,Sexual Orientation,DEM,50,Member Details,,"This element will populate with the code that is stored on the member details table. If a gender code also has an associated free text element, both will display within this field delimited by a comma.",,NA,Not needed,NA,SexualOrientation,,
+164,Alternative Format Data CD,DEM,1,Member Details,,Flag indicating materials requested in Data CD format; LOV: Y = Yes; N = No,Alternate Format: Data CD,NA,Not needed,NA,AlternativeFormatDataCD,,
+165,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,
+166,Filler Field,,50,,,Filler Field – to be used for future enhancements,Client-specific,NA,Not needed,NA,NA,,

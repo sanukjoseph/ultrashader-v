@@ -1,0 +1,4 @@
+Audit events,,,
+processStageName,adaptorStatus,JSON TRIGGER EVENT,Comments
+EDIFECS-Record-sent-via-API,Success/Failure,When file hits rest client API,
+EDIFECS-Record-sent-via-Queue,Success/Failure,When file hits SQS queue,

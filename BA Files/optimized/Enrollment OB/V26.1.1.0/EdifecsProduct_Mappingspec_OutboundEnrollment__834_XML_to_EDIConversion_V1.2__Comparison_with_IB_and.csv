@@ -1,0 +1,20 @@
+Enrollment 834,,,,,
+Inbound,,,Outbound,,
+1000A,N1,Sponsor Name,1000A,N1,Sponsor Name
+1000B,N1,Payer,1000B,N1,Payer
+1000C,N1,TPA/Broker Name,1000C,N1,TPA/Broker Name
+2000,INS,Member Level Detail,2000,INS,Member Level Detail
+2100A,NM1,Member Name,2100A,NM1,Member Name
+2100B,NM1,Incorrect Member Name,,,
+2100C,NM1,Member Mailing Address,2100C,NM1,Member Mailing Address
+2100F,NM1,Custodial Parent,2100F,NM1,Custodial Parent
+2100G,NM1,Responsible Person,2100G,NM1,Responsible Person
+2200,DSB,Disability,,,
+2200,DTP,Disability Eligibility Dates,,,
+2300,HD,Health Coverage,2300,HD,Health Coverage
+2310,LX,Provider Information,2310,LX,Provider Information
+2320,COB,COB-Coordination of Benefits,2320,COB,COB-Coordination of Benefits
+2330,NM1,Coordination of Benefits Related Entity,2330,NM1,Coordination of Benefits Related Entity
+2700,LS,Additional Reporting Categories Loop,,,
+2710,LX,Member Reporting Categories,,,
+2750,N1,Reporting Category,,,

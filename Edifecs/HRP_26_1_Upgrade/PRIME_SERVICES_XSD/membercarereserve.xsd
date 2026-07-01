@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.healthedge.com/connector/schema/membercarereserve"
+	xmlns:tns="http://www.healthedge.com/connector/schema/membercarereserve"
+	xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+	targetNamespace="http://www.healthedge.com/connector/schema/membercarereserve"
+	elementFormDefault="unqualified" version="4.0">
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes"
+		schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/base-types.xsd" />
+	<xs:element name="memberCareReserve" type="MemberCareReserveType" />
+	<xs:element name="memberCareReserveResponse" type="MemberCareReserveResponseType" />
+	<xs:complexType name="MemberCareReserveResponseType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:sequence>
+					<xs:element name="memberHccID" type="xs:string"
+						minOccurs="1" maxOccurs="1" />
+					<xs:element name="status" type="base:ServiceStatusType"
+						minOccurs="0" />
+					<xs:element name="memberReserveID" type="xs:long"
+						minOccurs="1" maxOccurs="1" />
+					<xs:element name="transactionInformation" type="base:TransactionInformationType"
+						minOccurs="0" maxOccurs="1" />
+					<xs:element name="errors" type="base:ErrorsType"
+						minOccurs="0" maxOccurs="1" />
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="MemberCareReserveType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:group ref="MemberCareReserveGroup" />
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:group name="MemberCareReserveGroup">
+		<xs:sequence>
+			<xs:element name="memberHccID" type="xs:string" minOccurs="1"
+				maxOccurs="1" />
+			<!--<xs:element name="transactionReasonCode" type="MemberCareReserveAction" 
+				minOccurs="1" maxOccurs="1"/> -->
+			<!--<xs:element name="comment" type="xs:string" minOccurs="0" maxOccurs="1"/> -->
+			<xs:element name="memberCareReserveSourceCode" type="base:CodeEntryInputType"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="memberCareReserveCategoryCode" type="base:CodeEntryInputType"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="dateRanges" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="updateMode" type="base:ListUpdateModeType"
+							minOccurs="1" maxOccurs="1" />
+						<xs:element name="dateRange" type="ReserveDateRangeType"
+							minOccurs="1" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="ReserveDateRangeType">
+		<xs:sequence>
+			<xs:element name="reserveStartDate" type="xs:date"
+				minOccurs="1" maxOccurs="1" />
+			<xs:element name="reserveToDate" type="xs:date" minOccurs="0"
+				maxOccurs="1" />
+			<xs:element name="monthlyReserveAmount" type="base:CurrencyType"
+				minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

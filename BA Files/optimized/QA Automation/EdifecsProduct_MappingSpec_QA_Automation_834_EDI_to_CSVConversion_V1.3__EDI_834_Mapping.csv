@@ -1,0 +1,1040 @@
+LoopID.Segment ID,EDI Element Name,Element Description,Enumeration Values,Field in CSV layout.,Mapping Logic
+ISA,Interchange Control Header,,,,
+ISA01,Authorization Information Qualifier,,00 : No Authorization Information Present,,
+ISA02,Authorization Information,,Blank (10 spaces),,
+ISA03,Security Information Qualifier,,00 : No Security Information Present,,
+ISA04,Security Information,,Blank (10 spaces),,
+ISA05,Interchange ID Qualifier,,ZZ : Mutually Defined,,
+ISA06,Interchange Sender ID,Interchange Sender ID,,SenderId,Populate only for Subscriber record(INS01 =Y)
+ISA07,Interchange ID Qualifier,,ZZ : Mutually Defined,,
+ISA08,Interchange Receiver ID,The Trading Partner ID (TPID) assigned by the Client,,ReceiverId,Populate only for Subscriber record(INS01 =Y)
+ISA09,Interchange Date,Date the Interchange is created,,,
+ISA10,Interchange Time,Time the Interchange is created,,,
+ISA11,Interchange Control Standards Identifier,Repetition Separator,^,,
+ISA12,Interchange Control Version Number,Standards Approved by ACS X12 Review Board,,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,,,
+ISA14,Acknowledgment Requested,Code indicating sender’s request for an interchange acknowledgment,"0 : No Interchange Acknowledgement Requested
+1 : Interchange Acknowledgment Requested",,
+ISA15,Usage Identifier,"Code indicating whether data enclosed by this interchange envelope is test,
+production or information",P : Production Data T : Test,,
+ISA16,Component Element Separator,The delimiter used to separate component data elements,": = Element separator
+~ = Segment Terminator",,
+GS,Functional Group Header,,,,
+GS01,Functional Identifier Code,Benefit Enrollment And Maintenance (834),,,
+GS02,Application Senders Code,Code identifying party sending transmission; codes agreed to by trading partners,,,
+GS03,Application Receivers Code,"The Trading Partner ID (TPID)
+assigned by the client",,,
+GS04,Date,"Date the Group Header is created.
+Enter current date in the CCYYMMDD format",,Receipt_Date,In the format of YYYY-MM-DD
+GS05,Time,"Time the Group Header is created.
+Enter current time in the HHMM format",,,
+GS06,Group Control Number,"Unique Sequential Number Assigned by Internal Processes for each Group Header  by the sender.
+Must be identical to the Interchange Trailer GE02 .
+This is Submitter-specific.",,,
+GS07,Responsible Agency Code,"Code identifying the issuer of the EDI standard being used.
+Accredited Standards Committee X12",X : Accredited Standards Committee X12,,
+GS08,Version/Release/Industry Identifier Code,"Standards Approved for
+Publication by ASC X12
+Procedures Review Board",005010X220: Standards Approved for Publication by ASC X12,,
+ST,Transaction Set Header,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,834 Benefit Enrollment and Maintenance,,
+ST02,Transaction Set Control Number,"Unique Sequential Number Assigned by Internal Processes for each Transaction Set
+ST02 and SE02 must be identical",,,
+ST03,Implementation Convention Reference,"Standards Approved by ACS X12 Review Board
+ST03 and GS08 must be identical",,,
+BGN,Beginning Segment,,,,
+BGN01,Transaction Set Purpose Code,,"00 Original
+15 Re-Submission
+22 Information Copy",,
+BGN02,Reference Identification,Transaction Set Reference Number,,,
+BGN03,Date,Date the Transaction Set is created.,,,
+BGN04,Time,Time the Transaction Set is created,,,
+BGN05,Time Code,Time Zone Code,"Eastern Time, always sent",,
+BGN06,Reference Identification,Original Transaction Set Reference Number,,,
+BGN07,Transaction Type Code,,,,
+BGN08,Action Code,,"2 = Change/Update
+4 = Verify",ActionCode,Populate only for Subscriber record(INS01 =Y)
+REF,Transaction Set Policy Number,,,,
+REF01,Reference Identification Qualifier,,38 Master Policy Number,,
+REF02,Reference Identification,Master Policy Number,,,
+DTP,DTP - File Effective Date,,,,
+DTP01,Date/Time Qualifier,Date Time Qualifier,"007 Effective
+090 Report Start
+091 Report End
+303 Maintenance Effective
+382 Enrollment
+388 Payment Commencement",,
+DTP02,Date Time Period Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,
+DTP03,Date Time Period,,,AsOfDate,"Populate only for Subscriber record(INS01 =Y)
+
+Format - YYYY-MM-DD.
+When DTP01 = 007"
+QTY,Transaction Set Control Totals,,,,
+QTY01,Quantity Qualifier,,"DT Dependent Total
+ET Employee Total
+TO Total",,
+QTY02,Quantity,Record Totals,,Subscriber_count,"when QTY01 = ET
+Populate only for Subscriber record(INS01 =Y)"
+1000A — SPONSOR NAME Loop Repeat: 1,,,,,
+1000A.N1,Sponsor Name,,,,
+1000A.N101,Entity Identifier Code,,P5 = Plan sponsor,,
+1000A.N102,Plan Sponsor Name,Plan Sponsor Name,,,
+1000A.N103,Identification Code Qualifier,,FI = Federal Tax ID Number,,
+1000A.N104,Identification Code,Sponsor Identifier,,,
+1000A.N2,Additional Name Information,,,,
+1000A.N101,Name,,,,
+1000A.N102,Name,,,,
+1000A.N3,Party Location,,,,
+1000A.N101,Address Information,,,,
+1000A.N102,Address Information,,,,
+1000A.N4,Geographic Location,,,,
+1000A.N101,City Name,,,,
+1000A.N102,State or Province Code,,,,
+1000A.N103,Postal Code,,,,
+1000A.N104,Country Code,,,,
+1000A.N105,Location Qualifier,,,,
+1000A.N106,Location Identifier,,,,
+1000A.N107,Country Subdivision Code,,,,
+1000A.PER,Administrative Communications Contact,,,,
+1000A.PER01,Contact Function Code,,,,
+1000A.PER02,Name,,,,
+1000A.PER03,Communication Number Qualifier,,,,
+1000A.PER04,Communication Number,,,,
+1000A.PER05,Communication Number Qualifier,,,,
+1000A.PER06,Communication Number,,,,
+1000A.PER07,Communication Number Qualifier,,,,
+1000A.PER08,Communication Number,,,,
+1000A.PER09,Contact Inquiry Reference,,,,
+1000B — PAYER Loop Repeat: 1,,,,,
+1000B.N1,Payer,,,,
+1000B.N101,Entity Identifier Code,,IN = Insurer,,
+1000B.N102,Name,Insurer Name,,,
+1000B.N103,Identification Code Qualifier,,FI = Federal Tax ID number,,
+1000B.N104,Identification Code,Insurer Identification Code,,,
+1000C — TPA/BROKER NAME Loop Repeat: 2,,,,,
+1000C.N1,TPA/Broker Name,,,,
+1000C.N101,Entity Identifier Code,,"BO : Broker or Sales Office
+TV : Third Party Administrator (TPA)",,
+1000C.N102,Name,TPA/Broker Name (free-form),,,
+1000C.N103,Identification Code Qualifier,,FI = Federal Tax ID number,,
+1000C.N104,Identification Code,TPA or Broker Identification Code,,,
+1100C — TPA/BROKER ACCOUNT INFORMATION Loop Repeat: 1,,,,,
+1100C.ACT,TPA/BROKER ACCOUNT INFORMATION,,,,
+1100C.ACT1,"Account
+Number",TPA or Broker Account Number,,,
+1100C. ACT02,Name,,,,
+1100C.ACT03,Identification Code Qualifier,,,,
+1100C.ACT04,Identification Code,,,,
+1100C.ACT05,Account Number Qualifier,,,,
+1100C.ACT06,Account Number,,,,
+1100C.ACT07,Description,,,,
+1100C.ACT08,Payment Method Type Code,,,,
+1100C.ACT09,Benefit Status Code,,,,
+"2000 — MEMBER LEVEL DETAIL Loop Repeat: >1                            For a family(records with the same REF*0F), there should be  a member record for each INS. Refer Sample CSV Tab.",,,,,
+2000.INS,Member Level Detail,,,,
+2000.INS01,Subscriber Indicator,,"Y :Yes
+N :No",MemberIsSubscriber,"TRUE if INS01 = Y
+FALSE if INS01 = N"
+2000.INS02,Individual Relationship Code,,"01 Spouse
+03 Father or Mother
+04 Grandfather or Grandmother
+05 Grandson or Granddaughter
+06 Uncle or Aunt
+07 Nephew or Niece
+08 Cousin
+09 Adopted Child
+10 Foster Child
+11 Son-in-law or Daughter-in-law
+12 Brother-in-law or Sister-in-law
+13 Mother-in-law or Father-in-law
+14 Brother or Sister
+15 Ward
+16 Stepparent
+17 Stepson or Stepdaughter
+18 Self
+19 Child
+23 Sponsored Dependent
+24 Dependent of a Minor Dependent
+25 Ex-spouse
+26 Guardian
+31 Court Appointed Guardian
+38 Collateral Dependent
+53 Life Partner
+60 Annuitant
+D2 Trustee
+G8 Other Relationship
+G9 Other Relative",Individual_Relationship_Code,
+,,,,Relationship_Name,Refer Crosswalks Tab for the mapping logic
+2000.INS03,Maintenance Type Code,,"001 = Change,
+021 = Addition,
+024 = Cancellation or Termination,
+025 = Reinstatement/Benefit Plan change,
+030 = Audit or Compare",Maintenance_type_code_EDI,
+,,,,Maintenance_Type_Code,"CHANGE If INS03 = 001,
+CREATE if INS03 =021,
+TERMINATE if INS03 =024,
+REINSTATE if INS03 =025,
+AUDIT if INS03 =030."
+,,,,Member_MaintenanceReasonCode_Name,"Member_MaintenanceReasonCode_Name will be  SubscriptionCreateReason if INS03=021,
+SubscriptionAmendReason if INS03=01,
+SubscriptionTeminateReason if INS03=024,
+SubscriptionReinstateReason If INS03=025."
+,,,,MaintenanceReasonCode_Name,"Populate for Subscriber record(.i.e INS01 = Y). MaintenanceReasonCode_Name will be  SubscriptionCreateReason if INS03=021,
+SubscriptionAmendReason if INS03=01,
+SubscriptionTeminateReason if INS03=024,
+SubscriptionReinstateReason If INS03=025."
+2000.INS04,Maintenance Reason Code,,"03=death
+07=Termination of Benefits
+15=Primary Care Provider Change
+22=Plan Change
+25=Change in Identifying Data Elements
+28=Initial Enrollment
+41=Re-enrollment
+43=Change of Location
+AI=Effective Date Change
+XN=Notification Only (Audit)",MaintenanceReasonCode_Entry,Populate only for Subscriber record(.i.e INS01 = Y)..
+,,,,Member_MaintenanceReasonCode_Entry,
+2000.INS05,Benefit Status Code,,"A: Active
+C: Consolidated Omnibus Budget Reconciliation Act
+(COBRA)
+S: Surviving Insured
+T: Tax Equity and Fiscal Responsibility Act (TEFRA)",BenefitStatusCode,
+2000.INS06,MEDICARE STATUS CODE,,,,
+2000.INS06-1,Medicare Plan Code,,"A =  Medicare Part A
+B =  Medicare Part B
+C = Medicare Part A and B
+D = Medicare
+E  = No Medicare",,
+2000.INS06-2,Eligibility Reason Code,,"0 Age
+1 Disability
+2 End Stage Renal Disease (ESRD)",,
+2000.INS07,COBRA Qualifying Event,,"1 Termination of Employment
+2 Reduction of work hours
+3 Medicare
+4 Death
+5 Divorce
+6 Separation
+7 Ineligible Child
+8 Bankruptcy of Retiree’s Former Employer (26 U.S.C.
+4980B(f)(3)(F))
+9 Layoff
+10 Leave of Absence
+ZZ Mutually Defined",,
+2000.INS08,Employment Status Code,,"Conversion Values:
+AO - Active Military
+AU - Active Military
+RT - Retired
+L1 - Leave of Absence
+FT - Full-Time
+PT - Part-Time
+AC - Active for enrolled Members
+TE - Terminate",,
+2000.INS09,Student Status Code,,"F - Full-Time
+N - Not a Student
+P - Part-Time",,
+2000.INS10,Handicap Indicator,,"Y = Yes
+N= No",,
+2000.INS11,DTP Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,
+2000.INS12,Insured Individual Death Date,Date of Death,,,
+2000.INS13,Confidentiality Code,,"R Restricted Access
+U Unrestricted Acces",,
+2000.INS17,Birth Sequence Number,,,,
+2000.REF,Subscriber Identifier,,,,
+2000.REF01,Reference Identification Qualifier,,0F Subscriber Number,,
+2000.REF02,Reference Identification,Subscriber Identifier,,Subscriber_identification_number,
+2000.REF,Member Policy Number,,,,
+2000.REF01,Reference Identification Qualifier,,1L Group or Policy Number,,
+2000.REF02,Reference Identification,Member Group or Policy Number,,Policy_number,
+2000.REF,Member Supplemental Identifier Segment repeat = 13,,,,
+2000.REF01,Reference Identification Qualifier,,"17 Client Reporting Category
+23 Client Number
+3H Case Number
+6O Cross Reference Number
+Q4 Prior Identifier Number
+ZZ Mutually Defined",,
+2000.REF02,Reference Identification,Member Supplemental Identifier,,Cross_Reference_Number,If 2000.REF01 = 6O
+,,,,Client_Number,If 2000.REF01 = 23
+,,,,Client_Reporting_Category,If 2000.REF01 = 17
+,,,,Mutually_Defined_Identifier,If 2000.REF01 = ZZ
+,,,,Case_Number,If 2000.REF01 = 3H
+2000.DTP,Member Level Dates,,,,
+2000.DTP01,Date Time Qualifier,,"050 Received
+286 Retirement
+296 Initial Disability Period Return To Work
+297 Initial Disability Period Last Day Worked
+300 Enrollment Signature Date
+301 Consolidated Omnibus Budget Reconciliation Act
+(COBRA) Qualifying Event
+303 Maintenance Effective
+336 Employment Begin
+337 Employment End
+338 Medicare Begin
+339 Medicare End
+340 Consolidated Omnibus Budget Reconciliation Act
+(COBRA) Begin
+341 Consolidated Omnibus Budget Reconciliation Act
+(COBRA) End
+350 Education Begin
+351 Education End
+356 Eligibility Begin
+357 Eligibility End
+383 Adjusted Hire
+385 Credited Service Begin
+386 Credited Service End
+393 Plan Participation Suspension
+394 Rehire
+473 Medicaid Begin
+474 Medicaid End",,
+2000.DTP02,Date Time Period Format Qualifier,D8 Date Expressed in Format CCYYMMDD,D8 Date Expressed in Format CCYYMMDD,,
+2000.DTP03,Date Time Period,Status Information Effective Date,,,
+2100A — MEMBER NAME Loop Repeat: 1,,,,,
+2100A.NM1,Member Name,,,,
+2100A.NM101,Entity Identifier Code,,"IL = Insured or Subscriber
+74 : Corrected Insured",,
+2100A.NM102,Entity Type Qualifier,,1 = Person,,
+2100A.NM103,Subscriber Last Name,Members last name,,Last_Name,
+2100A.NM104,Subscriber First Name,Members first name,,First_Name,
+2100A.NM105,Subscriber Middle Name,Members middle initial,,Middle_Name,
+2100A.NM106,Subscriber Name Prefix,Member Name Prefix,,,
+2100A.NM107,Subscriber Name Suffix,Member Name Suffix,,,
+2100A.NM108,Identification Code Qualifier,,"34 Social Security Number
+ZZ Mutually Defined",,
+2100A.NM109,Member Identifier,,,Identification_Number,
+2100A.PER,Members Communications Numbers,,,Populate only the first instance of phone number and email address.,
+2100A.PER01,Contact Function Code,,IP : Insured Party,,
+2100A.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100A.PER04,Communication Number,,,"Phone_Area_Code
+Phone_Number","If 2100A.PER03 is HP/WP/TE/CP (Populate any of the one in this order of preference)
+First 3 digit will be Phone_Area_Code,
+ Rest 7 Digit wil be Phone_Numer"
+.,,,,emailAddress,If 2100A.PER03 is EM
+2100A.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100A.PER06,Communication Number,,,"Phone_Area_Code
+Phone_Number","If 2100A.PER05 is HP/WP/TE/CP (Populate any of the one in this order of preference)
+First 3 digit will be Phone_Area_Code,
+ Rest 7 Digit wil be Phone_Numer"
+.,,,,emailAddress,If 2100A.PER05 is EM
+2100A.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100A.PER08,Communication Number,,,"Phone_Area_Code
+Phone_Number","If 2100A.PER07 is HP/WP/TE/CP (Populate any of the one in this order of preference)
+First 3 digit will be Phone_Area_Code,
+ Rest 7 Digit wil be Phone_Numer"
+.,,,,emailAddress,If 2100A.PER07 is EM
+2100A.N3,Members Residence street Address,,,,
+2100A.N301,Members Address Line 1,,,Postal_Address,
+,,,,"AddressTypeCode_Name
+AddressTypeCode_Entry","Hardcode
+AddressTypeCode_Name  = IndividualAddressType
+AddressTypeCode_Entry = 2"
+2100A.N302,Members Address Line 2,,,,
+2100A.N4,"Members City, State, and Zip Code",,,,
+2100A.N401,City Name,,,City_Name,
+2100A.N402,State or Province Code,,,State_Code,
+2100A.N403,Postal Code,,,"Zip_Code
+ZipExtension_Code","1-5 Digits will be Zip_Code
+6-9 digit will be ZipExtension_Code"
+2100A.N404,Country Code,,,,
+2100A.N405,Location Qualifier,,"60 Area
+CY County/Parish",,
+2100A.N406,Location Identifier,,,County_Code,
+2100A.N407,Country Subdivision Code,,,,
+2100A.DMG,Member Demographics,,,,
+2100A.DMG01,Date Time Period Format Qualifier,,D8 :Date Expressed in Format CCYYMMDD,,
+2100A.DMG02,Member Birth Date,Member Birth Date,,Birth_Date,In the format of YYYY-MM-DD
+2100A.DMG03,Gender Code,,"F : Female
+M :Male
+U :Unknown",Gender_Code,
+2100A.DMG04,Marital Status Code,,"B :Registered Domestic Partner
+D :Divorced
+I :Single
+M : Married
+R :Unreported
+S :Separated",Marital_Status_Code,"If DMG04 is
+D populate as Divorced,
+X populate as  Legally Separated,
+M populate as  Married,
+B populate as Registered Domestic Partner,
+S populate as Separated,
+I populate as Single,
+W populate as Widowed,
+U populate as Unmarried,
+R populate as Unreported"
+2100A.DMG05,"COMPOSITE RACE OR ETHNICITY
+INFORMATION",To send general and detailed information on race or ethnicity,,Ethnicity_codeSetName,Hardcode as RaceOrEthnicityCode
+2100A.DMG05-1,Race or Ethnicity Code,,,Ethnicity_1,Populate the first 5 occurences of Race or Ethnicity Code
+,,,,Ethnicity_2,
+,,,,Ethnicity_3,
+,,,,Ethnicity_4,
+,,,,Ethnicity_5,
+2100A.DMG05-2,Race or Ethnicity Code,,RET : Classification of Race or Ethnicity,,
+2100A.DMG05-3,Industry Code,Classification of Race or Ethnicity,,,
+2100A.DMG06,Citizenship Status Code,,"1 U.S. Citizen
+2 Non-Resident Alien
+3 Resident Alien
+4 Illegal Alien
+5 Alien
+6 U.S. Citizen - Non-Resident
+7 U.S. Citizen - Resident",Immigration_Status,
+2100A.AMT,Member Policy Amounts,,,,
+2100A.AMT01,Amount Qualifier Code,,,,
+2100A.AMT02,Monetary Amount,,,,
+2100A.HLH,Member Health Information,,,,
+2100A.HLH01,Health Related Code,Code indicating a specific health situation,"U 	Unknown
+N 	None
+S 	Substance Abuse
+T 	Tobacco Use
+X 	Tobacco and Substance Abuse",Smoking_Status,"N=Non Smoker ,
+U=Unknown ,
+T/X=Smoker"
+2100A.HLH02,Height,Member Height,,,
+2100A.HLH03,Weight,Member Weight,,,
+2100A.LUI,Member Language   Segment Repeat  > 1,A record is inserted into Enr_Member_Language table for each repetition of Member Language segment   (2100A.LUI),Map only the first three occurrence of 2100A.LUI segment.,,
+2100A.LUI01,Identification Code Qualifier,,,Language_codeSetName_1,"For the first occurrence of LUI
+Hardcode Language_codeSetName_1 = LanguageDomain"
+,,,,Language_codeSetName_2,"For the second occurrence of LUI
+Hardcode Language_codeSetName_2 = LanguageDomain"
+,,,,Language_codeSetName_3,"For the third occurrence of LUI
+Hardcode Language_codeSetName_3 = LanguageDomain"
+2100A.LUI02,Identification Code,Language Code,,"Language_codeEntry_1
+Language_shortName_1","For the first occurrence of LUI
+Language_shortName_1  - Refer Crosswalks tab"
+,,,,"Language_codeEntry_2
+Language_shortName_2","For the second occurrence of LUI
+Language_shortName_2  - Refer Crosswalks tab"
+,,,,"Language_codeEntry_3
+Language_shortName_3","For the third occurrence of LUI
+Language_shortName_3  - ReferCrosswalks tab"
+2100A.LUI03,Description,Language Description,,,
+2100A.LUI04,Language Indicator,Language Use Indicator,"5 = Language Reading
+6 = Language Writing
+7 = Language Speaking
+8 = Native Language","Primary_Language_1
+Native_Language_1","For the first occurrence of LUI
+If LUI04 = 7, Set  Primary Language_1 as 1.
+If LUI04 = 6, Set Native_Language_1 as 1."
+,,,,"Primary_Language_2
+Native_Language_2","For the second occurrence of LUI
+If LUI04 = 7, Set  Primary Language_2 as 1.
+If LUI04 = 6, Set Native_Language_2 as 1."
+,,,,"Primary_Language_3
+Native_Language_3","For the third occurrence of LUI
+If LUI04 = 7, Set  Primary Language_3 as 1.
+If LUI04 = 6, Set Native_Language_3 as 1."
+2100A.LUI05,Language Proficiency Indicator,,,,
+2100B — INCORRECT MEMBER NAME Loop Repeat: 1,,,,,
+2100B.NM1,Incorrect Member Name,,,,
+2100B.NM101,Entity Identifier Code,,70 : Prior Incorrect Insured,,
+2100B.NM102,Entity Type Qualifier,,1: Person,,
+2100B.NM103,Member Last Name,Prior Incorrect Member Last Name,,,
+2100B.NM104,Member First Name,Prior Incorrect Member First Name,,,
+2100B.NM105,Member Middle Name,Prior Incorrect Member Middle Name,,,
+2100B.NM106,Member Name Prefix,Prior Incorrect Member Name Prefix,,,
+2100B.NM107,Member Name Suffix,Prior Incorrect Member Name Suffix,,,
+2100B.NM108,ID Code Qualifier,,"34: SSN
+ZZ: Mutually Defined",,
+2100B.NM109,ID Code,Prior Incorrect Insured Identifier,,,
+2100B.DMG,Incorrect Member Demographics,,,,
+2100B.DMG01,Date Time Period Format Qualifier,,D8 : Date Expressed in Format CCYYMMDD,,
+2100B.DMG02,Member Birth Date,Prior Incorrect Insured Birth Date,,,
+2100B.DMG03,Gender Code,Prior Incorrect Insured Gender Code,,,
+2100B.DMG04,Marital Status,,,,
+2100B.DMG05,Race or Ethnicity,,,,
+2100B.DMG06,Citizenship Status Code,,,,
+2100B.DMG10,Code List Qualifier Code,,,,
+2100B.DMG11,Industry Code,,,,
+2100C — MEMBER MAILING ADDRESS Loop Repeat: 1,,,,,
+2100C.NM1,MEMBER MAILING ADDRESS,,,,
+2100C.NM101,Entity Identifier Code,,31: Postal Mailing Address,,
+2100C.NM102,Entity Type Qualifier,,1: Person,,
+2100C.N3,MEMBER MAIL STREET ADDRESS,,,,
+2100C.N301,Member Address Line,,,Correspondence_Address,
+2100C.N302,Member Address Line 2,,,,
+2100C.N4,"MEMBER MAIL CITY, STATE, ZIP CODE",,,,
+2100C.N401,Member City Name,,,City_Name_correspondence,
+2100C.N402,Member State Code,,,State_Code_correspondence,
+2100C.N403,Member ZIP Code,,,Zip_Code_correspondence,First 5 digits
+2100C.N404,Member Country Code,,,,
+2100C.N407,Country Subdivision Code,,,,
+2100F — CUSTODIAL PARENT Loop Repeat: 1,,,,,
+2100F.NM1,Custodial Parent  Loop Repeat = 1,,,,
+2100F.NM101,Entity Identifier Code,,S3 : Custodial Parent,,
+2100F.NM102,Entity Type Qualifier,,1 = Person,,
+2100F.NM103,Name Last or Organization Name,Custodial Parent Last Name,,,
+2100F.NM104,Name First,Custodial Parent  First Name,,,
+2100F.NM105,Name Middle,Custodial Parent Middle Name,,,
+2100F.NM106,Name Prefix,,,,
+2100F.NM107,Name Suffix,,,,
+2100F.NM108,Identification Code Qualifier,,"34 = Social Security Number
+ZZ Mutually Defined",,
+2100F.NM109,Subscriber Identifier,Custodial Parent Identifier,,,
+2100F.PER,Custodial Parent  Communications Numbers,A record is inserted into Enr_Communication_Numbers table for Custodial Parent Communications Numbers (2100F.PER),,,
+2100F.PER01,Contact Function Code,,PQ : Parent or Guardian,,
+2100F.PER02,Name,,,,
+2100F.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100F.PER04,Communication Number,,,,
+2100F.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100F.PER06,Communication Number,,,,
+2100F.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100F.PER08,Communication Number,,,,
+2100F.N3,Custodial Parent Street Address,,,,
+2100F.N301,Address Information,,,,
+2100F.N302,Address Information,,,,
+2100F.N4,"Custodial Parent City, State, and Zip Code",,,,
+2100F.N401,City Name,Member's City Name,,,
+2100F.N402,State or Province Code,State,,,
+2100F.N403,Postal Code,Postal Code,,,
+2100F.N404,Country Code,"If Country Code Not Equal to USA, then populate element",,,
+2100F.N407,Country Subdivision Code,,,,
+2100G — RESPONSIBLE PERSON Loop Repeat: 13,,,,,
+2100G.NM1,Responsible Person Segment repeat = 1,,,,
+2100G.NM101,Entity Identifier Code,,"GD :guardian
+QD :responsible party
+6Y :Case Manager
+9K :Key Person
+E1 :Person or Other Entity Legally Responsible for a
+Child
+J6 :Power of Attorney
+LR :Legal Representative
+
+S1 :Parent
+TZ :Significant Other
+X4 :Spouse
+EI :Executor of Estate
+EXS : Ex-spouse",,
+2100G.NM102,Entity Type Qualifier,,1 = Person,,
+2100G.NM103,Name Last or Organization Name,Responsible Person Last Name,,,
+2100G.NM104,Name First,Responsible Person  First Name,,,
+2100G.NM105,Name Middle,Responsible Person Middle Name,,,
+2100G.NM106,Name Prefix,,,,
+2100G.NM107,Name Suffix,,,,
+2100G.NM108,Identification Code Qualifier,,"34 : Social Security Number
+ZZ Mutually Defined",,
+2100G.NM109,Subscriber Identifier,Responsible Party Identifier,,,
+2100G.PER,Responsible Person Communications Numbers,A record is inserted into Enr_Communication_Numbers table for Responsible person Communications Numbers (2100G.PER),,,
+2100G.PER01,Contact Function Code,,RP : Responsible Person,,
+2100G.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100G.PER04,Communication Number,,,,
+2100G.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100G.PER06,Communication Number,,,,
+2100G.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100G.PER08,Communication Number,,,,
+2100G.N3,Responsible Person Street Address,,,,
+2100G.N301,Address Information,,,,
+2100G.N302,Address Information,,,,
+2100G.N4,"Responsible Person City, State, and Zip Code",,,,
+2100G.N401,City Name,City Name,,,
+2100G.N402,State or Province Code,State,,,
+2100G.N403,Postal Code,Postal Code,,,
+2100G.N404,Country Code,"If Country Code Not Equal to USA, then populate element",,,
+2100G.N407,Country Subdivision Code,,,,
+2200 — DISABILITY INFORMATION Loop Repeat: >1,,,,,
+2200.DSB,Disability,,,,
+2200.DSB01,Disability Type Code,,"1 Short Term Disability
+2 Long Term Disability
+3 Permanent or Total Disability
+4 No Disability",,
+2200.DSB07,Product/Service ID Qualifier,,"DX: ICD9, ZZ: ICD10/Mutually Defined",,
+2200.DSB08,Medical Code Value,,,,
+2200.DTP,DISABILITY ELIGIBILITY DATES,,,,
+2200.DTP01,Date/Time Qualifier,,"360 Initial Disability Period Start
+361 Initial Disability Period End",,
+2200.DTP02,Date Time Period Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,
+2200.DTP03,Date Time Period,Disability Eligibility Date,,,
+2300 — HEALTH COVERAGE Loop Repeat: 99                                                                 Map only First 8 Occurences of 2300 Loop.,,,,,
+2300.HD,Health Coverage Loop Repeat: 99,,,,
+2300.HD01,Maintenance Type Code,,"001 Change
+002 Delete
+021 Addition
+024 Cancellation or Termination
+025 Reinstatement
+026 Correction
+030 Audit or Compare
+032 Employee Information Not Applicable",HealthCoverageMaintenanceCode_1,For the first occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_2,For the 2nd  occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_3,For the 3rd  occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_4,For the 4th  occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_5,For the 5th  occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_6,For the 6th  occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_7,For the 7th  occurrence of 2300 loop
+,,,,HealthCoverageMaintenanceCode_8,For the 8th  occurrence of 2300 loop
+2300.HD03,Insurance Line Code,,,InsuranceLineCode_1,For the first occurrence of 2300 loop
+,Insurance Line Code,,,InsuranceLineCode_2,For the 2nd  occurrence of 2300 loop
+,,,,InsuranceLineCode_3,For the 3rd  occurrence of 2300 loop
+,,,,InsuranceLineCode_4,For the 4th  occurrence of 2300 loop
+,,,,InsuranceLineCode_5,For the 5th  occurrence of 2300 loop
+,,,,InsuranceLineCode_6,For the 6th  occurrence of 2300 loop
+,,,,InsuranceLineCode_7,For the 7th  occurrence of 2300 loop
+,,,,InsuranceLineCode_8,For the 8th  occurrence of 2300 loop
+2300.HD04,Plan Coverage Description,,,,
+2300.HD05,Coverage Level Code,,"CHD Children Only
+DEP Dependents Only
+E1D Employee and One Dependent
+E2D Employee and Two Dependents
+E3D Employee and Three Dependents
+E5D Employee and One or More Dependents
+E6D Employee and Two or More Dependents
+E7D Employee and Three or More Dependents
+E8D Employee and Four or More Dependents
+E9D Employee and Five or More Dependents
+ECH Employee and Children
+EMP Employee Only
+ESP Employee and Spouse
+FAM Family
+IND Individual
+SPC Spouse and Children
+SPO Spouse Only
+TWO Two Party",,
+2300.HD09,Yes/No Condition or Response Code,Late Enrollment Indicator,,,
+2300.DTP,Health Coverage Dates  Segment repeat = 6,,,,
+2300.DTP01,Date Time Qualifier,,"348 Benefit Begin
+349 Benefit End
+543 Last Premium Paid Date
+303 Maintenance Effective
+356 Eligibility Begin
+357 Eligibility End
+343 Premium Paid to Date End",,
+2300.DTP02,Date Time Period Format Qualifier,,"D8 Date Expressed in Format CCYYMMDD
+RD8 Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,
+2300.DTP03,Coverage Period,,,BenefitPlan_startDate_1,"If 2300.DTP01 is 348, For the first occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_1,"If 2300.DTP01 is 349, For the first occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_1,"If 2300.DTP01 is 343, For the first occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_2,"If 2300.DTP01 is 348 ,For the second occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_2,"If 2300.DTP01 is 349, For the second  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_2,"If 2300.DTP01 is 343, For the second  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_3,"If 2300.DTP01 is 348, For the 3rd occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_3,"If 2300.DTP01 is 349, For the 3rd occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_3,"If 2300.DTP01 is 343, For the 3rd  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_4,"If 2300.DTP01 is 348 ,For the 4th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_4,"If 2300.DTP01 is 349, For the 4th  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_4,"If 2300.DTP01 is 343, For the 4th  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_5,"If 2300.DTP01 is 348, For the 5th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_5,"If 2300.DTP01 is 349, For the 5th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_5,"If 2300.DTP01 is 343, For the 5th  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_6,"If 2300.DTP01 is 348, For the 6th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_6,"If 2300.DTP01 is 349, For the 6th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_6,"If 2300.DTP01 is 343, For the 6th  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_7,"If 2300.DTP01 is 348, For the 7th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_7,"If 2300.DTP01 is 349, For the 7th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_7,"If 2300.DTP01 is 343, For the 7th  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_startDate_8,"If 2300.DTP01 is 348, For the 8th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,BenefitPlan_endDate_8,"If 2300.DTP01 is 349, For the 8th occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+,,,,Effectuation_Date_8,"If 2300.DTP01 is 343, For the 8th  occurrence of 2300 loop
+In the format of YYYY-MM-DD"
+2300.AMT,Health Coverage Policy,,,,
+2300.AMT01,Amount Qualifier Code,,"B9 Co-insurance - Actual
+1283 co-insurance selection amount.
+contract.
+C1 Co-Payment Amount
+D2 Deductible Amount
+EBA Expected Expenditure Amount
+FK Other Unlisted Amount
+P3 Premium Amount
+R Spend Down",,
+2300.AMT02,Monetary Amount,Contract Amount,,,
+2300.REF,Health Coverage Policy Number,,,,
+2300.REF01,Reference Identification Qualifier,,"17 Client Reporting Category
+1L Group or Policy Number
+9V Payment Category
+CE Class of Contract Code
+E8 Service Contract (Coverage) Number
+M7 Medical Assistance Category
+PID Program Identification Number
+RB Rate code number
+X9 Internal Control Number
+XM Issuer Number
+XX1 Special Program Code
+XX2 Service Area Code
+ZX County Code
+ZZ Mutually Defined",,
+2300.REF02,Member Group or Policy Number,,,BenefitPlan_Hcc_Id_EDI_Group Number_1,"If 2300.REF01 = 1L,  For the first occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_1,"If 2300.REF01 = CE, For the first occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_1,If 2300.REF01 = 17 For the first occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_1,"If 2300.REF01 = ZZ, For the first occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Group Number_2,"If 2300.REF01 = 1L,  For the 2nd occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_2,"If 2300.REF01 = CE, For the 2nd occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_2,If 2300.REF01 = 17 For the 2nd occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_2,"If 2300.REF01 = ZZ, For the 2nd occurrence of 2300 loop"
+,Reference Identification,Member Group or Policy Number,,BenefitPlan_Hcc_Id_EDI_Group Number_3,"If 2300.REF01 = 1L,  For the 3rd occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_3,"If 2300.REF01 = CE, For the 3rd occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_3,If 2300.REF01 = 17 For the 3rd occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_3,"If 2300.REF01 = ZZ, For the 3rd occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Group Number_4,"If 2300.REF01 = 1L,  For the 4th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_4,"If 2300.REF01 = CE,  For the 4th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_4,If 2300.REF01 = 17 For the 4th occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_4,"If 2300.REF01 = ZZ, For the 4th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Group Number_5,"If 2300.REF01 = 1L,For the 5th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_5,"If 2300.REF01 = CE, For the 5th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_5,If 2300.REF01 = 17 For the 5th occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_5,"If 2300.REF01 = ZZ, For the 5th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Group Number_6,"If 2300.REF01 = 1L, For the 6th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_6,"If 2300.REF01 = CE, For the 6th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_6,If 2300.REF01 = 17 For the 6th occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_6,"If 2300.REF01 = ZZ, For the 6th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Group Number_7,"If 2300.REF01 = 1L, For the 7th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_7,"If 2300.REF01 = CE, For the 7th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_7,If 2300.REF01 = 17 For the 6th occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_7,"If 2300.REF01 = ZZ, For the 6th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Group Number_8,"If 2300.REF01 = 1L, For the 8th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Class of Contract code_8,"If 2300.REF01 = CE, For the 8th occurrence of 2300 loop"
+,,,,BenefitPlan_Hcc_Id_EDI_Client_ReportingCategory_8,If 2300.REF01 = 17 For the 6th occurrence of 2300 loop
+,,,,BenefitPlan_Hcc_Id_EDI_MutuallyDefined_8,"If 2300.REF01 = ZZ, For the 6th occurrence of 2300 loop"
+2310 — PROVIDER INFORMATION Loop Repeat: 30,,,,,
+2310.LX,PROVIDER INFORMATION,,,,
+2310.LX01,Assigned Number,,,,
+2310.NM1,PROVIDER NAME,,,,
+2310.NM101,Entity Identifier Code,,"1X Laboratory
+3D Obstetrics and Gynecology Facility
+80 Hospital
+FA Facility
+OD Doctor of Optometry
+P3 Primary Care Provider
+QA Pharmacy
+QN Dentist
+Y2 Managed Care Organization",PCP_RoleType,"If 2310.NM101 = P3, Map as PCP."
+2310.NM102,Entity Type Qualifier,,"1 = Person
+2 = Non-Person entity",,
+2310.NM103,Provider Last Name,,,,
+2310.NM104,Provider First Name,,,,
+2310.NM105,Provider Middle Name,,,,
+2310.NM106,Provider Name Prefix,,,,
+2310.NM107,Provider Name Suffix,,,,
+2310.NM108,ID Code Qualifier,,"34: SSN
+FI: Federal Tax ID
+SV: Service Provider Number
+ XX: NPI",,
+2310.NM109,ID Code,,,PCP_hccIdentificationNumber,If 2310.NM101 = P3
+2310.NM110,Entity Relationship Code,,"25: Established Patient
+26: Not Established Patient
+72: Unknown",,
+2310.N3,PROVIDER ADDRESS,,,,
+2310.N301,Provider Address Line,,,,
+2310.N302,Provider Address Line,,,,
+2310.N4,"PROVIDER CITY, STATE, ZIP CODE",,,,
+2310.N401,Provider City Name,,,,
+2310.N402,Provider State Code,,,,
+2310.N403,Provider ZIP Code,,,,
+2310.N404,Provider Country Code,,,,
+2310.PER,PROVIDER COMMUNICATIONS NUMBERS,,,,
+2310.PER01,Contact Function Code,,IC = Information Contact,,
+2310.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2310.PER04,Communication Number,,,,
+2310.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2310.PER06,Communication Number,,,,
+2310.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2310.PER08,Communication Number,,,,
+2310.PLA,Provider Change Reason,,,,
+2310.PLA01,Action Code,,2: Change (Update),,
+2310.PLA02,Entity Identifier Code,,1P : Provider,,
+2310.PLA03,Date,,Provider Effective Date,PCP_Change_Effectivedate,In the format of YYYY-MM-DD
+2310.PLA05,Maintenance Reason Code,,"14 Voluntary Withdrawal
+22 Plan Change
+46 Current Customer Information File in Error
+AA Dissatisfaction with Office Staff
+AB Dissatisfaction with Medical Care/Services Rendered
+AC Inconvenient Office Location
+AD Dissatisfaction with Office Hours
+AE Unable to Schedule Appointments in a Timely
+Manner
+AF Dissatisfaction with Physician’s Referral Policy
+AG Less Respect and Attention Time Given than to
+Other Patients
+AH Patient Moved to a New Location
+AI No Reason Given
+AJ Appointment Times not Met in a Timely Manner",,
+2320 — COORDINATION OF BENEFITS Loop Repeat: 5,,,,,
+2320.COB,COB-Coordination of Benefits,,,,
+2320.COB01,Payer Responsibility Sequence Number Code,,"P Primary
+S Secondary
+T Tertiary
+U Unknown",COB_responsibilitySequenceCode_1,"For the first occurrence of 2320 loop
+P - Primary
+S - Secondary
+T - Tertiary
+U - Unknown"
+,,,,COB_responsibilitySequenceCode_2,"For the second occurrence of 2320 loop
+P - Primary
+S - Secondary
+T - Tertiary
+U - Unknown"
+,,,,COB_responsibilitySequenceCode_3,"For the third occurrence of 2320 loop
+P - Primary
+S - Secondary
+T - Tertiary
+U - Unknown"
+,,,,COB_responsibilitySequenceCode_4,"For the 4th occurrence of 2320 loop
+P - Primary
+S - Secondary
+T - Tertiary
+U - Unknown"
+,,,,COB_responsibilitySequenceCode_5,"For the 5th occurrence of 2320 loop
+P - Primary
+S - Secondary
+T - Tertiary
+U - Unknown"
+2320.COB02,Member Group or Policy Number,Member Group or Policy Number,,COB_PolicyId_1,For the first occurrence of 2320 loop
+,,,,COB_PolicyId_2,For the second occurrence of 2320 loop
+,,,,COB_PolicyId_3,For the third occurrence of 2320 loop
+,,,,COB_PolicyId_4,For the 4th occurrence of 2320 loop
+,,,,COB_PolicyId_5,For the 5th occurrence of 2320 loop
+2320.COB03,Coordination of Benefits Code,,"1: Coordination of Benefits;
+5 Unknown
+6: No Coordination of Benefits",,
+2320.COB04,Service Type Code,,"1 Medical Care
+35 Dental Care
+48 Hospital - Inpatient
+50 Hospital - Outpatient
+54 Long Term Care
+89 Free Standing Prescription Drug
+90 Mail Order Prescription Drug
+A4 Psychiatric
+AG Skilled Nursing Care
+AL Vision (Optometry)
+BB Partial Hospitalization (Psychiatric)",,
+2320.REF,Additional Coordination of Benefits Identifiers,,,,
+2320.REF01,Reference Identification Qualifier,,"60 Account Suffix Code
+6P Group Number
+SY Social Security Numberr
+ZZ Mutually Defined",,
+2320.REF02,Member Group or Policy Number,,,COB_groupNumber_1,"2320.REF01 = 6P,  For the first occurrence of 2320 loop"
+,,,,COB_groupNumber_2,"2320.REF01 = 6P,  For the second occurrence of 2320 loop"
+,,,,COB_groupNumber_3,"2320.REF01 = 6P, For the third occurrence of 2320 loop"
+,,,,COB_groupNumber_4,"2320.REF01 = 6P,  For the 4th occurrence of 2320 loop"
+,,Member Group or Policy Number,,COB_groupNumber_5,"2320.REF01 = 6P, For the 5th occurrence of 2320 loop"
+2320.DTP,Coordination of Benefits Eligibility Dates,,,,
+2320.DTP01,Date/Time Qualifier,,"344 :Coordination of Benefits Begin
+345 :Coordination of Benefits End",,
+2320.DTP02,Date Time Period Format Qualifier,,D8 : CCYYMMDD,,
+2320.DTP03,Date Time Period,Coordination of Benefit Date,,"COB_startDate_1 when 2320.DTP01 = 344
+COB_endDate_1 when 2320.DTP01 = 345","For the first occurrence of 2320 loop
+In the format of YYYY-MM-DD"
+,,,,"COB_startDate_2 when 2320.DTP01 = 344
+COB_endDate_2 when 2320.DTP01 = 345","For the second occurrence of 2320 loop
+In the format of YYYY-MM-DD"
+,,,,"COB_startDate_3 when 2320.DTP01 = 344
+COB_endDate_3 when 2320.DTP01 = 345","For the third occurrence of 2320 loop
+In the format of YYYY-MM-DD"
+,,,,"COB_startDate_4 when 2320.DTP01 = 344
+COB_endDate_4 when 2320.DTP01 = 345","For the 4th occurrence of 2320 loop
+In the format of YYYY-MM-DD"
+,,,,"COB_startDate_5 when 2320.DTP01 = 344
+COB_endDate_5 when 2320.DTP01 = 345","For the 5th occurrence of 2320 loop
+In the format of YYYY-MM-DD"
+"2330 — COORDINATION OF BENEFITS RELATED ENTITY Loop
+Repeat: 3",,,,,
+2330.NM1,COORDINATION OF BENEFITS RELATED ENTITY,,,,
+2330.NM101,Entity Identifier Code,,"36: Employer
+GW: Group
+IN: Insurer",,
+2330.NM102,Entity Type Qualifier,,2 : Non-Person Entity,,
+2330.NM103,Coordination of Benefits Insurer Name,Coordination of Benefits Insurer Name,,COB_otherInsuranceCompanyName_1,"2330.NM101 = IN, For the first occurrence of 2320 loop"
+,,,,COB_otherInsuranceCompanyName_2,"2330.NM101 = IN, For the second occurrence of 2320 loop"
+,,,,COB_otherInsuranceCompanyName_3,"2330.NM101 = IN, For the third occurrence of 2320 loop"
+,,,,COB_otherInsuranceCompanyName_4,2330.NM101 = IN For the 4th occurrence of 2320 loop
+,,,,COB_otherInsuranceCompanyName_5,"2330.NM101  = IN, For the 5th occurrence of 2320 loop"
+2330.NM108,ID Code Qualifier,,"FI: Federal Tax ID
+NI: NAIC
+XV: CMS Plan ID",,
+2330.NM109,"Coordination of Benefits Insurer Identification
+Code","Coordination of Benefits Insurer Identification
+Code",,,
+2330.N3,COORDINATION OF BENEFITS RELATED ENTITY ADDRESS,,,,
+2330.N301,Member Address Line,,,,
+2330.N302,Member Address Line,,,,
+2330.N4,"COORDINATION OF BENEFITS RELATED ENTITY OTHER INSURANCE COMPANY CITY, STATE, ZIPCODE",,,,
+2330.N401,Member City Name,,,,
+2330.N402,Member State Code,,,,
+2330.N403,Member ZIP Code,,,,
+2330.N404,Member Country Code,,,,
+2330.N407,Country Subdivision Code,,,,
+2700 — ADDITIONAL REPORTING CATEGORIES LOOP,,,,,
+2700.LS,ADDITIONAL REPORTING CATEGORIES LOOP,,,,
+.LS01,Loop Identifier Code,,Use the value 2700.,,
+2710 — MEMBER REPORTING CATEGORIES Loop Repeat: >1                              Map only the first 10 occurences of 2710 loop.,,,,,
+2710.LX,MEMBER REPORTING CATEGORIES,,,,
+2710.LX01,Assigned Number,,,,
+2750 — REPORTING CATEGORY Loop Repeat: 1,,,,,
+2750.N1,REPORTING CATEGORY,,,,
+2750.N101,Entity Identifier Code,,75 : Participant,,
+2750.N102,Member Reporting Category Name,Member Reporting Category Name,`,Reporting_Category_Name_1,For the 1st occurrence of 2710 loop
+,,,,Reporting_Category_Name_2,For the 2nd occurrence of 2710 loop
+,,,,Reporting_Category_Name_3,For the 3rd occurrence of 2710 loop
+,,,,Reporting_Category_Name_4,For the 4th occurrence of 2710 loop
+,,,,Reporting_Category_Name_5,For the 5th occurrence of 2710 loop
+,,,,Reporting_Category_Name_6,For the 6th occurrence of 2710 loop
+,,,,Reporting_Category_Name_7,For the 7th occurrence of 2710 loop
+,,,,Reporting_Category_Name_8,For the 8th occurrence of 2710 loop
+,,,,Reporting_Category_Name_9,For the 9th occurrence of 2710 loop
+,,,,Reporting_Category_Name_10,For the 10th occurrence of 2710 loop
+2750.REF,REPORTING CATEGORY REFERENCE  Segment repeat = 16,A record is inserted into  Member_Reporting_Category_Identifiers  table  for each 2750.REF,,,
+2750.REF01,Reference Identification Qualifier,,"00 Contracting District Number
+17 Client Reporting Category
+18 Plan Number
+19 Division Identifier
+26 Union Number
+3L Branch Identifier
+6M Application Number
+9V Payment Category
+9X Account Category
+GE Geographic Number
+LU Location Number
+PID Program Identification Number
+XX1 Special Program Code
+XX2 Service Area Code
+YY Geographic Key
+ZZ Mutually Defined",,
+2750.REF02,Reference Identification,,,Reporting_Category_Identification_1,For the 1st occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_2,For the 2nd occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_3,For the 3rd occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_4,For the 4th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_5,For the 5th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_6,For the 6th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_7,For the 7th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_8,For the 8th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_9,For the 9th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+,,,,Reporting_Category_Identification_10,For the 10th occurrence of 2710 loop. Map only the first occurrence of 2750.REF.
+2750.DTP,REPORTING CATEGORY DATE,,,,
+2750.DTP01,Date/Time Qualifier,,007 = Effective,,
+,,,,,
+2750.DTP02,Date Time Period Format Qualifier,,"D8 : Date Expressed in Format CCYYMMDD
+RD8 : Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD",,
+2750.DTP03,,,,Reporting_Category_Date_1,For the 1st occurrence of 2710 loop
+,,,,Reporting_Category_Date_2,For the 2nd occurrence of 2710 loop
+,,,,Reporting_Category_Date_3,For the 3rd occurrence of 2710 loop
+,,,,Reporting_Category_Date_4,For the 4th occurrence of 2710 loop
+,,,,Reporting_Category_Date_5,For the 5th occurrence of 2710 loop
+,Date time period,,,Reporting_Category_Date_6,For the 6th occurrence of 2710 loop
+,,,,Reporting_Category_Date_7,For the 7th occurrence of 2710 loop
+,,,,Reporting_Category_Date_8,For the 8th occurrence of 2710 loop
+,,,,Reporting_Category_Date_9,For the 9th occurrence of 2710 loop
+,,,,Reporting_Category_Date_10,For the 10th occurrence of 2710 loop
+2700.LE,"ADDITIONAL REPORTING CATEGORIES
+LOOP TERMINATION",,,,
+2700.LE01,Loop Identifier Code,,Use the value 2700,,
+SE,Transaction Set Trailer,,,,
+SE01,Number of Included Segments,Total number of segments included in the transaction set including ST and SE segments,,,
+SE02,Transaction Set Control Number,ST02 and SE02 must be identical,,,
+GE,Function Group Trailer,,,,
+GE01,Number of Transaction Sets Included,Total number of transactions set included in the group or interchange,,,
+GE02,Group Control Number,GS06 and GE02 must be identical,,,
+IEA,Interchange Control Trailer,,,,
+IEA01,Number of Included Functional Groups,,,,
+IEA02,Interchange Control Number,ISA12 and IEA02 must be identical,,,

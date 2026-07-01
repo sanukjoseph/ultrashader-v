@@ -1,0 +1,18 @@
+XML Tags,Mandatory,Description,Comments
+,,,
+<inputId>,M,Unique identifier for the input file. [UUID],
+<inputType>,M,"Type of input (e.g., PROVIDER_SETTLEMENT).",
+<inputFileName>,,Input File Name (the actual Input file Name).,
+<inputArchiveFileName>,,Name of the archived file.,
+<totalTransactions>,M,Total number of payment transactions in the file after spliting and grouping (which is combination of 0001 & 0002 records).,
+<XMLfileCreationDate>2025-06-11T10:00:00,,Date and time when the XML file was generated.,"These are not mandatory for edifecs. If edifecs gets any value in that, edifecs needs to pass."
+<senderId>,,Identifier for the sending system or entity.,"These are not mandatory for edifecs. If edifecs gets any value in that, edifecs needs to pass."
+<receiverId>,,Identifier for the receiving system or entity.,"These are not mandatory for edifecs. If edifecs gets any value in that, edifecs needs to pass."
+<totalTransactions>,,,
+<recordIdentifier>,M,From Edifecs,Dev can comeup with logic
+<recordIdentifierFromSource>,M,EPP ID+check number/EPP ID+Payment ID,"EPP ID+Payment ID:
+If check number is Zero"
+<sourceTypeIdentifier>,M,PROVIDER SETTLEMENT,define Format and should be same in Audit - paymentSourceName
+<rayIdentifier>,M,From Edifecs,Dev can comeup with logic
+<tenantIdentifier>,,,
+<referenceIdentifier>,,,

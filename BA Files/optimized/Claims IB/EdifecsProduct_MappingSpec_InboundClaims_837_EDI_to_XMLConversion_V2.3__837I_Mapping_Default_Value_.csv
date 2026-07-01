@@ -1,0 +1,35 @@
+XSD Element,Element Description,Default Value
+institutionalClaimIBRequestRoot/header/inputFilename,Inbound EDI File Name,Input Filename of the EDI file received with filename extension
+institutionalClaimIBRequestRoot/header/inputId,EDI file id,"{UID}- Unique for each file
+Example - -dtBkcCHu9bkKu8O"
+institutionalClaimIBRequestRoot/header/totalClaimCount,Total number of claims,Total Number of claims in the Inbound EDI 837P file
+,,
+institutionalClaimIBRequestRoot/header/inputType,Defines the type of input file - API or File,"Hardcode as ""Institutional"""
+institutionalClaimIBRequestRoot/header/XMLfileCreationDate,File created date in format YYYY-MM-DD HH:mm:ss:sss   - This is used for internal reference. Not loaded to HRP UI,"Processing date/time in the format:
+yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"
+professionalClaimIBRequestRoot/header/correlationId,Unique string or alphanumeric value identifying each file.,A Unique Record Identifier
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/entryDate,"Date on which the claim was first
+entered into HealthRules. - in HRP UI it is auto populated to claim load date/time",Processing date/time in the format: YYYY-MM-DDTHH:mm:ss
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/creationDate,creation Date - Could not find this field in HRP UI.,"Mapped from BHT04, formatted to YYYY-MM-DD"
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimDeliveryType,"The method by which the claim was
+received.","E' -  Electronic
+'S'  - SDS paper 837
+Crosswalk Name : P_IB_837_ClaimSourceLookup
+•Provide the Sender Id and Receiver Id as the source columns.
+•Provide the ClaimSource and ClaimDeliveryType as the target columns."
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payeeTypeField,"Indicates whether the claim is to be
+paid to a supplier or a member.",Hardcode as Supplier
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimPayorType,"Benefit plan type (medical, dental,
+etc.)",Hardcode as 1 (medical)
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/rayId,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",GUID
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordId,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",GUID
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordIdFromSource,,senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/sourceTypeIdentifier,Identifier to find from where we received(Starting point) the initial Transaction/Record.,"SubmitterName(1000A. NM103+NM104)_{Paper}
+SubmitterName(1000A. NM103+NM104)_{Electronic}"
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/tenantIdentifier,Unique identifier for the implementation team,"Hardcode as ""Product"""
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non covered amount - COB - Line level,Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non covered amount - COB - Line level,Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount,Non covered amount - COB- Claim level,Map 2320.CAS03 / 2320.CAS06 /2320.CAS09 /2320.CAS12/2320.CAS15/2320.CAS18   for all CAS01-CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2320.CAS segment mapping.
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimUDTList/claimUDT/udtListValueSet/attributeRoleName,,"Hardcode as ""Submitted Claim Key"""
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimUDTList/claimUDT/udtListValueSet/attrValueAsString,,Should be same value as pupulated in institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordId
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimUDTList/claimUDT/userDefinedTermReference/ID,,"Hardcode as ""Submitted Claim Key"""

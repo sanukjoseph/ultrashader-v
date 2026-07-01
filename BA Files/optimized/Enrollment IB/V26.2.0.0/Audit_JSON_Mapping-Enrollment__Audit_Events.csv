@@ -1,0 +1,14 @@
+processStageName,processStatus,processMessage,JSON TRIGGER EVENT
+EDIFECS-Validation,PROCESS START,,Start of SNIP validations
+EDIFECS-Validation,PROCESS END,,"After the SNIP Validations, if it’s a good record"
+EDIFECS-Validation,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.","After the SNIP Validations, if it’s a bad record"
+EDIFECS-Conversion,PROCESS START,,Start of XML conversion
+EDIFECS-Conversion,PROCESS END,,After the XML conversion if it’s a success
+EDIFECS-Conversion,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",After the XML conversion if it’s a failure
+EDIFECS,MESSAGE PUBLISHED,,EDIFECS process ends
+,,,
+EDIFECS-Validation,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.","File level rejections - In case the full file is rejected
+' identifiers'  Block is not needed in Audit Json for File level rejections"

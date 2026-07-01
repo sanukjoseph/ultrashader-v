@@ -1,0 +1,27 @@
+{
+  "extractId": "${summaryExtractionID}",
+  "extractName": "OB_Enrollment_Extract",
+  "spInvokedBy": "OUTBOUND_ENROLLMENT_EDIFECS_SERVICE",
+  "pageId": "${pageId}",
+  "jobId": "${jobId}",
+  "pageNum": ${sequenceId},
+  "extractFileName": "${extractFileName}",
+  "pageExtractStatus": "${pageExtractStatus}",
+  #if($ErrorFlag == "Yes")
+  "pageErrorDesc": "${pageErrorDesc}",
+  #else
+  "pageErrorDesc": null,
+  #end
+  "pageProcessStartTs": "${pageProcessStartTs}",
+  "pageProcessEndTs": null,
+  "auditCreatedTs": "${auditCreatedTs}",
+  "recordCount": ${recordcount},
+  "recipientName": null,
+  "pageDataId": "${memberId}",
+  #if($ErrorFlag == "Yes")
+  "fileLocation": null
+  #else
+  "fileLocation": "${fileLocation}"
+  #end
+  
+}

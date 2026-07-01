@@ -1,0 +1,3 @@
+Field in CSV,Default value/Mapping logic
+Subscriber_ID,Unique value populated from EDIFECS for a member
+Endofrecord,Hardcode as 'EOR'

@@ -1,0 +1,677 @@
+No,Field,Data Type,Length,Data Source,Usage,Sample Format
+"All Transaction Types of a member needs to be grouped together and one record should be written to the CSV file. For the initial version of the product,
+DEM transaction, 10 occurences of PLN/PWO/LIS/LEP/FLG/PCP/COB/MCD and 5 occurences of M3P  transactions for a member will be mapped to CSV format.",,,,,,
+1,Subscriber ID,VARCHAR,10,,R,
+2,ClaimsSubscriberIDNumber,VARCHAR,11,Member Details,S,369258147
+3,BenefitPlanStartDate_1,VARCHAR,10,PCP/Enroll History,S,20080101
+4,BenefitPlanEndDate_1,VARCHAR,10,Sytem logic,S,20081231
+5,BenefitPlanStartDate_2,VARCHAR,10,PCP/Enroll History,S,20080101
+6,BenefitPlanEndDate_2,VARCHAR,10,Sytem logic,S,20081231
+7,BenefitPlanStartDate_3,VARCHAR,10,PCP/Enroll History,S,20080101
+8,BenefitPlanEndDate_3,VARCHAR,10,Sytem logic,S,20081231
+9,BenefitPlanStartDate_4,VARCHAR,10,PCP/Enroll History,S,20080101
+10,BenefitPlanEndDate_4,VARCHAR,10,Sytem logic,S,20081231
+11,BenefitPlanStartDate_5,VARCHAR,10,PCP/Enroll History,S,20080101
+12,BenefitPlanEndDate_5,VARCHAR,10,Sytem logic,S,20081231
+13,BenefitPlanStartDate_6,VARCHAR,10,PCP/Enroll History,S,20080101
+14,BenefitPlanEndDate_6,VARCHAR,10,Sytem logic,S,20081231
+15,BenefitPlanStartDate_7,VARCHAR,10,PCP/Enroll History,S,20080101
+16,BenefitPlanEndDate_7,VARCHAR,10,Sytem logic,S,20081231
+17,BenefitPlanStartDate_8,VARCHAR,10,PCP/Enroll History,S,20080101
+18,BenefitPlanEndDate_8,VARCHAR,10,Sytem logic,S,20081231
+19,BenefitPlanStartDate_9,VARCHAR,10,PCP/Enroll History,S,20080101
+20,BenefitPlanEndDate_9,VARCHAR,10,Sytem logic,S,20081231
+21,BenefitPlanStartDate_10,VARCHAR,10,PCP/Enroll History,S,20080101
+22,BenefitPlanEndDate_10,VARCHAR,10,Sytem logic,S,20081231
+23,SubscriberFlag,VARCHAR,1,Member Details,S,Y
+24,MBI,VARCHAR,12,Sytem logic,S,357269487A
+25,MemberLastName,VARCHAR,50,Member Details,S,Smith
+26,MemberFirstName,VARCHAR,50,Member Details,S,John
+27,MiddleInitial,VARCHAR,1,Member Details,S,T
+28,MemberTitle,VARCHAR,10,Member Details,S,Mr
+29,MemberStatus,VARCHAR,20,Member Details,S,ACTIVE
+30,AlternateMemberID,VARCHAR,11,Member Details,S,
+31,MemberDateofBirth,VARCHAR,10,Member Details,R,19400528
+32,MemberDateofDeath,VARCHAR,10,Member Details,S,20080624
+33,MemberGender,VARCHAR,10,Member Details,S,M
+34,MemberSocialSecurityNumber,VARCHAR,12,Member Details,S,159357852
+35,MemberPermanentAddress _1,VARCHAR,55,PCP/Enroll History,S,123 Main Street
+36,MemberPermanentAddress_2,VARCHAR,55,PCP/Enroll History,S,Apt 201
+37,Member Permanent Address_3,VARCHAR,55,PCP/Enroll History,S,
+38,MemberPermanentCity,VARCHAR,30,PCP/Enroll History,S,Cambridge
+39,MemberPermanentCounty,VARCHAR,30,PCP/Enroll History,S,Middlesex
+40,MemberPermanentState,VARCHAR,2,PCP/Enroll History,S,MA
+41,MemberPermanentZipCode,VARCHAR,9,PCP/Enroll History,S,"02138 (5 Digit)
+021389999 (9 Digit)"
+42,MemberMailingAddress_1,VARCHAR,55,PCP/Enroll History,S,
+43,MemberMailingAddress_2,VARCHAR,55,PCP/Enroll History,S,
+44,MemberMailingAddress_3,VARCHAR,55,PCP/Enroll History,S,
+45,MemberMailingCity,VARCHAR,30,PCP/Enroll History,S,
+46,MemberMailingState,VARCHAR,2,PCP/Enroll History,S,
+47,MemberMailingZipCode,VARCHAR,9,PCP/Enroll History,S,
+48,MemberBillingAddress_1,VARCHAR,55,PCP/Enroll History,S,
+49,MemberBillingAddress_2,VARCHAR,55,PCP/Enroll History,S,
+50,MemberBillingAddress_3,VARCHAR,55,PCP/Enroll History,S,
+51,MemberBillingCity,VARCHAR,30,PCP/Enroll History,S,
+52,MemberBillingState,VARCHAR,2,PCP/Enroll History,S,
+53,MemberBillingZipCode,VARCHAR,9,PCP/Enroll History,S,
+54,MemberHomePhoneNumber,VARCHAR,10,Member Details,S,5552227654
+55,AlternateMemberPhoneNumber,VARCHAR,10,Member Details,S,5552345612
+56,MemberEmailAddress,VARCHAR,60,Member Details,S,jsmith@add ress.com
+57,FirstNameofEmergencyContact,VARCHAR,100,Member Details,S,Jane
+58,LastNameofEmergencyContact,VARCHAR,100,Member Details,S,Good
+59,EmergencyContactRelationshiptoMember,VARCHAR,50,Member Details,S,Daughter
+60,EmergencyContactPhoneNumber,VARCHAR,10,Member Details,S,5551347629
+61,EndangeredMemberFlag,VARCHAR,1,Member Details,S,Y
+62,MedicaidID,VARCHAR,14,Member Details,S,612452885
+63,MedicarePartAEffDate,VARCHAR,10,IEQ,S,20000101
+64,MedicarePartAEndDate,VARCHAR,10,IEQ,S,
+65,MedicarePartBEffDate,VARCHAR,10,IEQ,S,20020301
+66,MedicarePartBEndDate,VARCHAR,10,IEQ,S,
+67,MedicarePartDEffDate,VARCHAR,10,IEQ,S,20020401
+68,MedicarePartDEndDate,VARCHAR,10,IEQ,S,20120430
+69,LanguageCode,VARCHAR,3,Member Details,S,SPA
+70,AlternativeFormatLargePrint,VARCHAR,1,Member Details,S,Y
+71,AlternativeFormatBraille,VARCHAR,1,Member Details,S,Y
+72,AlternativeFormatAudioTape,VARCHAR,1,Member Details,S,Y
+73,FaxNumber,VARCHAR,10,Member Details,S,8885552222
+74,AuthorizedRepFirstName,VARCHAR,105,Member Details,S,Nancy
+75,AuthorizedRepLastName,VARCHAR,105,Member Details,S,James
+76,AuthorizedRepAddress_1,VARCHAR,55,Member Details,S,123 Main
+77,AuthorizedRepAddress_2,VARCHAR,55,Member Details,S,Apt 2
+78,AuthorizedRepAddress_3,VARCHAR,55,Member Details,S,
+79,AuthorizedRepCity,VARCHAR,30,Member Details,S,Las Vegas
+80,AuthorizedRepCounty,VARCHAR,30,Member Details,S,Henderson
+81,AuthorizedRepState,VARCHAR,2,Member Details,S,NV
+82,AuthorizedRepZipCode,VARCHAR,9,Member Details,S,
+83,AuthorizedRepPhoneNumber,VARCHAR,10,Member Details,S,5554445678
+84,AuthorizedRepRelationship,VARCHAR,30,Member Details,S,Son
+85,Race_1,VARCHAR,10,Member Details,S,1001
+86,Race_2,VARCHAR,10,Member Details,S,1002
+87,Race_3,VARCHAR,10,Member Details,S,1003
+88,Race_4,VARCHAR,10,Member Details,S,1004
+89,Race_5,VARCHAR,10,Member Details,S,1005
+90,Ethnicity_1,VARCHAR,10,Member Details,S,CUB
+91,Ethnicity_2,VARCHAR,10,Member Details,S,CUB
+92,Ethnicity_3,VARCHAR,10,Member Details,S,CUB
+93,Ethnicity_4,VARCHAR,10,Member Details,S,CUB
+94,Ethnicity_5,VARCHAR,10,Member Details,S,CUB
+95,ProviderNumber_1,VARCHAR,25,PCP/Enroll History,S,IM29867
+96,PCP_Startdate1,VARCHAR,10,PCP/Enroll History,S,
+97,PCP_Enddate1,VARCHAR,10,PCP/Enroll History,S,
+98,ProviderNumber_2,VARCHAR,25,PCP/Enroll History,S,IM29868
+99,PCP_Startdate2,VARCHAR,10,PCP/Enroll History,S,
+100,PCP_Enddate2,VARCHAR,10,PCP/Enroll History,S,
+101,ProviderNumber_3,VARCHAR,25,PCP/Enroll History,S,IM29869
+102,PCP_Startdate3,VARCHAR,10,PCP/Enroll History,S,
+103,PCP_Enddate3,VARCHAR,10,PCP/Enroll History,S,
+104,ProviderNumber_4,VARCHAR,25,PCP/Enroll History,S,IM29870
+105,PCP_Startdate4,VARCHAR,10,PCP/Enroll History,S,
+106,PCP_Enddate4,VARCHAR,10,PCP/Enroll History,S,
+107,ProviderNumber_5,VARCHAR,25,PCP/Enroll History,S,IM29871
+108,PCP_Startdate5,VARCHAR,10,PCP/Enroll History,S,
+109,PCP_Enddate5,VARCHAR,10,PCP/Enroll History,S,
+110,ProviderNumber_6,VARCHAR,25,PCP/Enroll History,S,IM29872
+111,PCP_Startdate6,VARCHAR,10,PCP/Enroll History,S,
+112,PCP_Enddate6,VARCHAR,10,PCP/Enroll History,S,
+113,ProviderNumber_7,VARCHAR,25,PCP/Enroll History,S,IM29873
+114,PCP_Startdate7,VARCHAR,10,PCP/Enroll History,S,
+115,PCP_Enddate7,VARCHAR,10,PCP/Enroll History,S,
+116,ProviderNumber_8,VARCHAR,25,PCP/Enroll History,S,IM29874
+117,PCP_Startdate8,VARCHAR,10,PCP/Enroll History,S,
+118,PCP_Enddate8,VARCHAR,10,PCP/Enroll History,S,
+119,ProviderNumber_9,VARCHAR,25,PCP/Enroll History,S,IM29875
+120,PCP_Startdate9,VARCHAR,10,PCP/Enroll History,S,
+121,PCP_Enddate9,VARCHAR,10,PCP/Enroll History,S,
+122,ProviderNumber_10,VARCHAR,25,PCP/Enroll History,S,IM29876
+123,PCP_Startdate10,VARCHAR,10,PCP/Enroll History,S,
+124,PCP_Enddate10,VARCHAR,10,PCP/Enroll History,S,
+125,LEPNumberofUncoveredMonths_1,VARCHAR,3,PCP/Enroll History,S,18
+126,PartDLEPAmount_1,VARCHAR,6,PCP/Enroll History,S,4.40
+127,PartDLEPWaivedAmount_1,VARCHAR,6,PCP/Enroll History,S,1.00
+128,PartDLEPSubsidyAmount_1,VARCHAR,6,PCP/Enroll History,S,1.00
+129,PartDLEPStartdate1,VARCHAR,10,PCP/Enroll History,S,
+130,PartDLEPEnddate1,VARCHAR,10,PCP/Enroll History,S,
+131,LEPNumberofUncoveredMonths_2,VARCHAR,3,PCP/Enroll History,S,18
+132,PartDLEPAmount_2,VARCHAR,6,PCP/Enroll History,S,4.40
+133,PartDLEPWaivedAmount_2,VARCHAR,6,PCP/Enroll History,S,1.00
+134,PartDLEPSubsidyAmount_2,VARCHAR,6,PCP/Enroll History,S,1.00
+135,PartDLEPStartdate2,VARCHAR,10,PCP/Enroll History,S,
+136,PartDLEPEnddate2,VARCHAR,10,PCP/Enroll History,S,
+137,LEPNumberofUncoveredMonths_3,VARCHAR,3,PCP/Enroll History,S,18
+138,PartDLEPAmount_3,VARCHAR,6,PCP/Enroll History,S,4.40
+139,PartDLEPWaivedAmount_3,VARCHAR,6,PCP/Enroll History,S,1.00
+140,PartDLEPSubsidyAmount_3,VARCHAR,6,PCP/Enroll History,S,1.00
+141,PartDLEPStartdate3,VARCHAR,10,PCP/Enroll History,S,
+142,PartDLEPEnddate3,VARCHAR,10,PCP/Enroll History,S,
+143,LEPNumberofUncoveredMonths_4,VARCHAR,3,PCP/Enroll History,S,18
+144,PartDLEPAmount_4,VARCHAR,6,PCP/Enroll History,S,4.40
+145,PartDLEPWaivedAmount_4,VARCHAR,6,PCP/Enroll History,S,1.00
+146,PartDLEPSubsidyAmount_4,VARCHAR,6,PCP/Enroll History,S,1.00
+147,PartDLEPStartdate4,VARCHAR,10,PCP/Enroll History,S,
+148,PartDLEPEnddate4,VARCHAR,10,PCP/Enroll History,S,
+149,LEPNumberofUncoveredMonths_5,VARCHAR,3,PCP/Enroll History,S,18
+150,PartDLEPAmount_5,VARCHAR,6,PCP/Enroll History,S,4.40
+151,PartDLEPWaivedAmount_5,VARCHAR,6,PCP/Enroll History,S,1.00
+152,PartDLEPSubsidyAmount_5,VARCHAR,6,PCP/Enroll History,S,1.00
+153,PartDLEPStartdate5,VARCHAR,10,PCP/Enroll History,S,
+154,PartDLEPEnddate5,VARCHAR,10,PCP/Enroll History,S,
+155,LEPNumberofUncoveredMonths_6,VARCHAR,3,PCP/Enroll History,S,18
+156,PartDLEPAmount_6,VARCHAR,6,PCP/Enroll History,S,4.40
+157,PartDLEPWaivedAmount_6,VARCHAR,6,PCP/Enroll History,S,1.00
+158,PartDLEPSubsidyAmount_6,VARCHAR,6,PCP/Enroll History,S,1.00
+159,PartDLEPStartdate6,VARCHAR,10,PCP/Enroll History,S,
+160,PartDLEPEnddate6,VARCHAR,10,PCP/Enroll History,S,
+161,LEPNumberofUncoveredMonths_7,VARCHAR,3,PCP/Enroll History,S,18
+162,PartDLEPAmount_7,VARCHAR,6,PCP/Enroll History,S,4.40
+163,PartDLEPWaivedAmount_7,VARCHAR,6,PCP/Enroll History,S,1.00
+164,PartDLEPSubsidyAmount_7,VARCHAR,6,PCP/Enroll History,S,1.00
+165,PartDLEPStartdate7,VARCHAR,10,PCP/Enroll History,S,
+166,PartDLEPEnddate7,VARCHAR,10,PCP/Enroll History,S,
+167,LEPNumberofUncoveredMonths_8,VARCHAR,3,PCP/Enroll History,S,18
+168,PartDLEPAmount_8,VARCHAR,6,PCP/Enroll History,S,4.40
+169,PartDLEPWaivedAmount_8,VARCHAR,6,PCP/Enroll History,S,1.00
+170,PartDLEPSubsidyAmount_8,VARCHAR,6,PCP/Enroll History,S,1.00
+171,PartDLEPStartdate8,VARCHAR,10,PCP/Enroll History,S,
+172,PartDLEPEnddate8,VARCHAR,10,PCP/Enroll History,S,
+173,LEPNumberofUncoveredMonths_9,VARCHAR,3,PCP/Enroll History,S,18
+174,PartDLEPAmount_9,VARCHAR,6,PCP/Enroll History,S,4.40
+175,PartDLEPWaivedAmount_9,VARCHAR,6,PCP/Enroll History,S,1.00
+176,PartDLEPSubsidyAmount_9,VARCHAR,6,PCP/Enroll History,S,1.00
+177,PartDLEPStartdate9,VARCHAR,10,PCP/Enroll History,S,
+178,PartDLEPEnddate9,VARCHAR,10,PCP/Enroll History,S,
+179,LEPNumberofUncoveredMonths_10,VARCHAR,3,PCP/Enroll History,S,18
+180,PartDLEPAmount_10,VARCHAR,6,PCP/Enroll History,S,4.40
+181,PartDLEPWaivedAmount_10,VARCHAR,6,PCP/Enroll History,S,1.00
+182,PartDLEPSubsidyAmount_10,VARCHAR,6,PCP/Enroll History,S,1.00
+183,PartDLEPStartdate10,VARCHAR,10,PCP/Enroll History,S,
+184,PartDLEPEnddate10,VARCHAR,10,PCP/Enroll History,S,
+185,CurrentLISPremiumSubsidy_1,VARCHAR,6,PCP/Enroll History,S,34.20
+186,PartDLISSubsidyLevel_1,VARCHAR,3,PCP/Enroll History,S,50
+187,PartDLISCopayCategory_1,VARCHAR,1,PCP/Enroll History,S,4
+188,PartDLISPStartdate1,VARCHAR,10,PCP/Enroll History,S,
+189,PartDLISEnddate1,VARCHAR,10,PCP/Enroll History,S,
+190,CurrentLISPremiumSubsidy_2,VARCHAR,6,PCP/Enroll History,S,34.20
+191,PartDLISSubsidyLevel_2,VARCHAR,3,PCP/Enroll History,S,50
+192,PartDLISCopayCategory_2,VARCHAR,1,PCP/Enroll History,S,4
+193,PartDLISStartdate2,VARCHAR,10,PCP/Enroll History,S,
+194,PartDLISEnddate2,VARCHAR,10,PCP/Enroll History,S,
+195,CurrentLISPremiumSubsidy_3,VARCHAR,6,PCP/Enroll History,S,34.20
+196,PartDLISSubsidyLevel_3,VARCHAR,3,PCP/Enroll History,S,50
+197,PartDLISCopayCategory_3,VARCHAR,1,PCP/Enroll History,S,4
+198,PartDLISStartdate3,VARCHAR,10,PCP/Enroll History,S,
+199,PartDLISEnddate3,VARCHAR,10,PCP/Enroll History,S,
+200,CurrentLISPremiumSubsidy_4,VARCHAR,6,PCP/Enroll History,S,34.20
+201,PartDLISSubsidyLevel_4,VARCHAR,3,PCP/Enroll History,S,50
+202,PartDLISCopayCategory_4,VARCHAR,1,PCP/Enroll History,S,4
+203,PartDLISStartdate4,VARCHAR,10,PCP/Enroll History,S,
+204,PartDLISEnddate4,VARCHAR,10,PCP/Enroll History,S,
+205,CurrentLISPremiumSubsidy_5,VARCHAR,6,PCP/Enroll History,S,34.20
+206,PartDLISSubsidyLevel_5,VARCHAR,3,PCP/Enroll History,S,50
+207,PartDLISCopayCategory_5,VARCHAR,1,PCP/Enroll History,S,4
+208,PartDLISStartdate5,VARCHAR,10,PCP/Enroll History,S,
+209,PartDLISEnddate5,VARCHAR,10,PCP/Enroll History,S,
+210,CurrentLISPremiumSubsidy_6,VARCHAR,6,PCP/Enroll History,S,34.20
+211,PartDLISSubsidyLevel_6,VARCHAR,3,PCP/Enroll History,S,50
+212,PartDLISCopayCategory_6,VARCHAR,1,PCP/Enroll History,S,4
+213,PartDLISStartdate6,VARCHAR,10,PCP/Enroll History,S,
+214,PartDLISEnddate6,VARCHAR,10,PCP/Enroll History,S,
+215,CurrentLISPremiumSubsidy_7,VARCHAR,6,PCP/Enroll History,S,34.20
+216,PartDLISSubsidyLevel_7,VARCHAR,3,PCP/Enroll History,S,50
+217,PartDLISCopayCategory_7,VARCHAR,1,PCP/Enroll History,S,4
+218,PartDLISStartdate7,VARCHAR,10,PCP/Enroll History,S,
+219,PartDLISEnddate7,VARCHAR,10,PCP/Enroll History,S,
+220,CurrentLISPremiumSubsidy_8,VARCHAR,6,PCP/Enroll History,S,34.20
+221,PartDLISSubsidyLevel_8,VARCHAR,3,PCP/Enroll History,S,50
+222,PartDLISCopayCategory_8,VARCHAR,1,PCP/Enroll History,S,4
+223,PartDLISStartdate8,VARCHAR,10,PCP/Enroll History,S,
+224,PartDLISEnddate8,VARCHAR,10,PCP/Enroll History,S,
+225,CurrentLISPremiumSubsidy_9,VARCHAR,6,PCP/Enroll History,S,34.20
+226,PartDLISSubsidyLevel_9,VARCHAR,3,PCP/Enroll History,S,50
+227,PartDLISCopayCategory_9,VARCHAR,1,PCP/Enroll History,S,4
+228,PartDLISStartdate9,VARCHAR,10,PCP/Enroll History,S,
+229,PartDLISEnddate9,VARCHAR,10,PCP/Enroll History,S,
+230,CurrentLISPremiumSubsidy_10,VARCHAR,6,PCP/Enroll History,S,34.20
+231,PartDLISSubsidyLevel_10,VARCHAR,3,PCP/Enroll History,S,50
+232,PartDLISCopayCategory_10,VARCHAR,1,PCP/Enroll History,S,4
+233,PartDLISStartdate10,VARCHAR,10,PCP/Enroll History,S,
+234,PartDLISEnddate10,VARCHAR,10,PCP/Enroll History,S,
+235,ContractNumber_1,VARCHAR,5,PCP/Enroll History,S,H1234
+236,ContractNumber_2,VARCHAR,5,PCP/Enroll History,S,H1234
+237,ContractNumber_3,VARCHAR,5,PCP/Enroll History,S,H1234
+238,ContractNumber_4,VARCHAR,5,PCP/Enroll History,S,H1234
+239,ContractNumber_5,VARCHAR,5,PCP/Enroll History,S,H1234
+240,ContractNumber_6,VARCHAR,5,PCP/Enroll History,S,H1234
+241,ContractNumber_7,VARCHAR,5,PCP/Enroll History,S,H1234
+242,ContractNumber_8,VARCHAR,5,PCP/Enroll History,S,H1234
+243,ContractNumber_9,VARCHAR,5,PCP/Enroll History,S,H1234
+244,ContractNumber_10,VARCHAR,5,PCP/Enroll History,S,H1234
+245,PBPNumber_1,VARCHAR,3,PCP/Enroll History,S,067
+246,PBPNumber_2,VARCHAR,3,PCP/Enroll History,S,067
+247,PBPNumber_3,VARCHAR,3,PCP/Enroll History,S,067
+248,PBPNumber_4,VARCHAR,3,PCP/Enroll History,S,067
+249,PBPNumber_5,VARCHAR,3,PCP/Enroll History,S,067
+250,PBPNumber_6,VARCHAR,3,PCP/Enroll History,S,067
+251,PBPNumber_7,VARCHAR,3,PCP/Enroll History,S,067
+252,PBPNumber_8,VARCHAR,3,PCP/Enroll History,S,067
+253,PBPNumber_9,VARCHAR,3,PCP/Enroll History,S,067
+254,PBPNumber_10,VARCHAR,3,PCP/Enroll History,S,067
+255,GroupID_1,VARCHAR,25,Claims Eligibilty,S,56129R
+256,GroupID_2,VARCHAR,25,Claims Eligibilty,S,56129R
+257,GroupID_3,VARCHAR,25,Claims Eligibilty,S,56129R
+258,GroupID_4,VARCHAR,25,Claims Eligibilty,S,56129R
+259,GroupID_5,VARCHAR,25,Claims Eligibilty,S,56129R
+260,GroupID_6,VARCHAR,25,Claims Eligibilty,S,56129R
+261,GroupID_7,VARCHAR,25,Claims Eligibilty,S,56129R
+262,GroupID_8,VARCHAR,25,Claims Eligibilty,S,56129R
+263,GroupID_9,VARCHAR,25,Claims Eligibilty,S,56129R
+264,GroupID_10,VARCHAR,25,Claims Eligibilty,S,56129R
+265,DisenrollmentReasoncode_DRC_1,VARCHAR,2,Plan Span,S,
+266,DisenrollmentReasoncode_DRC_2,VARCHAR,2,Plan Span,S,
+267,DisenrollmentReasoncode_DRC_3,VARCHAR,2,Plan Span,S,
+268,DisenrollmentReasoncode_DRC_4,VARCHAR,2,Plan Span,S,
+269,DisenrollmentReasoncode_DRC_5,VARCHAR,2,Plan Span,S,
+270,DisenrollmentReasoncode_DRC_6,VARCHAR,2,Plan Span,S,
+271,DisenrollmentReasoncode_DRC_7,VARCHAR,2,Plan Span,S,
+272,DisenrollmentReasoncode_DRC_8,VARCHAR,2,Plan Span,S,
+273,DisenrollmentReasoncode_DRC_9,VARCHAR,2,Plan Span,S,
+274,DisenrollmentReasoncode_DRC_10,VARCHAR,2,Plan Span,S,
+275,SignatureDate_1,VARCHAR,10,Application data,S,20120210
+276,SignatureDate_2,VARCHAR,10,Application data,S,20120210
+277,SignatureDate_3,VARCHAR,10,Application data,S,20120210
+278,SignatureDate_4,VARCHAR,10,Application data,S,20120210
+279,SignatureDate_5,VARCHAR,10,Application data,S,20120210
+280,SignatureDate_6,VARCHAR,10,Application data,S,20120210
+281,SignatureDate_7,VARCHAR,10,Application data,S,20120210
+282,SignatureDate_8,VARCHAR,10,Application data,S,20120210
+283,SignatureDate_9,VARCHAR,10,Application data,S,20120210
+284,SignatureDate_10,VARCHAR,10,Application data,S,20120210
+285,ElectionType_1,VARCHAR,300,Application data,S,
+286,ElectionType_2,VARCHAR,300,Application data,S,
+287,ElectionType_3,VARCHAR,300,Application data,S,
+288,ElectionType_4,VARCHAR,300,Application data,S,
+289,ElectionType_5,VARCHAR,300,Application data,S,
+290,ElectionType_6,VARCHAR,300,Application data,S,
+291,ElectionType_7,VARCHAR,300,Application data,S,
+292,ElectionType_8,VARCHAR,300,Application data,S,
+293,ElectionType_9,VARCHAR,300,Application data,S,
+294,ElectionType_10,VARCHAR,300,Application data,S,
+295,PWOStartdate_1,VARCHAR,10,,S,
+296,PWOEnddate_1,VARCHAR,10,,S,
+297,PaymentMethodType_1,VARCHAR,20,,S,SSA
+298,PremiumWithholdOption_1,VARCHAR,1,,S,SSA
+299,PWOStartdate_2,VARCHAR,10,,S,
+300,PWOEnddate_2,VARCHAR,10,,S,
+301,PaymentMethodType_2,VARCHAR,20,,S,SSA
+302,PremiumWithholdOption_2,VARCHAR,1,,S,SSA
+303,PWOStartdate_3,VARCHAR,10,,S,
+304,PWOEnddate_3,VARCHAR,10,,S,
+305,PaymentMethodType_3,VARCHAR,20,,S,SSA
+306,PremiumWithholdOption_3,VARCHAR,1,,S,SSA
+307,PWOStartdate_4,VARCHAR,10,,S,
+308,PWOEnddate_4,VARCHAR,10,,S,
+309,PaymentMethodType_4,VARCHAR,20,,S,SSA
+310,PremiumWithholdOption_4,VARCHAR,1,,S,SSA
+311,PWOStartdate_5,VARCHAR,10,,S,
+312,PWOEnddate_5,VARCHAR,10,,S,
+313,PaymentMethodType_5,VARCHAR,20,,S,SSA
+314,PremiumWithholdOption_5,VARCHAR,1,,S,SSA
+315,PWOStartdate_6,VARCHAR,10,,S,
+316,PWOEnddate_6,VARCHAR,10,,S,
+317,PaymentMethodType_6,VARCHAR,20,,S,SSA
+318,PremiumWithholdOption_6,VARCHAR,1,,S,SSA
+319,PWOStartdate_7,VARCHAR,10,,S,
+320,PWOEnddate_7,VARCHAR,10,,S,
+321,PaymentMethodType_7,VARCHAR,20,,S,SSA
+322,PremiumWithholdOption_7,VARCHAR,1,,S,SSA
+323,PWOStartdate_8,VARCHAR,10,,S,
+324,PWOEnddate_8,VARCHAR,10,,S,
+325,PaymentMethodType_8,VARCHAR,20,,S,SSA
+326,PremiumWithholdOption_8,VARCHAR,1,,S,SSA
+327,PWOStartdate_9,VARCHAR,10,,S,
+328,PWOEnddate_9,VARCHAR,10,,S,
+329,PaymentMethodType_9,VARCHAR,20,,S,SSA
+330,PremiumWithholdOption_9,VARCHAR,1,,S,SSA
+331,PWOStartdate_10,VARCHAR,10,,S,
+332,PWOEnddate_10,VARCHAR,10,,S,
+333,PaymentMethodType_10,VARCHAR,20,,S,SSA
+334,PremiumWithholdOption_10,VARCHAR,1,,S,SSA
+335,HospiceFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+336,HospiceFlagStartdate_1,VARCHAR,10,PCP/Enroll History,S,
+337,HospiceFlagEnddate_1,VARCHAR,10,PCP/Enroll History,S,
+338,HospiceFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+339,HospiceFlagStartdate_2,VARCHAR,10,PCP/Enroll History,S,
+340,HospiceFlagEnddate_2,VARCHAR,10,PCP/Enroll History,S,
+341,HospiceFlag_3,VARCHAR,1,PCP/Enroll History,S,
+342,HospiceFlagStartdate_3,VARCHAR,10,PCP/Enroll History,S,
+343,HospiceFlagEnddate_3,VARCHAR,10,PCP/Enroll History,S,
+344,HospiceFlag_4,VARCHAR,1,PCP/Enroll History,S,
+345,HospiceFlagStartdate_4,VARCHAR,10,PCP/Enroll History,S,
+346,HospiceFlagEnddate_4,VARCHAR,10,PCP/Enroll History,S,
+347,HospiceFlag_5,VARCHAR,1,PCP/Enroll History,S,
+348,HospiceFlagStartdate_5,VARCHAR,10,PCP/Enroll History,S,
+349,HospiceFlagEnddate_5,VARCHAR,10,PCP/Enroll History,S,
+350,HospiceFlag_6,VARCHAR,1,PCP/Enroll History,S,
+351,HospiceFlagStartdate_6,VARCHAR,10,PCP/Enroll History,S,
+352,HospiceFlagEnddate_6,VARCHAR,10,PCP/Enroll History,S,
+353,HospiceFlag_7,VARCHAR,1,PCP/Enroll History,S,
+354,HospiceFlagStartdate_7,VARCHAR,10,PCP/Enroll History,S,
+355,HospiceFlagEnddate_7,VARCHAR,10,PCP/Enroll History,S,
+356,HospiceFlag_8,VARCHAR,1,PCP/Enroll History,S,
+357,HospiceFlagStartdate_8,VARCHAR,10,PCP/Enroll History,S,
+358,HospiceFlagEnddate_8,VARCHAR,10,PCP/Enroll History,S,
+359,HospiceFlag_9,VARCHAR,1,PCP/Enroll History,S,
+360,HospiceFlagStartdate_9,VARCHAR,10,PCP/Enroll History,S,
+361,HospiceFlagEnddate_9,VARCHAR,10,PCP/Enroll History,S,
+362,HospiceFlag_10,VARCHAR,1,PCP/Enroll History,S,
+363,HospiceFlagStartdate_10,VARCHAR,10,PCP/Enroll History,S,
+364,HospiceFlagEnddate_10,VARCHAR,10,PCP/Enroll History,S,
+365,MedicaidFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+366,MedicaidFlagStratDate_1,VARCHAR,10,PCP/Enroll History,S,
+367,MedicaidFlagEndDate_1,VARCHAR,10,PCP/Enroll History,S,
+368,MedicaidFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+369,MedicaidFlagStratDate_2,VARCHAR,10,PCP/Enroll History,S,
+370,MedicaidFlagEndDate_2,VARCHAR,10,PCP/Enroll History,S,
+371,MedicaidFlag_3,VARCHAR,1,PCP/Enroll History,S,
+372,MedicaidFlagStratDate_3,VARCHAR,10,PCP/Enroll History,S,
+373,MedicaidFlagEndDate_3,VARCHAR,10,PCP/Enroll History,S,
+374,MedicaidFlag_4,VARCHAR,1,PCP/Enroll History,S,
+375,MedicaidFlagStratDate_4,VARCHAR,10,PCP/Enroll History,S,
+376,MedicaidFlagEndDate_4,VARCHAR,10,PCP/Enroll History,S,
+377,MedicaidFlag_5,VARCHAR,1,PCP/Enroll History,S,
+378,MedicaidFlagStratDate_5,VARCHAR,10,PCP/Enroll History,S,
+379,MedicaidFlagEndDate_5,VARCHAR,10,PCP/Enroll History,S,
+380,MedicaidFlag_6,VARCHAR,1,PCP/Enroll History,S,
+381,MedicaidFlagStratDate_6,VARCHAR,10,PCP/Enroll History,S,
+382,MedicaidFlagEndDate_6,VARCHAR,10,PCP/Enroll History,S,
+383,MedicaidFlag_7,VARCHAR,1,PCP/Enroll History,S,
+384,MedicaidFlagStratDate_7,VARCHAR,10,PCP/Enroll History,S,
+385,MedicaidFlagEndDate_7,VARCHAR,10,PCP/Enroll History,S,
+386,MedicaidFlag_8,VARCHAR,1,PCP/Enroll History,S,
+387,MedicaidFlagStratDate_8,VARCHAR,10,PCP/Enroll History,S,
+388,MedicaidFlagEndDate_8,VARCHAR,10,PCP/Enroll History,S,
+389,MedicaidFlag_9,VARCHAR,1,PCP/Enroll History,S,
+390,MedicaidFlagStratDate_9,VARCHAR,10,PCP/Enroll History,S,
+391,MedicaidFlagEndDate_9,VARCHAR,10,PCP/Enroll History,S,
+392,MedicaidFlag_10,VARCHAR,1,PCP/Enroll History,S,
+393,MedicaidFlagStratDate_10,VARCHAR,10,PCP/Enroll History,S,
+394,MedicaidFlagEndDate_10,VARCHAR,10,PCP/Enroll History,S,
+395,InstitutionalFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+396,InstitutionalFlagStartDate_1,VARCHAR,10,PCP/Enroll History,S,
+397,InstitutionalFlagEndDate_1,VARCHAR,10,PCP/Enroll History,S,
+398,InstitutionalFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+399,InstitutionalFlagStartDate_2,VARCHAR,10,PCP/Enroll History,S,
+400,InstitutionalFlagEndDate_2,VARCHAR,10,PCP/Enroll History,S,
+401,InstitutionalFlag_3,VARCHAR,1,PCP/Enroll History,S,
+402,InstitutionalFlagStartDate_3,VARCHAR,10,PCP/Enroll History,S,
+403,InstitutionalFlagEndDate_3,VARCHAR,10,PCP/Enroll History,S,
+404,InstitutionalFlag_4,VARCHAR,1,PCP/Enroll History,S,
+405,InstitutionalFlagStartDate_4,VARCHAR,10,PCP/Enroll History,S,
+406,InstitutionalFlagEndDate_4,VARCHAR,10,PCP/Enroll History,S,
+407,InstitutionalFlag_5,VARCHAR,1,PCP/Enroll History,S,
+408,InstitutionalFlagStartDate_5,VARCHAR,10,PCP/Enroll History,S,
+409,InstitutionalFlagEndDate_5,VARCHAR,10,PCP/Enroll History,S,
+410,InstitutionalFlag_6,VARCHAR,1,PCP/Enroll History,S,
+411,InstitutionalFlagStartDate_6,VARCHAR,10,PCP/Enroll History,S,
+412,InstitutionalFlagEndDate_6,VARCHAR,10,PCP/Enroll History,S,
+413,InstitutionalFlag_7,VARCHAR,1,PCP/Enroll History,S,
+414,InstitutionalFlagStartDate_7,VARCHAR,10,PCP/Enroll History,S,
+415,InstitutionalFlagEndDate_7,VARCHAR,10,PCP/Enroll History,S,
+416,InstitutionalFlag_8,VARCHAR,1,PCP/Enroll History,S,
+417,InstitutionalFlagStartDate_8,VARCHAR,10,PCP/Enroll History,S,
+418,InstitutionalFlagEndDate_8,VARCHAR,10,PCP/Enroll History,S,
+419,InstitutionalFlag_9,VARCHAR,1,PCP/Enroll History,S,
+420,InstitutionalFlagStartDate_9,VARCHAR,10,PCP/Enroll History,S,
+421,InstitutionalFlagEndDate_9,VARCHAR,10,PCP/Enroll History,S,
+422,InstitutionalFlag_10,VARCHAR,1,PCP/Enroll History,S,
+423,InstitutionalFlagStartDate_10,VARCHAR,10,PCP/Enroll History,S,
+424,InstitutionalFlagEndDate_10,VARCHAR,10,PCP/Enroll History,S,
+425,ESRDFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+426,ESRDFlagStartDate_1,VARCHAR,10,PCP/Enroll History,S,
+427,ESRDFlagEndDate_1,VARCHAR,10,PCP/Enroll History,S,
+428,ESRDFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+429,ESRDFlagStartDate_2,VARCHAR,10,PCP/Enroll History,S,
+430,ESRDFlagEndDate_2,VARCHAR,10,PCP/Enroll History,S,
+431,ESRDFlag_3,VARCHAR,1,PCP/Enroll History,S,
+432,ESRDFlagStartDate_3,VARCHAR,10,PCP/Enroll History,S,
+433,ESRDFlagEndDate_3,VARCHAR,10,PCP/Enroll History,S,
+434,ESRDFlag_4,VARCHAR,1,PCP/Enroll History,S,
+435,ESRDFlagStartDate_4,VARCHAR,10,PCP/Enroll History,S,
+436,ESRDFlagEndDate_4,VARCHAR,10,PCP/Enroll History,S,
+437,ESRDFlag_5,VARCHAR,1,PCP/Enroll History,S,
+438,ESRDFlagStartDate_5,VARCHAR,10,PCP/Enroll History,S,
+439,ESRDFlagEndDate_5,VARCHAR,10,PCP/Enroll History,S,
+440,ESRDFlag_6,VARCHAR,1,PCP/Enroll History,S,
+441,ESRDFlagStartDate_6,VARCHAR,10,PCP/Enroll History,S,
+442,ESRDFlagEndDate_6,VARCHAR,10,PCP/Enroll History,S,
+443,ESRDFlag_7,VARCHAR,1,PCP/Enroll History,S,
+444,ESRDFlagStartDate_7,VARCHAR,10,PCP/Enroll History,S,
+445,ESRDFlagEndDate_7,VARCHAR,10,PCP/Enroll History,S,
+446,ESRDFlag_8,VARCHAR,1,PCP/Enroll History,S,
+447,ESRDFlagStartDate_8,VARCHAR,10,PCP/Enroll History,S,
+448,ESRDFlagEndDate_8,VARCHAR,10,PCP/Enroll History,S,
+449,ESRDFlag_9,VARCHAR,1,PCP/Enroll History,S,
+450,ESRDFlagStartDate_9,VARCHAR,10,PCP/Enroll History,S,
+451,ESRDFlagEndDate_9,VARCHAR,10,PCP/Enroll History,S,
+452,ESRDFlag_10,VARCHAR,1,PCP/Enroll History,S,
+453,ESRDFlagStartDate_10,VARCHAR,10,PCP/Enroll History,S,
+454,ESRDFlagEndDate_10,VARCHAR,10,PCP/Enroll History,S,
+455,TransplantFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+456,TransplantFlagStartDate_1,VARCHAR,10,PCP/Enroll History,S,
+457,TransplantFlagEndDate_1,VARCHAR,10,PCP/Enroll History,S,
+458,TransplantFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+459,TransplantFlagStartDate_2,VARCHAR,10,PCP/Enroll History,S,
+460,TransplantFlagEndDate_2,VARCHAR,10,PCP/Enroll History,S,
+461,TransplantFlag_3,VARCHAR,1,PCP/Enroll History,S,
+462,TransplantFlagStartDate_3,VARCHAR,10,PCP/Enroll History,S,
+463,TransplantFlagEndDate_3,VARCHAR,10,PCP/Enroll History,S,
+464,TransplantFlag_4,VARCHAR,1,PCP/Enroll History,S,
+465,TransplantFlagStartDate_4,VARCHAR,10,PCP/Enroll History,S,
+466,TransplantFlagEndDate_4,VARCHAR,10,PCP/Enroll History,S,
+467,TransplantFlag_5,VARCHAR,1,PCP/Enroll History,S,
+468,TransplantFlagStartDate_5,VARCHAR,10,PCP/Enroll History,S,
+469,TransplantFlagEndDate_5,VARCHAR,10,PCP/Enroll History,S,
+470,TransplantFlag_6,VARCHAR,1,PCP/Enroll History,S,
+471,TransplantFlagStartDate_6,VARCHAR,10,PCP/Enroll History,S,
+472,TransplantFlagEndDate_6,VARCHAR,10,PCP/Enroll History,S,
+473,TransplantFlag_7,VARCHAR,1,PCP/Enroll History,S,
+474,TransplantFlagStartDate_7,VARCHAR,10,PCP/Enroll History,S,
+475,TransplantFlagEndDate_7,VARCHAR,10,PCP/Enroll History,S,
+476,TransplantFlag_8,VARCHAR,1,PCP/Enroll History,S,
+477,TransplantFlagStartDate_8,VARCHAR,10,PCP/Enroll History,S,
+478,TransplantFlagEndDate_8,VARCHAR,10,PCP/Enroll History,S,
+479,TransplantFlag_9,VARCHAR,1,PCP/Enroll History,S,
+480,TransplantFlagStartDate_9,VARCHAR,10,PCP/Enroll History,S,
+481,TransplantFlagEndDate_9,VARCHAR,10,PCP/Enroll History,S,
+482,TransplantFlag_10,VARCHAR,1,PCP/Enroll History,S,
+483,TransplantFlagStartDate_10,VARCHAR,10,PCP/Enroll History,S,
+484,TransplantFlagEndDate_10,VARCHAR,10,PCP/Enroll History,S,
+485,DialysisFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+486,DialysisFlagStartDate_1,VARCHAR,10,PCP/Enroll History,S,
+487,DialysisFlagEndDate_1,VARCHAR,10,PCP/Enroll History,S,
+488,DialysisFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+489,DialysisFlagStartDate_2,VARCHAR,10,PCP/Enroll History,S,
+490,DialysisFlagEndDate_2,VARCHAR,10,PCP/Enroll History,S,
+491,DialysisFlag_3,VARCHAR,1,PCP/Enroll History,S,
+492,DialysisFlagStartDate_3,VARCHAR,10,PCP/Enroll History,S,
+493,DialysisFlagEndDate_3,VARCHAR,10,PCP/Enroll History,S,
+494,DialysisFlag_4,VARCHAR,1,PCP/Enroll History,S,
+495,DialysisFlagStartDate_4,VARCHAR,10,PCP/Enroll History,S,
+496,DialysisFlagEndDate_4,VARCHAR,10,PCP/Enroll History,S,
+497,DialysisFlag_5,VARCHAR,1,PCP/Enroll History,S,
+498,DialysisFlagStartDate_5,VARCHAR,10,PCP/Enroll History,S,
+499,DialysisFlagEndDate_5,VARCHAR,10,PCP/Enroll History,S,
+500,DialysisFlag_6,VARCHAR,1,PCP/Enroll History,S,
+501,DialysisFlagStartDate_6,VARCHAR,10,PCP/Enroll History,S,
+502,DialysisFlagEndDate_6,VARCHAR,10,PCP/Enroll History,S,
+503,DialysisFlag_7,VARCHAR,1,PCP/Enroll History,S,
+504,DialysisFlagStartDate_7,VARCHAR,10,PCP/Enroll History,S,
+505,DialysisFlagEndDate_7,VARCHAR,10,PCP/Enroll History,S,
+506,DialysisFlag_8,VARCHAR,1,PCP/Enroll History,S,
+507,DialysisFlagStartDate_8,VARCHAR,10,PCP/Enroll History,S,
+508,DialysisFlagEndDate_8,VARCHAR,10,PCP/Enroll History,S,
+509,DialysisFlag_9,VARCHAR,1,PCP/Enroll History,S,
+510,DialysisFlagStartDate_9,VARCHAR,10,PCP/Enroll History,S,
+511,DialysisFlagEndDate_9,VARCHAR,10,PCP/Enroll History,S,
+512,DialysisFlag_10,VARCHAR,1,PCP/Enroll History,S,
+513,DialysisFlagStartDate_10,VARCHAR,10,PCP/Enroll History,S,
+514,DialysisFlagEndDate_10,VARCHAR,10,PCP/Enroll History,S,
+515,DisabledFlag_1,VARCHAR,1,PCP/Enroll History,S,Y
+516,DisabledFlagStartDate_1,VARCHAR,10,PCP/Enroll History,S,
+517,DisabledFlagEndDate_1,VARCHAR,10,PCP/Enroll History,S,
+518,DisabledFlag_2,VARCHAR,1,PCP/Enroll History,S,Y
+519,DisabledFlagStartDate_2,VARCHAR,10,PCP/Enroll History,S,
+520,DisabledFlagEndDate_2,VARCHAR,10,PCP/Enroll History,S,
+521,DisabledFlag_3,VARCHAR,1,PCP/Enroll History,S,
+522,DisabledFlagStartDate_3,VARCHAR,10,PCP/Enroll History,S,
+523,DisabledFlagEndDate_3,VARCHAR,10,PCP/Enroll History,S,
+524,DisabledFlag_4,VARCHAR,1,PCP/Enroll History,S,
+525,DisabledFlagStartDate_4,VARCHAR,10,PCP/Enroll History,S,
+526,DisabledFlagEndDate_4,VARCHAR,10,PCP/Enroll History,S,
+527,DisabledFlag_5,VARCHAR,1,PCP/Enroll History,S,
+528,DisabledFlagStartDate_5,VARCHAR,10,PCP/Enroll History,S,
+529,DisabledFlagEndDate_5,VARCHAR,10,PCP/Enroll History,S,
+530,DisabledFlag_6,VARCHAR,1,PCP/Enroll History,S,
+531,DisabledFlagStartDate_6,VARCHAR,10,PCP/Enroll History,S,
+532,DisabledFlagEndDate_6,VARCHAR,10,PCP/Enroll History,S,
+533,DisabledFlag_7,VARCHAR,1,PCP/Enroll History,S,
+534,DisabledFlagStartDate_7,VARCHAR,10,PCP/Enroll History,S,
+535,DisabledFlagEndDate_7,VARCHAR,10,PCP/Enroll History,S,
+536,DisabledFlag_8,VARCHAR,1,PCP/Enroll History,S,
+537,DisabledFlagStartDate_8,VARCHAR,10,PCP/Enroll History,S,
+538,DisabledFlagEndDate_8,VARCHAR,10,PCP/Enroll History,S,
+539,DisabledFlag_9,VARCHAR,1,PCP/Enroll History,S,
+540,DisabledFlagStartDate_9,VARCHAR,10,PCP/Enroll History,S,
+541,DisabledFlagEndDate_9,VARCHAR,10,PCP/Enroll History,S,
+542,DisabledFlag_10,VARCHAR,1,PCP/Enroll History,S,
+543,DisabledFlagStartDate_10,VARCHAR,10,PCP/Enroll History,S,
+544,DisabledFlagEndDate_10,VARCHAR,10,PCP/Enroll History,S,
+545,DualStatusCode_1,VARCHAR,2,PCP/Enroll History,S,
+546,MCD_Startdate1,VARCHAR,10,PCP/Enroll History,S,
+547,MCD_Enddate1,VARCHAR,10,PCP/Enroll History,S,
+548,DualStatusCode_2,VARCHAR,2,PCP/Enroll History,S,
+549,MCD_Startdate2,VARCHAR,10,PCP/Enroll History,S,
+550,MCD_Enddate2,VARCHAR,10,PCP/Enroll History,S,
+551,DualStatusCode_3,VARCHAR,2,PCP/Enroll History,S,
+552,MCD_Startdate3,VARCHAR,10,PCP/Enroll History,S,
+553,MCD_Enddate3,VARCHAR,10,PCP/Enroll History,S,
+554,DualStatusCode_4,VARCHAR,2,PCP/Enroll History,S,
+555,MCD_Startdate4,VARCHAR,10,PCP/Enroll History,S,
+556,MCD_Enddate4,VARCHAR,10,PCP/Enroll History,S,
+557,DualStatusCode_5,VARCHAR,2,PCP/Enroll History,S,
+558,MCD_Startdate5,VARCHAR,10,PCP/Enroll History,S,
+559,MCD_Enddate5,VARCHAR,10,PCP/Enroll History,S,
+560,DualStatusCode_6,VARCHAR,2,PCP/Enroll History,S,
+561,MCD_Startdate6,VARCHAR,10,PCP/Enroll History,S,
+562,MCD_Enddate6,VARCHAR,10,PCP/Enroll History,S,
+563,DualStatusCode_7,VARCHAR,2,PCP/Enroll History,S,
+564,MCD_Startdate7,VARCHAR,10,PCP/Enroll History,S,
+565,MCD_Enddate7,VARCHAR,10,PCP/Enroll History,S,
+566,DualStatusCode_8,VARCHAR,2,PCP/Enroll History,S,
+567,MCD_Startdate8,VARCHAR,10,PCP/Enroll History,S,
+568,MCD_Enddate8,VARCHAR,10,PCP/Enroll History,S,
+569,DualStatusCode_9,VARCHAR,2,PCP/Enroll History,S,
+570,MCD_Startdate9,VARCHAR,10,PCP/Enroll History,S,
+571,MCD_Enddate9,VARCHAR,10,PCP/Enroll History,S,
+572,DualStatusCode_10,VARCHAR,2,PCP/Enroll History,S,
+573,MCD_Startdate10,VARCHAR,10,PCP/Enroll History,S,
+574,MCD_Enddate10,VARCHAR,10,PCP/Enroll History,S,
+575,COBUpdateDate_1,VARCHAR,10,CMS Files,S,
+576,COBStartdate_1,VARCHAR,10,CMS Files,S,
+577,COBEnddate_1,VARCHAR,10,CMS Files,S,
+578,NameofOtherCoverage_1,VARCHAR,50,CMS Files,S,
+579,SubscriberIDofOtherCoverage_1,VARCHAR,20,CMS Files,S,
+580,GroupIDofotherCoverage_1,VARCHAR,20,CMS Files,S,
+581,KindofOtherInsurance_1,VARCHAR,3,CMS Files,S,
+582,NameofOtherInsuranceCompany_1,VARCHAR,200,CMS Files,S,
+583,COBUpdateDate_2,VARCHAR,10,CMS Files,S,
+584,COBStartdate_2,VARCHAR,10,CMS Files,S,
+585,COBEnddate_2,VARCHAR,10,CMS Files,S,
+586,NameofOtherCoverage_2,VARCHAR,50,CMS Files,S,
+587,SubscriberIDofOtherCoverage_2,VARCHAR,20,CMS Files,S,
+588,GroupIDofotherCoverage_2,VARCHAR,20,CMS Files,S,
+589,KindofOtherInsurance_2,VARCHAR,3,CMS Files,S,
+590,NameofOtherInsuranceCompany_2,VARCHAR,200,CMS Files,S,
+591,COBUpdateDate_3,VARCHAR,10,CMS Files,S,
+592,COBStartdate_3,VARCHAR,10,CMS Files,S,
+593,COBEnddate_3,VARCHAR,10,CMS Files,S,
+594,NameofOtherCoverage_3,VARCHAR,50,CMS Files,S,
+595,SubscriberIDofOtherCoverage_3,VARCHAR,20,CMS Files,S,
+596,GroupIDofotherCoverage_3,VARCHAR,20,CMS Files,S,
+597,KindofOtherInsurance_3,VARCHAR,3,CMS Files,S,
+598,NameofOtherInsuranceCompany_3,VARCHAR,200,CMS Files,S,
+599,COBUpdateDate_4,VARCHAR,10,CMS Files,S,
+600,COBStartdate_4,VARCHAR,10,CMS Files,S,
+601,COBEnddate_4,VARCHAR,10,CMS Files,S,
+602,NameofOtherCoverage_4,VARCHAR,50,CMS Files,S,
+603,SubscriberIDofOtherCoverage_4,VARCHAR,20,CMS Files,S,
+604,GroupIDofotherCoverage_4,VARCHAR,20,CMS Files,S,
+605,KindofOtherInsurance_4,VARCHAR,3,CMS Files,S,
+606,NameofOtherInsuranceCompany_4,VARCHAR,200,CMS Files,S,
+607,COBUpdateDate_5,VARCHAR,10,CMS Files,S,
+608,COBStartdate_5,VARCHAR,10,CMS Files,S,
+609,COBEnddate_5,VARCHAR,10,CMS Files,S,
+610,NameofOtherCoverage_5,VARCHAR,50,CMS Files,S,
+611,SubscriberIDofOtherCoverage_5,VARCHAR,20,CMS Files,S,
+612,GroupIDofotherCoverage_5,VARCHAR,20,CMS Files,S,
+613,KindofOtherInsurance_5,VARCHAR,3,CMS Files,S,
+614,NameofOtherInsuranceCompany_5,VARCHAR,200,CMS Files,S,
+615,COBUpdateDate_6,VARCHAR,10,CMS Files,S,
+616,COBStartdate_6,VARCHAR,10,CMS Files,S,
+617,COBEnddate_6,VARCHAR,10,CMS Files,S,
+618,NameofOtherCoverage_6,VARCHAR,50,CMS Files,S,
+619,SubscriberIDofOtherCoverage_6,VARCHAR,20,CMS Files,S,
+620,GroupIDofotherCoverage_6,VARCHAR,20,CMS Files,S,
+621,KindofOtherInsurance_6,VARCHAR,3,CMS Files,S,
+622,NameofOtherInsuranceCompany_6,VARCHAR,200,CMS Files,S,
+623,COBUpdateDate_7,VARCHAR,10,CMS Files,S,
+624,COBStartdate_7,VARCHAR,10,CMS Files,S,
+625,COBEnddate_7,VARCHAR,10,CMS Files,S,
+626,NameofOtherCoverage_7,VARCHAR,50,CMS Files,S,
+627,SubscriberIDofOtherCoverage_7,VARCHAR,20,CMS Files,S,
+628,GroupIDofotherCoverage_7,VARCHAR,20,CMS Files,S,
+629,KindofOtherInsurance_7,VARCHAR,3,CMS Files,S,
+630,NameofOtherInsuranceCompany_7,VARCHAR,200,CMS Files,S,
+631,COBUpdateDate_8,VARCHAR,10,CMS Files,S,
+632,COBStartdate_8,VARCHAR,10,CMS Files,S,
+633,COBEnddate_8,VARCHAR,10,CMS Files,S,
+634,NameofOtherCoverage_8,VARCHAR,50,CMS Files,S,
+635,SubscriberIDofOtherCoverage_8,VARCHAR,20,CMS Files,S,
+636,GroupIDofotherCoverage_8,VARCHAR,20,CMS Files,S,
+637,KindofOtherInsurance_8,VARCHAR,3,CMS Files,S,
+638,NameofOtherInsuranceCompany_8,VARCHAR,200,CMS Files,S,
+639,COBUpdateDate_9,VARCHAR,10,CMS Files,S,
+640,COBStartdate_9,VARCHAR,10,CMS Files,S,
+641,COBEnddate_9,VARCHAR,10,CMS Files,S,
+642,NameofOtherCoverage_9,VARCHAR,50,CMS Files,S,
+643,SubscriberIDofOtherCoverage_9,VARCHAR,20,CMS Files,S,
+644,GroupIDofotherCoverage_9,VARCHAR,20,CMS Files,S,
+645,KindofOtherInsurance_9,VARCHAR,3,CMS Files,S,
+646,NameofOtherInsuranceCompany_9,VARCHAR,200,CMS Files,S,
+647,COBUpdateDate_10,VARCHAR,10,CMS Files,S,
+648,COBStartdate_10,VARCHAR,10,CMS Files,S,
+649,COBEnddate_10,VARCHAR,10,CMS Files,S,
+650,NameofOtherCoverage_10,VARCHAR,50,CMS Files,S,
+651,SubscriberIDofOtherCoverage_10,VARCHAR,20,CMS Files,S,
+652,GroupIDofotherCoverage_10,VARCHAR,20,CMS Files,S,
+653,KindofOtherInsurance_10,VARCHAR,3,CMS Files,S,
+654,NameofOtherInsuranceCompany_10,VARCHAR,200,CMS Files,S,
+655,M3PStartdate_1,VARCHAR,10,,S,
+656,M3PEnddate_1,VARCHAR,10,,S,
+657,M3PTermReason_1,VARCHAR,1,,S,
+658,M3PStartdate_2,VARCHAR,10,,S,
+659,M3PEnddate_2,VARCHAR,10,,S,
+660,M3PTermReason_2,VARCHAR,1,,S,
+661,M3PStartdate_3,VARCHAR,10,,S,
+662,M3PEnddate_3,VARCHAR,10,,S,
+663,M3PTermReason_3,VARCHAR,1,,S,
+664,M3PStartdate_4,VARCHAR,10,,S,
+665,M3PEnddate_4,VARCHAR,10,,S,
+666,M3PTermReason_4,VARCHAR,1,,S,
+667,M3PStartdate_5,VARCHAR,10,,S,
+668,M3PEnddate_5,VARCHAR,10,,S,
+669,M3PTermReason_5,VARCHAR,1,,S,
+670,GenderIdentity,VARCHAR,1,,S,
+671,SexualOrientation,VARCHAR,1,,S,
+672,AlternativeFormatDataCD,VARCHAR,1,Member Details,S,Y
+673,Endofrecord,VARCHAR,3,CMS Files,R,

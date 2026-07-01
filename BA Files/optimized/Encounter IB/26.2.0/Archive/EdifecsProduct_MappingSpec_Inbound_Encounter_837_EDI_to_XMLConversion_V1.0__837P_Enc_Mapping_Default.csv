@@ -1,0 +1,38 @@
+XSD Element,Element Description,Default Value
+professionalClaimIBRequestRoot/header/inputFilename,Inbound EDI File Name,Input Filename of the EDI file received with filename extension
+professionalClaimIBRequestRoot/header/inputId,EDI file id,"{UID}- Unique for each file
+Example - -dtBkcCHu9bkKu8O"
+professionalClaimIBRequestRoot/header/totalClaimCount,Total number of claims,Total Number of claims in the Inbound EDI 837P file
+professionalClaimIBRequestRoot/header/inputType,Defines the type of input file - API or File,"Hardcode as ""FILE"""
+professionalClaimIBRequestRoot/header/XMLfileCreationDate,File created date in format YYYY-MM-DD HH:mm:ss - This is used for internal reference. Not loaded to HRP UI,"Processing date/time in the format:
+yyyy-MM-dd'T'HH:mm:ss.SSS"
+professionalClaimIBRequestRoot/header/correlationId,Unique string or alphanumeric value identifying each file.,A Unique Record Identifier
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/entryDate,"Date on which the claim was first
+entered into HealthRules. - in HRP UI it is auto populated to claim load date/time",Processing date/time in the format: YYYY-MM-DDTHH:mm:ss
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimDeliveryType,"The method by which the claim was
+received.","E' -  Electronic
+'S'  - SDS paper 837
+Crosswalk Name : P_IB_837_ClaimSourceLookup
+•Provide the Sender Id and Receiver Id as the source columns.
+•Provide the ClaimSource and ClaimDeliveryType as the target columns."
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payeeTypeField,"Indicates whether the claim is to be
+paid to a supplier or a member.",Hardcode as 'Supplier'
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimPayorType,"Indicates if the payables and payment
+are generated internally after
+adjudicating claims using
+healthRules (Value 1), or if the payments are handled by an external payor (Value 2).",Hardcode as '1 '
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/rayId,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",GUID
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/recordId,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",GUID
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/recordIdFromSource,,senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/sourceTypeIdentifier,Identifier to find from where we received(Starting point) the initial Transaction/Record.,"SubmitterName(1000A. NM103+NM104)_{Paper}
+SubmitterName(1000A. NM103+NM104)_{Electronic}"
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/tenantIdentifier,Unique identifier for the implementation team,"Hardcode as ""Product"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimUDTList/claimUDT/udtListValueSet/attributeRoleName,,"Hardcode as ""Submitted Claim Key"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimUDTList/claimUDT/udtListValueSet/attrValueAsString,,Should be same value as populated in professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/recordId
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimUDTList/claimUDT/userDefinedTermReference/ID,,"Hardcode as ""Submitted Claim Key"""
+,,
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/encounter,,"Hardcode as ""True"" when it is a Encounter claim received from Encounter sender ID or fsx path"
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/delegatedAttributes/providerParticipationStatus,,"Hardcode as ""Y"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/delegatedAttributes/benefitTierType,,"Hardcode as ""In-Network"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/delegatedAttributes/providerParticipationStatus,,"Hardcode as ""Y"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/delegatedAttributes/benefitTierType,,"Hardcode as ""In-Network"""

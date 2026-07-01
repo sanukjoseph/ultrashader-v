@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 sp1 (x64) (http://www.altova.com) by Rebecca Stevenson (HEALTHEDGE SOFTWARE INC) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.healthedge.com/connector/schema/matchinput"
+           xmlns:tns="http://www.healthedge.com/connector/schema/matchinput"
+           targetNamespace="http://www.healthedge.com/connector/schema/matchinput" elementFormDefault="unqualified"
+           version="4.0">
+    <xs:annotation>
+        <xs:documentation>
+            DISCLAIMER
+            This pre-release software provided by HealthEdge Inc. is a work-in-progress.
+            HealthEdge provides pre-release information to early adopters for the purpose of design and planning.
+            It has no warranty either explicit or implied and is subject to change.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType name="MemberMatchInputType">
+        <xs:annotation>
+            <xs:documentation>Member match input data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="MatchInputType">
+                <xs:group ref="MemberMatchInputGroup">
+                    <xs:annotation>
+                        <xs:documentation>Member and subscriber information used for matching. Custom fields allows you
+                            to specify ad hoc fields; see the Implementation Guide for a detailed example.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ExternalMemberMatchInputType">
+        <xs:annotation>
+            <xs:documentation>Member match input data.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="MatchInputType">
+                <xs:group ref="ExternalMemberMatchInputGroup">
+                    <xs:annotation>
+                        <xs:documentation>ExternalMember and dependedent information used for matching. Custom fields allows you
+                            to specify ad hoc fields; see the Implementation Guide for a detailed example.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:group>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:group name="MemberMatchInputGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Resembles the list of attributes of the ITS type - MemberMatchInput
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="carrierHccId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="topAccount" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customString1" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customString2" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customString3" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customString4" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customInteger1" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customInteger2" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customInteger3" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customInteger4" type="xs:int" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDate1" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDate2" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDate3" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDate4" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDecimal1" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDecimal2" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDecimal3" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="customDecimal4" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="member" type="IndividualMatchInputType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="subscriber" type="IndividualMatchInputType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="asOfDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="ExternalMemberMatchInputGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Resembles the list of attributes of the ITS type - ExternalMemberMatchInput
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="dateOfBirth" type="xs:date" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="idPrefix" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:group name="MatchInputGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Resembles the structure of the ITS type - MatchInput
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="definitionName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MatchInputType">
+        <xs:group ref="MatchInputGroup"/>
+    </xs:complexType>
+    <xs:group name="MatchAddressGroup">
+        <xs:annotation>
+            <xs:documentation>Address information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="address" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="cityName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="stateCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="zipCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="zipExtensionCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="countryCode" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="MatchAddressType">
+        <xs:group ref="MatchAddressGroup">
+            <xs:annotation>
+                <xs:documentation>Address information used for matching during a search.</xs:documentation>
+            </xs:annotation>
+        </xs:group>
+    </xs:complexType>
+    <xs:group name="IndividualMatchInputGroup">
+        <xs:annotation>
+            <xs:documentation>Individual information used for matching during a search.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="firstName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="fullName" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="gender" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="dateOfBirth" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="taxId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="IndividualMatchInputType">
+        <xs:sequence>
+            <xs:group ref="IndividualMatchInputGroup">
+                <xs:annotation>
+                    <xs:documentation>Individual information used for matching during a search.</xs:documentation>
+                </xs:annotation>
+            </xs:group>
+            <xs:element name="address" type="MatchAddressType" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

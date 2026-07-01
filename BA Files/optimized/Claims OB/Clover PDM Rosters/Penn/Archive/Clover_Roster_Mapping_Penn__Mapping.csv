@@ -1,0 +1,61 @@
+##,I Network Fields,Minute Clinic Fields Mapping,Mapping Rules
+1,Service Market,,
+2,Provider NPI,Provider NPI,
+3,First Name,First Name,
+4,Last Name,Last Name,
+5,Degree,Degree,
+6,Primary Specialty,Board Specialty 1/Board Specialty 2 (if exist) Split and map an additional record with the specialty into I N/w output,
+7,Secondary Specialty,,
+8,PCP or Specialist?,Specialist or PCP,"Expected values - PCP, SPC, Hospital Based, Urgent Care
+
+Map ""PCP"" if input value is ""PCP""
+Map ""Specialist"" if input value is ""SPC""
+Map ""Specialist"" if input value is ""Hospital Based""
+Map ""Specialist"" if input value is ""Urgent Care"""
+9,Hospitalist?,,"Map ""N"" in all cases"
+10,Board Certified?,,
+11,Board Name (certifying board name),,
+12,License #,,
+13,DEA #,PA DEA/NJ DEA,"Map ""PA DEA"" if PRESENT
+Else Map ""NJ DEA"" if PRESENT"
+14,CDS # (If Applicable),NJ CDS,
+15,Social Security #,,
+16,Medical School Name,,
+17,Medical School Grad Year,,
+18,DOB,DOB,"Convert date format to ""YYYY-MM-DD"""
+19,Gender,Gender,"Expected values - M,F,Male,Female
+
+Map ""Male"" if input value is ""M""
+Map ""Female"" if input value is ""F"""
+20,Additional Languages?,,
+21,Active Date,Requested Effective Date,"Convert date format to ""MM-DD-YYYY"""
+22,Practice/Group Name,Practice Name,
+23,Practice/Group NPI,Group NPI,
+24,Provider's Primary Location?,Is Primary?,
+25,List Location in Directory?,,"Default it to ""Yes"" in case if its no values is received"
+26,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",,
+27,Provider Email,,
+28,Service Address,Address 1,
+29,Service Address 2,Address 2,
+30,Service Location City,Address City,
+31,Service Location State,Address State,
+32,Service Location Zip,Address Zip,Map only first 5 digit numeric
+33,Service Location County,County,
+34,Service Location Phone,Phone,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+35,Service Location Fax,Fax,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+36,Tax ID,TIN,"Remove ""-"""
+37,Remit Address,Billing Address,
+38,Remit Address 2,,
+39,Remit Address City,Billing City,
+40,Remit Address State,Billing State,
+41,Remit Address Zip,Billing Zip,Map only first 5 digit numeric
+42,Billing Phone,,
+43,Billing Fax,,

@@ -1,0 +1,87 @@
+I-Network Layout,Penn file mapping,Mapping rules,
+Service Market,,Leave it Blank,
+Provider NPI,Provider NPI,,
+First Name,First Name,,
+Last Name,Last Name,,
+Degree,Degree,,
+Primary Specialty,Board Specialty 1,"1. Lookup Board Specialty 1 against Taxonomy Code in Crosswalk if length = 10 characters.
+  - if found, direct map the input
+  - If not found, go to step 2
+2. Lookup Board Specialty 1 against Taxonomy Description in Crosswalk if length <> 10 characters.
+  - if found, Map Code returned from the crosswalk
+  - If not found, Reject the record with the error message ""Board Specialty 1 is not valid and needs to be corrected on the input record""
+
+Note:
+1. The below logic check should happen only if Board Speciality 2 is present
+2. Logic check not requried if it is blank
+
+If Board Specialty 1 = Board Specialty 2
+      Skip this logics below
+   Else
+    1. Lookup Board Specialty 2 against Taxonomy Code in Crosswalk if length = 10 characters.
+  - if found, direct map the input
+  - If not found, go to step 2
+    2. Lookup Board Specialty 2 against Taxonomy Description in Crosswalk if length <> 10 characters.
+  - If not found, Reject the record with the error message ""Board Specialty 1 is not valid and needs to be corrected on the input record""
+
+Create a duplicate record on the output with the same details except for the crosswalk result from Board Specialty 2 mapped as ""Primary Specialty""","Ex.,
+Board Specialty 1 -  Internal Medicine-Medical Onc
+Board Specialty 2 -  Internal Medicine-Hematology
+
+2 records are expected for the same provider with their primary specialty having the result of the taxonomy code values"
+Secondary Specialty,,,
+PCP or Specialist?,Specialist or PCP,"""Map as per the crosswalk below -
+PCP -> """"PCP""""
+SPECIALIST or Specialist -> """"Specialty""""""",
+Hospital Based?,Provider-based Facility,,
+Board Certified?,,Leave it Blank,
+Board Name (certifying board name),,Leave it Blank,
+DEA Number,,Leave it Blank,
+CDS (If Applicable),,Leave it Blank,
+Medical License Number,,Leave it Blank,
+Medical School Name,,Leave it Blank,
+Medical School Grad Year,,Leave it Blank,
+Social Security Number,,Leave it Blank,
+DOB,DOB,"Convert date format to ""MM-DD-YYYY""",
+Gender,Gender,"""Map """"Male"""" if input value is """"M"""" or """"Male"""" or """"MALE""""
+Map """"Female"""" if input value is """"F"""" or """"Female"""" or """"FEMALE""""""",
+Original Credential Date,,Do not Map,
+Most Recent Credential Date,,Do not Map,
+Next Reappointment Date,,Do not Map,
+Additional Languages?,Languages,,
+Active Date,Effective Date,"Convert date format to ""MM-DD-YYYY""",
+Practice/Group Name,Group Name,,
+Practice/Group NPI,Group NPI,,
+Site Name,,,
+Provider's Primary Location?,Is Primary?,,
+List Location in Directory?,Print Suppress,"Yes -> Map as ""No""
+No -> Map as ""Yes""
+Hospital-Based -> Map as ""No""",
+"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",Panel Status,,
+Provider Email,,Leave it Blank,
+Service Address,Address 1,,
+Service Address 2,Address 2,,
+Service Location City,Address City,,
+Service Location State,Address State,"""If length of state is <> 2 characters
+ Lookup State names against crosswalk to get the 2 digit code and map that code
+Else
+ Map the input state as-is
+
+Exclude the records when State code is not in (TX, NJ, GA, SC, PA)""",
+Service Location Zip,Address Zip,,
+Service Location County,County,,
+Service Location Phone,Phone,,
+Service Location Fax,Fax,,
+Tax ID,TIN,,
+Remit Address,Billing Address,,
+Remit Address 2,,Leave it Blank,
+Remit Address City,Billing City,,
+Remit Address State,Billing State,"""If length of state is <> 2 characters
+ Lookup State names against crosswalk to get the 2 digit code and map that code
+Else
+ Map the input state as-is
+
+Exclude the records when State code is not in (TX, NJ, GA, SC, PA)""",
+Remit Address Zip,Billing Zip,,
+Billing Phone,,Leave it Blank,
+Billing Fax,,Leave it Blank,

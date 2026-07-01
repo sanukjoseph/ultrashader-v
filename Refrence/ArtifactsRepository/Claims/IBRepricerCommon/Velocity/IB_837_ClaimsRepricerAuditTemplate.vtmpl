@@ -1,0 +1,106 @@
+{
+  "inbound": {
+      #if($RecordID != "" and $RecordID != "(N/A)" and $RecordID != "{Prp[RecordID]}" and $RecordID != "null" and ${FileErrorFlag} == "No")
+	  "recordIdentifier": "${RecordID}",
+	  #{else}#end
+	  #if($RecordID != "" and $RecordID != "(N/A)" and $RecordID != "{Prp[RecordID]}" and $RecordID != "null" and ${FileErrorFlag} == "No")
+	  "recordIdentifierFromSource": "${RecordID}",
+      #{else}#end
+	  #if($RecordIdentifier != "" and $RecordIdentifier != "(N/A)" and $RecordIdentifier != "{Prp[RecordIdentifier]}" and $RecordIdentifier != "null" and ${FileErrorFlag} == "Yes")
+	  "recordIdentifier": "${RecordIdentifier}",
+      #{else}#end
+      #if($sourceTypeIdentifier != "" and $sourceTypeIdentifier != "(N/A)" and $sourceTypeIdentifier != "{Prp[sourceTypeIdentifier]}" and $sourceTypeIdentifier != "null" and ${FileErrorFlag} == "No")
+	  "sourceTypeIdentifier": "${sourceTypeIdentifier}",
+      #{else}#end
+	  #if($sourceTypeIdentifier != "" and $sourceTypeIdentifier != "(N/A)" and $sourceTypeIdentifier != "{Prp[sourceTypeIdentifier]}" and $sourceTypeIdentifier != "null" and ${FileErrorFlag} == "Yes")
+	  "sourceTypeIdentifier": "${SourceTypeIdentifier}",
+      #{else}#end
+      #if($inputFileType != "" and $inputFileType != "(N/A)" and $inputFileType != "{Prp[inputFileType]}" and $inputFileType != "null")
+	  "claimTransactionType": "${inputFileType}",
+      #{else}#end
+	  #if($TotalXMLTransactionCount != "" and $TotalXMLTransactionCount != "(N/A)" and $TotalXMLTransactionCount != "{Prp[TotalXMLTransactionCount]}" and $TotalXMLTransactionCount != "null" and $TimeFlag == "YES" and $Flag == "YES")
+	  "totalXMLTransactionCount": "${TotalXMLTransactionCount}",
+      #{else}#end
+      "inputHeaderInfo": {
+      #if($InputFileId != "" and $InputFileId != "(N/A)" and $InputFileId != "{Prp[InputFileId]}" and $InputFileId != "null")
+	  "inputFileId": "${InputFileId}",
+      #{else}#end
+      #if($FileNameExt != "" and $FileNameExt != "(N/A)" and $FileNameExt != "{Prp[FileNameExt]}" and $FileNameExt != "null" and ${FileErrorFlag} == "No")
+	  "inputFilename": "${FileNameExt}",
+      #{else}#end
+	  #if($FileNameExt != "" and $FileNameExt != "(N/A)" and $FileNameExt != "{Prp[FileNameExt]}" and $FileNameExt != "null" and ${FileErrorFlag} == "Yes")
+	  "inputFilename": "${FileNameExt}",
+      #{else}#end
+      #if($inputFileType != "" and $inputFileType != "(N/A)" and $inputFileType != "{Prp[inputFileType]}" and $inputFileType != "null")
+	  "inputFileType": "${inputFileType}",
+      #{else}#end
+	  #if(${FileErrorFlag} == "Yes")
+	  "inputFileType": "N/A"
+      #{else}#end
+      #if($totalClaimCount != "" and $totalClaimCount != "(N/A)" and $totalClaimCount != "{Prp[totalClaimCount]}" and $totalClaimCount != "null")
+	  "totalInputTransaction": "${totalClaimCount}",
+      #{else}#end
+      #if($totalClaimCount != "" and $totalClaimCount != "(N/A)" and $totalClaimCount != "{Prp[totalClaimCount]}" and $totalClaimCount != "null" and $TimeFlag == "NO" and $Flag == "NO")
+	  "totalClaimCount": "${totalClaimCount}"
+      #{else}#end
+      #if($totalClaimCount != "" and $totalClaimCount != "(N/A)" and $totalClaimCount != "{Prp[totalClaimCount]}" and $totalClaimCount != "null" and $TimeFlag == "YES" and $Flag == "YES")
+	  "totalClaimCount": "${totalClaimCount}"
+      #{else}#end	  
+  }, 
+      #if($HCC_ClaimID != "" and $HCC_ClaimID != "(N/A)" and $HCC_ClaimID != "{Prp[HCC_ClaimID]}" and $HCC_ClaimID != "null" and ${FileErrorFlag}!= "Yes")
+  "loadToHRP": {
+	  "claimIdHRP": "${HCC_ClaimID}"
+	  },
+      #{else}#end
+  "businessAdaptor": {
+      #if($FileNameExtArchive != "" and $FileNameExtArchive != "(N/A)" and $FileNameExtArchive != "{Prp[FileNameExtArchive]}" and $FileNameExtArchive != "null")
+	  "inputArchiveFilename": "${FileNameExtArchive}",
+      #{else}#end
+      #if($ArchiveFilename != "" and $ArchiveFilename != "(N/A)" and $ArchiveFilename != "{Prp[ArchiveFilename]}" and $ArchiveFilename != "null" and $TimeFlag == "YES" and $Flag == "YES")
+	  "recordArchiveFilename": "${ArchiveFilename}",
+      #{else}#end
+      #if($FileReceiptDateTime != "" and $FileReceiptDateTime != "(N/A)" and $FileReceiptDateTime != "{Prp[FileReceiptDateTime]}" and $FileReceiptDateTime != "null")
+	  "inputFileReceiptDateTime": "${FileReceiptDateTime}",
+      #{else}#end
+      #if($AuditTime != "" and $AuditTime != "(N/A)" and $AuditTime != "{Prp[AuditTime]}" and $AuditTime != "null" and $TimeFlag == "NO" and $Flag == "NO")
+   	  "adaptorReceiptDateTime": "${AuditTime}",
+	  #{else}#end
+	  #if($XMLAuditTime != "" and $XMLAuditTime != "(N/A)" and $XMLAuditTime != "{Prp[XMLAuditTime]}" and $XMLAuditTime != "null" and $TimeFlag == "YES" and $Flag == "YES")
+	  "adaptorReceiptDateTime": "${XMLAuditTime}",
+      #{else}#end
+      #if($AuditDateTime != "" and $AuditDateTime != "(N/A)" and $AuditDateTime != "{Prp[AuditDateTime]}" and $AuditDateTime != "null")
+	  "adaptorAuditDateTime": "${AuditDateTime}"
+      #{else}#end
+  },
+  "processStatus": {
+      #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $ProcessStageName != "null" and $Flag == "NO")
+	  "processStageName": "${ProcessStageName}",
+      #{else}#end
+      #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $ProcessStageName != "null" and $Flag == "YES")
+	  "processStageName" : "${ProcessStageName}",
+      #{else}#end
+	  #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $ProcessStageName != "null" and ${FileErrorFlag} == "Yes")
+	  "processStageName" : "${ProcessStageName}",
+      #{else}#end
+	  #if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[adaptorStatus]}" and $AdaptorStatus != "null" and ${FileErrorFlag} == "Yes") 
+	  "adaptorStatus": "${AdaptorStatus}",
+      #{else}#end
+      #if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[adaptorStatus]}" and $AdaptorStatus != "null" and $TimeFlag == "NO" and $Flag == "NO" and $FieldFlag =="NO") 
+	  "adaptorStatus": "${AdaptorStatus}",
+      #{else}#end
+      #if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[adaptorStatus]}" and $AdaptorStatus != "null" and $TimeFlag == "YES" and $Flag == "YES" ) 
+	  "adaptorStatus": "${AdaptorStatus}",
+      #{else}#end
+      #if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[adaptorStatus]}" and $AdaptorStatus != "null"  and $BadFlag == "YES" and  $TimeFlag == "NO" and $Flag == "NO") 
+	  "adaptorStatus": "${AdaptorStatus}",
+      #{else}#end
+      #if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $AdaptorErrorMessage != "null" and $BadFlag == "YES")
+	  "adaptorErrorMessage": "${AdaptorErrorMessage}",
+      #{else}#end
+      #if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $AdaptorErrorMessage != "null" and ${FileErrorFlag} == "Yes" )
+	  "adaptorErrorMessage": "${AdaptorErrorMessage}",
+      #{else}#end
+	  "CreatedBY":"EDIFECS"
+			}
+		}		
+	}

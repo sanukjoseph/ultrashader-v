@@ -1,0 +1,3281 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Map Version="3" ModelVersion="4" ModelRevision="1" LastCPID="2122">
+	<Properties Category="Buffers">
+		<Property Name="Buf_1/ID">4</Property>
+		<Property Name="Buf_1/Name">Dependent</Property>
+		<Property Name="Buf_1/Storage">1</Property>
+		<Property Name="Buf_1/Path">/Transaction(ID = '834')/Loop(ID = '2000'){2}</Property>
+	</Properties>
+	<Properties Category="BusinessGroups">
+		<Property Name="1/ID">18</Property>
+		<Property Name="1/Name">Buffer_Mapping</Property>
+		<Property Name="2/ID">20</Property>
+		<Property Name="2/Name">Auto-linking1</Property>
+	</Properties>
+	<Properties Category="BusinessTabs">
+		<Property Name="1/ID">18</Property>
+		<Property Name="2/ID">20</Property>
+	</Properties>
+	<Properties Category="Features">
+		<Property Name="StrictVariablesNaming">true</Property>
+		<Property Name="SupportSrcXmlDataExistenceFilter">true</Property>
+	</Properties>
+	<Properties Category="GlobalUserNoteLabels">
+		<Property Name="{328ba7f4-6f56-4cfc-8e4b-92dbd39e2018}">Description</Property>
+	</Properties>
+	<Properties Category="LogicalStructure">
+		<Property Name="DV_1/ID">1</Property>
+		<Property Name="DV_1/Name">New Data View</Property>
+		<Property Name="DV_1/LN_1/Storage">3</Property>
+	</Properties>
+	<Properties Category="Summary">
+		<Property Name="Author">UST Global</Property>
+		<Property Name="Version">1.0</Property>
+		<Property Name="Company">UST Global</Property>
+		<Property Name="Status">Draft</Property>
+		<Property Name="CreatedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="CreationDate">1765524956</Property>
+		<Property Name="ModifiedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="ModificationDate">1766048524</Property>
+	</Properties>
+	<Sources>
+		<ExternalStorage ID="1" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Source</Property>
+				<Property Name="Location">..\..\Guideline\OB_834_EDI_TARGET.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">EDI</Property>
+				<Property Name="EntryNodeID">834</Property>
+				<Property Name="EntryNodeName">Benefit Enrollment and Maintenance</Property>
+				<Property Name="GuidelineType">X12</Property>
+				<Property Name="InternalID">{DE592B08-679B-4572-8AD6-6128249510C9}</Property>
+				<Property Name="Standard">HIPAA</Property>
+				<Property Name="Version">V5010X220A1</Property>
+			</Properties>
+			<Properties Category="InstancedNodes">
+				<Property Name="1/Path">/Transaction(ID = '834')/Loop(ID = '2000')</Property>
+				<Property Name="1/Type">KeyBasedComplex</Property>
+				<Property Name="1/Instance_1/CustomName">Subscriber</Property>
+				<Property Name="1/Instance_1/Field_1/Path">Segment(ID = 'INS')/Element(ID = '1073')</Property>
+				<Property Name="1/Instance_1/Field_1/Keys">Y</Property>
+				<Property Name="1/Instance_2/CustomName">Dependent</Property>
+				<Property Name="1/Instance_2/Field_1/Path">Segment(ID = 'INS')/Element(ID = '1073')</Property>
+				<Property Name="1/Instance_2/Field_1/Keys">N</Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="Interchange">InterchangeAuthorizationInfoQual</Property>
+				<Property Name="Interchange">InterchangeAuthorizationInfo</Property>
+				<Property Name="Interchange">InterchangeSecurityInfoQual</Property>
+				<Property Name="Interchange">InterchangeSecurityInfo</Property>
+				<Property Name="Interchange">InterchangeSenderQual</Property>
+				<Property Name="Interchange">InterchangeSenderID</Property>
+				<Property Name="Interchange">InterchangeReceiverQual</Property>
+				<Property Name="Interchange">InterchangeReceiverID</Property>
+				<Property Name="Interchange">InterchangeDate</Property>
+				<Property Name="Interchange">InterchangeTime</Property>
+				<Property Name="Interchange">InterchangeControlStandard_RepeatingSeparator</Property>
+				<Property Name="Interchange">InterchangeControlVersion</Property>
+				<Property Name="Interchange">InterchangeControlNumber</Property>
+				<Property Name="Interchange">InterchangeAckRequested</Property>
+				<Property Name="Interchange">InterchangeUsageIndicator</Property>
+				<Property Name="Interchange">SubelementDelimiter</Property>
+				<Property Name="Interchange">InterchangeChildCount</Property>
+				<Property Name="Interchange">SegmentDelimiter</Property>
+				<Property Name="Interchange">ElementDelimiter</Property>
+				<Property Name="Interchange">RepeatingSeparator</Property>
+				<Property Name="Interchange/Group">GroupID</Property>
+				<Property Name="Interchange/Group">GroupSenderID</Property>
+				<Property Name="Interchange/Group">GroupReceiverID</Property>
+				<Property Name="Interchange/Group">GroupDate</Property>
+				<Property Name="Interchange/Group">GroupTime</Property>
+				<Property Name="Interchange/Group">GroupControlNumber</Property>
+				<Property Name="Interchange/Group">GroupAgencyCode</Property>
+				<Property Name="Interchange/Group">GroupVersionNumber</Property>
+				<Property Name="Interchange/Group">GroupChildCount</Property>
+				<Property Name="Interchange/Group/Transaction">TransactionID</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="2061" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfoQual')"/>
+				<ConnectionPoint ID="2063" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfo')"/>
+				<ConnectionPoint ID="2065" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfoQual')"/>
+				<ConnectionPoint ID="2067" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfo')"/>
+				<ConnectionPoint ID="2069" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderQual')"/>
+				<ConnectionPoint ID="2071" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderID')"/>
+				<ConnectionPoint ID="2073" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverQual')"/>
+				<ConnectionPoint ID="2075" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverID')"/>
+				<ConnectionPoint ID="2077" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeDate')"/>
+				<ConnectionPoint ID="2079" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeTime')"/>
+				<ConnectionPoint ID="2081" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlStandard_RepeatingSeparator')"/>
+				<ConnectionPoint ID="2083" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlVersion')"/>
+				<ConnectionPoint ID="2085" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlNumber')"/>
+				<ConnectionPoint ID="2087" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAckRequested')"/>
+				<ConnectionPoint ID="2089" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeUsageIndicator')"/>
+				<ConnectionPoint ID="2091" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SubelementDelimiter')"/>
+				<ConnectionPoint ID="2093" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeChildCount')"/>
+				<ConnectionPoint ID="2095" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SegmentDelimiter')"/>
+				<ConnectionPoint ID="2097" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'ElementDelimiter')"/>
+				<ConnectionPoint ID="2099" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'RepeatingSeparator')"/>
+				<ConnectionPoint ID="2101" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupID')"/>
+				<ConnectionPoint ID="2103" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupSenderID')"/>
+				<ConnectionPoint ID="2105" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupReceiverID')"/>
+				<ConnectionPoint ID="2107" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupDate')"/>
+				<ConnectionPoint ID="2109" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupTime')"/>
+				<ConnectionPoint ID="2111" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupControlNumber')"/>
+				<ConnectionPoint ID="2113" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupAgencyCode')"/>
+				<ConnectionPoint ID="2115" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupVersionNumber')"/>
+				<ConnectionPoint ID="2117" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupChildCount')"/>
+				<ConnectionPoint ID="2119" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Level(Name = 'Transaction')/Field(Name = 'TransactionID')"/>
+			</ConnectionPoints>
+		</ExternalStorage>
+		<ExternalStorage ID="3" Type="LogicalStorage">
+			<Properties>
+				<Property Name="Name">New Logical Node</Property>
+				<Property Name="Buffer">4</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="1676" Path="/Segment(ID = 'INS')"/>
+				<ConnectionPoint ID="1677" Path="/Segment(ID = 'INS')/Element(ID = '1073')"/>
+				<ConnectionPoint ID="1678" Path="/Segment(ID = 'INS')/Element(ID = '1069')"/>
+				<ConnectionPoint ID="1679" Path="/Segment(ID = 'INS')/Element(ID = '875')"/>
+				<ConnectionPoint ID="1680" Path="/Segment(ID = 'INS')/Element(ID = '1203')"/>
+				<ConnectionPoint ID="1681" Path="/Segment(ID = 'INS')/Element(ID = '1216')"/>
+				<ConnectionPoint ID="1682" Path="/Segment(ID = 'INS')/Composite(ID = 'C052')"/>
+				<ConnectionPoint ID="1683" Path="/Segment(ID = 'INS')/Composite(ID = 'C052')/Element(ID = '1218')"/>
+				<ConnectionPoint ID="1684" Path="/Segment(ID = 'INS')/Composite(ID = 'C052')/Element(ID = '1701')"/>
+				<ConnectionPoint ID="1685" Path="/Segment(ID = 'INS')/Element(ID = '1219')"/>
+				<ConnectionPoint ID="1686" Path="/Segment(ID = 'INS')/Element(ID = '584')"/>
+				<ConnectionPoint ID="1687" Path="/Segment(ID = 'INS')/Element(ID = '1220')"/>
+				<ConnectionPoint ID="1688" Path="/Segment(ID = 'INS')/Element(ID = '1073')[2]"/>
+				<ConnectionPoint ID="1689" Path="/Segment(ID = 'INS')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1690" Path="/Segment(ID = 'INS')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1691" Path="/Segment(ID = 'INS')/Element(ID = '1165')"/>
+				<ConnectionPoint ID="1692" Path="/Segment(ID = 'INS')/Element(ID = '1470')"/>
+				<ConnectionPoint ID="1693" Path="/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="1694" Path="/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="1695" Path="/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="1696" Path="/Segment(ID = 'REF')[2]"/>
+				<ConnectionPoint ID="1697" Path="/Segment(ID = 'REF')[2]/Element(ID = '128')"/>
+				<ConnectionPoint ID="1698" Path="/Segment(ID = 'REF')[2]/Element(ID = '127')"/>
+				<ConnectionPoint ID="1699" Path="/Segment(ID = 'REF')[3]"/>
+				<ConnectionPoint ID="1700" Path="/Segment(ID = 'REF')[3]/Element(ID = '128')"/>
+				<ConnectionPoint ID="1701" Path="/Segment(ID = 'REF')[3]/Element(ID = '127')"/>
+				<ConnectionPoint ID="1702" Path="/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1703" Path="/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1704" Path="/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1705" Path="/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1706" Path="/Loop(ID = '2100A')"/>
+				<ConnectionPoint ID="1707" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1708" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1709" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1710" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1711" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1712" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1713" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1714" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1715" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1716" Path="/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1717" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1718" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1719" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1720" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1721" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1722" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1723" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1724" Path="/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1725" Path="/Loop(ID = '2100A')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1726" Path="/Loop(ID = '2100A')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1727" Path="/Loop(ID = '2100A')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1728" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1729" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1730" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1731" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1732" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1733" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '309')"/>
+				<ConnectionPoint ID="1734" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '310')"/>
+				<ConnectionPoint ID="1735" Path="/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1736" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')"/>
+				<ConnectionPoint ID="1737" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1738" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1739" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1068')"/>
+				<ConnectionPoint ID="1740" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1067')"/>
+				<ConnectionPoint ID="1741" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')"/>
+				<ConnectionPoint ID="1742" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1109')"/>
+				<ConnectionPoint ID="1743" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1744" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1745" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1066')"/>
+				<ConnectionPoint ID="1746" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1747" Path="/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1748" Path="/Loop(ID = '2100A')/Segment(ID = 'EC')"/>
+				<ConnectionPoint ID="1749" Path="/Loop(ID = '2100A')/Segment(ID = 'EC')/Element(ID = '1176')"/>
+				<ConnectionPoint ID="1750" Path="/Loop(ID = '2100A')/Segment(ID = 'EC')/Element(ID = '1176')[2]"/>
+				<ConnectionPoint ID="1751" Path="/Loop(ID = '2100A')/Segment(ID = 'EC')/Element(ID = '1176')[3]"/>
+				<ConnectionPoint ID="1752" Path="/Loop(ID = '2100A')/Segment(ID = 'ICM')"/>
+				<ConnectionPoint ID="1753" Path="/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '594')"/>
+				<ConnectionPoint ID="1754" Path="/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '782')"/>
+				<ConnectionPoint ID="1755" Path="/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '380')"/>
+				<ConnectionPoint ID="1756" Path="/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '310')"/>
+				<ConnectionPoint ID="1757" Path="/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '1214')"/>
+				<ConnectionPoint ID="1758" Path="/Loop(ID = '2100A')/Segment(ID = 'AMT')"/>
+				<ConnectionPoint ID="1759" Path="/Loop(ID = '2100A')/Segment(ID = 'AMT')/Element(ID = '522')"/>
+				<ConnectionPoint ID="1760" Path="/Loop(ID = '2100A')/Segment(ID = 'AMT')/Element(ID = '782')"/>
+				<ConnectionPoint ID="1761" Path="/Loop(ID = '2100A')/Segment(ID = 'HLH')"/>
+				<ConnectionPoint ID="1762" Path="/Loop(ID = '2100A')/Segment(ID = 'HLH')/Element(ID = '1212')"/>
+				<ConnectionPoint ID="1763" Path="/Loop(ID = '2100A')/Segment(ID = 'HLH')/Element(ID = '65')"/>
+				<ConnectionPoint ID="1764" Path="/Loop(ID = '2100A')/Segment(ID = 'HLH')/Element(ID = '81')"/>
+				<ConnectionPoint ID="1765" Path="/Loop(ID = '2100A')/Segment(ID = 'LUI')"/>
+				<ConnectionPoint ID="1766" Path="/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1767" Path="/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1768" Path="/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '352')"/>
+				<ConnectionPoint ID="1769" Path="/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '1303')"/>
+				<ConnectionPoint ID="1770" Path="/Loop(ID = '2100B')"/>
+				<ConnectionPoint ID="1771" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1772" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1773" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1774" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1775" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1776" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1777" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1778" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1779" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1780" Path="/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1781" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')"/>
+				<ConnectionPoint ID="1782" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1783" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1784" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1068')"/>
+				<ConnectionPoint ID="1785" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1067')"/>
+				<ConnectionPoint ID="1786" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')"/>
+				<ConnectionPoint ID="1787" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1109')"/>
+				<ConnectionPoint ID="1788" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1789" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1790" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1066')"/>
+				<ConnectionPoint ID="1791" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1792" Path="/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1793" Path="/Loop(ID = '2100C')"/>
+				<ConnectionPoint ID="1794" Path="/Loop(ID = '2100C')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1795" Path="/Loop(ID = '2100C')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1796" Path="/Loop(ID = '2100C')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1797" Path="/Loop(ID = '2100C')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1798" Path="/Loop(ID = '2100C')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1799" Path="/Loop(ID = '2100C')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1800" Path="/Loop(ID = '2100C')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1801" Path="/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1802" Path="/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1803" Path="/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1804" Path="/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1805" Path="/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1806" Path="/Loop(ID = '2100D')"/>
+				<ConnectionPoint ID="1807" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1808" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1809" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1810" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1811" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1812" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1813" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1814" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1815" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1816" Path="/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1817" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1818" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1819" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '93')"/>
+				<ConnectionPoint ID="1820" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1821" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1822" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1823" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1824" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1825" Path="/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1826" Path="/Loop(ID = '2100D')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1827" Path="/Loop(ID = '2100D')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1828" Path="/Loop(ID = '2100D')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1829" Path="/Loop(ID = '2100D')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1830" Path="/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1831" Path="/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1832" Path="/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1833" Path="/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1834" Path="/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1835" Path="/Loop(ID = '2100E')"/>
+				<ConnectionPoint ID="1836" Path="/Loop(ID = '2100E')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1837" Path="/Loop(ID = '2100E')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1838" Path="/Loop(ID = '2100E')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1839" Path="/Loop(ID = '2100E')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1840" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1841" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1842" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '93')"/>
+				<ConnectionPoint ID="1843" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1844" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1845" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1846" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1847" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1848" Path="/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1849" Path="/Loop(ID = '2100E')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1850" Path="/Loop(ID = '2100E')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1851" Path="/Loop(ID = '2100E')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1852" Path="/Loop(ID = '2100E')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1853" Path="/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1854" Path="/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1855" Path="/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1856" Path="/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1857" Path="/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1858" Path="/Loop(ID = '2100F')"/>
+				<ConnectionPoint ID="1859" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1860" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1861" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1862" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1863" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1864" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1865" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1866" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1867" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1868" Path="/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1869" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1870" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1871" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1872" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1873" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1874" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1875" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1876" Path="/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1877" Path="/Loop(ID = '2100F')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1878" Path="/Loop(ID = '2100F')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1879" Path="/Loop(ID = '2100F')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1880" Path="/Loop(ID = '2100F')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1881" Path="/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1882" Path="/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1883" Path="/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1884" Path="/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1885" Path="/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1886" Path="/Loop(ID = '2100G')"/>
+				<ConnectionPoint ID="1887" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1888" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1889" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1890" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1891" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1892" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1893" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1894" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1895" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1896" Path="/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1897" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1898" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1899" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1900" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1901" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1902" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1903" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1904" Path="/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1905" Path="/Loop(ID = '2100G')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1906" Path="/Loop(ID = '2100G')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1907" Path="/Loop(ID = '2100G')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1908" Path="/Loop(ID = '2100G')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1909" Path="/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1910" Path="/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1911" Path="/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1912" Path="/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1913" Path="/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1914" Path="/Loop(ID = '2100H')"/>
+				<ConnectionPoint ID="1915" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1916" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1917" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1918" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1919" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1920" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1921" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1922" Path="/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1923" Path="/Loop(ID = '2100H')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1924" Path="/Loop(ID = '2100H')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1925" Path="/Loop(ID = '2100H')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1926" Path="/Loop(ID = '2100H')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1927" Path="/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1928" Path="/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1929" Path="/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1930" Path="/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1931" Path="/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1932" Path="/Loop(ID = '2200')"/>
+				<ConnectionPoint ID="1933" Path="/Loop(ID = '2200')/Segment(ID = 'DSB')"/>
+				<ConnectionPoint ID="1934" Path="/Loop(ID = '2200')/Segment(ID = 'DSB')/Element(ID = '1146')"/>
+				<ConnectionPoint ID="1935" Path="/Loop(ID = '2200')/Segment(ID = 'DSB')/Element(ID = '235')"/>
+				<ConnectionPoint ID="1936" Path="/Loop(ID = '2200')/Segment(ID = 'DSB')/Element(ID = '1137')"/>
+				<ConnectionPoint ID="1937" Path="/Loop(ID = '2200')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1938" Path="/Loop(ID = '2200')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1939" Path="/Loop(ID = '2200')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1940" Path="/Loop(ID = '2200')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1941" Path="/Loop(ID = '2300')"/>
+				<ConnectionPoint ID="1942" Path="/Loop(ID = '2300')/Segment(ID = 'HD')"/>
+				<ConnectionPoint ID="1943" Path="/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '875')"/>
+				<ConnectionPoint ID="1944" Path="/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1205')"/>
+				<ConnectionPoint ID="1945" Path="/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1204')"/>
+				<ConnectionPoint ID="1946" Path="/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1207')"/>
+				<ConnectionPoint ID="1947" Path="/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1073')"/>
+				<ConnectionPoint ID="1948" Path="/Loop(ID = '2300')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1949" Path="/Loop(ID = '2300')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1950" Path="/Loop(ID = '2300')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1951" Path="/Loop(ID = '2300')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1952" Path="/Loop(ID = '2300')/Segment(ID = 'AMT')"/>
+				<ConnectionPoint ID="1953" Path="/Loop(ID = '2300')/Segment(ID = 'AMT')/Element(ID = '522')"/>
+				<ConnectionPoint ID="1954" Path="/Loop(ID = '2300')/Segment(ID = 'AMT')/Element(ID = '782')"/>
+				<ConnectionPoint ID="1955" Path="/Loop(ID = '2300')/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="1956" Path="/Loop(ID = '2300')/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="1957" Path="/Loop(ID = '2300')/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="1958" Path="/Loop(ID = '2300')/Segment(ID = 'REF')[2]"/>
+				<ConnectionPoint ID="1959" Path="/Loop(ID = '2300')/Segment(ID = 'REF')[2]/Element(ID = '128')"/>
+				<ConnectionPoint ID="1960" Path="/Loop(ID = '2300')/Segment(ID = 'REF')[2]/Element(ID = '127')"/>
+				<ConnectionPoint ID="1961" Path="/Loop(ID = '2300')/Segment(ID = 'IDC')"/>
+				<ConnectionPoint ID="1962" Path="/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '1204')"/>
+				<ConnectionPoint ID="1963" Path="/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '1215')"/>
+				<ConnectionPoint ID="1964" Path="/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '380')"/>
+				<ConnectionPoint ID="1965" Path="/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '306')"/>
+				<ConnectionPoint ID="1966" Path="/Loop(ID = '2300')/Loop(ID = '2310')"/>
+				<ConnectionPoint ID="1967" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'LX')"/>
+				<ConnectionPoint ID="1968" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'LX')/Element(ID = '554')"/>
+				<ConnectionPoint ID="1969" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1970" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1971" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1972" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1973" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1974" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1975" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1976" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1977" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1978" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1979" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '706')"/>
+				<ConnectionPoint ID="1980" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1981" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1982" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1983" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1984" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1985" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1986" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1987" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1988" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1989" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1990" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1991" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1992" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1993" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1994" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1995" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1996" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1997" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')"/>
+				<ConnectionPoint ID="1998" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '306')"/>
+				<ConnectionPoint ID="1999" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '98')"/>
+				<ConnectionPoint ID="2000" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '373')"/>
+				<ConnectionPoint ID="2001" Path="/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '1203')"/>
+				<ConnectionPoint ID="2002" Path="/Loop(ID = '2300')/Loop(ID = '2320')"/>
+				<ConnectionPoint ID="2003" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')"/>
+				<ConnectionPoint ID="2004" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '1138')"/>
+				<ConnectionPoint ID="2005" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '127')"/>
+				<ConnectionPoint ID="2006" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '1143')"/>
+				<ConnectionPoint ID="2007" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '1365')"/>
+				<ConnectionPoint ID="2008" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="2009" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="2010" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="2011" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="2012" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="2013" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="2014" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="2015" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')"/>
+				<ConnectionPoint ID="2016" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="2017" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="2018" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="2019" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="2020" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="2021" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="2022" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="2023" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="2024" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="2025" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="2026" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="2027" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="2028" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="2029" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="2030" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="2031" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="2032" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="2033" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="2034" Path="/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="2035" Path="/Loop(ID = 'LS')"/>
+				<ConnectionPoint ID="2036" Path="/Loop(ID = 'LS')/Segment(ID = 'LS')"/>
+				<ConnectionPoint ID="2037" Path="/Loop(ID = 'LS')/Segment(ID = 'LS')/Element(ID = '447')"/>
+				<ConnectionPoint ID="2038" Path="/Loop(ID = 'LS')/Loop(ID = '2700')"/>
+				<ConnectionPoint ID="2039" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Segment(ID = 'LX')"/>
+				<ConnectionPoint ID="2040" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Segment(ID = 'LX')/Element(ID = '554')"/>
+				<ConnectionPoint ID="2041" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')"/>
+				<ConnectionPoint ID="2042" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'N1')"/>
+				<ConnectionPoint ID="2043" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'N1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="2044" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'N1')/Element(ID = '93')"/>
+				<ConnectionPoint ID="2045" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="2046" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="2047" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="2048" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="2049" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="2050" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="2051" Path="/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="2052" Path="/Loop(ID = 'LS')/Segment(ID = 'LE')"/>
+				<ConnectionPoint ID="2053" Path="/Loop(ID = 'LS')/Segment(ID = 'LE')/Element(ID = '447')"/>
+			</ConnectionPoints>
+		</ExternalStorage>
+	</Sources>
+	<Targets>
+		<ExternalStorage ID="2" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Target</Property>
+				<Property Name="Location">..\..\Guideline\OB_834_EDI_TARGET.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">EDI</Property>
+				<Property Name="EntryNodeID">834</Property>
+				<Property Name="EntryNodeName">Benefit Enrollment and Maintenance</Property>
+				<Property Name="GuidelineType">X12</Property>
+				<Property Name="InternalID">{DE592B08-679B-4572-8AD6-6128249510C9}</Property>
+				<Property Name="Standard">HIPAA</Property>
+				<Property Name="Version">V5010X220A1</Property>
+			</Properties>
+			<Properties Category="InstancedNodes">
+				<Property Name="1/Path">/Transaction(ID = '834')/Loop(ID = '2000')</Property>
+				<Property Name="1/Instance_1/CustomName">Subscriber</Property>
+				<Property Name="1/Instance_2/CustomName">Dependent</Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="Interchange">InterchangeAuthorizationInfoQual</Property>
+				<Property Name="Interchange">InterchangeAuthorizationInfo</Property>
+				<Property Name="Interchange">InterchangeSecurityInfoQual</Property>
+				<Property Name="Interchange">InterchangeSecurityInfo</Property>
+				<Property Name="Interchange">InterchangeSenderQual</Property>
+				<Property Name="Interchange">InterchangeSenderID</Property>
+				<Property Name="Interchange">InterchangeReceiverQual</Property>
+				<Property Name="Interchange">InterchangeReceiverID</Property>
+				<Property Name="Interchange">InterchangeDate</Property>
+				<Property Name="Interchange">InterchangeTime</Property>
+				<Property Name="Interchange">InterchangeControlStandard_RepeatingSeparator</Property>
+				<Property Name="Interchange">InterchangeControlVersion</Property>
+				<Property Name="Interchange">InterchangeControlNumber</Property>
+				<Property Name="Interchange">InterchangeAckRequested</Property>
+				<Property Name="Interchange">InterchangeUsageIndicator</Property>
+				<Property Name="Interchange">SubelementDelimiter</Property>
+				<Property Name="Interchange">InterchangeChildCount</Property>
+				<Property Name="Interchange">SegmentDelimiter</Property>
+				<Property Name="Interchange">ElementDelimiter</Property>
+				<Property Name="Interchange">RepeatingSeparator</Property>
+				<Property Name="Interchange/Group">GroupID</Property>
+				<Property Name="Interchange/Group">GroupSenderID</Property>
+				<Property Name="Interchange/Group">GroupReceiverID</Property>
+				<Property Name="Interchange/Group">GroupDate</Property>
+				<Property Name="Interchange/Group">GroupTime</Property>
+				<Property Name="Interchange/Group">GroupControlNumber</Property>
+				<Property Name="Interchange/Group">GroupAgencyCode</Property>
+				<Property Name="Interchange/Group">GroupVersionNumber</Property>
+				<Property Name="Interchange/Group">GroupChildCount</Property>
+				<Property Name="Interchange/Group/Transaction">TransactionID</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="920" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')"/>
+				<ConnectionPoint ID="922" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1073')"/>
+				<ConnectionPoint ID="924" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1069')"/>
+				<ConnectionPoint ID="926" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '875')"/>
+				<ConnectionPoint ID="928" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1203')"/>
+				<ConnectionPoint ID="930" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1216')"/>
+				<ConnectionPoint ID="932" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Composite(ID = 'C052')"/>
+				<ConnectionPoint ID="934" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Composite(ID = 'C052')/Element(ID = '1218')"/>
+				<ConnectionPoint ID="936" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Composite(ID = 'C052')/Element(ID = '1701')"/>
+				<ConnectionPoint ID="938" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1219')"/>
+				<ConnectionPoint ID="940" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '584')"/>
+				<ConnectionPoint ID="942" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1220')"/>
+				<ConnectionPoint ID="944" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1073')[2]"/>
+				<ConnectionPoint ID="946" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="948" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="950" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1165')"/>
+				<ConnectionPoint ID="952" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'INS')/Element(ID = '1470')"/>
+				<ConnectionPoint ID="954" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="956" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="958" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="960" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')[2]"/>
+				<ConnectionPoint ID="962" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')[2]/Element(ID = '128')"/>
+				<ConnectionPoint ID="964" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')[2]/Element(ID = '127')"/>
+				<ConnectionPoint ID="966" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')[3]"/>
+				<ConnectionPoint ID="968" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')[3]/Element(ID = '128')"/>
+				<ConnectionPoint ID="970" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'REF')[3]/Element(ID = '127')"/>
+				<ConnectionPoint ID="972" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="974" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="976" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="978" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="980" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')"/>
+				<ConnectionPoint ID="982" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="984" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="986" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="988" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="990" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="992" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="994" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="996" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="998" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1000" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1002" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1004" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1006" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1008" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1010" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1012" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1014" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1016" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1018" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1020" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1022" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1024" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1026" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1028" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1030" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1032" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1034" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '309')"/>
+				<ConnectionPoint ID="1036" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '310')"/>
+				<ConnectionPoint ID="1038" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1040" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')"/>
+				<ConnectionPoint ID="1042" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1044" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1046" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1068')"/>
+				<ConnectionPoint ID="1048" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1067')"/>
+				<ConnectionPoint ID="1050" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')"/>
+				<ConnectionPoint ID="1052" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1109')"/>
+				<ConnectionPoint ID="1054" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1056" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1058" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1066')"/>
+				<ConnectionPoint ID="1060" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1062" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'DMG')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1064" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'EC')"/>
+				<ConnectionPoint ID="1066" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'EC')/Element(ID = '1176')"/>
+				<ConnectionPoint ID="1068" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'EC')/Element(ID = '1176')[2]"/>
+				<ConnectionPoint ID="1070" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'EC')/Element(ID = '1176')[3]"/>
+				<ConnectionPoint ID="1072" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'ICM')"/>
+				<ConnectionPoint ID="1074" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '594')"/>
+				<ConnectionPoint ID="1076" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '782')"/>
+				<ConnectionPoint ID="1078" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '380')"/>
+				<ConnectionPoint ID="1080" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '310')"/>
+				<ConnectionPoint ID="1082" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'ICM')/Element(ID = '1214')"/>
+				<ConnectionPoint ID="1084" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'AMT')"/>
+				<ConnectionPoint ID="1086" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'AMT')/Element(ID = '522')"/>
+				<ConnectionPoint ID="1088" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'AMT')/Element(ID = '782')"/>
+				<ConnectionPoint ID="1090" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'HLH')"/>
+				<ConnectionPoint ID="1092" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'HLH')/Element(ID = '1212')"/>
+				<ConnectionPoint ID="1094" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'HLH')/Element(ID = '65')"/>
+				<ConnectionPoint ID="1096" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'HLH')/Element(ID = '81')"/>
+				<ConnectionPoint ID="1098" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'LUI')"/>
+				<ConnectionPoint ID="1100" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1102" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1104" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '352')"/>
+				<ConnectionPoint ID="1106" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100A')/Segment(ID = 'LUI')/Element(ID = '1303')"/>
+				<ConnectionPoint ID="1108" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')"/>
+				<ConnectionPoint ID="1110" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1112" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1114" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1116" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1118" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1120" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1122" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1124" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1126" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1128" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1130" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')"/>
+				<ConnectionPoint ID="1132" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1134" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1136" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1068')"/>
+				<ConnectionPoint ID="1138" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1067')"/>
+				<ConnectionPoint ID="1140" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')"/>
+				<ConnectionPoint ID="1142" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1109')"/>
+				<ConnectionPoint ID="1144" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1146" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Composite(ID = 'C056')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1148" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1066')"/>
+				<ConnectionPoint ID="1150" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1270')"/>
+				<ConnectionPoint ID="1152" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100B')/Segment(ID = 'DMG')/Element(ID = '1271')"/>
+				<ConnectionPoint ID="1154" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')"/>
+				<ConnectionPoint ID="1156" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1158" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1160" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1162" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1164" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1166" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1168" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1170" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1172" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1174" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1176" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1178" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100C')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1180" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')"/>
+				<ConnectionPoint ID="1182" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1184" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1186" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1188" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1190" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1192" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1194" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1196" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1198" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1200" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1202" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1204" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1206" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '93')"/>
+				<ConnectionPoint ID="1208" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1210" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1212" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1214" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1216" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1218" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1220" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1222" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1224" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1226" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1228" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1230" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1232" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1234" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1236" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100D')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1238" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')"/>
+				<ConnectionPoint ID="1240" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1242" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1244" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1246" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1248" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1250" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1252" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '93')"/>
+				<ConnectionPoint ID="1254" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1256" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1258" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1260" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1262" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1264" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1266" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1268" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1270" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1272" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1274" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1276" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1278" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1280" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1282" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100E')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1284" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')"/>
+				<ConnectionPoint ID="1286" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1288" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1290" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1292" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1294" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1296" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1298" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1300" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1302" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1304" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1306" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1308" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1310" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1312" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1314" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1316" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1318" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1320" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1322" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1324" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1326" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1328" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1330" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1332" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1334" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1336" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1338" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100F')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1340" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')"/>
+				<ConnectionPoint ID="1342" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1344" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1346" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1348" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1350" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1352" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1354" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1356" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1358" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1360" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1362" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1364" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1366" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1368" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1370" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1372" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1374" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1376" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1378" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1380" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1382" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1384" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1386" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1388" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1390" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1392" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1394" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100G')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1396" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')"/>
+				<ConnectionPoint ID="1398" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1400" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1402" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1404" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1406" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1408" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1410" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1412" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1414" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1416" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1418" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1420" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1422" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1424" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1426" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1428" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1430" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2100H')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1432" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')"/>
+				<ConnectionPoint ID="1434" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DSB')"/>
+				<ConnectionPoint ID="1436" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DSB')/Element(ID = '1146')"/>
+				<ConnectionPoint ID="1438" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DSB')/Element(ID = '235')"/>
+				<ConnectionPoint ID="1440" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DSB')/Element(ID = '1137')"/>
+				<ConnectionPoint ID="1442" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1444" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1446" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1448" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2200')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1450" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')"/>
+				<ConnectionPoint ID="1452" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'HD')"/>
+				<ConnectionPoint ID="1454" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '875')"/>
+				<ConnectionPoint ID="1456" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1205')"/>
+				<ConnectionPoint ID="1458" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1204')"/>
+				<ConnectionPoint ID="1460" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1207')"/>
+				<ConnectionPoint ID="1462" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'HD')/Element(ID = '1073')"/>
+				<ConnectionPoint ID="1464" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1466" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1468" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1470" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1472" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'AMT')"/>
+				<ConnectionPoint ID="1474" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'AMT')/Element(ID = '522')"/>
+				<ConnectionPoint ID="1476" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'AMT')/Element(ID = '782')"/>
+				<ConnectionPoint ID="1478" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="1480" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="1482" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="1484" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'REF')[2]"/>
+				<ConnectionPoint ID="1486" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'REF')[2]/Element(ID = '128')"/>
+				<ConnectionPoint ID="1488" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'REF')[2]/Element(ID = '127')"/>
+				<ConnectionPoint ID="1490" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'IDC')"/>
+				<ConnectionPoint ID="1492" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '1204')"/>
+				<ConnectionPoint ID="1494" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '1215')"/>
+				<ConnectionPoint ID="1496" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '380')"/>
+				<ConnectionPoint ID="1498" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Segment(ID = 'IDC')/Element(ID = '306')"/>
+				<ConnectionPoint ID="1500" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')"/>
+				<ConnectionPoint ID="1502" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'LX')"/>
+				<ConnectionPoint ID="1504" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'LX')/Element(ID = '554')"/>
+				<ConnectionPoint ID="1506" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1508" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1510" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1512" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1514" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1036')"/>
+				<ConnectionPoint ID="1516" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1037')"/>
+				<ConnectionPoint ID="1518" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1038')"/>
+				<ConnectionPoint ID="1520" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '1039')"/>
+				<ConnectionPoint ID="1522" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1524" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1526" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'NM1')/Element(ID = '706')"/>
+				<ConnectionPoint ID="1528" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1530" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1532" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1534" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1536" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1538" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1540" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1542" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1544" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1546" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1548" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1550" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1552" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1554" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '365')[2]"/>
+				<ConnectionPoint ID="1556" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '364')[2]"/>
+				<ConnectionPoint ID="1558" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '365')[3]"/>
+				<ConnectionPoint ID="1560" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PER')/Element(ID = '364')[3]"/>
+				<ConnectionPoint ID="1562" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')"/>
+				<ConnectionPoint ID="1564" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '306')"/>
+				<ConnectionPoint ID="1566" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1568" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '373')"/>
+				<ConnectionPoint ID="1570" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2310')/Segment(ID = 'PLA')/Element(ID = '1203')"/>
+				<ConnectionPoint ID="1572" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')"/>
+				<ConnectionPoint ID="1574" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')"/>
+				<ConnectionPoint ID="1576" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '1138')"/>
+				<ConnectionPoint ID="1578" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '127')"/>
+				<ConnectionPoint ID="1580" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '1143')"/>
+				<ConnectionPoint ID="1582" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'COB')/Element(ID = '1365')"/>
+				<ConnectionPoint ID="1584" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="1586" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="1588" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="1590" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1592" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1594" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1596" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1598" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')"/>
+				<ConnectionPoint ID="1600" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')"/>
+				<ConnectionPoint ID="1602" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1604" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '1065')"/>
+				<ConnectionPoint ID="1606" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '1035')"/>
+				<ConnectionPoint ID="1608" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '66')"/>
+				<ConnectionPoint ID="1610" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'NM1')/Element(ID = '67')"/>
+				<ConnectionPoint ID="1612" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N3')"/>
+				<ConnectionPoint ID="1614" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N3')/Element(ID = '166')"/>
+				<ConnectionPoint ID="1616" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N3')/Element(ID = '166')[2]"/>
+				<ConnectionPoint ID="1618" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')"/>
+				<ConnectionPoint ID="1620" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '19')"/>
+				<ConnectionPoint ID="1622" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '156')"/>
+				<ConnectionPoint ID="1624" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '116')"/>
+				<ConnectionPoint ID="1626" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '26')"/>
+				<ConnectionPoint ID="1628" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'N4')/Element(ID = '1715')"/>
+				<ConnectionPoint ID="1630" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')"/>
+				<ConnectionPoint ID="1632" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')/Element(ID = '366')"/>
+				<ConnectionPoint ID="1634" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')/Element(ID = '365')"/>
+				<ConnectionPoint ID="1636" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = '2300')/Loop(ID = '2320')/Loop(ID = '2330')/Segment(ID = 'PER')/Element(ID = '364')"/>
+				<ConnectionPoint ID="1638" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')"/>
+				<ConnectionPoint ID="1640" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Segment(ID = 'LS')"/>
+				<ConnectionPoint ID="1642" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Segment(ID = 'LS')/Element(ID = '447')"/>
+				<ConnectionPoint ID="1644" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')"/>
+				<ConnectionPoint ID="1646" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Segment(ID = 'LX')"/>
+				<ConnectionPoint ID="1648" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Segment(ID = 'LX')/Element(ID = '554')"/>
+				<ConnectionPoint ID="1650" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')"/>
+				<ConnectionPoint ID="1652" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'N1')"/>
+				<ConnectionPoint ID="1654" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'N1')/Element(ID = '98')"/>
+				<ConnectionPoint ID="1656" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'N1')/Element(ID = '93')"/>
+				<ConnectionPoint ID="1658" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'REF')"/>
+				<ConnectionPoint ID="1660" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'REF')/Element(ID = '128')"/>
+				<ConnectionPoint ID="1662" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'REF')/Element(ID = '127')"/>
+				<ConnectionPoint ID="1664" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')"/>
+				<ConnectionPoint ID="1666" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')/Element(ID = '374')"/>
+				<ConnectionPoint ID="1668" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')/Element(ID = '1250')"/>
+				<ConnectionPoint ID="1670" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Loop(ID = '2700')/Loop(ID = '2750')/Segment(ID = 'DTP')/Element(ID = '1251')"/>
+				<ConnectionPoint ID="1672" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Segment(ID = 'LE')"/>
+				<ConnectionPoint ID="1674" Path="/Transaction(ID = '834')/Loop(ID = '2000'){2}/Loop(ID = 'LS')/Segment(ID = 'LE')/Element(ID = '447')"/>
+				<ConnectionPoint ID="2062" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfoQual')"/>
+				<ConnectionPoint ID="2064" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAuthorizationInfo')"/>
+				<ConnectionPoint ID="2066" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfoQual')"/>
+				<ConnectionPoint ID="2068" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSecurityInfo')"/>
+				<ConnectionPoint ID="2070" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderQual')"/>
+				<ConnectionPoint ID="2072" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeSenderID')"/>
+				<ConnectionPoint ID="2074" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverQual')"/>
+				<ConnectionPoint ID="2076" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeReceiverID')"/>
+				<ConnectionPoint ID="2078" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeDate')"/>
+				<ConnectionPoint ID="2080" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeTime')"/>
+				<ConnectionPoint ID="2082" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlStandard_RepeatingSeparator')"/>
+				<ConnectionPoint ID="2084" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlVersion')"/>
+				<ConnectionPoint ID="2086" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeControlNumber')"/>
+				<ConnectionPoint ID="2088" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeAckRequested')"/>
+				<ConnectionPoint ID="2090" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeUsageIndicator')"/>
+				<ConnectionPoint ID="2092" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SubelementDelimiter')"/>
+				<ConnectionPoint ID="2094" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'InterchangeChildCount')"/>
+				<ConnectionPoint ID="2096" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'SegmentDelimiter')"/>
+				<ConnectionPoint ID="2098" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'ElementDelimiter')"/>
+				<ConnectionPoint ID="2100" Path="/InternalProperties/Level(Name = 'Interchange')/Field(Name = 'RepeatingSeparator')"/>
+				<ConnectionPoint ID="2102" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupID')"/>
+				<ConnectionPoint ID="2104" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupSenderID')"/>
+				<ConnectionPoint ID="2106" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupReceiverID')"/>
+				<ConnectionPoint ID="2108" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupDate')"/>
+				<ConnectionPoint ID="2110" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupTime')"/>
+				<ConnectionPoint ID="2112" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupControlNumber')"/>
+				<ConnectionPoint ID="2114" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupAgencyCode')"/>
+				<ConnectionPoint ID="2116" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupVersionNumber')"/>
+				<ConnectionPoint ID="2118" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Field(Name = 'GroupChildCount')"/>
+				<ConnectionPoint ID="2120" Path="/InternalProperties/Level(Name = 'Interchange')/Level(Name = 'Group')/Level(Name = 'Transaction')/Field(Name = 'TransactionID')"/>
+			</ConnectionPoints>
+			<ReverseConnectionPoints/>
+		</ExternalStorage>
+	</Targets>
+	<Functions/>
+	<Connectors>
+		<Connector OutputCP="1676" InputCP="920">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1677" InputCP="922">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1678" InputCP="924">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1679" InputCP="926">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1680" InputCP="928">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1681" InputCP="930">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1682" InputCP="932">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1683" InputCP="934">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1684" InputCP="936">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1685" InputCP="938">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1686" InputCP="940">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1687" InputCP="942">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1688" InputCP="944">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1689" InputCP="946">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1690" InputCP="948">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1691" InputCP="950">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1692" InputCP="952">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1693" InputCP="954">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1694" InputCP="956">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1695" InputCP="958">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1696" InputCP="960">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1697" InputCP="962">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1698" InputCP="964">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1699" InputCP="966">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1700" InputCP="968">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1701" InputCP="970">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1702" InputCP="972">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1703" InputCP="974">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1704" InputCP="976">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1705" InputCP="978">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1706" InputCP="980">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1707" InputCP="982">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1708" InputCP="984">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1709" InputCP="986">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1710" InputCP="988">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1711" InputCP="990">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1712" InputCP="992">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1713" InputCP="994">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1714" InputCP="996">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1715" InputCP="998">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1716" InputCP="1000">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1717" InputCP="1002">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1718" InputCP="1004">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1719" InputCP="1006">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1720" InputCP="1008">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1721" InputCP="1010">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1722" InputCP="1012">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1723" InputCP="1014">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1724" InputCP="1016">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1725" InputCP="1018">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1726" InputCP="1020">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1727" InputCP="1022">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1728" InputCP="1024">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1729" InputCP="1026">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1730" InputCP="1028">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1731" InputCP="1030">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1732" InputCP="1032">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1733" InputCP="1034">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1734" InputCP="1036">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1735" InputCP="1038">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1736" InputCP="1040">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1737" InputCP="1042">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1738" InputCP="1044">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1739" InputCP="1046">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1740" InputCP="1048">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1741" InputCP="1050">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1742" InputCP="1052">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1743" InputCP="1054">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1744" InputCP="1056">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1745" InputCP="1058">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1746" InputCP="1060">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1747" InputCP="1062">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1748" InputCP="1064">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1749" InputCP="1066">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1750" InputCP="1068">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1751" InputCP="1070">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1752" InputCP="1072">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1753" InputCP="1074">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1754" InputCP="1076">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1755" InputCP="1078">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1756" InputCP="1080">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1757" InputCP="1082">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1758" InputCP="1084">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1759" InputCP="1086">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1760" InputCP="1088">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1761" InputCP="1090">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1762" InputCP="1092">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1763" InputCP="1094">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1764" InputCP="1096">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1765" InputCP="1098">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1766" InputCP="1100">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1767" InputCP="1102">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1768" InputCP="1104">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1769" InputCP="1106">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1770" InputCP="1108">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1771" InputCP="1110">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1772" InputCP="1112">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1773" InputCP="1114">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1774" InputCP="1116">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1775" InputCP="1118">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1776" InputCP="1120">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1777" InputCP="1122">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1778" InputCP="1124">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1779" InputCP="1126">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1780" InputCP="1128">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1781" InputCP="1130">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1782" InputCP="1132">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1783" InputCP="1134">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1784" InputCP="1136">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1785" InputCP="1138">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1786" InputCP="1140">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1787" InputCP="1142">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1788" InputCP="1144">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1789" InputCP="1146">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1790" InputCP="1148">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1791" InputCP="1150">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1792" InputCP="1152">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1793" InputCP="1154">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1794" InputCP="1156">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1795" InputCP="1158">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1796" InputCP="1160">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1797" InputCP="1162">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1798" InputCP="1164">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1799" InputCP="1166">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1800" InputCP="1168">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1801" InputCP="1170">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1802" InputCP="1172">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1803" InputCP="1174">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1804" InputCP="1176">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1805" InputCP="1178">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1806" InputCP="1180">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1807" InputCP="1182">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1808" InputCP="1184">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1809" InputCP="1186">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1810" InputCP="1188">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1811" InputCP="1190">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1812" InputCP="1192">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1813" InputCP="1194">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1814" InputCP="1196">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1815" InputCP="1198">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1816" InputCP="1200">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1817" InputCP="1202">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1818" InputCP="1204">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1819" InputCP="1206">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1820" InputCP="1208">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1821" InputCP="1210">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1822" InputCP="1212">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1823" InputCP="1214">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1824" InputCP="1216">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1825" InputCP="1218">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1826" InputCP="1220">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1827" InputCP="1222">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1828" InputCP="1224">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1829" InputCP="1226">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1830" InputCP="1228">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1831" InputCP="1230">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1832" InputCP="1232">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1833" InputCP="1234">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1834" InputCP="1236">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1835" InputCP="1238">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1836" InputCP="1240">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1837" InputCP="1242">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1838" InputCP="1244">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1839" InputCP="1246">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1840" InputCP="1248">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1841" InputCP="1250">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1842" InputCP="1252">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1843" InputCP="1254">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1844" InputCP="1256">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1845" InputCP="1258">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1846" InputCP="1260">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1847" InputCP="1262">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1848" InputCP="1264">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1849" InputCP="1266">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1850" InputCP="1268">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1851" InputCP="1270">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1852" InputCP="1272">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1853" InputCP="1274">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1854" InputCP="1276">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1855" InputCP="1278">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1856" InputCP="1280">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1857" InputCP="1282">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1858" InputCP="1284">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1859" InputCP="1286">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1860" InputCP="1288">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1861" InputCP="1290">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1862" InputCP="1292">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1863" InputCP="1294">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1864" InputCP="1296">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1865" InputCP="1298">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1866" InputCP="1300">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1867" InputCP="1302">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1868" InputCP="1304">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1869" InputCP="1306">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1870" InputCP="1308">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1871" InputCP="1310">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1872" InputCP="1312">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1873" InputCP="1314">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1874" InputCP="1316">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1875" InputCP="1318">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1876" InputCP="1320">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1877" InputCP="1322">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1878" InputCP="1324">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1879" InputCP="1326">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1880" InputCP="1328">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1881" InputCP="1330">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1882" InputCP="1332">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1883" InputCP="1334">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1884" InputCP="1336">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1885" InputCP="1338">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1886" InputCP="1340">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1887" InputCP="1342">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1888" InputCP="1344">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1889" InputCP="1346">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1890" InputCP="1348">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1891" InputCP="1350">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1892" InputCP="1352">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1893" InputCP="1354">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1894" InputCP="1356">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1895" InputCP="1358">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1896" InputCP="1360">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1897" InputCP="1362">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1898" InputCP="1364">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1899" InputCP="1366">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1900" InputCP="1368">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1901" InputCP="1370">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1902" InputCP="1372">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1903" InputCP="1374">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1904" InputCP="1376">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1905" InputCP="1378">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1906" InputCP="1380">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1907" InputCP="1382">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1908" InputCP="1384">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1909" InputCP="1386">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1910" InputCP="1388">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1911" InputCP="1390">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1912" InputCP="1392">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1913" InputCP="1394">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1914" InputCP="1396">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1915" InputCP="1398">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1916" InputCP="1400">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1917" InputCP="1402">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1918" InputCP="1404">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1919" InputCP="1406">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1920" InputCP="1408">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1921" InputCP="1410">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1922" InputCP="1412">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1923" InputCP="1414">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1924" InputCP="1416">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1925" InputCP="1418">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1926" InputCP="1420">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1927" InputCP="1422">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1928" InputCP="1424">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1929" InputCP="1426">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1930" InputCP="1428">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1931" InputCP="1430">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1932" InputCP="1432">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1933" InputCP="1434">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1934" InputCP="1436">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1935" InputCP="1438">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1936" InputCP="1440">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1937" InputCP="1442">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1938" InputCP="1444">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1939" InputCP="1446">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1940" InputCP="1448">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1941" InputCP="1450">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1942" InputCP="1452">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1943" InputCP="1454">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1944" InputCP="1456">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1945" InputCP="1458">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1946" InputCP="1460">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1947" InputCP="1462">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1948" InputCP="1464">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1949" InputCP="1466">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1950" InputCP="1468">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1951" InputCP="1470">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1952" InputCP="1472">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1953" InputCP="1474">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1954" InputCP="1476">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1955" InputCP="1478">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1956" InputCP="1480">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1957" InputCP="1482">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1958" InputCP="1484">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1959" InputCP="1486">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1960" InputCP="1488">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1961" InputCP="1490">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1962" InputCP="1492">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1963" InputCP="1494">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1964" InputCP="1496">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1965" InputCP="1498">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1966" InputCP="1500">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1967" InputCP="1502">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1968" InputCP="1504">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1969" InputCP="1506">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1970" InputCP="1508">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1971" InputCP="1510">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1972" InputCP="1512">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1973" InputCP="1514">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1974" InputCP="1516">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1975" InputCP="1518">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1976" InputCP="1520">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1977" InputCP="1522">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1978" InputCP="1524">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1979" InputCP="1526">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1980" InputCP="1528">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1981" InputCP="1530">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1982" InputCP="1532">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1983" InputCP="1534">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1984" InputCP="1536">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1985" InputCP="1538">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1986" InputCP="1540">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1987" InputCP="1542">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1988" InputCP="1544">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1989" InputCP="1546">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1990" InputCP="1548">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1991" InputCP="1550">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1992" InputCP="1552">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1993" InputCP="1554">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1994" InputCP="1556">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1995" InputCP="1558">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1996" InputCP="1560">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1997" InputCP="1562">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1998" InputCP="1564">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="1999" InputCP="1566">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2000" InputCP="1568">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2001" InputCP="1570">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2002" InputCP="1572">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2003" InputCP="1574">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2004" InputCP="1576">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2005" InputCP="1578">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2006" InputCP="1580">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2007" InputCP="1582">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2008" InputCP="1584">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2009" InputCP="1586">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2010" InputCP="1588">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2011" InputCP="1590">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2012" InputCP="1592">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2013" InputCP="1594">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2014" InputCP="1596">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2015" InputCP="1598">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2016" InputCP="1600">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2017" InputCP="1602">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2018" InputCP="1604">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2019" InputCP="1606">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2020" InputCP="1608">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2021" InputCP="1610">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2022" InputCP="1612">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2023" InputCP="1614">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2024" InputCP="1616">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2025" InputCP="1618">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2026" InputCP="1620">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2027" InputCP="1622">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2028" InputCP="1624">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2029" InputCP="1626">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2030" InputCP="1628">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2031" InputCP="1630">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2032" InputCP="1632">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2033" InputCP="1634">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2034" InputCP="1636">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2035" InputCP="1638">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2036" InputCP="1640">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2037" InputCP="1642">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2038" InputCP="1644">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2039" InputCP="1646">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2040" InputCP="1648">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2041" InputCP="1650">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2042" InputCP="1652">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2043" InputCP="1654">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2044" InputCP="1656">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2045" InputCP="1658">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2046" InputCP="1660">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2047" InputCP="1662">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2048" InputCP="1664">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2049" InputCP="1666">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2050" InputCP="1668">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2051" InputCP="1670">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2052" InputCP="1672">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+			<Properties Category="TargetManipulation">
+				<Property Name="Behavior">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2053" InputCP="1674">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">18</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2061" InputCP="2062">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2063" InputCP="2064">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2065" InputCP="2066">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2067" InputCP="2068">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2069" InputCP="2070">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2071" InputCP="2072">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2073" InputCP="2074">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2075" InputCP="2076">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2077" InputCP="2078">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2079" InputCP="2080">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2081" InputCP="2082">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2083" InputCP="2084">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2085" InputCP="2086">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2087" InputCP="2088">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2089" InputCP="2090">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2091" InputCP="2092">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2093" InputCP="2094">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2095" InputCP="2096">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2097" InputCP="2098">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2099" InputCP="2100">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2101" InputCP="2102">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2103" InputCP="2104">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2105" InputCP="2106">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2107" InputCP="2108">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2109" InputCP="2110">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2111" InputCP="2112">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2113" InputCP="2114">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2115" InputCP="2116">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2117" InputCP="2118">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="2119" InputCP="2120">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">20</Property>
+			</Properties>
+		</Connector>
+	</Connectors>
+</Map>

@@ -1,0 +1,1188 @@
+// Importing the ProxyMessage class from the com.edifecs.etools.xeserver.proxy package
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+
+// Importing the SmartStream class from the com.edifecs.etools.commons.io package
+import com.edifecs.etools.commons.io.SmartStream;
+
+// Importing the NodeChild class from the groovy.util.slurpersupport package
+import groovy.util.slurpersupport.NodeChild;
+
+// Importing all classes from the java.io package
+import java.io.*;
+
+
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+
+
+exchProperties.each // Iterate over each property in the 'exchProperties' object
+{
+	k, v-> msgHeaders.put(k, v)  // Add the key-value pair to the 'msgHeaders' object
+}
+
+messageBodyInputStream = message.getBodyAsSmartStream().getInputStream(); // Get the body of the 'message' object as a SmartStream and retrieve its InputStream
+
+def root = new XmlSlurper().parse(messageBodyInputStream); // Parse the InputStream using XmlSlurper and assign the resulting object to 'root'
+def recordIdentifier = msgHeaders.get('recordidentifier')
+def rayId = msgHeaders.get('rayidentifier')
+def recordIdfromSource = msgHeaders.get('recordidfromsource')
+
+StringBuilder errorBuilder = new StringBuilder();// Create a StringBuilder object
+
+// Create a List
+List snipListFile;
+
+
+// Create a StringBuilder to store file-level errors
+StringBuilder fileLevelErrors;
+
+// Create a StringBuilder to store transaction-level errors
+StringBuilder transactionErrors;
+
+// Create a StringBuilder to store provider-level errors
+StringBuilder providerErrors;
+
+// Create a StringBuilder to store subscriber-level errors
+StringBuilder subscriberErrors;
+
+
+// Create a StringBuilder to store claim-level errors
+StringBuilder claimErrors;
+
+// Declare variables
+def dataReportSnipCategory;
+def dataReporCoverageSnip;
+
+def dataReportErrorBrief;
+def dataReportErrorMsg;
+def dataReportErrorID;
+
+def groupSnipCategory;
+def groupCoverageSnip;
+def groupErrorID;
+def groupErrorBrief;
+def groupErrorMsg;
+
+def interchangeErrorBrief;
+def interchangeErrorMsg;
+
+def interchangeSnipCategory;
+def interchangeCoverageSnip;
+def interchangeErrorID = '';
+
+def ediFileId = '';
+def recordId = '';
+def OriginalFileName = '';
+def adaptorReceiptDateTime = '';
+def ediFileType = '';
+
+def InterchangeControlNumber = '';
+def InterchangeSenderID = '';
+
+def billingProviderNpi = '';
+def billingProviderTaxId = '';
+def billingProviderState = '';
+
+def BHTdate = '';
+
+def SubscriberNameFirst = '';
+def SubscriberNameLast = '';
+def SubscriberNameMiddle = '';
+def SubscriberPrimaryID = '';
+def dateOfBirth = '';
+
+def SourceTypeIdentifier = '';
+
+def SubmitterNameFirst = '';
+def SubmitterNameLast = '';
+
+
+def claimType = '';
+def ClaimBilledAmount = '';
+
+
+List snipList;
+snipList = new ArrayList();
+
+
+def countErrors(StringBuilder fileLevelErrors) {
+    // Convert the StringBuilder to a String
+    String errorString = fileLevelErrors.toString()
+
+    // Check if the string is empty
+    if (errorString.isEmpty()) {
+        // If empty, there are no errors
+        return 0
+    } else {
+        // Split the string by '~'
+        String[] errors = errorString.split("~")
+        
+        // Count the errors
+        return errors.length
+    }
+}
+def errorCount;
+
+root.each  // Iterate over each DataReportNode in the 'root' object
+{
+	DataReportNode ->
+
+		int dataReportErrorcount = 0;
+	def EntireDocumentErrorTotal = '';
+	fileLevelErrorIDMap = new HashMap<String, String> ();
+	snipListFile = new ArrayList();
+
+	DataReportNode.Fields.Field.each  // Iterate over each Field within  DataReportNode
+	{
+		DataReportField ->
+
+			fileLevelErrors = new StringBuilder();
+
+		String entireDocumentField = DataReportField.@Name;
+
+		if (entireDocumentField == "OriginalFileName")
+		{
+			OriginalFileName = DataReportField.text();
+		}
+
+
+		if (entireDocumentField == "adaptorReceiptDateTime")
+		{
+			adaptorReceiptDateTime = DataReportField.text();
+		}
+
+		if (entireDocumentField == "claimType")
+		{
+			claimType = DataReportField.text();
+		}
+		
+		if (entireDocumentField == "ediFileId")
+		{
+			ediFileId = DataReportField.text();
+		}
+		
+}
+
+	for (NodeChild error: DataReportNode.Errors.Error)  // Iterate over each 'Error' child node within 'DataReportNode.Errors'
+	{
+		dataReportErrorBrief = error.Brief.text().toString().replaceAll(',','');
+		dataReportErrorMsg = error.Msg.text().toString().replaceAll(',','');
+		dataReportSnipCategory = error.@Category;
+		dataReportErrorID = error.@ID;
+
+		if (dataReportSnipCategory == 'Rejecting')
+		{
+			dataReporCoverageSnip = error.@SNIP.text().toString();
+			if (!snipListFile.contains(dataReporCoverageSnip))
+			{
+				snipListFile.add(dataReporCoverageSnip);
+			}
+
+			dataReportErrorcount = dataReportErrorcount + 1;
+
+			String dataReportErrorcounter = Integer.toString(dataReportErrorcount);
+
+			
+			
+				if (!fileLevelErrors.isEmpty()) 
+				{
+                    String temp = "~" + "${dataReportErrorID}" + ":" + "EntireDocumentError " + "${dataReportErrorcounter}" + " " + "${dataReportErrorBrief}" + "${dataReportErrorMsg}";
+                    fileLevelErrors.append(temp);
+                } 
+				else 
+				{
+                    String temp = "${dataReportErrorID}" + ":" + "EntireDocumentError " + "${dataReportErrorcounter}" + " " + "${dataReportErrorBrief}" + "${dataReportErrorMsg}";
+                    fileLevelErrors.append(temp);
+                }
+				errorCount=countErrors(fileLevelErrors)
+				if(errorCount>=40)
+				{
+					break;
+				}
+			
+			
+		}
+	}
+	DataReportNode.ErrorStatistics.each
+	{
+		errorStatistics ->
+			EntireDocumentErrorTotal = errorStatistics.ErrorTotal.text().toString();
+	}
+
+			root.GroupNode.each // Iterate over each GroupNode in the 'root' object
+			{
+				InterchangeNode ->
+				int interchangeErrorcount = 0;
+
+				InterchangeNode.Fields.Field.each // Iterate over each Field within each InterchangeNode
+				{
+					InterchangeNodeField ->
+		  
+					String interchangeField = InterchangeNodeField.@Name;
+		  
+					if (interchangeField == "InterchangeSenderID")
+					{
+						InterchangeSenderID = InterchangeNodeField.text().trim();
+					}
+		  
+					if (interchangeField == "InterchangeControlNumber")
+					{
+						InterchangeControlNumber = InterchangeNodeField.text().trim();
+					}
+				}
+		  
+				for (NodeChild error: InterchangeNode.Errors.Error)   // Iterate over each 'Error' child node within 'InterchangeNode.Errors'
+				{
+					interchangeErrorBrief = error.Brief.text().toString().replaceAll(',','');
+					interchangeErrorMsg = error.Msg.text().toString().replaceAll(',','');
+					interchangeSnipCategory = error.@Category;
+					interchangeErrorID = error.@ID;
+							
+					if (interchangeSnipCategory == 'Rejecting')
+					{
+						interchangeCoverageSnip = error.@SNIP.text().toString();
+						if (!snipListFile.contains(interchangeCoverageSnip))
+						{
+							snipListFile.add(interchangeCoverageSnip);
+						}
+				
+						interchangeErrorcount = interchangeErrorcount + 1;
+				
+						String interchangeErrorcounter = Integer.toString(interchangeErrorcount);
+						errorCount=countErrors(fileLevelErrors)
+						if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+						{
+                        String temp = "~" + "${interchangeErrorID}" + ":" + "InterchangeGroupError " + "${interchangeErrorcounter}" + " " + "${interchangeErrorBrief}" + "${interchangeErrorMsg}";
+                        fileLevelErrors.append(temp);
+						}
+						else 
+						{
+                        String temp = "${interchangeErrorID}" + ":" + "InterchangeGroupError " + "${interchangeErrorcounter}" + " " + "${interchangeErrorBrief}" + "${interchangeErrorMsg}";
+                        fileLevelErrors.append(temp);
+						}
+						errorCount=countErrors(fileLevelErrors)
+						if(errorCount>=40)
+						{
+						break;
+						}
+			
+
+						
+						
+					}
+				}
+		  
+		  
+						InterchangeNode.GroupNode.each   // Iterate over each node within each InterchangeNode
+						{
+							GroupNode ->
+
+							int groupErrorcount = 0;
+							for (NodeChild error: GroupNode.Errors.Error) // Iterate over each 'Error' child node within 'GroupNode.Errors'
+							{
+								groupErrorBrief = error.Brief.text().toString().replaceAll(',','');
+								groupErrorMsg = error.Msg.text().toString().replaceAll(',','');
+								groupSnipCategory = error.@Category;
+								groupErrorID = error.@ID;
+								
+									if (groupSnipCategory == 'Rejecting')
+									{
+										groupCoverageSnip = error.@SNIP.text().toString();
+										if (!snipListFile.contains(groupCoverageSnip))
+										{
+											snipListFile.add(groupCoverageSnip);
+										}
+			
+											groupErrorcount = groupErrorcount + 1;
+			
+											String groupErrorcounter = Integer.toString(groupErrorcount);
+			
+											
+										
+											errorCount=countErrors(fileLevelErrors)
+											if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+											{
+											String temp = "~" + "${groupErrorID}" + ":" + "FunctionalGroupError " + "${groupErrorcounter}" + " " + "${groupErrorBrief}" + "${groupErrorMsg}";
+											fileLevelErrors.append(temp);
+											}
+											else 
+											{
+											String temp = "${groupErrorID}" + ":" + "FunctionalGroupError " + "${groupErrorcounter}" + " " + "${groupErrorBrief}" + "${groupErrorMsg}";
+											fileLevelErrors.append(temp);
+											}
+											errorCount=countErrors(fileLevelErrors)
+											if(errorCount>=40)
+											{
+											break;
+											}
+									}
+							}
+
+			
+											// Generates CSV if the filelevel errors are grater than zero
+											if (fileLevelErrors?.size() > 0)
+											{  // Append values to errorBuilder
+												errorBuilder.append("Edifecs");
+												errorBuilder.append("|");
+												errorBuilder.append(OriginalFileName);
+												errorBuilder.append("|");
+												errorBuilder.append("Daily");
+												errorBuilder.append("|");
+												errorBuilder.append(InterchangeSenderID);
+												errorBuilder.append("|");
+												if (SourceTypeIdentifier.equals(SubmitterName + "_Paper"))
+                                                errorBuilder.append("P");
+                                                else if (SourceTypeIdentifier.equals(SubmitterName + "_Electronic")) 
+                                                errorBuilder.append("E");
+												errorBuilder.append("|");
+												errorBuilder.append(ediFileId);
+												errorBuilder.append("|");
+												
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												errorBuilder.append("|");
+												if (fileLevelErrorIDMap?.size() > 0) 
+												{
+													errorBuilder.append("R").append('|');
+												}
+												else
+												{
+													errorBuilder.append("A").append('|');
+												}
+												
+												
+						
+										
+												fileLevelErrorIDMap.each { key, value ->
+														if (value.size() == 1) {
+															errorBuilder.append(value)
+														}
+													}
+
+								
+												errorBuilder.append("|").append("|");
+												errorBuilder.append(fileLevelErrors.toString())
+												errorBuilder.append("|");
+												errorBuilder.append(EntireDocumentErrorTotal).append('|');
+												
+								                 //Check for the SNIP erros and append 'Y' if present else append 'N'
+												if (snipListFile.contains("1"))
+													errorBuilder.append("N").append('|');
+												else
+													errorBuilder.append("Y").append('|');
+								
+												if (snipListFile.contains("2"))
+													errorBuilder.append("N").append('|');
+												else
+													errorBuilder.append("Y").append('|');
+								
+												if (snipListFile.contains("3"))
+													errorBuilder.append("N").append('|');
+												else
+													errorBuilder.append("Y").append('|');
+								
+												if (snipListFile.contains("4"))
+													errorBuilder.append("N").append('|');
+												else
+													errorBuilder.append("Y").append('|');
+								
+												if (snipListFile.contains("5"))
+													errorBuilder.append("N").append('|');
+												else
+													errorBuilder.append("Y").append('|');
+								
+												if (snipListFile.contains("6"))
+													errorBuilder.append("N").append('|');
+												else
+													errorBuilder.append("Y").append('|');
+								
+												if (snipListFile.contains("7"))
+													errorBuilder.append("N").append('|');
+												else
+												{
+													errorBuilder.append("Y").append('|');
+												}
+								
+												errorBuilder.append('|');
+												errorBuilder.append('|');
+												errorBuilder.append('|');
+												errorBuilder.append('|');
+												errorBuilder.append('|');
+												errorBuilder.append(adaptorReceiptDateTime);
+												errorBuilder.append("\r\n");
+								
+												// Convert the contents of 'errorBuilder' to a string
+												newMessageBody = errorBuilder.toString();
+
+												// Create a new message using 'newMessageBody' and the headers from the original message
+												ProxyMessage newMessage = context.createNewMessage(newMessageBody, message.getHeaders());
+
+												// Create an exchange response with 'msgHeaders' and 'newMessage'
+												context.createExchangeResponse(msgHeaders, newMessage);
+											}
+											
+											//If filelevel errors are not present the control moves to the transaction node
+											else
+											{
+												GroupNode.GroupNode.each   // Iterate over each Transaction node within each GroupNode
+												{
+													TransactionNode ->
+											
+														TransactionNode.Fields.Field.each // Iterate over each Field within each TransactionNode
+														{
+															TransactionNodeField ->
+											
+																String transactionField = TransactionNodeField.@Name;
+																
+															if (transactionField == "BHTdate") 
+															{
+																BHTdate = TransactionNodeField.text().trim();
+															}
+															if (transactionField == "SourceTypeIdentifier")
+		                                                    {
+			                                                    SourceTypeIdentifier = TransactionNodeField.text().trim();
+		                                                    }
+															if (transactionField == "SubmitterNameFirst")
+														    {
+																SubmitterNameFirst = TransactionNodeField.text().trim().replaceAll(',','');
+                                                                            
+														    }																					
+														    if (transactionField == "SubmitterNameLast")				
+															{
+																SubmitterNameLast = TransactionNodeField.text().trim().replaceAll(',','');
+																			
+															}		
+														}
+														if (SubmitterNameFirst=="")
+                                                        { 
+	                                                        SubmitterName=SubmitterNameLast;
+                                                        }
+                                                        else if(SubmitterNameLast=="")
+                                                        {
+	                                                    SubmitterName=SubmitterNameFirst;
+                                                        }
+                                                        else
+                                                        {
+                                                        SubmitterName=SubmitterNameLast+" "+SubmitterNameFirst;
+                                                        }
+											
+														transactionErrors = new StringBuilder();
+														//List snipList;
+														transSnipList = new ArrayList();
+														transactionErrorIDMap = new HashMap<String, String> ();
+														int transactionErrorcount = 0;
+														int TransactionErrorTotal = 0;
+													
+														def transactionSnipCategory = '';
+														def transactionSnip = '';
+														def transactionErrorID = '';
+														def transactionErrorBrief = '';
+														def transactionErrorMsg = '';
+														//def ecRuleValue = TransactionNode.@ecRule.text();
+					                                    //def StatusCode = TransactionNode.@StatusCode.text();
+													
+														for (NodeChild error: TransactionNode.Errors.Error) // Iterate over each 'Error' child node within 'TransactionNode.Errors'
+														{
+															transactionErrorBrief = error.Brief.text().toString().replaceAll(',','');
+															transactionErrorMsg = error.Msg.text().toString().replaceAll(',','');
+															transactionErrorID = error.@ID;
+															transactionSnipCategory = error.@Category;
+													
+															if (transactionSnipCategory == 'Rejecting')
+															{
+																transactionSnip = error.@SNIP.text().toString();
+													
+																if (!transSnipList.contains(transactionSnip))
+																{
+																	transSnipList.add(transactionSnip);
+																}
+													
+																TransactionNode.ErrorStatistics.each
+																{
+																		errorStatistics ->
+																		TransactionErrorTotal = errorStatistics.ErrorCount.text().toInteger();
+																}
+													
+																
+													
+																transactionErrorcount = transactionErrorcount + 1;
+													
+																String transactionErrorcounter = Integer.toString(transactionErrorcount);
+													
+																
+																
+																errorCount=countErrors(fileLevelErrors)
+																if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+																{
+																String temp = "~" + "${transactionErrorID}" + ":" + "TransactionSetError " + "${transactionErrorcounter}" + " " + "${transactionErrorBrief}" + "${transactionErrorMsg}";
+																fileLevelErrors.append(temp);
+																}
+																else 
+																{
+																String temp = "${transactionErrorID}" + ":" + "TransactionSetError " + "${transactionErrorcounter}" + " " + "${transactionErrorBrief}" + "${transactionErrorMsg}";
+																fileLevelErrors.append(temp);
+																}
+																errorCount=countErrors(fileLevelErrors)
+																if(errorCount>=40)
+																{
+																break;
+																}
+															}
+														}
+													
+														
+											
+														String recordLevelErrorCountTotal = '';
+														
+														
+														TransactionNode.GroupNode.each // Iterate over each ProviderNode within each TransactionNode
+														{
+															ProviderNode ->
+											
+																ProviderNode.Fields.Field.each  // Iterate over each Field within each ProviderNode
+																{
+																	ProviderNodeField ->
+											
+																		String providerField = ProviderNodeField.@Name;
+											
+																	if (providerField == "billingProviderNpi")
+																	{
+																		billingProviderNpi = ProviderNodeField.text().trim();
+																	}
+											
+																	if (providerField == "BillingProviderTaxID")
+																	{
+																		billingProviderTaxId = ProviderNodeField.text().trim();
+																	}
+											
+																	if (providerField == "BillingProviderStateCode")
+																	{
+																		billingProviderState = ProviderNodeField.text().trim();
+																	}
+																}
+											
+																				providerErrors = new StringBuilder();
+																
+																				providerErrorIDMap = new HashMap<String, String> ();
+																				providerSnipList = new ArrayList();
+																				int providerErrorcount = 0;
+																				int providerErrorTotal = 0;
+																				def providerSnipCategory = '';
+																				def providerSnip = '';
+																				def providerErrorID = '';
+																				def providerErrorBrief = '';
+																				def providerErrorMsg = '';
+																
+																				for (NodeChild error: ProviderNode.Errors.Error) // Iterate over each 'Error' child node within 'ProviderNode.Errors'
+																				{
+																					providerErrorBrief = error.Brief.text().toString().replaceAll(',','');
+																					providerErrorMsg = error.Msg.text().toString().replaceAll(',','');
+																					providerErrorID = error.@ID;
+																					providerSnipCategory = error.@Category;
+																
+																					if (providerSnipCategory == 'Rejecting')
+																					{
+																						providerSnip = error.@SNIP.text().toString();
+																
+																						if (!providerSnipList.contains(providerSnip))
+																						{
+																							providerSnipList.add(providerSnip);
+																						}
+																
+																						ProviderNode.ErrorStatistics.each
+																						{
+																							errorStatistics ->
+																								providerErrorTotal = errorStatistics.ErrorCount.toInteger()
+																
+																						}
+																
+																						providerErrorcount = providerErrorcount + 1;
+																
+																						String providerErrorcounter = Integer.toString(providerErrorcount);
+																
+																						
+																						
+																						errorCount=countErrors(fileLevelErrors)
+																						if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+																						{
+																						String temp = "~" + "${providerErrorID}" + ":" + "ProviderSetError " + "${providerErrorcounter}" + " " + "${providerErrorBrief}" + "${providerErrorMsg}";
+																						fileLevelErrors.append(temp);
+																						}
+																						else 
+																						{
+																						String temp = "${providerErrorID}" + ":" + "ProviderSetError " + "${providerErrorcounter}" + " " + "${providerErrorBrief}" + "${providerErrorMsg}";
+																						fileLevelErrors.append(temp);
+																						}
+																						errorCount=countErrors(fileLevelErrors)
+																						if(errorCount>=40)
+																						{
+																						break;
+																						}
+																					}
+																				}
+																
+																				
+																
+																					ProviderNode.GroupNode.each // Iterate over each SubscriberNode within each ProviderNode
+																					{
+																						SubscriberNode ->
+																
+																							SubscriberNode.Fields.Field.each // Iterate over each Field within each SubscriberNode
+																							{
+																								SubscriberNodeField ->
+																
+																									String subscriberField = SubscriberNodeField.@Name;
+																
+																								if (subscriberField == "SubscriberNameFirst")
+																								{
+																									SubscriberNameFirst = SubscriberNodeField.text().trim().replaceAll(',','');
+																								}																	
+																								if (subscriberField == "SubscriberNameLast")
+																								{
+																									SubscriberNameLast = SubscriberNodeField.text().trim().replaceAll(',','');
+																								}
+																
+																								if (subscriberField == "SubscriberNameMiddle")
+																								{
+																									SubscriberNameMiddle = SubscriberNodeField.text().trim().replaceAll(',','');
+																								}
+																
+																								if (subscriberField == "SubscriberPrimaryID")
+																								{
+																									SubscriberPrimaryID = SubscriberNodeField.text().trim();
+																								}
+																
+																								if (subscriberField == "dateOfBirth")
+																								{
+																									dateOfBirth = SubscriberNodeField.text().trim();
+																								}
+																							}
+																
+																						subscriberErrors = new StringBuilder();
+																
+																						subscriberErrorIDMap = new HashMap<String, String> ();
+																						
+																						subscriberSnipList = new ArrayList();
+																						int subscriberErrorcount = 0;
+																						int subscriberErrorTotal = 0;
+																						def subscriberSnipCategory = '';
+																						def subscriberSnip = '';
+																						def subscriberErrorID = '';
+																						def subscriberErrorBrief = '';
+																						def subscriberErrorMsg = '';
+																
+																						for (NodeChild error: SubscriberNode.Errors.Error) // Iterate over each 'Error' child node within 'SubscriberNode.Errors'
+																						{
+																							subscriberErrorBrief = error.Brief.text().toString().replaceAll(',','');
+																							subscriberErrorMsg = error.Msg.text().toString().replaceAll(',','');
+																							subscriberErrorID = error.@ID;
+																							subscriberSnipCategory = error.@Category;
+																
+																							if (subscriberSnipCategory == 'Rejecting')
+																							{
+																								subscriberSnip = error.@SNIP.text().toString();
+																
+																								if (!subscriberSnipList.contains(subscriberSnip))
+																								{
+																									subscriberSnipList.add(subscriberSnip);
+																								}
+																
+																								SubscriberNode.ErrorStatistics.each
+																								{
+																									errorStatistics ->
+																										subscriberErrorTotal = errorStatistics.ErrorCount.toInteger()
+																
+																								}
+																
+																								subscriberErrorcount = subscriberErrorcount + 1;
+																
+																								String subscriberErrorcounter = Integer.toString(subscriberErrorcount);
+																
+																								
+																								
+																								errorCount=countErrors(fileLevelErrors)
+																								if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+																								{
+																								String temp = "~" + "${subscriberErrorID}" + ":" + "SubscriberSetError " + "${subscriberErrorcounter}" + " " + "${subscriberErrorBrief}" + "${subscriberErrorMsg}";
+																								fileLevelErrors.append(temp);
+																								}
+																								else 
+																								{
+																								String temp = "${subscriberErrorID}" + ":" + "SubscriberSetError " + "${subscriberErrorcounter}" + " " + "${subscriberErrorBrief}" + "${subscriberErrorMsg}";
+																								fileLevelErrors.append(temp);
+																								}
+																								errorCount=countErrors(fileLevelErrors)
+																								if(errorCount>=40)
+																								{
+																								break;
+																								}
+																								
+																							}
+																							
+																						}
+																
+																						
+																								SubscriberNode.GroupNode.each		// Iterate over each PatientNode within each SubscriberNode
+																								{												
+																									PatientNode ->
+																											def PatientNameFirst = '';
+																											def PatientNameLast = '';
+																											def PatientNameMiddle = '';
+																											def PatientControlNumber = '';
+																											def PatientBirthDate = '';
+
+
+																											// Create a StringBuilder to store patient-level errors
+																											StringBuilder patientErrors = new StringBuilder();
+																											patientErrorIDMap = new HashMap<String, String> ();  // Create a new HashMap to store patient error IDs
+																											int patientErrorcount = 0;
+																											int patientErrorTotal = 0;
+																											def patientSnipCategory = '';
+																											def patientSnip = '';
+																											def patientErrorID = '';
+																											def patientErrorBrief = '';
+																											def patientErrorMsg = '';
+
+
+
+
+
+																											patientSnipList = new ArrayList();
+
+
+
+
+
+																																															
+																													String GroupName = PatientNode.@Name;   
+
+																												if (GroupName == "Patient") // Replaces SubscriberNode as PatientNode 
+																												{
+																													SubscriberNode = PatientNode;
+
+																													PatientNode.Fields.Field.each   // Iterate over each Field within each PatientNode
+																													{
+																														PatientNodeField ->
+
+																															String patientField = PatientNodeField.@Name;
+
+																														if (patientField == "PatientNameFirst")
+																														{
+																															PatientNameFirst = PatientNodeField.text().trim().replaceAll(',','');
+																														}
+
+																														if (patientField == "PatientNameLast")
+																														{
+																															PatientNameLast = PatientNodeField.text().trim().replaceAll(',','');
+																														}
+
+																														if (patientField == "PatientNameMiddle")
+																														{
+																															PatientNameMiddle = PatientNodeField.text().trim().replaceAll(',','');
+																															
+																														}
+
+																														
+
+																														if (patientField == "PatientBirthDate")
+																														{
+																															PatientBirthDate = PatientNodeField.text().trim();
+																														}
+																													}
+
+																													
+																														patientSnipList.clear();
+																														patientErrorMsg='';;
+																														patientErrorID='';
+																														patientSnipCategory='';
+																														for (NodeChild error: PatientNode.Errors.Error) // Iterate over each 'Error' child node within 'PatientNode.Errors'
+																														{
+																															patientErrorBrief = error.Brief.text().toString().replaceAll(',','');
+																															patientErrorMsg = error.Msg.text().toString().replaceAll(',','');
+																															patientErrorID = error.@ID;
+																															patientSnipCategory = error.@Category;
+																														
+																															if (patientSnipCategory == 'Rejecting')
+																															{
+																																patientSnip = error.@SNIP.text().toString();
+																														
+																																if (!patientSnipList.contains(patientSnip))
+																																{
+																																	patientSnipList.add(patientSnip);
+																																}
+																														
+																																PatientNode.ErrorStatistics.each
+																																{
+																																	errorStatistics ->
+																																		patientErrorTotal = errorStatistics.ErrorCount.toInteger()
+																														
+																																}
+																														
+																																patientErrorcount = patientErrorcount + 1;
+																														
+																																String patientErrorcounter = Integer.toString(patientErrorcount);
+																														
+																																
+																																errorCount=countErrors(fileLevelErrors)
+																																if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+																																{
+																																String temp = "~" + "${patientErrorID}" + ":" + "PatientSetError " + "${patientErrorcounter}" + " " + "${patientErrorBrief}" + "${patientErrorMsg}";
+																																fileLevelErrors.append(temp);
+																																}
+																																else 
+																																{
+																																String temp = "${patientErrorID}" + ":" + "PatientSetError " + "${patientErrorcounter}" + " " + "${patientErrorBrief}" + "${patientErrorMsg}";
+																																fileLevelErrors.append(temp);
+																																}
+																																errorCount=countErrors(fileLevelErrors)
+																																if(errorCount>=40)
+																																{
+																																break;
+																																}
+																															}
+																														}
+																														
+																												}
+
+
+																											def ClearinghouseNumber = '';
+																											def DCN = '';
+																											
+																											SubscriberNode.GroupNode.each
+																											{
+																												ClaimNode ->						// Iterate over each ClaimNode within each SubscriberNode if PatientNode is absent else iterate over each PatientNode
+																													
+																													ClaimNode.Fields.Field.each // Iterate over each Field within each ClaimNode
+																													{
+																														ClaimNodeField ->
+
+																															String claimField = ClaimNodeField.@Name;
+																														if (claimField == "claimType")
+																														{
+																															claimType = ClaimNodeField.text().trim();
+																														}
+
+																														if (claimField == "ClaimBilledAmount")
+																														{
+																															ClaimBilledAmount = ClaimNodeField.text().trim();
+																														}
+																														
+																														 if (claimField == "PatientControlNumber")
+																														{
+																															PatientControlNumber = ClaimNodeField.text().trim().replaceAll(',','');
+																														}
+																														
+																														if (claimField == "ClearinghouseNumber")
+																														{
+																															ClearinghouseNumber =ClaimNodeField.text().trim();
+																														}
+																														
+																													
+																														if (claimField == "DCN")
+																														{
+																															DCN = ClaimNodeField.text().trim();
+																														}
+																														
+																													}
+
+																														claimErrors = new StringBuilder();
+
+																														claimErrorIDMap = new HashMap<String, String> ();
+																														claimSnipList = new ArrayList();
+																														int claimErrorcount = 0;
+																														int claimErrorTotal = 0;
+																														def claimSnipCategory = '';
+																														def claimSnip = '';
+																														def claimErrorID = '';
+																														def claimErrorBrief = '';
+																														def claimErrorMsg = '';
+																														def ecRuleValue = ClaimNode.@ecRule.text();
+					                                                                                                    def StatusCode = ClaimNode.@StatusCode.text();
+
+																														for (NodeChild error: ClaimNode.Errors.Error)  // Iterate over each 'Error' child node within 'ClaimNode.Errors'
+																														{
+																															claimErrorBrief = error.Brief.text().toString().replaceAll(',','');
+																															claimErrorMsg = error.Msg.text().toString().replaceAll(',','');
+																															
+																															claimErrorID = error.@ID;
+																															claimSnipCategory = error.@Category;
+
+																															if (claimSnipCategory == 'Rejecting')
+																															{
+																																claimSnip = error.@SNIP.text().toString();
+
+																																if (!claimSnipList.contains(claimSnip))
+																																{
+																																	claimSnipList.add(claimSnip);
+																																}
+
+																																ClaimNode.ErrorStatistics.each
+																																{
+																																	errorStatistics ->
+																																		claimErrorTotal = errorStatistics.ErrorCount.toInteger()
+
+																																}
+
+																																claimErrorcount = claimErrorcount + 1;
+
+																																String claimErrorcounter = Integer.toString(claimErrorcount);
+
+																																
+																																errorCount=countErrors(fileLevelErrors)
+																																if (!fileLevelErrors.isEmpty() && errorCount < 40) 
+																																{
+																																String temp = "~" + "${claimErrorID}" + ":" + "ClaimSetError " + "${claimErrorcounter}" + " " + "${claimErrorBrief}" + "${claimErrorMsg}";
+																																fileLevelErrors.append(temp);
+																																}
+																																else 
+																																{
+																																String temp = "${claimErrorID}" + ":" + "ClaimSetError " + "${claimErrorcounter}" + " " + "${claimErrorBrief}" + "${claimErrorMsg}";
+																																fileLevelErrors.append(temp);
+																																}
+																																errorCount=countErrors(fileLevelErrors)
+																																if(errorCount>=40)
+																																{
+																																break;
+																																}
+																															}
+																							}
+																																					// CSV generation starts from here, by appendindg the values to errorBuilder 
+																																						errorBuilder.append("Edifecs");
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(OriginalFileName);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append("Daily");
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(InterchangeSenderID);
+																																						errorBuilder.append("|");
+																																						if (SourceTypeIdentifier.equals(SubmitterName + "_Paper"))
+    errorBuilder.append("P");
+    else if (SourceTypeIdentifier.equals(SubmitterName + "_Electronic")) 
+    errorBuilder.append("E");
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(ediFileId);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(recordIdfromSource);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(ClearinghouseNumber);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(DCN);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(claimType);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(PatientControlNumber);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(PatientNameFirst);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(PatientNameMiddle);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(PatientNameLast);
+																																						errorBuilder.append("|");
+																																						if (PatientBirthDate != '')
+																																						{
+																																							errorBuilder.append(PatientBirthDate.substring(0, 4) + "-" + PatientBirthDate.substring(4, 6) + "-" + PatientBirthDate.substring(6, 8));
+																																						}
+																														
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(SubscriberPrimaryID);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(SubscriberNameFirst);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(SubscriberNameMiddle);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(SubscriberNameLast);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(dateOfBirth);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(ClaimBilledAmount);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(billingProviderNpi);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(billingProviderTaxId);
+																																						errorBuilder.append("|");
+																																						errorBuilder.append(billingProviderState);
+																																						errorBuilder.append("|");
+																																						if(StatusCode == 'R')
+		{
+			errorBuilder.append("R").append('|');
+		}
+		else
+		{
+			errorBuilder.append("A").append('|');
+		}
+					 
+		errorBuilder.append('|');
+																																						//errorBuilder.append(",");
+																														
+																																						
+																														
+																																																								// Convert the StringBuilder to a String
+																																							String errorString = fileLevelErrors.toString()
+																																				
+																																							
+																																							String[] errors = errorString.split("~")
+																																			
+																																								
+																																							errors = errors.collect 
+																																							{ error ->
+																																							if (error.length() > 150)
+																																							{
+																																								
+																																							errors= error.substring(0, 142) + "(...)";
+																																							}
+																																							else 
+																																							{
+																																								
+																																							errors = error;
+																																							}
+																																							}
+																																			
+																																								
+																																							 errorString = errors.join('~')
+																																			
+																																							// Return the result
+																																							// return result
+																																							// }
+																																							 
+																																							 
+																																							 //fileLevelErrors = errorLengthCheck(fileLevelErrors)
+
+																																							//errorBuilder.append(','); 				
+																																							 
+																																							if(errorCount <40 && errorCount!=0) 
+																																							{
+																																								//println("<40if");
+																																								errorBuilder.append(errorString);
+																																								//println('errorsappend'+errorCount);
+																																							}
+																																							else if(errorCount == 40)
+																																							{
+																																								//println('errorsappend2'+errorCount);
+																																								//println("=40if");
+																																								errorBuilder.append(errorString).append("(...)");
+																																							}
+																																							
+																																							errorBuilder.append("|").append("|");
+																														
+																																						int recordLevelErrorCountInteger = 0;
+																																						recordLevelErrorCountInteger = TransactionErrorTotal + providerErrorTotal + subscriberErrorTotal + patientErrorTotal + claimErrorTotal;
+																														
+																																						recordLevelErrorCountTotal = Integer.toString(recordLevelErrorCountInteger);
+																														
+																																						errorBuilder.append(recordLevelErrorCountTotal).append('|');
+																																						
+																																						snipList=transSnipList + providerSnipList + subscriberSnipList + patientSnipList + claimSnipList;
+
+																																						
+																																						//Check for the SNIP erros and append 'Y' if present else append 'N'
+																																						if (snipList.contains("1"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						if (snipList.contains("2"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						if (snipList.contains("3"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						if (snipList.contains("4"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						if (snipList.contains("5"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						if (snipList.contains("6"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						if (snipList.contains("7"))
+																																						{
+																																							errorBuilder.append("N").append('|');
+																																						}
+																																						else
+																																						{
+																																							errorBuilder.append("Y").append('|');
+																																						}
+																														
+																																						errorBuilder.append('|');
+																																						errorBuilder.append('|');
+																																						errorBuilder.append(rayId);
+																																						errorBuilder.append('|');
+																																						errorBuilder.append(recordIdentifier);
+																																						errorBuilder.append('|');
+																																						if(BHTdate != ''){
+		 errorBuilder.append(BHTdate.substring(0,4)+"-"+BHTdate.substring(4,6)+"-"+BHTdate.substring(6,8));
+		 }
+		errorBuilder.append('|');
+																																						errorBuilder.append(adaptorReceiptDateTime);
+																																						errorBuilder.append("\r\n");
+																																						fileLevelErrors.setLength(0)
+																																	}
+																													}					
+																										}
+																								}
+																							}
+
+																											newMessageBody = errorBuilder.toString(); // Convert the contents of 'errorBuilder' to a string
+																											
+																											
+																											
+																											ProxyMessage newMessage = context.createNewMessage(newMessageBody, message.getHeaders()) // Create a new message using 'newMessageBody' and the headers from the original message
+																											context.createExchangeResponse(msgHeaders, newMessage); // Create an exchange response with 'msgHeaders' and 'newMessage'
+																										}
+																									}
+																								}
+
+																							}

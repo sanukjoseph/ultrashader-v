@@ -1,0 +1,309 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:stl="http://www.codesynthesis.com/xmlns/xsstl"
+            targetNamespace="http://www.codesynthesis.com/xmlns/xsstl">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      Copyright (C) 2006-2007 Code Synthesis Tools CC
+
+      Redistribution and use with or without modification are permitted
+      under the terms of the new BSD license. See the accompanying LICENSE
+      file.
+
+      The following five types are defined for representing U.S. states
+      and territories:
+
+      USStateTerritoryCode     50 states + 9 territories
+      USStateCode              50 states + District of Columbia
+      USTerritoryCode          9 territories - District of Columbia
+      USContinentalStateCode   USStateCode - Hawaii
+      USContiguousStateCode    USContinentalStateCode - Alaska
+
+      See also:  http://en.wikipedia.org/wiki/US_States
+                 http://en.wikipedia.org/wiki/Continental_United_States
+                 http://www.usps.com/ncsc/lookups/usps_abbreviations.html
+    </xsd:documentation>
+  </xsd:annotation>
+
+  <xsd:simpleType name="USStateTerritoryCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Two-letter code for one of the 59 U.S. states/territories.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="AL"/> <!-- ALABAMA -->
+      <xsd:enumeration value="AK"/> <!-- ALASKA -->
+      <xsd:enumeration value="AS"/> <!-- AMERICAN SAMOA -->
+      <xsd:enumeration value="AZ"/> <!-- ARIZONA -->
+      <xsd:enumeration value="AR"/> <!-- ARKANSAS -->
+      <xsd:enumeration value="CA"/> <!-- CALIFORNIA -->
+      <xsd:enumeration value="CO"/> <!-- COLORADO -->
+      <xsd:enumeration value="CT"/> <!-- CONNECTICUT -->
+      <xsd:enumeration value="DE"/> <!-- DELAWARE -->
+      <xsd:enumeration value="DC"/> <!-- DISTRICT OF COLUMBIA -->
+      <xsd:enumeration value="FM"/> <!-- FEDERATED STATES OF MICRONESIA -->
+      <xsd:enumeration value="FL"/> <!-- FLORIDA -->
+      <xsd:enumeration value="GA"/> <!-- GEORGIA -->
+      <xsd:enumeration value="GU"/> <!-- GUAM -->
+      <xsd:enumeration value="HI"/> <!-- HAWAII -->
+      <xsd:enumeration value="ID"/> <!-- IDAHO -->
+      <xsd:enumeration value="IL"/> <!-- ILLINOIS -->
+      <xsd:enumeration value="IN"/> <!-- INDIANA -->
+      <xsd:enumeration value="IA"/> <!-- IOWA -->
+      <xsd:enumeration value="KS"/> <!-- KANSAS -->
+      <xsd:enumeration value="KY"/> <!-- KENTUCKY -->
+      <xsd:enumeration value="LA"/> <!-- LOUISIANA -->
+      <xsd:enumeration value="ME"/> <!-- MAINE -->
+      <xsd:enumeration value="MH"/> <!-- MARSHALL ISLANDS -->
+      <xsd:enumeration value="MD"/> <!-- MARYLAND -->
+      <xsd:enumeration value="MA"/> <!-- MASSACHUSETTS -->
+      <xsd:enumeration value="MI"/> <!-- MICHIGAN -->
+      <xsd:enumeration value="MN"/> <!-- MINNESOTA -->
+      <xsd:enumeration value="MS"/> <!-- MISSISSIPPI -->
+      <xsd:enumeration value="MO"/> <!-- MISSOURI -->
+      <xsd:enumeration value="MT"/> <!-- MONTANA -->
+      <xsd:enumeration value="NE"/> <!-- NEBRASKA -->
+      <xsd:enumeration value="NV"/> <!-- NEVADA -->
+      <xsd:enumeration value="NH"/> <!-- NEW HAMPSHIRE -->
+      <xsd:enumeration value="NJ"/> <!-- NEW JERSEY -->
+      <xsd:enumeration value="NM"/> <!-- NEW MEXICO -->
+      <xsd:enumeration value="NY"/> <!-- NEW YORK -->
+      <xsd:enumeration value="NC"/> <!-- NORTH CAROLINA -->
+      <xsd:enumeration value="ND"/> <!-- NORTH DAKOTA -->
+      <xsd:enumeration value="MP"/> <!-- NORTHERN MARIANA ISLANDS -->
+      <xsd:enumeration value="OH"/> <!-- OHIO -->
+      <xsd:enumeration value="OK"/> <!-- OKLAHOMA -->
+      <xsd:enumeration value="OR"/> <!-- OREGON -->
+      <xsd:enumeration value="PW"/> <!-- PALAU -->
+      <xsd:enumeration value="PA"/> <!-- PENNSYLVANIA -->
+      <xsd:enumeration value="PR"/> <!-- PUERTO RICO -->
+      <xsd:enumeration value="RI"/> <!-- RHODE ISLAND -->
+      <xsd:enumeration value="SC"/> <!-- SOUTH CAROLINA -->
+      <xsd:enumeration value="SD"/> <!-- SOUTH DAKOTA -->
+      <xsd:enumeration value="TN"/> <!-- TENNESSEE -->
+      <xsd:enumeration value="TX"/> <!-- TEXAS -->
+      <xsd:enumeration value="UT"/> <!-- UTAH -->
+      <xsd:enumeration value="VT"/> <!-- VERMONT -->
+      <xsd:enumeration value="VI"/> <!-- VIRGIN ISLANDS -->
+      <xsd:enumeration value="VA"/> <!-- VIRGINIA -->
+      <xsd:enumeration value="WA"/> <!-- WASHINGTON -->
+      <xsd:enumeration value="WV"/> <!-- WEST VIRGINIA -->
+      <xsd:enumeration value="WI"/> <!-- WISCONSIN -->
+      <xsd:enumeration value="WY"/> <!-- WYOMING -->
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+
+  <xsd:simpleType name="USStateCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Two-letter code for one of the 50 U.S. states and District of Columbia.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="stl:USStateTerritoryCode">
+      <xsd:enumeration value="AL"/> <!-- ALABAMA -->
+      <xsd:enumeration value="AK"/> <!-- ALASKA -->
+      <xsd:enumeration value="AZ"/> <!-- ARIZONA -->
+      <xsd:enumeration value="AR"/> <!-- ARKANSAS -->
+      <xsd:enumeration value="CA"/> <!-- CALIFORNIA -->
+      <xsd:enumeration value="CO"/> <!-- COLORADO -->
+      <xsd:enumeration value="CT"/> <!-- CONNECTICUT -->
+      <xsd:enumeration value="DE"/> <!-- DELAWARE -->
+      <xsd:enumeration value="DC"/> <!-- DISTRICT OF COLUMBIA -->
+      <xsd:enumeration value="FL"/> <!-- FLORIDA -->
+      <xsd:enumeration value="GA"/> <!-- GEORGIA -->
+      <xsd:enumeration value="HI"/> <!-- HAWAII -->
+      <xsd:enumeration value="ID"/> <!-- IDAHO -->
+      <xsd:enumeration value="IL"/> <!-- ILLINOIS -->
+      <xsd:enumeration value="IN"/> <!-- INDIANA -->
+      <xsd:enumeration value="IA"/> <!-- IOWA -->
+      <xsd:enumeration value="KS"/> <!-- KANSAS -->
+      <xsd:enumeration value="KY"/> <!-- KENTUCKY -->
+      <xsd:enumeration value="LA"/> <!-- LOUISIANA -->
+      <xsd:enumeration value="ME"/> <!-- MAINE -->
+      <xsd:enumeration value="MD"/> <!-- MARYLAND -->
+      <xsd:enumeration value="MA"/> <!-- MASSACHUSETTS -->
+      <xsd:enumeration value="MI"/> <!-- MICHIGAN -->
+      <xsd:enumeration value="MN"/> <!-- MINNESOTA -->
+      <xsd:enumeration value="MS"/> <!-- MISSISSIPPI -->
+      <xsd:enumeration value="MO"/> <!-- MISSOURI -->
+      <xsd:enumeration value="MT"/> <!-- MONTANA -->
+      <xsd:enumeration value="NE"/> <!-- NEBRASKA -->
+      <xsd:enumeration value="NV"/> <!-- NEVADA -->
+      <xsd:enumeration value="NH"/> <!-- NEW HAMPSHIRE -->
+      <xsd:enumeration value="NJ"/> <!-- NEW JERSEY -->
+      <xsd:enumeration value="NM"/> <!-- NEW MEXICO -->
+      <xsd:enumeration value="NY"/> <!-- NEW YORK -->
+      <xsd:enumeration value="NC"/> <!-- NORTH CAROLINA -->
+      <xsd:enumeration value="ND"/> <!-- NORTH DAKOTA -->
+      <xsd:enumeration value="OH"/> <!-- OHIO -->
+      <xsd:enumeration value="OK"/> <!-- OKLAHOMA -->
+      <xsd:enumeration value="OR"/> <!-- OREGON -->
+      <xsd:enumeration value="PA"/> <!-- PENNSYLVANIA -->
+      <xsd:enumeration value="RI"/> <!-- RHODE ISLAND -->
+      <xsd:enumeration value="SC"/> <!-- SOUTH CAROLINA -->
+      <xsd:enumeration value="SD"/> <!-- SOUTH DAKOTA -->
+      <xsd:enumeration value="TN"/> <!-- TENNESSEE -->
+      <xsd:enumeration value="TX"/> <!-- TEXAS -->
+      <xsd:enumeration value="UT"/> <!-- UTAH -->
+      <xsd:enumeration value="VT"/> <!-- VERMONT -->
+      <xsd:enumeration value="VA"/> <!-- VIRGINIA -->
+      <xsd:enumeration value="WA"/> <!-- WASHINGTON -->
+      <xsd:enumeration value="WV"/> <!-- WEST VIRGINIA -->
+      <xsd:enumeration value="WI"/> <!-- WISCONSIN -->
+      <xsd:enumeration value="WY"/> <!-- WYOMING -->
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="USTerritoryCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Two-letter code for one of the 9 U.S. territories sans District of
+        Columbia.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="stl:USStateTerritoryCode">
+      <xsd:enumeration value="AS"/> <!-- AMERICAN SAMOA -->
+      <xsd:enumeration value="FM"/> <!-- FEDERATED STATES OF MICRONESIA -->
+      <xsd:enumeration value="GU"/> <!-- GUAM -->
+      <xsd:enumeration value="MH"/> <!-- MARSHALL ISLANDS -->
+      <xsd:enumeration value="MP"/> <!-- NORTHERN MARIANA ISLANDS -->
+      <xsd:enumeration value="PW"/> <!-- PALAU -->
+      <xsd:enumeration value="PR"/> <!-- PUERTO RICO -->
+      <xsd:enumeration value="VI"/> <!-- VIRGIN ISLANDS -->
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="USContinentalStateCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Two-letter code for one of the 50 U.S. states and District of Columbia
+        sans Hawaii.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="stl:USStateCode">
+      <xsd:enumeration value="AL"/> <!-- ALABAMA -->
+      <xsd:enumeration value="AK"/> <!-- ALASKA -->
+      <xsd:enumeration value="AZ"/> <!-- ARIZONA -->
+      <xsd:enumeration value="AR"/> <!-- ARKANSAS -->
+      <xsd:enumeration value="CA"/> <!-- CALIFORNIA -->
+      <xsd:enumeration value="CO"/> <!-- COLORADO -->
+      <xsd:enumeration value="CT"/> <!-- CONNECTICUT -->
+      <xsd:enumeration value="DE"/> <!-- DELAWARE -->
+      <xsd:enumeration value="DC"/> <!-- DISTRICT OF COLUMBIA -->
+      <xsd:enumeration value="FL"/> <!-- FLORIDA -->
+      <xsd:enumeration value="GA"/> <!-- GEORGIA -->
+      <xsd:enumeration value="ID"/> <!-- IDAHO -->
+      <xsd:enumeration value="IL"/> <!-- ILLINOIS -->
+      <xsd:enumeration value="IN"/> <!-- INDIANA -->
+      <xsd:enumeration value="IA"/> <!-- IOWA -->
+      <xsd:enumeration value="KS"/> <!-- KANSAS -->
+      <xsd:enumeration value="KY"/> <!-- KENTUCKY -->
+      <xsd:enumeration value="LA"/> <!-- LOUISIANA -->
+      <xsd:enumeration value="ME"/> <!-- MAINE -->
+      <xsd:enumeration value="MD"/> <!-- MARYLAND -->
+      <xsd:enumeration value="MA"/> <!-- MASSACHUSETTS -->
+      <xsd:enumeration value="MI"/> <!-- MICHIGAN -->
+      <xsd:enumeration value="MN"/> <!-- MINNESOTA -->
+      <xsd:enumeration value="MS"/> <!-- MISSISSIPPI -->
+      <xsd:enumeration value="MO"/> <!-- MISSOURI -->
+      <xsd:enumeration value="MT"/> <!-- MONTANA -->
+      <xsd:enumeration value="NE"/> <!-- NEBRASKA -->
+      <xsd:enumeration value="NV"/> <!-- NEVADA -->
+      <xsd:enumeration value="NH"/> <!-- NEW HAMPSHIRE -->
+      <xsd:enumeration value="NJ"/> <!-- NEW JERSEY -->
+      <xsd:enumeration value="NM"/> <!-- NEW MEXICO -->
+      <xsd:enumeration value="NY"/> <!-- NEW YORK -->
+      <xsd:enumeration value="NC"/> <!-- NORTH CAROLINA -->
+      <xsd:enumeration value="ND"/> <!-- NORTH DAKOTA -->
+      <xsd:enumeration value="OH"/> <!-- OHIO -->
+      <xsd:enumeration value="OK"/> <!-- OKLAHOMA -->
+      <xsd:enumeration value="OR"/> <!-- OREGON -->
+      <xsd:enumeration value="PA"/> <!-- PENNSYLVANIA -->
+      <xsd:enumeration value="RI"/> <!-- RHODE ISLAND -->
+      <xsd:enumeration value="SC"/> <!-- SOUTH CAROLINA -->
+      <xsd:enumeration value="SD"/> <!-- SOUTH DAKOTA -->
+      <xsd:enumeration value="TN"/> <!-- TENNESSEE -->
+      <xsd:enumeration value="TX"/> <!-- TEXAS -->
+      <xsd:enumeration value="UT"/> <!-- UTAH -->
+      <xsd:enumeration value="VT"/> <!-- VERMONT -->
+      <xsd:enumeration value="VA"/> <!-- VIRGINIA -->
+      <xsd:enumeration value="WA"/> <!-- WASHINGTON -->
+      <xsd:enumeration value="WV"/> <!-- WEST VIRGINIA -->
+      <xsd:enumeration value="WI"/> <!-- WISCONSIN -->
+      <xsd:enumeration value="WY"/> <!-- WYOMING -->
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="USContiguousStateCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Two-letter code for one of the 50 U.S. states and District of Columbia
+        sans Hawaii and Alaska.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="stl:USContinentalStateCode">
+      <xsd:enumeration value="AL"/> <!-- ALABAMA -->
+      <xsd:enumeration value="AZ"/> <!-- ARIZONA -->
+      <xsd:enumeration value="AR"/> <!-- ARKANSAS -->
+      <xsd:enumeration value="CA"/> <!-- CALIFORNIA -->
+      <xsd:enumeration value="CO"/> <!-- COLORADO -->
+      <xsd:enumeration value="CT"/> <!-- CONNECTICUT -->
+      <xsd:enumeration value="DE"/> <!-- DELAWARE -->
+      <xsd:enumeration value="DC"/> <!-- DISTRICT OF COLUMBIA -->
+      <xsd:enumeration value="FL"/> <!-- FLORIDA -->
+      <xsd:enumeration value="GA"/> <!-- GEORGIA -->
+      <xsd:enumeration value="ID"/> <!-- IDAHO -->
+      <xsd:enumeration value="IL"/> <!-- ILLINOIS -->
+      <xsd:enumeration value="IN"/> <!-- INDIANA -->
+      <xsd:enumeration value="IA"/> <!-- IOWA -->
+      <xsd:enumeration value="KS"/> <!-- KANSAS -->
+      <xsd:enumeration value="KY"/> <!-- KENTUCKY -->
+      <xsd:enumeration value="LA"/> <!-- LOUISIANA -->
+      <xsd:enumeration value="ME"/> <!-- MAINE -->
+      <xsd:enumeration value="MD"/> <!-- MARYLAND -->
+      <xsd:enumeration value="MA"/> <!-- MASSACHUSETTS -->
+      <xsd:enumeration value="MI"/> <!-- MICHIGAN -->
+      <xsd:enumeration value="MN"/> <!-- MINNESOTA -->
+      <xsd:enumeration value="MS"/> <!-- MISSISSIPPI -->
+      <xsd:enumeration value="MO"/> <!-- MISSOURI -->
+      <xsd:enumeration value="MT"/> <!-- MONTANA -->
+      <xsd:enumeration value="NE"/> <!-- NEBRASKA -->
+      <xsd:enumeration value="NV"/> <!-- NEVADA -->
+      <xsd:enumeration value="NH"/> <!-- NEW HAMPSHIRE -->
+      <xsd:enumeration value="NJ"/> <!-- NEW JERSEY -->
+      <xsd:enumeration value="NM"/> <!-- NEW MEXICO -->
+      <xsd:enumeration value="NY"/> <!-- NEW YORK -->
+      <xsd:enumeration value="NC"/> <!-- NORTH CAROLINA -->
+      <xsd:enumeration value="ND"/> <!-- NORTH DAKOTA -->
+      <xsd:enumeration value="OH"/> <!-- OHIO -->
+      <xsd:enumeration value="OK"/> <!-- OKLAHOMA -->
+      <xsd:enumeration value="OR"/> <!-- OREGON -->
+      <xsd:enumeration value="PA"/> <!-- PENNSYLVANIA -->
+      <xsd:enumeration value="RI"/> <!-- RHODE ISLAND -->
+      <xsd:enumeration value="SC"/> <!-- SOUTH CAROLINA -->
+      <xsd:enumeration value="SD"/> <!-- SOUTH DAKOTA -->
+      <xsd:enumeration value="TN"/> <!-- TENNESSEE -->
+      <xsd:enumeration value="TX"/> <!-- TEXAS -->
+      <xsd:enumeration value="UT"/> <!-- UTAH -->
+      <xsd:enumeration value="VT"/> <!-- VERMONT -->
+      <xsd:enumeration value="VA"/> <!-- VIRGINIA -->
+      <xsd:enumeration value="WA"/> <!-- WASHINGTON -->
+      <xsd:enumeration value="WV"/> <!-- WEST VIRGINIA -->
+      <xsd:enumeration value="WI"/> <!-- WISCONSIN -->
+      <xsd:enumeration value="WY"/> <!-- WYOMING -->
+    </xsd:restriction>
+  </xsd:simpleType>
+
+</xsd:schema>

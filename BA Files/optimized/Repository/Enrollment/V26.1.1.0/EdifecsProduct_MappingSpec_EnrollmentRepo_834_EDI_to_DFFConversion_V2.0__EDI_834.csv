@@ -1,0 +1,810 @@
+LoopID.Segment ID,Segment Name,Element Description,Enumeration Values,Integration Plus Table  Name.Column Name,Mapping Logic
+ISA,Interchange Control Header,,,,
+ISA01,Authorization Information Qualifier,,00 : No Authorization Information Present,,
+ISA02,Authorization Information,,Blank (10 spaces),,
+ISA03,Security Information Qualifier,,00 : No Security Information Present,,
+ISA04,Security Information,,Blank (10 spaces),,
+ISA05,Interchange ID Qualifier,,ZZ : Mutually Defined,,
+ISA06,Interchange Sender ID,Interchange Sender ID,,,
+ISA07,Interchange ID Qualifier,,ZZ : Mutually Defined,,
+ISA08,Interchange Receiver ID,The Trading Partner ID (TPID) assigned by the Client,,,
+ISA09,Interchange Date,Date the Interchange is created,,,
+ISA10,Interchange Time,Time the Interchange is created,,,
+ISA11,Interchange Control Standards Identifier,Repetition Separator,^,,
+ISA12,Interchange Control Version Number,Standards Approved by ACS X12 Review Board,,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,,,
+ISA14,Acknowledgment Requested,Code indicating sender’s request for an interchange acknowledgment,"0 : No Interchange Acknowledgement Requested
+1 : Interchange Acknowledgment Requested",,
+ISA15,Usage Identifier,"Code indicating whether data enclosed by this interchange envelope is test,
+production or information",P : Production Data T : Test,,
+ISA16,Component Element Separator,The delimiter used to separate component data elements,": = Element separator
+~ = Segment Terminator",,
+GS,Functional Group Header,,,,
+GS01,Functional Identifier Code,Benefit Enrollment And Maintenance (834),,,
+GS02,Application Senders Code,Code identifying party sending transmission; codes agreed to by trading partners,,,
+GS03,Application Receivers Code,"The Trading Partner ID (TPID)
+assigned by the client",,,
+GS04,Date,"Date the Group Header is created.
+Enter current date in the CCYYMMDD format",,,
+GS05,Time,"Time the Group Header is created.
+Enter current time in the HHMM format",,,
+GS06,Group Control Number,"Unique Sequential Number Assigned by Internal Processes for each Group Header  by the sender.
+Must be identical to the Interchange Trailer GE02 .
+This is Submitter-specific.",,,
+GS07,Responsible Agency Code,"Code identifying the issuer of the EDI standard being used.
+Accredited Standards Committee X12",X : Accredited Standards Committee X12,,
+GS08,Version/Release/Industry Identifier Code,"Standards Approved for
+Publication by ASC X12
+Procedures Review Board",005010X220: Standards Approved for Publication by ASC X12,,
+ST,Transaction Set Header,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,834 Benefit Enrollment and Maintenance,,
+ST02,Transaction Set Control Number,"Unique Sequential Number Assigned by Internal Processes for each Transaction Set
+ST02 and SE02 must be identical",,,
+ST03,Implementation Convention Reference,"Standards Approved by ACS X12 Review Board
+ST03 and GS08 must be identical",,,
+BGN,Beginning Segment,,,,
+BGN01,Transaction Set Purpose Code,,"00 Original
+15 Re-Submission
+22 Information Copy",,
+BGN02,Reference Identification,Transaction Set Reference Number,,,
+BGN03,Date,Date the Transaction Set is created.,,,
+BGN04,Time,Time the Transaction Set is created,,,
+BGN05,Time Code,Time Zone Code,"Eastern Time, always sent",,
+BGN06,Reference Identification,Original Transaction Set Reference Number,,,
+BGN07,Transaction Type Code,,,,
+BGN08,Action Code,,"2 = Change/Update
+4 = Verify",,
+REF,Transaction Set Policy Number,,,,
+REF01,Reference Identification Qualifier,,38 Master Policy Number,,
+REF02,Reference Identification,op,,,
+DTP,DTP - File Effective Date,,,,
+DTP01,Date/Time Qualifier,Date Time Qualifier,"007 Effective
+090 Report Start
+091 Report End
+303 Maintenance Effective
+382 Enrollment
+388 Payment Commencement",,
+DTP02,Date Time Period Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,
+DTP03,Date Time Period,,,,
+QTY,Transaction Set Control Totals,,,,
+QTY01,Quantity Qualifier,,"DT Dependent Total
+ET Employee Total
+TO Total",,
+QTY02,Quantity,Record Totals,,,
+1000A — SPONSOR NAME Loop Repeat: 1,,,,,
+1000A.N1,Sponsor Name,,,,
+1000A.N101,Entity Identifier Code,,P5 = Plan sponsor,,
+1000A.N102,Plan Sponsor Name,Plan Sponsor Name,,Enr_Member.Sponsor _Name,
+1000A.N103,Identification Code Qualifier,,FI = Federal Tax ID Number,,
+1000A.N104,Identification Code,Sponsor Identifier,,Enr_Member.Sponsor_ Identification,
+1000A.N2,Additional Name Information,,,,
+1000A.N101,Name,,,,
+1000A.N102,Name,,,,
+1000A.N3,Party Location,,,,
+1000A.N101,Address Information,,,,
+1000A.N102,Address Information,,,,
+1000A.N4,Geographic Location,,,,
+1000A.N101,City Name,,,,
+1000A.N102,State or Province Code,,,,
+1000A.N103,Postal Code,,,,
+1000A.N104,Country Code,,,,
+1000A.N105,Location Qualifier,,,,
+1000A.N106,Location Identifier,,,,
+1000A.N107,Country Subdivision Code,,,,
+1000A.PER,Administrative Communications Contact,,,,
+1000A.PER01,Contact Function Code,,,,
+1000A.PER02,Name,,,,
+1000A.PER03,Communication Number Qualifier,,,,
+1000A.PER04,Communication Number,,,,
+1000A.PER05,Communication Number Qualifier,,,,
+1000A.PER06,Communication Number,,,,
+1000A.PER07,Communication Number Qualifier,,,,
+1000A.PER08,Communication Number,,,,
+1000A.PER09,Contact Inquiry Reference,,,,
+1000B — PAYER Loop Repeat: 1,,,,,
+1000B.N1,Payer,,,,
+1000B.N101,Entity Identifier Code,,IN = Insurer,,
+1000B.N102,Name,Insurer Name,,Enr_Member.Payer_Name,
+1000B.N103,Identification Code Qualifier,,FI = Federal Tax ID number,,
+1000B.N104,Identification Code,Insurer Identification Code,,Enr_Member.Payer_ldentiftation,
+1000C — TPA/BROKER NAME Loop Repeat: 2,,,,,
+1000C.N1,TPA/Broker Name,,,,
+1000C.N101,Entity Identifier Code,,"BO : Broker or Sales Office
+TV : Third Party Administrator (TPA)",,
+1000C.N102,Name,TPA/Broker Name (free-form),,Enr_Member.Broker_Name,Map the first Instance of  1000C.N101 = BO
+1000C.N103,Identification Code Qualifier,,FI = Federal Tax ID number,,
+1000C.N104,Identification Code,TPA or Broker Identification Code,,Enr_Member.Broker_Identification,Map the first Instance of 1000C.N101 = BO
+1100C — TPA/BROKER ACCOUNT INFORMATION Loop Repeat: 1,,,,,
+1100C.ACT,TPA/BROKER ACCOUNT INFORMATION,,,,
+1100C.ACT1,"Account
+Number",TPA or Broker Account Number,,Enr_Member.Broker_License_Number,
+1100C. ACT02,Name,,,,
+1100C.ACT03,Identification Code Qualifier,,,,
+1100C.ACT04,Identification Code,,,,
+1100C.ACT05,Account Number Qualifier,,,,
+1100C.ACT06,Account Number,,,,
+1100C.ACT07,Description,,,,
+1100C.ACT08,Payment Method Type Code,,,,
+1100C.ACT09,Benefit Status Code,,,,
+2000 — MEMBER LEVEL DETAIL Loop Repeat: >1    A record is inserted into Parent table(Enr_Member )  for each 2000.INS,,,,,
+2000.INS,Member Level Detail,,,,
+2000.INS01,Subscriber Indicator,,"Y :Yes
+N :No",Enr_Member.Is_Subscriber,
+2000.INS02,Individual Relationship Code,,"18 :Self
+19 :Child
+01: Spouse
+03 : Father or Mother",Enr_Member.Relationship_Code,
+2000.INS03,Maintenance Type Code,,"001 = Change, 021 = Addition, 024 = Cancellation or Termination, 025 = Reinstatement/Benefit Plan change, 030 = Audit or Compare",Enr_Member.Maintenance_Type_Code,
+2000.INS04,Maintenance Reason Code,,"03=death
+07=Termination of Benefits
+15=Primary Care Provider Change
+22=Plan Change
+25=Change in Identifying Data Elements
+28=Initial Enrollment
+41=Re-enrollment
+43=Change of Location
+AI=Effective Date Change
+XN=Notification Only (Audit)",Enr_Member.Maintenance_Reason_Code,
+2000.INS05,Benefit Status Code,,"A: Active
+C: Consolidated Omnibus Budget Reconciliation Act
+(COBRA)
+S: Surviving Insured
+T: Tax Equity and Fiscal Responsibility Act (TEFRA)",Enr_Member.Benefit_Status_Code,
+2000.INS06,MEDICARE STATUS CODE,,,,
+2000.INS06-1,Medicare Plan Code,,"A =  Medicare Part A
+B =  Medicare Part B
+C = Medicare Part A and B
+D = Medicare
+E  = No Medicare",Enr_Member.Medicare_Plan_Code,
+2000.INS06-2,Eligibility Reason Code,,"0 Age
+1 Disability
+2 End Stage Renal Disease (ESRD)",Enr_Member.Eligibility_Reason_Code,
+2000.INS07,COBRA Qualifying Event,,"1 Termination of Employment
+2 Reduction of work hours
+3 Medicare
+4 Death
+5 Divorce
+6 Separation
+7 Ineligible Child
+8 Bankruptcy of Retiree’s Former Employer (26 U.S.C.
+4980B(f)(3)(F))
+9 Layoff
+10 Leave of Absence
+ZZ Mutually Defined",Enr_Member.COBRA_Event_Code,
+2000.INS08,Employment Status Code,,"Conversion Values:
+AO - Active Military
+AU - Active Military
+RT - Retired
+L1 - Leave of Absence
+FT - Full-Time
+PT - Part-Time
+AC - Active for enrolled Members
+TE - Terminate",Enr_Member.Employment_Status_Code,
+2000.INS09,Student Status Code,,"F - Full-Time
+N - Not a Student
+P - Part-Time",Enr_Member.Student_Status_Code,
+2000.INS10,Handicap Indicator,,"Y = Yes
+N= No",Enr_Member.Handicap_Status_Code,
+2000.INS11,DTP Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,
+2000.INS12,Insured Individual Death Date,Date of Death,,Enr_Member.Date_Of_Death,
+2000.INS13,Confidentiality Code,,"R Restricted Access
+U Unrestricted Acces",,
+2000.INS17,Birth Sequence Number,,,,
+2000.REF,Subscriber Identifier,,,,
+2000.REF01,Reference Identification Qualifier,,0F Subscriber Number,,
+2000.REF02,Reference Identification,Subscriber Identifier,,Enr_Member.Subscriber_Identifier,
+2000.REF,Member Policy Number,,,,
+2000.REF01,Reference Identification Qualifier,,1L Group or Policy Number,,
+2000.REF02,Reference Identification,Member Group or Policy Number,,Enr_Member.Group_Or_Policy_Number,
+2000.REF,Member Supplemental Identifier Segment repeat = 13,A record is inserted into Enr_Member_Supplemental_Identification table for each repetition of 2000.REF segment.,,,
+2000.REF01,Reference Identification Qualifier,,"17 Client Reporting Category
+23 Client Number
+3H Case Number
+6O Cross Reference Number
+Q4 Prior Identifier Number
+ZZ Mutually Defined",Enr_Member_Supplemental_Identification.Identification_Type,
+2000.REF02,Reference Identification,Member Supplemental Identifier,,Enr_Member_Supplemental_Identification.Member_Supplemental_Identifier,
+2000.DTP,Member Level Dates,,,,
+2000.DTP01,Date Time Qualifier,,,,
+2000.DTP02,Date Time Period Format Qualifier,D8 Date Expressed in Format CCYYMMDD,,,
+2000.DTP03,Date Time Period,Status Information Effective Date,,,
+2100A — MEMBER NAME Loop Repeat: 1,,,,,
+2100A.NM1,Member Name,,,,
+2100A.NM101,Entity Identifier Code,,"IL = Insured or Subscriber
+74 : Corrected Insured",,
+2100A.NM102,Entity Type Qualifier,,1 = Person,,
+2100A.NM103,Subscriber Last Name,Members last name,,Enr_Member.Last_Name,
+2100A.NM104,Subscriber First Name,Members first name,,Enr_Member.First_Name,
+2100A.NM105,Subscriber Middle Name,Members middle initial,,Enr_Member.Middle_Name,
+2100A.NM106,Subscriber Name Prefix,Member Name Prefix,,Enr_Member.Prefix,
+2100A.NM107,Subscriber Name Suffix,Member Name Suffix,,Enr_Member.Suffix,
+2100A.NM108,Identification Code Qualifier,,"34 Social Security Number
+ZZ Mutually Defined",,
+2100A.NM109,Subscriber Identifier,,,Enr_Member.Identification_Code,
+2100A.PER,Members Communications Numbers,A record is inserted into Enr_Communication_Numbers table for Members Communications Numbers (2100A.PER),,,
+2100A.PER01,Contact Function Code,,IP : Insured Party,,Populate it as 'Insured Party'
+2100A.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100A.PER04,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100A.PER03 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100A.PER03 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100A.PER03 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100A.PER03 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100A.PER03 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100A.PER03 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100A.PER03 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100A.PER03 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100A.PER03 is WP
+2100A.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100A.PER06,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100A.PER05 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100A.PER05 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100A.PER05 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100A.PER05 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100A.PER05 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100A.PER05 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100A.PER05 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100A.PER05 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100A.PER05 is WP
+2100A.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100A.PER08,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100A.PER07 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100A.PER07 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100A.PER07 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100A.PER07 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100A.PER07 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100A.PER07 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100A.PER07 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100A.PER07 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100A.PER07 is WP
+2100A.N3,Members Residence street Address,A record is inserted into Enr_Address table for Members Residence address (2100A.N3),,,
+2100A.N301,Members Address Line 1,,,Enr_Address.Address_Line_1,
+2100A.N302,Members Address Line 2,,,Enr_Address.Address_Line_2,
+2100A.N4,"Members City, State, and Zip Code",,,,
+2100A.N401,City Name,,,Enr_Address.City,
+2100A.N402,State or Province Code,,,Enr_Address.State_Or_Province_Code,
+2100A.N403,Postal Code,,,Enr_Address.Postal_Code,
+2100A.N404,Country Code,,,Enr_Address.Country_Code,
+2100A.N405,Location Qualifier,,"60 Area
+CY County/Parish",,
+2100A.N406,Location Identifier,,,Enr_Address.Location_Identification,
+2100A.N407,Country Subdivision Code,,,,
+2100A.DMG,Member Demographics,,,,
+2100A.DMG01,Date Time Period Format Qualifier,,D8 :Date Expressed in Format CCYYMMDD,,
+2100A.DMG02,Member Birth Date,Member Birth Date,,Enr_Member.Date_Of_Birth,
+2100A.DMG03,Gender Code,,"F : Female
+M :Male
+U :Unknown",Enr_Member.Gender_Code,
+2100A.DMG04,Marital Status Code,,"B :Registered Domestic Partner
+D :Divorced
+I :Single
+M : Married
+R :Unreported
+S :Separated",Enr_Member.Marital_Status_Code,
+2100A.DMG05,"COMPOSITE RACE OR ETHNICITY
+INFORMATION",To send general and detailed information on race or ethnicity,,A record is inserted into Member_Race_Or_Ethnicity table for each occurrence of 2100A.DMG05,
+2100A.DMG05-1,Race or Ethnicity Code,,,Enr_Member_Race_Or_Ethnicity.Race_Or_Ethnicity_Code,
+2100A.DMG05-2,Race or Ethnicity Code,,RET : Classification of Race or Ethnicity,,
+2100A.DMG05-3,Industry Code,Classification of Race or Ethnicity,,Enr_Member_Race_Or_Ethnicity.Race_Or_Ethnicity_Classification,
+2100A.DMG06,Citizenship Status Code,,"1 U.S. Citizen
+2 Non-Resident Alien
+3 Resident Alien
+4 Illegal Alien
+5 Alien
+6 U.S. Citizen - Non-Resident
+7 U.S. Citizen - Resident",Enr_Member.Citizenship_Status_Code,
+2100A.AMT,Member Policy Amounts,,,,
+2100A.AMT01,Amount Qualifier Code,,,,
+2100A.AMT02,Monetary Amount,,,,
+2100A.HLH,Member Health Information,,,,
+2100A.HLH01,Health Related Code,,"U 	Unknown
+N 	None
+S 	Substance Abuse
+T 	Tobacco Use
+X 	Tobacco and Substance Abuse",Enr_Member.Smoking _ Status_Code,
+2100A.HLH02,Height,Member Height,,,
+2100A.HLH03,Weight,Member Weight,,,
+2100A.LUI,Member Language   Segment Repeat  > 1,A record is inserted into Enr_Member_Language table for each repetition of Member Language segment   (2100A.LUI),,,
+2100A.LUI01,Identification Code Qualifier,,"LD NISO Z39.53 Language Codes
+LE ISO 639 Language Codes",,
+2100A.LUI02,Identification Code,Language Code,,Enr_Member_Language.Language_Code,
+2100A.LUI03,Description,Language Description,,Enr_Member_Language.Language_Description,
+2100A.LUI04,Language Indicator,Language Use Indicator,"5 = Language Reading
+6 = Language Writing
+7 = Language Speaking
+8 = Native Language",Enr_Member_Language.Language_Indicator,
+2100A.LUI05,Language Proficiency Indicator,,,,
+2100B — INCORRECT MEMBER NAME Loop Repeat: 1,,,,,
+2100B.NM1,Incorrect Member Name,,,,
+2100B.NM101,Entity Identifier Code,,70 : Prior Incorrect Insured,,
+2100B.NM102,Entity Type Qualifier,,1: Person,,
+2100B.NM103,Member Last Name,Prior Incorrect Member Last Name,,,
+2100B.NM104,Member First Name,Prior Incorrect Member First Name,,,
+2100B.NM105,Member Middle Name,Prior Incorrect Member Middle Name,,,
+2100B.NM106,Member Name Prefix,Prior Incorrect Member Name Prefix,,,
+2100B.NM107,Member Name Suffix,Prior Incorrect Member Name Suffix,,,
+2100B.NM108,ID Code Qualifier,,"34: SSN
+ZZ: Mutually Defined",,
+2100B.NM109,ID Code,Prior Incorrect Insured Identifier,,,
+2100B.DMG,Incorrect Member Demographics,,,,
+2100B.DMG01,Date Time Period Format Qualifier,,D8 : Date Expressed in Format CCYYMMDD,,
+2100B.DMG02,Member Birth Date,Prior Incorrect Insured Birth Date,,,
+2100B.DMG03,Gender Code,Prior Incorrect Insured Gender Code,,,
+2100B.DMG04,Marital Status,,,,
+2100B.DMG05,Race or Ethnicity,,,,
+2100B.DMG06,Citizenship Status Code,,,,
+2100B.DMG10,Code List Qualifier Code,,,,
+2100B.DMG11,Industry Code,,,,
+2100C — MEMBER MAILING ADDRESS Loop Repeat: 1   A record is inserted into Enr_Address table for Member Mailing address (2100C),,,,,
+2100C.NM1,MEMBER MAILING ADDRESS,,,,
+2100C.NM101,Entity Identifier Code,,31: Postal Mailing Address,,
+2100C.NM102,Entity Type Qualifier,,1: Person,,
+2100C.N3,MEMBER MAIL STREET ADDRESS,,,,
+2100C.N301,Member Address Line,,,Enr_Address.Address_Line_1,
+2100C.N302,Member Address Line 2,,,Enr_Address.Address_Line_2,
+2100C.N4,"MEMBER MAIL CITY, STATE, ZIP CODE",,,,
+2100C.N401,Member City Name,,,Enr_Address.City,
+2100C.N402,Member State Code,,,Enr_Address.State_Or_Province_Code,
+2100C.N403,Member ZIP Code,,,Enr_Address.Postal_Code,
+2100C.N404,Member Country Code,,,Enr_Address.Country_Code,
+2100F — CUSTODIAL PARENT Loop Repeat: 1   A record is inserted into Enr_Member_Custodial_Parent table for 2100F loop.,,,,,
+2100F.NM1,Custodial Parent  Loop Repeat = 1,,,,
+2100F.NM101,Entity Identifier Code,,S3 : Custodial Parent,,
+2100F.NM102,Entity Type Qualifier,,1 = Person,,
+2100F.NM103,Name Last or Organization Name,Custodial Parent Last Name,,Enr_Member_Custodial_Parent.Last_Name,
+2100F.NM104,Name First,Custodial Parent  First Name,,Enr_Member_Custodial_Parent.First_Name,
+2100F.NM105,Name Middle,Custodial Parent Middle Name,,Enr_Member_Custodial_Parent.Middle_Name,
+2100F.NM106,Name Prefix,,,Enr_Member_Custodial_Parent.Prefix,
+2100F.NM107,Name Suffix,,,Enr_Member_Custodial_Parent.Suffix,
+2100F.NM108,Identification Code Qualifier,,"34 = Social Security Number
+ZZ Mutually Defined",,
+2100F.NM109,Subscriber Identifier,Custodial Parent Identifier,,Enr_Member_Custodial_Parent.Identification_Code,
+2100F.PER,Custodial Parent  Communications Numbers,A record is inserted into Enr_Communication_Numbers table for Custodial Parent Communications Numbers (2100F.PER),,,
+2100F.PER01,Contact Function Code,,PQ : Parent or Guardian,,
+2100F.PER02,Name,,,,
+2100F.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100F.PER04,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100F.PER03 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100F.PER03 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100F.PER03 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100F.PER03 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100F.PER03 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100F.PER03 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100F.PER03 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100F.PER03 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100F.PER03 is WP
+2100F.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100F.PER06,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100F.PER05 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100F.PER05 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100F.PER05 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100F.PER05 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100F.PER05 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100F.PER05 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100F.PER05 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100F.PER05 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100F.PER05 is WP
+2100F.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100F.PER08,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100F.PER07 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100F.PER07 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100F.PER07 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100F.PER07 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100F.PER07 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100F.PER07 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100F.PER07 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100F.PER07 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100F.PER07 is WP
+2100F.N3,Custodial Parent Street Address,A record is inserted into Address table for Custodial Parent Address,,,
+2100F.N301,Address Information,,,Enr_Address.Address_Line_1,
+2100F.N302,Address Information,,,Enr_Address.Address_Line_2,
+2100F.N4,"Custodial Parent City, State, and Zip Code",,,,
+2100F.N401,City Name,Member's City Name,,Enr_Address.City,
+2100F.N402,State or Province Code,State,,Enr_Address.State_Or_Province_Code,
+2100F.N403,Postal Code,Postal Code,,Enr_Address.Postal_Code,
+2100F.N404,Country Code,"If Country Code Not Equal to USA, then populate element",,Enr_Address.Country_Code,
+2100F.N407,Country Subdivision Code,,,,
+2100G — RESPONSIBLE PERSON Loop Repeat: 13     A record is inserted into Enr_Member_Responsible_Party  table  for each occrence of 2100G loop.,,,,,
+2100G.NM1,Responsible Person Segment repeat = 1,,,,
+2100G.NM101,Entity Identifier Code,,"GD :guardian
+QD :responsible party
+6Y :Case Manager
+9K :Key Person
+E1 :Person or Other Entity Legally Responsible for a
+Child
+J6 :Power of Attorney
+LR :Legal Representative
+
+S1 :Parent
+TZ :Significant Other
+X4 :Spouse
+EI :Executor of Estate
+EXS : Ex-spouse",Enr_Member_Responsible_Party.Member_Responsible_Party_Type,
+2100G.NM102,Entity Type Qualifier,,1 = Person,,
+2100G.NM103,Name Last or Organization Name,Responsible Person Last Name,,Enr_Member_Responsible_Party.Last_Name,
+2100G.NM104,Name First,Responsible Person  First Name,,Enr_Member_Responsible_Party.First_Name,
+2100G.NM105,Name Middle,Responsible Person Middle Name,,Enr_Member_Responsible_Party.Middle_Name,
+2100G.NM106,Name Prefix,,,Enr_Member_Responsible_Party.Prefix,
+2100G.NM107,Name Suffix,,,Enr_Member_Responsible_Party.Suffix,
+2100G.NM108,Identification Code Qualifier,,"34 : Social Security Number
+ZZ Mutually Defined",,
+2100G.NM109,Subscriber Identifier,Responsible Party Identifier,,Enr_Member_Responsible_Party.Identification_Code,
+2100G.PER,Responsible Person Communications Numbers,A record is inserted into Enr_Communication_Numbers table for Responsible person Communications Numbers (2100G.PER),,,
+2100G.PER01,Contact Function Code,,RP : Responsible Person,,
+2100G.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100G.PER04,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100G.PER03 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100G.PER03 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100G.PER03 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100G.PER03 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100G.PER03 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100G.PER03 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100G.PER03 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100G.PER03 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100G.PER03 is WP
+2100G.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100G.PER06,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100G.PER05 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100G.PER05 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100G.PER05 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100G.PER05 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100G.PER05 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100G.PER05 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100G.PER05 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100G.PER05 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100G.PER05 is WP
+2100G.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2100G.PER08,Communication Number,,,Enr_Communication_Numbers.E-Mail_Address,If 2100G.PER07 is EM
+.,,,,Enr_Communication_Numbers.Alternate_TeIepnone,If 2100G.PER07 is AP
+.,,,,Enr_Communication_Numbers.Beeper,If 2100G.PER07 is BN
+.,,,,Enr_Communication_Numbers.Cellular_Phone,If 2100G.PER07 is CP
+.,,,,Enr_Communication_Numbers.Telephone_Extension,If 2100G.PER07 is EX
+.,,,,Enr_Communication_Numbers.Facsimile,If 2100G.PER07 is FX
+.,,,,Enr_Communication_Numbers.Home_Phone,If 2100G.PER07 is HP
+.,,,,Enr_Communication_Numbers.Telephone,If 2100G.PER07 is TE
+.,,,,Enr_Communication_Numbers.Work_Phone,If 2100G.PER07 is WP
+2100G.N3,Responsible Person Street Address,A record is inserted into Enr_Address  table for Responsible person Address (2100G.N3/N4),,,
+2100G.N301,Address Information,,,Enr_Address.Address_Line_1,
+2100G.N302,Address Information,,,Enr_Address.Address_Line_2,
+2100G.N4,"Responsible Person City, State, and Zip Code",,,,
+2100G.N401,City Name,City Name,,Enr_Address.City,
+2100G.N402,State or Province Code,State,,Enr_Address.State_Or_Province_Code,
+2100G.N403,Postal Code,Postal Code,,Enr_Address.Postal_Code,
+2100G.N404,Country Code,"If Country Code Not Equal to USA, then populate element",,Enr_Address.Country_Code,
+2100G.N407,Country Subdivision Code,,,,
+2200 — DISABILITY INFORMATION Loop Repeat: >1,,,,,
+2200.DSB,Disability,,,,
+2200.DSB01,Disability Type Code,,"1 Short Term Disability
+2 Long Term Disability
+3 Permanent or Total Disability
+4 No Disability",,
+2200.DSB07,Product/Service ID Qualifier,,"DX: ICD9, ZZ: ICD10/Mutually Defined",,
+2200.DSB08,Medical Code Value,,,,
+2200.DTP,DISABILITY ELIGIBILITY DATES,,,,
+2200.DTP01,Date/Time Qualifier,,"360 Initial Disability Period Start
+361 Initial Disability Period End",,
+2200.DTP02,Date Time Period Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,
+2200.DTP03,Date Time Period,Disability Eligibility Date,,,
+2300 — HEALTH COVERAGE Loop Repeat: 99    A record is inserted into Enr_Member_Plan_Selection  table  for each 2300 loop.,,,,,
+2300.HD,Health Coverage Loop Repeat: 99,,,,
+2300.HD01,Maintenance Type Code,,"001 Change
+002 Delete
+021 Addition
+024 Cancellation or Termination
+025 Reinstatement
+026 Correction
+030 Audit or Compare
+032 Employee Information Not Applicable",Enr_Member_Plan_Selection.Maintenance_Type_Code,
+2300.HD03,Insurance Line Code,,"HLT = Health
+refer 4.3 for valid values.
+Commony used are HLT,DEN,VIS",Enr_Member_Plan_Selection.Insurance_Line_Code,
+2300.HD04,Plan Coverage Description,,,Enr_Member_Plan_Selection.Plan_Coverage_Description,
+2300.HD05,Coverage Level Code,,"CHD Children Only
+DEP Dependents Only
+E1D Employee and One Dependent
+E2D Employee and Two Dependents
+E3D Employee and Three Dependents
+E5D Employee and One or More Dependents
+E6D Employee and Two or More Dependents
+E7D Employee and Three or More Dependents
+E8D Employee and Four or More Dependents
+E9D Employee and Five or More Dependents
+ECH Employee and Children
+EMP Employee Only
+ESP Employee and Spouse
+FAM Family
+IND Individual
+SPC Spouse and Children
+SPO Spouse Only
+TWO Two Party",Enr_Member_Plan_Selection.Coverage_Level_Code,
+2300.HD09,Yes/No Condition or Response Code,Late Enrollment Indicator,,Enr_Member_Plan_Selection.Late_Enrollment_Indicator,
+2300.DTP,Health Coverage Dates  Segment repeat = 6,,,,
+2300.DTP01,Date Time Qualifier,,"348 Benefit Begin
+349 Benefit End
+543 Last Premium Paid Date
+303 Maintenance Effective",,
+2300.DTP02,Date Time Period Format Qualifier,,"D8 Date Expressed in Format CCYYMMDD
+RD8 Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,
+2300.DTP03,Coverage Period,,,Enr_Member_Plan_Selection.Benefit_Begin_Date,If 2300.DTP01 is 348
+,,,,Enr_Member_Plan_Selection.Benefit_End_Date,"If 2300.DTP01 is 349,
+Hardcode as 30000101 if DTP*349 is not present"
+,,,,Enr_Member_Plan_Selection.Last_Premium_Paid_Date,If 2300.DTP01 is 543
+,,,,Enr_Member_Plan_Selection.Maintenance_Effective_Date,If 2300.DTP01 is 303
+2300.AMT,Health Coverage Policy,,,,
+2300.AMT01,Amount Qualifier Code,,"B9 Co-insurance - Actual
+C1 Co-payment Amount
+D2 Deductible Amount
+EBA Expected Expenditure Amount
+FK Other Unlisted Amount
+P3 Premium Amount
+R Spend Down",,
+2300.AMT02,Monetary Amount,Contract Amount,,Enr_Member_Plan_Selection.Premium_Amount,Map the first instance of  2300.AMT01 = P3.
+2300.REF,Health Coverage Policy Number,,,,
+2300.REF01,Reference Identification Qualifier,,"17 Client Reporting Category
+1L Group or Policy Number
+9V Payment Category
+CE Class of Contract Code
+E8 Service Contract (Coverage) Number
+M7 Medical Assistance Category
+PID Program Identification Number
+RB Rate code number
+X9 Internal Control Number
+XM Issuer Number
+XX1 Special Program Code
+XX2 Service Area Code
+ZX County Code
+ZZ Mutually Defined",,
+2300.REF02,Reference Identification,Member Group or Policy Number,,Enr_Member_Plan_Selection.Group_Or_PoIicy_Number,Map the first instance of 2300.REF01 = 1L
+.,,,,Enr_Member_Plan_Selection.Class_Of_Contract_Code,Map the first instance of 2300.REF01 = CE
+2310 — PROVIDER INFORMATION Loop Repeat: 30,,,,,
+2310.LX,PROVIDER INFORMATION,,,,
+2310.LX01,Assigned Number,,,,
+2310.NM1,PROVIDER NAME,,,,
+2310.NM101,Entity Identifier Code,,"1X Laboratory
+3D Obstetrics and Gynecology Facility
+80 Hospital
+FA Facility
+OD Doctor of Optometry
+P3 Primary Care Provider
+QA Pharmacy
+QN Dentist
+Y2 Managed Care Organization",,
+2310.NM102,Entity Type Qualifier,,"1 = Person
+2 = Non-Person entity",,
+2310.NM103,Provider Last Name,,,,
+2310.NM104,Provider First Name,,,,
+2310.NM105,Provider Middle Name,,,,
+2310.NM106,Provider Name Prefix,,,,
+2310.NM107,Provider Name Suffix,,,,
+2310.NM108,ID Code Qualifier,,"34: SSN
+FI: Federal Tax ID
+SV: Service Provider Number
+ XX: NPI",,
+2310.NM109,ID Code,,,,
+2310.NM110,Entity Relationship Code,,"25: Established Patient
+26: Not Established Patient
+72: Unknown",,
+2310.N3,PROVIDER ADDRESS,,,,
+2310.N301,Provider Address Line,,,,
+2310.N302,Provider Address Line,,,,
+2310.N4,"PROVIDER CITY, STATE, ZIP CODE",,,,
+2310.N401,Provider City Name,,,,
+2310.N402,Provider State Code,,,,
+2310.N403,Provider ZIP Code,,,,
+2310.N404,Provider Country Code,,,,
+2310.PER,PROVIDER COMMUNICATIONS NUMBERS,,,,
+2310.PER01,Contact Function Code,,IC = Information Contact,,
+2310.PER03,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2310.PER04,Communication Number,,,,
+2310.PER05,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2310.PER06,Communication Number,,,,
+2310.PER07,Communication Number Qualifier,,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number",,
+2310.PER08,Communication Number,,,,
+2310.PLA,Provider Change Reason,,,,
+2310.PLA01,Action Code,,2: Change (Update),,
+2310.PLA02,Entity Identifier Code,,1P : Provider,,
+2310.PLA03,Date,,Provider Effective Date,,
+2310.PLA05,Maintenance Reason Code,,"14 Voluntary Withdrawal
+22 Plan Change
+46 Current Customer Information File in Error
+AA Dissatisfaction with Office Staff
+AB Dissatisfaction with Medical Care/Services Rendered
+AC Inconvenient Office Location
+AD Dissatisfaction with Office Hours
+AE Unable to Schedule Appointments in a Timely
+Manner
+AF Dissatisfaction with Physician’s Referral Policy
+AG Less Respect and Attention Time Given than to
+Other Patients
+AH Patient Moved to a New Location
+AI No Reason Given
+AJ Appointment Times not Met in a Timely Manner",,
+2320 — COORDINATION OF BENEFITS Loop Repeat: 5,,,,,
+2320.COB,COB-Coordination of Benefits,,,,
+2320.COB01,Payer Responsibility Sequence Number Code,,"P Primary
+S Secondary
+T Tertiary
+U Unknown",,
+2320.COB02,Reference Identification,Member Group or Policy Number,,,
+2320.COB03,Coordination of Benefits Code,,"1: Coordination of Benefits;
+5 Unknown
+6: No Coordination of Benefits",,
+2320.COB04,Service Type Code,,"1 Medical Care
+35 Dental Care
+48 Hospital - Inpatient
+50 Hospital - Outpatient
+54 Long Term Care
+89 Free Standing Prescription Drug
+90 Mail Order Prescription Drug
+A4 Psychiatric
+AG Skilled Nursing Care
+AL Vision (Optometry)
+BB Partial Hospitalization (Psychiatric)",,
+2320.REF,Additional Coordination of Benefits Identifiers,,,,
+2320.REF01,Reference Identification Qualifier,,"60 Account Suffix Code
+6P Group Number
+SY Social Security Numberr
+ZZ Mutually Defined",,
+2320.REF02,Reference Identification,Member Group or Policy Number,,,
+2320.DTP,Coordination of Benefits Eligibility Dates,,,,
+2320.DTP01,Date/Time Qualifier,,"344 :Coordination of Benefits Begin
+345 :Coordination of Benefits End",,
+2320.DTP02,Date Time Period Format Qualifier,,D8 : CCYYMMDD,,
+2320.DTP03,Date Time Period,Coordination of Benefit Date,,,
+"2330 — COORDINATION OF BENEFITS RELATED ENTITY Loop
+Repeat: 3",,,,,
+2330.NM1,COORDINATION OF BENEFITS RELATED ENTITY,,,,
+2330.NM101,Entity Identifier Code,,"36: Employer
+GW: Group
+IN: Insurer",,
+2330.NM102,Entity Type Qualifier,,2 : Non-Person Entity,,
+2330.NM103,Member Last Name,Coordination of Benefits Insurer Name,,,
+2330.NM108,ID Code Qualifier,,"FI: Federal Tax ID
+NI: NAIC
+XV: CMS Plan ID",,
+2330.NM109,ID Code,"Coordination of Benefits Insurer Identification
+Code",,,
+2330.N3,COORDINATION OF BENEFITS RELATED ENTITY ADDRESS,,,,
+2330.N301,Member Address Line,,,,
+2330.N302,Member Address Line,,,,
+2330.N4,"COORDINATION OF BENEFITS RELATED ENTITY OTHER INSURANCE COMPANY CITY, STATE, ZIPCODE",,,,
+2330.N401,Member City Name,,,,
+2330.N402,Member State Code,,,,
+2330.N403,Member ZIP Code,,,,
+2330.N404,Member Country Code,,,,
+2330.N407,Country Subdivision Code,,,,
+2700 — ADDITIONAL REPORTING CATEGORIES LOOP,,,,,
+2700.LS,ADDITIONAL REPORTING CATEGORIES LOOP,,,,
+.LS01,Loop Identifier Code,,Use the value 2700.,,
+2710 — MEMBER REPORTING CATEGORIES Loop Repeat: >1      A record is inserted into  Enr_Member_Reporting_category  table  for each 2710 loop.,,,,,
+2710.LX,MEMBER REPORTING CATEGORIES,,,,
+2710.LX01,Assigned Number,,,,
+2750 — REPORTING CATEGORY Loop Repeat: 1,,,,,
+2750.N1,REPORTING CATEGORY,,,,
+2750.N101,Entity Identifier Code,,75 : Participant,,
+2750.N102,Name,Member Reporting Category Name,,Enr_Member_Reporting_Category.Name,
+2750.REF,REPORTING CATEGORY REFERENCE  Segment repeat = 16,A record is inserted into  Member_Reporting_Category_Identifiers  table  for each 2750.REF,,,
+2750.REF01,Reference Identification Qualifier,,"00 Contracting District Number
+17 Client Reporting Category
+18 Plan Number
+19 Division Identifier
+26 Union Number
+3L Branch Identifier
+6M Application Number
+9V Payment Category
+9X Account Category
+GE Geographic Number
+LU Location Number
+PID Program Identification Number
+XX1 Special Program Code
+XX2 Service Area Code
+YY Geographic Key
+ZZ Mutually Defined",Enr_Member_Reporting_Category_Identifiers.Identification_Type,
+2750.REF02,Reference Identification,Member Reporting Category Reference ID,,Enr_Member_Reporting_Category_Identifiers.Identification,
+2750.DTP,REPORTING CATEGORY DATE,,,,
+2750.DTP01,Date/Time Qualifier,,007 = Effective,,
+2750.DTP02,Date Time Period Format Qualifier,,"D8 : Date Expressed in Format CCYYMMDD
+RD8 : Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD",,
+2750.DTP03,,,,Enr_Member_Reporting_Category.Start_Date,"If 2750.DTP02 is D8 populate 2750.DTP02.
+If 2750.DTP02 is RD8, populate the first CCYYMMDD"
+,Date Time Period,Member Reporting Category Effective Date(s),,Enr_Member_Reporting_Category.End_Date,"If 2750.DTP02 is D8 Leave it blank.
+If 2750.DTP02 is RD8, populate the second CCYYMMDD"
+2700.LE,"ADDITIONAL REPORTING CATEGORIES
+LOOP TERMINATION",,,,
+2700.LE01,Loop Identifier Code,,Use the value 2700,,
+SE,Transaction Set Trailer,,,,
+SE01,Number of Included Segments,Total number of segments included in the transaction set including ST and SE segments,,,
+SE02,Transaction Set Control Number,ST02 and SE02 must be identical,,,
+GE,Function Group Trailer,,,,
+GE01,Number of Transaction Sets Included,Total number of transactions set included in the group or interchange,,,
+GE02,Group Control Number,GS06 and GE02 must be identical,,,
+IEA,Interchange Control Trailer,,,,
+IEA01,Number of Included Functional Groups,,,,
+IEA02,Interchange Control Number,ISA12 and IEA02 must be identical,,,

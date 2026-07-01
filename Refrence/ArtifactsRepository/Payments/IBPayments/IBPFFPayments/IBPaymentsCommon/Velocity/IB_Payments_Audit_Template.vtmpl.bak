@@ -1,0 +1,162 @@
+{			
+    "inputDetails":
+#if(${IB_Payments_Audit_Event}=="1" or ${IB_Payments_Audit_Event}=="2" or ${IB_Payments_Audit_Event}=="3" or ${IB_Payments_Audit_Event}=="4" or ${IB_Payments_Audit_Event}=="5"  or ${IB_Payments_Audit_Event}=="6" or ${IB_Payments_Audit_Event}=="7" or ${IB_Payments_Audit_Event}=="8" or ${IB_Payments_Audit_Event}=="9" or ${IB_Payments_Audit_Event}=="10" or ${IB_Payments_Audit_Event}=="11" or ${IB_Payments_Audit_Event}=="12" or ${IB_Payments_Audit_Event}=="13" or ${IB_Payments_Audit_Event}=="14" or ${IB_Payments_Audit_Event}=="15" or ${IB_Payments_Audit_Event}=="16")
+  {	
+        "inputId": "${IB_Payments_Input_File_Id}",			
+		"inputFileName": "${IB_Payments_FileName}",
+         #if($IB_Payments_File_Input_Type)		
+        "inputType": "${IB_Payments_File_Input_Type}",
+		#end
+		#if($sourceTypeIdentifier)
+		"sourceTypeIdentifier":${sourceTypeIdentifier},
+		 #end
+		   #if($IB_Payments_File_Input_Type)	
+		"paymentSourceName":"${IB_Payments_File_Input_Type}",
+		 #end
+		 #if($tenantIdentifier)
+		"tenantIdentifier":${tenantIdentifier},
+		 #end
+		#if($totalTransactions)
+		"totalTransactions":"${totalTransactions}",
+		 #end
+		 #if($totalCount)
+		"totalTransactions":"",
+		 #end
+		"inputArchiveFilename": "${IB_Payments_Input_Archive_File_Name}"			
+  },#{else}#end
+    "process":	
+#if(${IB_Payments_Audit_Event}=="1" or ${IB_Payments_Audit_Event}=="9")
+  {	
+        "processStageName": "edifecs:message received",	
+        "processStatus": "MESSAGE READ",
+        "processInputArchiveFilename": "${processInputArchiveFilename}",			
+        "auditTime": "${auditTime}"
+  }#{else}#end
+ #if(${IB_Payments_Audit_Event}=="11")
+  {	
+        "processStageName": "edifecs:file received",	
+        "processStatus": "FILE RECEIVED",
+        "processInputArchiveFilename": "${processInputArchiveFilename}",	
+		#if($processOutputArchiveFilename)	
+		"processOutputArchiveFilename": "",
+		 #end		
+        "auditTime": "${ZelisauditTime}"
+  }#{else}#end
+  #if(${IB_Payments_Audit_Event}=="16")
+  {	
+        "processStageName": "edifecs:file received",	
+        "processStatus": "FILE RECEIVED",
+        "processInputArchiveFilename": "${processInputArchiveFilename}",	
+		#if($processOutputArchiveFilename)	
+		"processOutputArchiveFilename": "",
+		 #end		
+        "auditTime": "${ZelisauditTime}"
+  }#{else}#end
+  #if(${IB_Payments_Audit_Event}=="12")
+  {	
+        "processStageName": "edifecs:message split",	
+        "processStatus": "PROCESSED",			
+        "processInputArchiveFilename": "${processInputArchiveFilename}",
+        "processOutputArchiveFilename": "",			
+        "auditTime": "${auditTime}"
+  },#{else}#end
+#if(${IB_Payments_Audit_Event}=="2" or ${IB_Payments_Audit_Event}=="7")
+  {	
+        "processStageName": "edifecs:validation",		
+        "processStatus": "PROCESSED",			
+        "processInputArchiveFilename": "${processInputArchiveFilename}",			
+        "auditTime": "${auditTime}"
+  },#{else}#end
+#if(${IB_Payments_Audit_Event}=="3" or ${IB_Payments_Audit_Event}=="8" or ${IB_Payments_Audit_Event}=="10")
+  {	
+        "processStageName": "edifecs:validation failed",		
+        "processStatus": "ERROR",	
+		"processMessage":"${errorMessage}",	
+        "processInputArchiveFilename": "${processInputArchiveFilename}",			
+        "auditTime": "${auditTime}"
+  }, #{else}#end
+ #if(${IB_Payments_Audit_Event}=="15")
+  {	
+        "processStageName": "edifecs:file validation",		
+        "processStatus": "PROCESSED",	
+        "processInputArchiveFilename": "${processInputArchiveFilename}",	
+        #if($processOutputArchiveFilename)	
+		"processOutputArchiveFilename": "",
+		 #end			
+        "auditTime": "${auditTime}"
+  } #{else}#end 
+ #if(${IB_Payments_Audit_Event}=="14")
+  {	
+        "processStageName": "edifecs:file validation",		
+        "processStatus": "ERROR",
+		"processMessage":"Invalid File",		
+        "processInputArchiveFilename": "${processInputArchiveFilename}",
+        #if($processOutputArchiveFilename)	
+		"processOutputArchiveFilename": "",
+		 #end				
+        "auditTime": "${auditTime}"
+  } #{else}#end
+#if(${IB_Payments_Audit_Event}=="4")
+  {	
+        "processStageName": "edifecs:conversion",		
+        "processStatus": "PROCESSED",		
+        "processInputArchiveFilename": "${processInputArchiveFilename}",			
+        "auditTime": "${auditTime}"
+  }, #{else}#end   
+#if(${IB_Payments_Audit_Event}=="5")
+  {	
+        "processStageName": "edifecs:conversion failed",		
+        "processStatus": "ERROR",		
+        "processInputArchiveFilename": "${processInputArchiveFilename}",			
+        "auditTime": "${auditTime}"
+  }, #{else}#end
+#if(${IB_Payments_Audit_Event}=="6" or ${IB_Payments_Audit_Event}=="13")
+  {	
+        "processStageName": "edifecs:publish completed",	
+        "processStatus": "MESSAGE PUBLISHED",		
+        "processInputArchiveFilename": "${processInputArchiveFilename}",
+		#if($processOutputArchiveFilename)	
+		"processOutputArchiveFilename": "",
+		 #end	
+        "auditTime": "${auditTime}"
+  }, #{else}#end   
+#if(${IB_Payments_Audit_Event}=="2" or ${IB_Payments_Audit_Event}=="3" or ${IB_Payments_Audit_Event}=="4" or ${IB_Payments_Audit_Event}=="5"  or ${IB_Payments_Audit_Event}=="6" or ${IB_Payments_Audit_Event}=="7" or ${IB_Payments_Audit_Event}=="8")
+    "identifiers":    
+  {	
+     #if($recordIdentifierFromSource)
+        "rayIdentifier": "${IB_Payments_Ray_Identifier}",			
+        "recordIdentifier": "${IB_Payments_Record_Identifier}",
+        "recordIdentifierFromSource": "${recordIdentifierFromSource}"
+  	#else 
+     	"rayIdentifier": "${IB_Payments_Ray_Identifier}",			
+        "recordIdentifier": "${IB_Payments_Record_Identifier}"
+    #end
+  }, #{else}#end  	
+#if(${IB_Payments_Audit_Event}=="12" or ${IB_Payments_Audit_Event}=="13")
+    "identifiers":    
+  {	
+        "rayIdentifier": "${IB_Payments_Ray_Identifier}",			
+        "recordIdentifier": "${IB_Payments_Record_Identifier}",
+        "recordIdentifierFromSource": "${recordIdentifierFromSource}"
+  } 
+#{else}#end   
+#if(${IB_Payments_Audit_Event}=="2" or ${IB_Payments_Audit_Event}=="3" or ${IB_Payments_Audit_Event}=="4" or ${IB_Payments_Audit_Event}=="5"  or ${IB_Payments_Audit_Event}=="6" or ${IB_Payments_Audit_Event}=="7" or ${IB_Payments_Audit_Event}=="8")
+    "payment": 
+  {	
+#if($paymentNumber)
+        "paymentNumber": "${paymentNumber}",
+	#{else}#end 
+	#if($PaymentID)
+        "paymentId": "${PaymentID}",
+	#{else}#end
+	#if($PaymentTransactionID)
+        "paymentTransactionId": "${PaymentTransactionID}",
+	#{else}#end 
+	#if($RemittanceIssueDate)
+        "remittanceIssueDate": "${RemittanceIssueDate}"
+	#{else}#end 
+#if($checkNumber)		
+		"checkNumber":"${checkNumber}"	
+#{else}#end 
+  } #{else}#end 			
+}

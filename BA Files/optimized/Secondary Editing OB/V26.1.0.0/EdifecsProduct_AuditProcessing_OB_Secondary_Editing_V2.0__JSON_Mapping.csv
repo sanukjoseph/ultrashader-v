@@ -1,0 +1,27 @@
+Group,Fields,,Description
+jobDetails,identifier,EXECUTION_IDENTIFIER,
+,claimsDefinition,,
+,sourceTypeIdentifier,REPRICER_NAME/EXTERNAL_EDITOR,
+,jobStatus,,
+,totalCount,,
+,successCount,,
+,falloutCount,,
+,jobStartDateTime,,
+,jobEndDateTime,,
+process,processStageName,Refer Audit events Tab,Represent the name of the process stage which post the Audit point.
+,processStatus,Refer Audit events Tab,Represent the Intermediate or Final status of the process stage which posts the Audit point.
+,processMessage,Refer Audit events Tab,Specific information of a particular step after the process is completed.
+,processInputArchiveFilename,Input DFF name received with filename extension,Name of the input Archive file of the process stage which posts the Audit point.
+,processOutputArchiveFilename,Ob EDI file name with extension (if applicable),Name of the output Archive file of the process stage which posts the Audit point.
+,auditTime,The time the audit trigger event got generated in yyyy-MM-dd HH:mm:ss.SSSSSSSSS format,Auditing time of each audit point
+identifiers,rayIdentifier,RAY_IDENTIFIER,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed."
+,recordIdentifier,RECORD_IDENTIFIER,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record."
+,recordIdentifierFromSource,,
+,sequenceIdentifier,,
+,referenceIdentifier,,
+,retriedReferenceIdentifier,,
+claim,claimHCCId,CLAIM_ID,HCC id of the claim
+,claimNumber,CLAIM_NUM,
+,claimStatus,,
+,requestClaimArchiveFilename,Input DFF name received with filename extension,
+,responseClaimArchiveFilename,Ob EDI file name with extension,

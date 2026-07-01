@@ -1,0 +1,10 @@
+{
+"inputDetails": {			
+            "inputId": "${InputId}", 	 
+            "totalTransactions": "${totalTransaction}",   
+            "inputFileName": "${InputFileName}" 		
+},
+"transaction":[
+${M_Body}
+]
+}      

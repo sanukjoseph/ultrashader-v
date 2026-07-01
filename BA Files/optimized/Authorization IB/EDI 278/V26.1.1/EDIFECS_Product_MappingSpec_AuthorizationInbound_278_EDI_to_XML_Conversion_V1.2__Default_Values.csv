@@ -1,0 +1,18 @@
+XSD Element,Default values,Description,Comments
+/AuthorizationAdaptorRequest/payload/serviceAuthorization/recordType,Hardcode as 'Authorization',An enumerated value that can be either of the following: - Authorization - Agreement,
+/AuthorizationAdaptorRequest/payload/header/originPayloadIdentificationCode,Hardcode as 'Products',Source request identification code,Custom field
+/AuthorizationAdaptorRequest/payload/header/originSystemCode,Hardcode as 'Products',Source system name,Custom field
+/AuthorizationAdaptorRequest/payload/header/apiCallTime,"Processing date/time in the format:
+yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS",Static response creation time,
+/AuthorizationAdaptorRequest/payload/serviceAuthorization/inputSource,Hardcode as 'EDI',,
+/AuthorizationAdaptorRequest/payload/serviceAuthorization/servicesAction,Hardcode as 'Default',An enumerated value that can be either of the following: - Default/Replace,
+/AuthorizationAdaptorRequest/payload/serviceAuthorization/receivedDate,Processing date/time in the format: YYYY-MM-DDTHH:mm:ss,,
+/AuthorizationAdaptorRequest/payload/serviceAuthorization/services/receivedDate,Processing date/time in the format: YYYY-MM-DDTHH:mm:ss,,
+"/AuthorizationAdaptorRequest/payload/serviceAuthorization/services/hicApproval/authorizedByExternalUser/codeSetName
+/AuthorizationAdaptorRequest/payload/serviceAuthorization/services/hicApproval/authorizedByExternalUser/codeEntry","codeSetName   as  ServiceAuthExternalUser
+/codeEntry as 2",,Custom field
+/AuthorizationAdaptorRequest/payload/header/recordIdentifier,A Unique Record Identifier,A Unique Record Identifier,
+/AuthorizationAdaptorRequest/payload/header/inputId,Value passed is  - {UID}- Uniqie for each file,EDI file id,
+/AuthorizationAdaptorRequest/payload/header/inputType,"Hardcode as ""EDI""",,
+/AuthorizationAdaptorRequest/payload/header/inputFileName,Input Filename of the EDI file received with filename extension,Name of the input file received from source.,
+/AuthorizationAdaptorRequest/payload/header/inputArchiveFileName,Input Filename of the EDI file archived in s3 with filename extension,Name of the input file after archiving the input file.,

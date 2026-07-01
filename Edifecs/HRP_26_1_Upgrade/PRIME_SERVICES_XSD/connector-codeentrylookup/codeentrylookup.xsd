@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+           xmlns="http://www.healthedge.com/connector/schema/codeentrylookup"
+           targetNamespace="http://www.healthedge.com/connector/schema/codeentrylookup" elementFormDefault="unqualified"
+           version="4.0">
+    <xs:annotation>
+        <xs:documentation>
+            DISCLAIMER
+            This pre-release software provided by HealthEdge Inc. is a work-in-progress.
+            HealthEdge provides pre-release information to early adopters for the purpose of design and planning.
+            It has no warranty either explicit or implied and is subject to change.
+        </xs:documentation>
+    </xs:annotation>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+
+
+    <xs:element name="codeEntryLookupListResponse" type="CodeEntryListResponseType"/>
+    <xs:element name="codeEntryLookupCriteria" type="CodeEntryInputType"/>
+    <xs:element name="codeEntryLookupResponse" type="CodeEntryResponseType"/>
+    <xs:complexType name="CodeEntryListResponseType">
+        <xs:sequence>
+            <xs:group ref="CodeEntryListResponseGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:group name="CodeEntryListResponseGroup">
+        <xs:sequence>
+            <xs:element name="codeSetName" type="base:String50Type" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="codeEntrylist" minOccurs="0" maxOccurs="1">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="codeEntry" type="base:CodeEntryType" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:group>
+    <xs:complexType name="CodeEntryInputType">
+        <xs:complexContent>
+            <xs:extension base="base:HealthRulesResourceType">
+                <xs:group ref="base:CodeEntryInputGroup"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="CodeEntryResponseType">
+        <xs:sequence>
+            <xs:element name="codeEntry" type="base:CodeEntryType" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

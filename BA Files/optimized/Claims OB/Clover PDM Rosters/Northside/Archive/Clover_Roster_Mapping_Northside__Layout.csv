@@ -1,0 +1,84 @@
+##,,Mandatory/Optional,Length,Format,Pre-Mapping Validation Rules
+1,Northside Notes,O,100,String,
+2,Provider Address Type,O,100,String,
+3,Requested Effective Date,M,12,Date,"Reject -
+ IF NOT IN FORMAT (YYYY-MM-DD)"
+4,Tax ID,M,10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10"
+5,Group NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC"
+6,Last Name,M,50,String,"Reject -
+ IF EMPTY"
+7,First Name,M,50,String,"Reject -
+ IF EMPTY"
+8,Middle Name,O,50,String,
+9,Suffix,O,50,String,
+10,Degree,M,25,String,"Reject -
+ IF EMPTY"
+11,DOB,M,12,Date,"Reject -
+ IF NOT IN FORMAT (YYYY-MM-DD)"
+12,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female)"
+13,Provider NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC"
+14,Taxonomy,M,10,Alphanumeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10
+
+Example - 208M00000X"
+15,CAQH,O,50,String,
+16,Medicare#,O,50,String,
+17,PCP_SPC_HospBased,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (PCP, SPC, Hospital Based, Urgent Care)"
+18,Ages Seen,O,50,String,
+19,Office Hours,O,50,String,
+20,Practice Name,M,100,String,"Reject -
+ IF EMPTY"
+21,Address,M,100,String,"Reject -
+ IF EMPTY"
+22,Address_2,O,100,String,
+23,City,M,50,String,"Reject -
+ IF EMPTY"
+24,State,M,2,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE"
+25,Zip Code,M,50,String,"Reject -
+ IF EMPTY"
+26,Provider Address County,O,50,String,
+27,Phone,M,50,String,"Reject -
+ IF EMPTY"
+28,Fax,O,50,String,
+29,GA License Number,O,50,String,
+30,GA License Expiration Date,O,50,String,
+31,DEA#,O,50,String,
+32,DEA#Exp,O,50,String,
+33,List in Directory_Y or N,M,5,String,"Reject -
+ IF PRESENT and
+ IF NOT IN LIST (Y, N, YES, NO)"
+34,Primary Specialty,M,100,String,
+35,Medical Board,O,50,String,
+36,Board Status,O,50,String,
+37,Board Certification Date,O,50,String,
+38,Board Expiration Date,O,50,String,
+39,Hospital Privileges - Northside Hospital,O,50,String,
+40,Medical School information,O,50,String,
+41,Graduate Date,O,50,String,
+42,Remit Address,M,100,String,"Reject -
+ IF EMPTY"
+43,Remit Address 2,O,100,String,
+44,Remit Address City,M,50,String,"Reject -
+ IF EMPTY"
+45,Remit Address State,M,2,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE"
+46,Remit Address Zip,M,50,String,"Reject -
+ IF EMPTY"
+47,Billing Phone,O,50,String,
+48,Billing Fax,O,50,String,

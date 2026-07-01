@@ -1,0 +1,144 @@
+{
+"inputDetails": {
+#if($OriginalFileLevelId != "" and $OriginalFileLevelId != "(N/A)" and $OriginalFileLevelId != "{Prp[OriginalFileLevelId]}" and $OriginalFileLevelId != "null")
+	"inputId": "${OriginalFileLevelId}",
+  #{else}#end 
+  #if($ClaimTransactionType != "" and $ClaimTransactionType != "(N/A)" and $ClaimTransactionType != "{Prp[ClaimTransactionType]}" and $ClaimTransactionType != "null" and $MessageReadFlag == "No" and $FileErrorFlag=="No")
+	"inputType": "${ClaimTransactionType}",
+  #{else}#end
+#if($TotalEdiTransaction != "" and $TotalEdiTransaction != "(N/A)" and $TotalEdiTransaction != "{Prp[TotalEdiTransaction]}" and $TotalEdiTransaction != "null" and $DupFlag == "Yes")
+	"totalTransactions": "${TotalEdiTransaction}",
+  #{else}#end
+#if($TotalEdiTransaction != "" and $TotalEdiTransaction != "(N/A)" and $TotalEdiTransaction != "{Prp[TotalEdiTransaction]}" and $TotalEdiTransaction != "null" and $FieldFlag =="No")
+	"totalTransactions": "${TotalEdiTransaction}",
+  #{else}#end  
+#if($TotalEdiTransaction != "" and $TotalEdiTransaction != "(N/A)" and $TotalEdiTransaction != "{Prp[TotalEdiTransaction]}" and $TotalEdiTransaction != "null" and $FieldFlag =="Yes" and $Flag =="No" )
+	"totalTransactions": "${TotalEdiTransaction}",
+  #{else}#end 
+#if($TotalEdiTransaction != "" and $TotalEdiTransaction != "(N/A)" and $TotalEdiTransaction != "{Prp[TotalEdiTransaction]}" and $TotalEdiTransaction != "null" and $FieldFlag =="Yes" and $Flag == "Yes" )
+	"totalTransactions": "${TotalEdiTransaction}",
+  #{else}#end 
+#if($AuditEdiFileName != "" and $AuditEdiFileName != "(N/A)" and $AuditEdiFileName != "{Prp[AuditEdiFileName]}"  and $AuditEdiFileName != "null")
+	"inputFileName": "${AuditEdiFileName}",
+  #{else}#end
+#if($inputArchiveFilename != "" and $inputArchiveFilename != "(N/A)" and $inputArchiveFilename != "{Prp[inputArchiveFilename]}" and $inputArchiveFilename != "null")
+	"inputArchiveFilename": "${inputArchiveFilename}"
+  #{else}#end 
+ },
+"process": {
+#if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $ProcessStageName != "null")
+	"processStageName": "${ProcessStageName}",
+  #{else}#end 
+#if($AdaptorStatus != "" and $AdaptorStatus != "(N/A)" and $AdaptorStatus != "{Prp[AdaptorStatus]}"and $AdaptorStatus != "null")
+	"processStatus": "${AdaptorStatus}",
+  #{else}#end
+#if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $AdaptorErrorMessage != "null" and $FileErrorFlag =="Yes" and $InterChangeBad =="No")
+	"processMessage": "${AdaptorErrorMessage}",
+  #{else}#end
+#if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $AdaptorErrorMessage != "null" and $FileErrorFlag =="No" and $HippaError =="Yes")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+#if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $FieldFlag == "No" and $AdaptorErrorMessage != "null" and $InterChangeBad =="No")
+	"processMessage": "${AdaptorErrorMessage}",
+  #{else}#end
+#if($edi_filename != "" and $edi_filename != "(N/A)" and $edi_filename != "{Prp[edi_filename]}" and $DupFlag == "Yes" and $edi_filename != "null" and $InterChangeBad =="No" and $DuplicateInterchange == "Yes")
+	"processMessage": "Duplicate_Interchange_${DuplicateFileCheck}",
+  #{else}#end
+#if($DuplicateFileCheck != "" and $DuplicateFileCheck != "(N/A)" and $DuplicateFileCheck != "{Prp[DuplicateFileCheck]}" and $DupFlag == "Yes" and $DuplicateFileCheck != "null" and $InterChangeBad =="No" and $DuplicateFileCheckFlag == "True" and $DuplicateFile == "Yes")
+	"processMessage": "Duplicate_File_${edi_filename}",
+  #{else}#end
+#if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $MapErrorFlag == "Yes" and $AdaptorErrorMessage != "null")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+#if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $ParsingError == "Yes")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+#if($AdaptorErrorMessage != "" and $AdaptorErrorMessage != "(N/A)" and $AdaptorErrorMessage != "{Prp[AdaptorErrorMessage]}" and $InterchangeError == "Yes")
+	"processMessage": "${adaptorErrorMessage}",
+  #{else}#end
+#if($AuditEdiFileName != "" and $AuditEdiFileName != "(N/A)" and $AuditEdiFileName != "{Prp[AuditEdiFileName]}"  and $AuditEdiFileName != "null")
+	"processInputArchiveFilename": "${AuditEdiFileName}",
+  #{else}#end 
+#if($AdaptorAuditDateTime != "" and $AdaptorAuditDateTime != "(N/A)" and $AdaptorAuditDateTime != "{Prp[AdaptorAuditDateTime]}" and $AdaptorAuditDateTime != "null")
+	"auditTime": "${AdaptorAuditDateTime}"
+  #{else}#end  
+}#if ($MessageReadFlag == "No"),#{else}#end
+#if ($MessageReadFlag == "No") 
+"identifiers": {
+#if($rayIdentifier != "" and $rayIdentifier != "(N/A)" and $rayIdentifier != "{Prp[rayIdentifier]}" and $rayIdentifier != "null" and $MessageReadFlag == "No" and $IsDuplicate != "True")
+	"rayIdentifier": "${rayIdentifier}",
+ #{else}#end
+#if($rayIdentifierForDuplicate != "" and $rayIdentifierForDuplicate != "(N/A)" and $rayIdentifierForDuplicate != "{Prp[rayIdentifierForDuplicate]}" and $rayIdentifierForDuplicate != "null" and $MessageReadFlag == "No" and $IsDuplicate == "True")
+	"rayIdentifier": "${rayIdentifierForDuplicate}",
+ #{else}#end
+#if($RecordIdentifier != "" and $RecordIdentifier != "(N/A)" and $RecordIdentifier != "{Prp[RecordIdentifier]}" and $RecordIdentifier != "null" and $MessageReadFlag == "No" and $IsDuplicate != "True")
+	"recordIdentifier": "${RecordIdentifier}",
+ #{else}#end
+#if($recordIdentifierForDuplicate != "" and $recordIdentifierForDuplicate != "(N/A)" and $recordIdentifierForDuplicate != "{Prp[recordIdentifierForDuplicate]}" and $recordIdentifierForDuplicate != "null" and $MessageReadFlag == "No" and $IsDuplicate == "True")
+	"recordIdentifier": "${recordIdentifierForDuplicate}",
+ #{else}#end
+#if($tenantIdentifier != "" and $tenantIdentifier != "(N/A)" and $tenantIdentifier != "{Prp[tenantIdentifier]}" and $tenantIdentifier != "null" and $MessageReadFlag == "No")
+	"tenantIdentifier": "${tenantIdentifier}",
+  #{else}#end
+#if($SourceTypeIdentifier != "" and $SourceTypeIdentifier != "(N/A)" and $SourceTypeIdentifier != "{Prp[SourceTypeIdentifier]}" and $SourceTypeIdentifier != "null" and $MessageReadFlag == "No" and $FileErrorFlag == "No" and $DuplicateEdi != "Yes")
+	"sourceTypeIdentifier": "${SourceTypeIdentifier}",
+  #{else}#end 
+#if($SourceTypeIdentifier != "" and $SourceTypeIdentifier != "(N/A)" and $SourceTypeIdentifier != "{Prp[SourceTypeIdentifier]}" and $SourceTypeIdentifier != "null" and $MessageReadFlag == "No" and $FileErrorFlag == "Yes" and $DuplicateEdi != "Yes")
+	"sourceTypeIdentifier": "${SourceTypeIdentifier}"
+  #{else}#end 
+#if($SourceTypeIdentifierAudit != "" and $SourceTypeIdentifierAudit != "(N/A)" and $SourceTypeIdentifierAudit != "{Prp[SourceTypeIdentifierAudit]}" and $SourceTypeIdentifierAudit != "null" and $MessageReadFlag == "No" and $FileErrorFlag == "No" and $DuplicateEdi == "Yes")
+	"sourceTypeIdentifier": "${SourceTypeIdentifierAudit}",
+  #{else}#end 
+#if($RecordIdFromSourceAudit != "" and $RecordIdFromSourceAudit!= "(N/A)" and $RecordIdFromSourceAudit != "{Prp[RecordIdFromSourceAudit]}" and $RecordIdFromSourceAudit != "null" and $FileLevelFlag!="Yes" and $MessageReadFlag == "No" and $DuplicateEdi != "Yes")
+	"recordIdentifierFromSource": "${RecordIdFromSourceAudit}"
+  #{else}#end
+#if($RecordIdFromSource != "" and $RecordIdFromSource!= "(N/A)" and $RecordIdFromSource != "{Prp[RecordIdFromSource]}" and $RecordIdFromSource != "null" and $FileLevelFlag!="Yes" and $MessageReadFlag == "No" and $DuplicateEdi == "Yes")
+	"recordIdentifierFromSource": "${RecordIdFromSource}"
+  #{else}#end
+}
+#{else}#end 
+#if ($FileErrorFlag == "No" or  $DupFlag=="Yes" or $FieldFlag=="Yes" and $InterchangeError!="Yes"),
+#{else}#end
+#if ($MessageReadFlag == "No" and  $FileErrorFlag=="No" or $DupFlag=="Yes" or $FieldFlag=="Yes" and $InterchangeError!="Yes")
+"claim": {
+#if($ClaimTransactionType != "" and $ClaimTransactionType != "(N/A)" and $ClaimTransactionType != "{Prp[ClaimTransactionType]}" and $ClaimTransactionType != "null" and $MessageReadFlag == "No")
+	"claimTransactionType": "${ClaimTransactionType}",
+  #{else}#end
+#if($claimAmount != "" and $claimAmount != "(N/A)" and $claimAmount != "{Prp[claimAmount]}" and $claimAmount != "null")
+	"claimAmount": "${claimAmount}",
+  #{else}#end
+#if($frequencyCode != "" and $frequencyCode != "(N/A)" and $frequencyCode != "{Prp[frequencyCode]}" and $frequencyCode != "null")
+	"frequencyCode": "${frequencyCode}",
+  #{else}#end
+#if($PatientControlNumberAudit != "" and $PatientControlNumberAudit != "(N/A)" and $PatientControlNumberAudit != "{Prp[PatientControlNumberAudit]}" and $PatientControlNumberAudit != "null")
+	"patientControlNumber": "${PatientControlNumberAudit}",
+  #{else}#end
+#if($PatientName!= "" and $PatientName != "(N/A)" and $PatientName != "{Prp[PatientName]}" and $PatientName != "null")
+	"patientName": "${PatientName}",
+ #{else}#end
+#if(($PatientName == "" or $PatientName == "(N/A)" or $PatientName == "null") and ($memberName != "" and $memberName!= "(N/A)" and $memberName != "{Prp[memberName]}" and $memberName != "null"))
+	"patientName": "${memberName}",
+ #{else}#end
+#if($patientDOB != "" and $patientDOB!= "(N/A)" and $patientDOB != "{Prp[patientDOB]}" and $patientDOB != "null")
+	"patientDOB": "${patientDOB}",
+  #{else}#end
+#if($memberIdentificationNumber != "" and $memberIdentificationNumber!= "(N/A)" and $memberIdentificationNumber != "{Prp[memberIdentificationNumber]}" and $memberIdentificationNumber != "null")
+  "memberIdentificationNumber": "${memberIdentificationNumber}",
+  #{else}#end 
+  #if($memberName != "" and $memberName!= "(N/A)" and $memberName != "{Prp[memberName]}" and $memberName != "null")
+  "memberName": "${memberName}",
+  #{else}#end  
+"providerDetails": {
+#if($providerId != "" and $providerId!= "(N/A)" and $providerId != "{Prp[providerId]}" and $providerId != "null")
+ "providerId": "${providerId}",
+  #{else}#end
+  #if($providerName != "" and $providerName!= "(N/A)" and $providerName != "{Prp[providerName]}" and $providerName != "null")
+ "providerName": "${providerName}",
+  #{else}#end
+#if($providerType != "" and $providerType!= "(N/A)" and $providerType != "{Prp[providerType]}" and $providerType != "null")
+  "providerType": "${providerType}"
+  #{else}#end   
+}
+}
+#{else}#end     
+}

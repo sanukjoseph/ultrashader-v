@@ -1,0 +1,16 @@
+{
+ "spInvokedBy": "OB Repricer Edifecs", 
+ "extractName": "${ExtractName}",    
+ "recipientName": "${RepricerName}",
+ "extractType": "${ExtractType}",
+ "targetLocation" : "${VendorLocation}",
+ "extractId": "${ExtractionID}",
+ "jobId": "${JobId}",    
+ "recordCountPerPage": ${TotalRecordCount},  
+ "processStartTs": "${ProcessStartTs}",   
+ "extractFileName":"${ExtractFileName}",  
+ "auditCreatedTs": "${AuditCreatedTs}",
+ "extractErrorDesc": "",   
+ "extractStatus":"Success_DFF_Received "
+ }
+ 

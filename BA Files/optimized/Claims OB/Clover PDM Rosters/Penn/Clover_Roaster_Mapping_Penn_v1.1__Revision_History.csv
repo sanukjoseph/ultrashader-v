@@ -1,0 +1,21 @@
+,Revision History,,,,
+,,,,,
+,V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+,1.0,20-06-2025,Prasanth Obla,,"Initial Version
+• Mapping Specs
+• Story Detailing"
+,1.0,23-06-2025,Deepthi Marella,Prasanth Obla,"Notes added for ""Primary Specialty"""
+,1.1,8/5/25,Deepthi Marella,Prasanth Obla,"Added the possible sample values for the below fields:
+1. Gender
+2. Is Primary?
+3. Specialist or PCP
+Length changes:
+1. Address State (2-50)
+2. Billing State (2-50)
+Date Format:
+1. Effective date"
+,,8/8/25,Deepthi Marella,Prasanth Obla,Updated Tax ID validation Rule
+,,8/11/25,Prasanth Obla,,Updated as 'M' for Effective Date & Print Supress
+,,8/12/25,Deepthi Marella,Prasanth Obla,Updated as 'M' for Provider-based Facility
+,,8/13/25,Deepthi Marella,Prasanth Obla,"Changed ""Board Specialty 1"" to ""Board Specialty 2"" in the 2nd error message"
+,,8/14/25,Deepthi Marella,Prasanth Obla,Updated the logic in all the Zip fields

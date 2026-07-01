@@ -1,0 +1,10 @@
+{
+  "eventName": "${UnichronEventName}",
+  "executionReferenceId": "${EdiFileIds}",
+  "feedback": {
+    "messageUUID": "${UnichronMessageID}",
+    "messageCreateTimeUTC": "${UnichronMessageCreateTime}",
+    "jobStatus": "${UnichronJobStatus}",
+    "jobCode": "${UnichronJobCode}"
+  }
+}

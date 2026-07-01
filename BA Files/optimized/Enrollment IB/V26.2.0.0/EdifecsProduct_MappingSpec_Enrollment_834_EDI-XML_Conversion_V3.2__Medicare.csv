@@ -1,0 +1,952 @@
+Loop ID,Segment ID,Segment Name,Element Description,Enumeration Values,Enrollment Sparse_Field Name,Mapping Logic,Custom,Comments
+ISA (Interchange Control Header Segment),,,,,,,,
+,ISA,Interchange Control Header,,,,,,
+,ISA01,Authorization Information Qualifier,Code identifying the type of information in the Authorization Information,00 : No Authorization Information Present,,,,
+,ISA02,Authorization Information,Submitter-specific ID number or 10-space placeholder,Blank (10 spaces),,,,
+,ISA03,Security Information Qualifier,No Security Information Present Qualifier,00 : No Security Information Present,,,,
+,ISA04,Security Information,Submitter-specific ID number or 10-space placeholder,Blank (10 spaces),,,,
+,ISA05,Interchange ID Qualifier,Mutually Defined,ZZ : Mutually Defined,,,,
+,ISA06,Interchange Sender ID,Interchange Sender ID,,/header/senderId,,,
+,ISA07,Interchange ID Qualifier,Mutually Defined,ZZ : Mutually Defined,,,,
+,ISA08,Interchange Receiver ID,The Trading Partner ID (TPID) assigned by the client,,/header/receiverId,,,
+,ISA09,Interchange Date,Date the Interchange is created,,,,,
+,ISA10,Interchange Time,Time the Interchange is created,,,,,
+,ISA11,Interchange Control Standards Identifier,Repetition Separator,^,,,,
+,ISA12,Interchange Control Version Number,Standards Approved by ACS X12 Review Board,,,,,
+,ISA13,Interchange Control Number,"Sender-specific control number
+Unique Sequential Number Assigned by Internal Processes for each Interchange - Must be identical to the Interchange Trailer IEA02",,,,,
+,ISA14,Acknowledgment Requested,"0 = No Interchange Acknowledgement Requested
+1 = Interchange Acknowledgment Requested","0 : No Interchange Acknowledgement Requested
+1 : Interchange Acknowledgment Requested",,,,
+,ISA15,Usage Identifier,"Code indicating whether data enclosed by this interchange envelope is test,
+production or information",P : Production Data T : Test,,,,
+,,,The delimiter used to separate component data elements,": = Element separator
+~ = Segment Terminator",,,,
+,ISA16,Component Element Separator,"Colon - Delimiter to separate component data
+Header",,,,,
+,GS,Functional Group Header,,,,,,
+,GS01,Functional Identifier Code,Benefit Enrollment And Maintenance (834),,,,,
+,GS02,Application Sender’s Code,"Code identifying party sending transmission
+This is Submitter-specific.",,,,,
+,GS03,Application Receiver’s Code,"The Trading Partner ID (TPID)
+assigned by the Client",,,,,
+,GS04,Date,"Date the Group Header is created.
+Enter current date in the CCYYMMDD format",,,,,
+,GS05,Time,"Time the Group Header is created.
+Enter current time in the HHMM format",,,,,
+,GS06,Group Control Number,,,,,,
+,GS07,Responsible Agency Code,Code identifying the issuer of the EDI standard being used.,X : Accredited Standards Committee X12,,,,
+,GS08,Version/Release/Industry Identifier Code,"Standards Approved for
+Publication by ASC X12
+Procedures Review Board",005010X220: Standards Approved for Publication by ASC X12,,,,
+Segment - Transaction Set Header,,,,,,,,
+,ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,834 :Benefit Enrollment and Maintenance,,,,
+,ST02,Transaction Set Control Number,"Unique Sequential Number Assigned by Internal Processes for each Transaction Set
+ST02 and SE02 must be identical",,,,,
+,ST03,Implementation Convention Reference,"Standards Approved by ACS X12 Review Board
+ST03 and GS08 must be identical",,,,,
+Segment – Beginning Segment,,,,,,,,
+,BGN01,Transaction Set Purpose Code,Code identifying purpose of transaction set,"00 :Original
+15: Re-Submission
+22 :Information Copy",,,,
+,BGN02,Reference Identification,Transaction Set Reference Number,,,,,
+,BGN03,Transaction Set Creation Date,Date the Transaction Set is created.,,,,,
+,,,,,Target/Schema/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/recordIdDesc,"Concatenate BGN03,BGN04 without any character or space.
+Example: If BGN03 = 20200402, BGN04 = 195156,
+Then The value of recordIdDesc = ""Transaction Date Time (In YYYYMMDDHHMMSSsss) : 20200402195156""",,
+,BGN04,Transaction Set Creation Time,Time the Transaction Set is created,,,,,
+,BGN05,Time Zone Code,Time Zone Code,,,,,
+,BGN06,Original Transaction Set Reference Number,Original Transaction Set Reference Number,,,,,
+,BGN08,Action Code,,,,,,
+,,,Code indicating type of action,"2 = Change/Update
+4 = Verify",,,,
+Segment – File Effective Date,,,,,,,,
+,DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time","007 Effective
+090 Report Start
+091 Report End
+303 Maintenance Effective
+382 Enrollment
+388 Payment Commencement",,,,
+,DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",D8 Date Expressed in Format CCYYMMDD,,,,
+,DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",,,,,
+Segment – Transaction Set Control Totals,,,,,,,,
+,QTY01,Quantity Qualifier,Code specifying the type of quantity,"DT : Dependent Total
+ET : Employee Total
+TO : Total",,,,
+,QTY02,Quantity,Record Totals,,,,,
+Loop 1000A - SPONSOR NAME (REQUIRED) Loop Repeat: 1,,,,,,,,
+1000A,N1,Sponsor Name,This loop identifies the sponsor,,,,,
+1000A,N101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",P5 = Plan sponsor,,,,
+1000A,N102,Name,Plan Sponsor Name,,,,,
+1000A,N103,Identification Code Qualifier,Code designating the system/method of code structure used for Identification,"24 : Employer’s Identification Number
+FI: Federal Taxpayer’s Identification Number",,,,
+1000A,N104,Identification Code,Sponsor Identifier,,,,,
+1000A,N105,Entity Relationship code,,,,,,
+1000A,N106,Entity Identifier Code,,,,,,
+Loop 1000B -PAYER (REQUIRED) Loop Repeat: 1,,,,,,,,
+1000B,N1,Payer,,,,,,
+1000B,N101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",IN : Insurer,,,,
+1000B,N102,Name,Insurer Name,,,,,
+1000B,N103,Identification Code Qualifier,Code designating the system/method of code structure used for Identification,"94 : Code assigned by the organization that is the
+ultimate destination of the transaction set
+FI : Federal Taxpayer’s Identification Number
+XV :Centers for Medicare and Medicaid Services PlanID",,,,
+1000B,N104,Identification Code,Insurer Identification Code,,,,,
+1000C — TPA/BROKER NAME Loop Repeat: 2,,,,,,,,
+1000C,N1,TPA/Broker Name,,,,,,
+1000C,N101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",,,,,
+1000C,N102,Name,TPA/Broker Name (free-form),,,,,
+1000C,N103,Identification Code Qualifier,Code designating the system/method of code structure used for Identification,,,,,
+1000C,N104,Identification Code,TPA or Broker Identification Code,,,,,
+,,,,,,,,
+1100C — TPA/BROKER ACCOUNT INFORMATION Loop Repeat: 1,,,,,,,,
+1100C,ACT,TPA/BROKER ACCOUNT INFORMATION,,,,,,
+1100C,ACT01,"Account
+Number","Account
+Number",,,,,
+1100C,ACT02,Name,Name,,,,,
+1100C,ACT03,Identification Code Qualifier,Identification Code Qualifier,,,,,
+1100C,ACT04,Identification Code,Identification Code,,,,,
+1100C,ACT05,Account Number Qualifier,Account Number Qualifier,,,,,
+1100C,ACT06,Account Number,Account Number,,,,,
+1100C,ACT07,Description,Description,,,,,
+1100C,ACT08,Payment Method Type Code,Payment Method Type Code,,,,,
+1100C,ACT09,Benefit Status Code,Benefit Status Code,,,,,
+2000 — MEMBER LEVEL DETAIL Loop Repeat: >1,,,,,,,,
+Loop  2000 - Member Level Detail,,,,,,,,
+2000,INS01,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response / Subscriber Indicator,"Y :Yes
+N :No",Target/Schema/enrollmentSparseSubmitRequestRecord/enrollment/member/memberIsSubscriber,"When INS01 is to Y, map ""true"", else ""false""",,
+2000,INS02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,18 :Self,Target/Schema/enrollmentSparseSubmitRequestRecord/enrollment/member/relationshipToSubscriberDefinitionReference/reference/ID,"When INS02 = 18, populate as Self .",,
+2000,INS03,Maintenance Type Code,Code identifying the specific type of item maintenance,"001: Change
+021 :Addition
+024 : Cancellation or Termination
+025 : Reinstatement
+030 : Audit or Compare","/enrollment/subscription/maintenanceReasonCode/codeSetName
+
+/enrollment/member/maintenanceReasonCode/codeSetName","If INS03=021, SubscriptionCreateReason;
+If INS03=001, SubscriptionAmendReason;
+If INS03=024, SubscriptionTeminateReason;
+If INS03=025, SubscriptionReinstateReason,
+If INS03=030, SubscriptionAmendReason
+Assign The Conversion Value To:
+
+/enrollment/subscription/maintenanceReasonCode/codeSetName
+/enrollment/member/maintenanceReasonCode/codeSetName",,
+,,,,,/enrollment/member/maintenanceTypeCode,"If INS03=021, CREATE;
+If INS03=001, CHANGE;
+If INS03=024, TERMINATE;
+If INS03=025, REINSTATEMENT;
+If INS03=030, AUDIT;
+Assign The Conversion Value To:
+/enrollment/member/maintenanceTypeCode",,
+,,,,,Target//Schema/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/actionCode,"Logic for Action Code
+
+If its CREATE , then action code is 2
+If its CHANGE , then action code is 4",,
+2000,INS04,Maintenance Reason Code,Code identifying the reason for the maintenance change,Refer the tab Enumerations.,"/enrollment/subscription/maintenanceReasonCode/codeEntry
+/enrollment/member/maintenanceReasonCode/codeEntry",,,
+,,,,,"Target/Schema/enrollmentSparseSubmitRequestRecord/enrollment/member/planSelection/memberTerminateReasonCode/codeSetName  - Populate as MemberTerminateReason
+Target/Schema/enrollmentSparseSubmitRequestRecord/enrollment/member/planSelection/memberTerminateReasonCode/codeentry","If  INS03 = 024
+Refer Tab Conversion Copy for mapping logic.",,
+2000,INS05,Benefit Status Code,The type of coverage under which benefits are paid,A : Active,Target/Schema/enrollmentSparseSubmitRequestRecord/enrollment/member/benefitStatusCode,A - Active,,
+2000,INS06,MEDICARE STATUS CODE,To provide Medicare coverage and associated reason for Medicare eligibility,,,,,
+2000,INS06-1,Medicare Status Code,Code identifying the Medicare Plan,"A : Medicare Part A
+B : Medicare Part B
+C : Medicare Part A and B
+D : Medicare
+E : No Medicare",,,,
+2000,INS06-2,Eligibility Reason Code,Medicare Eligibility Reason Code,"0 : Age
+1 : Disability
+2 : End Stage Renal Disease (ESRD",/enrollment/member/medicareHICN/esrdIndicator,"Populate only when we have 2000.REF01* F6
+
+if INS06-02 = ""2"" set /esrdIndicator   as True",,
+,,,,,"/member/medicareHICN/medicareEligibilityReasonCode/codeSetName = ""MedicareEligibilityReason""
+
+/member/medicareHICN/medicareEligibilityReasonCode/codeEntry","Populate only when we have 2000.REF01* F6
+
+If INS06-2 = 0, map /codeEntry as 1
+If INS06-2 = 1, map /codeEntry as 3
+If INS06-2 = 2, map /codeEntry as 2",,
+2000,INS07,COBRA Qualifying Event,A Qualifying Event is any of the following which results in loss of coverage for a Qualified Beneficiary,"1 Termination of Employment
+2 Reduction of work hours
+3 Medicare
+4 Death
+5 Divorce
+6 Separation
+7 Ineligible Child
+8 Bankruptcy of Retiree’s Former Employer (26 U.S.C.
+4980B(f)(3)(F))
+9 Layoff
+10 Leave of Absence
+ZZ Mutually Defined","/enrollment/subscription/cobraSelectionList/CobraSelection/CobraQualifyingEventCode/codeSetName as CobraQualifyingEvent
+/enrollment/subscriptioncobraSelectionList/CobraSelection/CobraQualifyingEventCode/codeentry from INS07",,,
+2000,INS08,Employment Status Code,Code showing the general employment status of an employee/claimant,"AO - Active Military
+AU - Active Military
+RT - Retired
+L1 - Leave of Absence
+FT - Full-Time
+PT - Part-Time
+AC - Active for enrolled Members
+TE - Terminate",Target/Schema/enrollmentSparseSubmitRequestRecord/enrollment/member/employmentInfo/employmentStatusCodeCode/codeSetName  as 'EmploymentStatusCode' /enrollment/member/employmentInfo/employmentStatusCodeCode/Alternatives/codeEntry from INS08,,,
+2000,INS09,Student Status Code,"Code indicating the student status of the patient if 19 years of age or older, not handicapped and not the insured","F - Full-Time
+N - Not a Student
+P - Part-Time",,,,"INS09 is applicable only for dependents. Since Medicare mapping handles only subscriber information, mapping is not needed for this."
+2000,INS10,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response /Handicap Indicator,"N: No
+Y: Yes",,,,
+2000,INS11,Date Time Period,"Code indicating the date format, time format, or date and time format",D8 : Date Expressed in Format CCYYMMDD,,,,
+2000,INS12,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times / Member Individual Death Date",,/enrollment/member/individual/dateOfDeath,Format : YYYY-MM-DD,,
+2000,INS13,Confidentiality Code,Code indicating the access to insured information,"R :Restricted Access
+U: Unrestricted Access",,,,
+2000,INS17,Number,A generic number / Birth Sequence Number,,,,,
+2000,REF,Subscriber Identifier,,,,,,
+2000,REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,0F: Subscriber Number,/enrollment/member/qualifierList/qualifierName,,,
+2000,REF02,Reference Identification,Subscriber Identifier,,/enrollment/member/qualifierList/qualifierValue,,,
+,,,,,enrollment/subscription/hccIdentifier,,,
+,,,,,enrollment/member/hccIdentifier,,,
+,,,,,/Schema/enrollmentSparseIBRequestRoot/enrollmentSparseIBRequest/enrollmentSparseSubmitRequestRecordList/enrollmentSparseSubmitRequestRecord/enrollment/member/memberMatchData/id,,,
+2000,REF,Member Policy Number,,,,,,
+2000,REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,1L : Group or Policy Number,/enrollment/member/qualifierList/qualifierName,,,
+2000,REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier/ Member Group or Policy Number,,/enrollment/member/qualifierList/qualifierValue,,,
+2000,REF,Member Supplemental Identifier,,,,,,
+2000,REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,"“F6” : Medicare HICN
+""Q4"":: Prior Identifier Number
+""ZZ"" :Mutually Defined
+“D3” :National Council for Prescription Drug Programs Pharmacy Number“
+17”: Client Reporting Category
+23 Client Number
+3H Case Number
+4A Personal Identification Number
+6O Cross Reference Number
+ABB Personal ID Number
+D3 National Council for Prescription Drug Programs
+Pharmacy Number
+DX Department/Agency Number
+P5 Position Code
+Q4 Prior Identifier Number
+QQ Unit Number",/enrollment/member/qualifierList/qualifierName,,,
+2000,REF02,Reference Identification,Member Supplemental Identifier,,/enrollment/member/qualifierList/qualifierValue,,,
+,,,,,/enrollment/member/medicareHICN/mbi,IF REF01 = F6,,
+2000,DTP,Member Level Dates,,,,,,
+2000,DTP01,Date Time Qualifier,,Refer the tab Enumerations.,,,,
+2000,DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",D8 : Date Expressed in Format CCYYMMDD,,,,
+2000,DTP03,Date Time Period,Status Information Effective Date,,/enrollment/member/medicareHICN/effectiveDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 338",,
+,,,,,/enrollment/member/medicareHICN/expirationDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 339",,
+,,,,,enrollment/member/medicareHICN/esrdDateRanges/esrdDateRange/startDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 338 and INS06-2  = 2",,
+,,,,,enrollment/member/medicareHICN/esrdDateRanges/esrdDateRange/endDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 339 and INS06-2  = 2",,
+,,,,,/enrollment/member/medicareHICN/partADates/partADate/effectiveDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 338 and INS06 - 1 = A or C",,
+,,,,,/enrollment/member/medicareHICN/partADates/partADate/terminationDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 339 and INS06 - 1 = A or C",,
+,,,,,/enrollment/member/medicareHICN/partBDates/partBDate/effectiveDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 338 and INS06 - 1 = B  or C",,
+,,,,,/enrollment/member/medicareHICN/partBDates/partBDate/terminationDate,"Populate only when we have 2000.REF01* F6
+
+If DTP01 = 339 and INS06 - 1 = B or C",,
+,,,,,/enrollment/subscription/cobraSelectionList/CobraSelection/cobraStart,If DTP01 = 340,,
+,,,,,/enrollment/subscription/cobraSelectionList/CobraSelection/cobraEnd,If DTP01 = 341,,
+2100A — MEMBER NAME Loop Repeat: 1,,,,,,,,
+2100A,NM1,Member Name,,,,,,
+2100A,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual","IL = Insured or Subscriber
+74 : Corrected Insured",,,,
+2100A,NM102,Entity Type Qualifier,Code qualifying the type of entity,1 = Person,,,,
+2100A,NM103,Subscriber Last Name,Members last name,,/enrollment/member/individual/primaryName/lastName,,,
+,,,,,enrollment/member/memberMatchData/subscriber/lastName,,,
+,,,,,enrollment/member/memberMatchData/member/lastName,,,
+2100A,NM104,Subscriber First Name,Members first name,,/enrollment/member/individual/primaryName/firstName,,,
+,,,,,/enrollment/member/memberMatchData/subscriber/firstName,,,
+,,,,,/enrollment/member/memberMatchData/member/firstName,,,
+2100A,NM105,Subscriber Middle Name,Members middle initial,,/enrollment/member/individual/primaryName/middleName,,,
+2100A,NM106,Subscriber Name Prefix,Member Name Prefix,,/enrollment/member/individual/primaryName/namePrefix,,,
+2100A,NM107,Subscriber Name Suffix,Member Name Suffix,,/enrollment/member/individual/primaryName/nameSuffixList/suffix,,,
+2100A,NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code,"34 Social Security Number
+ZZ Mutually Defined",,,,
+2100A,NM109,Identification Code,Member Identifier,,/enrollment/member/individual/taxIdentificationNumber,"Format : XXX-XX-XXXX
+NM108 = 34",,
+,,,,,/enrollment/member/memberMatchData/subscriber/taxId,"If  NM108 = 34
+Format : XXX-XX-XXXX",,
+,,,,,/enrollment/member/memberMatchData/member/taxId,"Format : XXX-XX-XXXX
+NM108 = 34",,
+2100A,PER,Members Communications Numbers,,,,,,
+2100A,PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,IP : Insured Party,,,,
+2100A,PER02,Name,"Not used, leave blank",,,,,
+2100A,PER03,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName = IndividualPhoneType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry",If PER03 is HP or WP OR TE or AP,,
+2100A,PER04,Communication Number,,,/enrollment/member/physicalAddress/memberPhysicalAddress/emailAddress,If I PER03 is 'EM',,
+,,,,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneNumber","If PER03 is HP or WP OR TE or AP
+
+(Copy the first 3 digits to Area code and Copy the last 7 digits toPhone Numbers.)",,
+2100A,PER05,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName = IndividualPhoneType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry",If PER05 is HP or WP OR TE or AP,,
+2100A,PER06,Communication Number,,,/enrollment/member/physicalAddress/memberPhysicalAddress/emailAddress,If  PER05 is 'EM',,
+,,,,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneNumber","If PER05 is HP or WP OR TE or AP
+
+(Copy the first 3 digits to Area code and Copy the last 7 digits toPhone Numbers.)",,
+2100A,PER07,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName = IndividualPhoneType
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry",If PER05 is HP or WP OR TE or AP,,
+2100A,PER08,Communication Number,,,/enrollment/member/physicalAddress/memberPhysicalAddress/emailAddress,If  PER07 is 'EM',,
+,,,,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneAreaCode
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/addressPhoneList/telephoneNumber/phoneNumber","If PER07 is HP or WP OR TE or AP
+
+(Copy the first 3 digits to Area code and Copy the last 7 digits toPhone Numbers.)",,
+2100A,N3,Members Street Address,,,,,,
+2100A,N301,Members Address Line 1,Address line 1 – input should be up to 35 characters,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/address,,,
+,,,,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressTypeCode/codeSetName as IndividualAddressType
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressTypeCode/Alternatives/codeEntry - hardcode as 2",,,
+2100A,N302,Members Address Line 2,Address line 2 – input should be up to 35 characters,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/address2,,,
+2100 A,N4,"Members City, State, and Zip Code",,,,,,
+2100A,N401,City Name,Members city,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/cityName,,,
+2100A,N402,State or Province Code,Members state or province,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo
+/postalAddress/stateCode",,,
+2100A,N403,Postal Code,Member Postal Zone or Zip Code,,"/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/zipCode (byte 1-5)
+
+/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/zipExtensionCode (byte 6-9)",,,
+2100A,N404,Country Code,Code identifying the country,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/countryCode/countryCode,,,
+2100A,N405,Location Qualifier,Code identifying type of location,"60 Area
+CY County/Parish",,,,
+2100A,N406,Location Identifier,Code which identifies a specific location,,/enrollment/member/physicalAddress/memberPhysicalAddress/addressInfo/postalAddress/countyCode,If N405 = CY,,
+2100A,N407,Country Subdivision Code,Code identifying the country subdivision,,,,,
+2100A,DMG,Member Demographics,,,,,,
+2100A,DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",D8: Date Expressed in Format CCYYMMDD,,,,
+2100 A,DMG02,Date Time Period,Member Birth Date,,/enrollment/member/individual/birthDate,Format :YYYY-MM-DD,,
+,,,,,/enrollment/member/memberMatchData/subscriber/dateOfBirth,Format :YYYY-MM-DD,,
+,,,,,/enrollment/member/memberMatchData/member/dateOfBirth,Format :YYYY-MM-DD,,
+2100 A,DMG03,Gender Code,Code indicating the sex of the individual,"F: Female
+M: Male
+U: Unknown",/enrollment/member/individual/genderCode,"if DMG03 equal to M=Male,F=Female,U=Unknown",,
+,,,,,/enrollment/member/memberMatchData/subscriber/gender,"if DMG03 equal to M=Male,F=Female,U=Unknown",,
+,,,,,/enrollment/member/memberMatchData/member/gender,"if DMG03 equal to M=Male,F=Female,U=Unknown",,
+2100A,DMG04,Marital Status Code,Code defining the marital status of a person,"B :Registered Domestic Partner
+D :Divorced
+I :Single
+M :Married
+R :Unreported
+S :Separated
+U :Unmarried
+W :Widowed
+X :Legally Separated",/enrollment/member/individual/maritalStatusCode,"Conversion Logic:
+If DMG04 equal to
+D=Divorced,
+X Legally Separated,
+M= Married,
+B=Registered Domestic Partner,
+S=Separated,
+I=Single,
+W=Widowed,
+U=Unmarried,
+R=Unreported",,
+2100A,DMG05,"COMPOSITE RACE OR ETHNICITY
+INFORMATION",,,,,,
+2100A,DMG05 - 1,Race or Ethnicity Code,Code indicating the racial or ethnic background of a person,Refer the tab Enumerations.,"/enrollment/member/raceOrEthnicity/raceOrEthnicityCodes/Codeset name as RaceOrEthnicityCode
+/enrollment/member/raceOrEthnicity/raceOrEthnicityCodes/codeEntry from DMG05 - 1",,,
+2100A,DMG05 - 2,Code List Qualifier Code,Code identifying a specific industry code list,RET :Classification of Race or Ethnicity,,,,
+2100A,DMG05 - 3,Industry Code,Race or Ethnicity Code,Refer the tab Enumerations.,,,,HRP codeset is not aligned to the EDI values. Need to check
+2100A,DMG06,Citizenship Status Code,Code indicating citizenship status,"1: U.S. Citizen
+2: Non-Resident Alien
+3: Resident Alien
+4: Illegal Alien
+5: Alien
+6 :U.S. Citizen - Non-Resident
+7: U.S. Citizen - Resident","/enrollment/member/individual/immigrationStatusCode/Codeset name as  ImmigrationStatus
+/enrollment/member/individual/immigrationStatusCode/codeEntry from DMG06",,,
+2100A,AMT,Member Policy Amounts,,,,,,
+2100A,AMT01,Amount Qualifier Code,,,,,,
+2100A,AMT02,Monetary Amount,,,,,,
+2100A,HLH,Member Health Information,,,,,,
+2100A,HLH01,Health Related Code,Code indicating a specific health situation,"U 	Unknown
+N 	None
+S 	Substance Abuse
+T 	Tobacco Use
+X 	Tobacco and Substance Abuse",/enrollment/member/smokingStatus,"If HLH01 equal to
+N=Non Smoker ,
+U=Unknown ,
+S=Smoker",,
+2100A,HLH02,Height,Height reported in inches,,/enrollment/member/physicalCharacteristics/heightInchesCount,,,
+2100A,HLH03,Weight,Weight reported in pounds,,/enrollment/member/physicalCharacteristics/weightPoundsCount,,,
+2100A,LUI,Member Language,,,,,,
+2100A,LUI01,Identification Code Qualifier,Code designating the system/method of code structure used for IdentificationCode,"LD: NISO Z39.53 Language Codes
+LE: ISO 639 Language Codes",,,,
+2100A,LUI02,Identification Code,Code identifying a party or other code / Language Code,,"/enrollment/member/individual/languages/language/languageDomainCode/codeSetName  as 'LanguageDomain'
+
+/enrollment/member/individual/languages/language/languageDomainCode/codeEntry from LUI02","/enrollment/member/individual/languages/listMode  as ""Default""",,
+2100A,LUI03,Description,Language Description,,,,,
+2100A,LUI04,Language Indicator,Code indicating the use of a language /Language Use Indicator,"5 :Language Reading
+6 :Language Writing
+7 :Language Speaking
+8: Native Language",/enrollment/member/individual/languages/language/primaryLanguage,"If LUI04 = 7, them populate as true",,
+,,,,,/enrollment/member/individual/languages/language/nativeLanguage,"If LUI04 = 6, them populate as true",,
+2100A,LUI05,Language Proficiency,,,,,,
+2100B — INCORRECT MEMBER NAME Loop Repeat: 1,,,,,,,,
+2100B,NM1,Incorrect Member Name,,,,,,
+2100B,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",70 : Prior Incorrect Insured,,,,
+2100B,NM102,Entity Type Qualifier,Code qualifying the type of entity,1 : Person,,,,
+2100B,NM103,Name Last or Organization Name,Prior Incorrect Member Last Name,,/enrollment/member/oldMemberData/primaryName/lastName,,,
+2100B,NM104,Name First,Prior Incorrect Member First Name,,/enrollment/member/oldMemberData/primaryName/firstName,,,
+2100B,NM105,Member Middle Name,Prior Incorrect Member Middle Name,,/enrollment/member/oldMemberData/primaryName/middleName,,,
+2100B,NM106,Member Name Prefix,Prior Incorrect Member Name Prefix,,/enrollment/member/oldMemberData/primaryName/namePrefix,,,
+2100B,NM107,Member Name Suffix,Prior Incorrect Member Name Suffix,,/enrollment/member/oldMemberData/primaryName/nameSuffixList/suffix,,,
+2100B,NM108,ID Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code","34: SSN
+ZZ: Mutually Defined",,,,
+2100B,NM109,ID Code,Prior Incorrect Insured Identifier,,/enrollment/member/oldMemberData/taxIdentificationNumber,"If NM108= 34  , Format : XXX-XX-XXXX",,
+2100B,DMG,Incorrect Member Demographics,,,,,,
+2100B,DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",D8 : Date Expressed in Format CCYYMMDD,,,,
+2100B,DMG02,Date Time Period,Prior Incorrect Insured Birth Date,,/enrollment/member/oldMemberData/birthDate,Format :YYYY-MM-DD,,
+2100B,DMG03,Gender Code,Prior Incorrect Insured Gender Code,"F Female
+M Male
+U Unknown",/enrollment/member/oldMemberData/genderCode,"If DMG03 equal to,
+ M=Male,F=Female,U=Unknown",,
+2100B,DMG04,Marital Status,Code defining the marital status of a person,,/enrollment/member/oldMemberData/maritalStatusCode,"If DMG04 equal to,
+ D=Divorced,X Legally Separated, M= Married, B=Registered Domestic Partner, S=Separated,I=Single, W=Widowed, U=Unmarried, R=Unreported",,
+2100B,DMG05,Race or Ethnicity,,,,,,
+2100B,DMG06,Citizenship Status Code,Code indicating citizenship status,,"/enrollment/member/oldMemberData/immigrationStatusCode/codeSetName as  ImmigrationStatus
+/enrollment/member/oldMemberData/immigrationStatusCode/codeEntry from DMG06",,,
+2100B,DMG10,Code List Qualifier Code,Code identifying a specific industry code list,,,,,
+2100B,DMG11,Industry Code,Race or Ethnicity Collection Code,,,,,
+2100C — MEMBER MAILING ADDRESS Loop Repeat: 1,,,,,,,,
+2100C,NM1,MEMBER MAILING ADDRESS,,,,"Check Whether We Have Data In 2100C, If Exists Give The Priority To 2100C, Else BackFill From 2100A.
+
+Backfill the /enrollment/member/correspondenceAddress/emailAddress also from 2100A.PER*EM",,
+2100C,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",31: Postal Mailing Address,,,,50
+2100C,NM102,Entity Type Qualifier,Code qualifying the type of entity,1 : Person,,,,
+2100C,N3,MEMBER MAIL STREET ADDRESS,,,,,,
+2100C,N301,Address Information,Member Address Line,,/enrollment/member/correspondenceAddress/postalAddress/address,,,
+2100C,N302,Address Information,Member Address Line,,/enrollment/member/correspondenceAddress/postalAddress/address2,,,
+2100C,N4,"MEMBER MAIL CITY, STATE, ZIP CODE",,,,,,
+2100C,N401,Free-form text for city name,Member City Name,,/enrollment/member/correspondenceAddress/postalAddress/cityName,,,
+2100C,N402,Code (Standard State/Province) as defined by appropriate government agency,Member State Code,,/enrollment/member/correspondenceAddress/postalAddress/stateCode,,,
+2100C,N403,Code defining international postal zone code excluding punctuation and blanks,Member ZIP Code,,"Byte 1-5
+/enrollment/member/correspondenceAddress/postalAddress/zipCode
+
+Byte 6-9
+/enrollment/member/correspondenceAddress/postalAddress/zipExtensionCode",,,
+2100C,N404,Code identifying the country,Member Country Code,,/enrollment/member/correspondenceAddress/postalAddress/countryCode/countryCode,,,
+2100F — CUSTODIAL PARENT Loop Repeat: 1,,,,,,,,
+2100F,NM1,Custodial Parent,"Required when the custodial parent of a minor dependent is someone other than the subscriber, meaning this segment would be attached to dependents only.  - for Minor.",,,,,
+2100F,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",S3 : Custodial Parent,"/enrollment/member/otherResponsiblePersonInfo/responsibilityTypeCodeCode/codeEntry as ""1""
+/enrollment/member/otherResponsiblePersonInfo/responsibilityTypeCodeCode/codeSetName as ""ResponsibilityTypeCode","/enrollment/member/otherResponsiblePersonInfo/listMode - hardcode as ""Default""",,
+2100F,NM102,Entity Type Qualifier,Code qualifying the type of entity,1: Person,,,,
+2100F,NM103,Name Last or Organization Name,Custodial Parent Last Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/lastName,,,
+2100F,NM104,Name First,Custodial Parent  First Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/firstName,,,
+2100F,NM105,Name Middle,Custodial Parent Middle Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/middleName,,,
+2100F,NM106,Name Prefix,Custodial Parent Name Prefix,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/namePrefix,,,
+2100F,NM107,Name Suffix,Custodial Parent Name Suffix,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/nameSuffixList/suffix,,,
+2100F,NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code (67),"34: Social Security Number
+ZZ: Mutually Defined",,,,
+2100F,NM109,Identification Code,Custodial Parent Identifier,,,,,
+2100F,PER,Custodial Parent  Communications Numbers,Members phone number and email address,,,,,
+2100F,PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,PQ : Parent or Guardian,,,,
+2100F,PER03,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry","Only If PER03 = TE' or HP” or “WP” or “CP” or “AP”
+If PER03 =  'CP', populate /codeEntry as TE Else the PER03 value itself will be populated to /codentry",,
+2100F,PER04,Communication Number,"Complete communications number including country or area code when
+applicable",,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry",If PER03 = EM,,
+,,,,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode  - First 3 Digits
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber - Last 7 Digits","If PER03 = TE' or HP” or “WP” or “CP” or “AP”
+If number of digits = 10",,
+2100F,PER05,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry","Only If PER05 = TE' or HP” or “WP” or “CP” or “AP”
+If PER05 =  'CP', populate /codeEntry as TE Else the PER05 value itself will be populated to /codentry",,
+2100F,PER06,Communication Number,"Complete communications number including country or area code when
+applicable",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/resposiblePersonEmailAddress,If PER05 = EM,,
+,,,,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode  - First 3 Digits
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber - Last 7 Digits","If PER03 = TE' or HP” or “WP” or “CP” or “AP”
+If number of digits = 10",,
+2100F,PER07,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry","Only If PER07 = TE' or HP” or “WP” or “CP” or “AP”
+If PER07 =  'CP', populate /codeEntry as TE Else the PER07 value itself will be populated to /codentry",,
+2100F,PER08,Communication Number,"Complete communications number including country or area code when
+applicable",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/resposiblePersonEmailAddress,If PER07 = EM,,
+,,,,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode  - First 3 Digits
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber - Last 7 Digits","If PER03 = TE' or HP” or “WP” or “CP” or “AP”
+If number of digits = 10",,
+2100F,N3,Custodial Parent Street Address,Always send both N3 and N4 segments for address changes,,,,,
+2100F,N301,Address Information,Address Line 1,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/address,,,
+2100F,N302,Address Information,Address Line 2,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/address2,,,
+2100F,N4,"Custodial Parent City, State, and Zip Code",Always send both N3 and N4 segments for address changes,,,,,
+2100F,N401,City Name,Custodial Parent City Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/cityName,,,
+2100F,N402,State or Province Code,Custodial Parent State Code,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/stateCode,,,
+2100F,N403,Postal Code,Custodial Parent Postal Zone or ZIP Code,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/zipCode(byte 1-5)
+
+	/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/zipExtensionCode (byte 6-9)",,,
+2100F,N404,Country Code,Code identifying the country,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/countryCode/countryCode,,,
+2100F,N407,Country Subdivision Code,Code identifying the country subdivision,,,,,
+2100G — RESPONSIBLE PERSON Loop Repeat: 13,,,,,,,,
+2100G,NM1,Responsible Person,"Required to identify the person(s), other than the subscriber, who are
+responsible for the member. (2100G)  - for adults
+(examples: Guardianship, Legal Indemnity, Power
+of Attorney, and/or Separation Agreements)",,,,,
+2100G,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual","6Y Case Manager
+9K Key Person
+E1 Person or Other Entity Legally Responsible for a
+Child
+EI Executor of Estate
+EXS Ex-spouse
+GB Other Insured
+GD Guardian
+J6 Power of Attorney
+LR Legal Representative
+QD Responsible Party
+S1 Parent
+TZ Significant Other
+X4 Spouse","/enrollment/member/otherResponsiblePersonInfo/responsibilityTypeCodeCode/codeSetName as ""ResponsibilityTypeCode
+/enrollment/member/otherResponsiblePersonInfo/responsibilityTypeCodeCode/codeEntry from NM101",Refer tab 'Conversion Copy',,"Handles only values EI, EXS, GD, J6 ad QD. Implementaion teams needs to update the conversion copy as per their requirement"
+2100G,NM102,Entity Type Qualifier,Code qualifying the type of entity,1:Person,,,,
+2100G,NM103,Name Last or Organization Name,Responsible Person Last Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/lastName,,,
+2100G,NM104,Name First,Responsible Person  First Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/firstName,,,
+2100G,NM105,Name Middle,Responsible Person Middle Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/middleName,,,
+2100G,NM106,Name Prefix,Responsible Party Name Prefix,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/namePrefix,,,
+2100G,NM107,Name Suffix,Responsible Party Suffix Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsiblePersonName/nameSuffixList/suffix,,,
+2100G,NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code,"34 : Social Security Number
+ZZ : Mutually Defined",,,,
+2100G,NM109,Identification Code,Responsible Party Identifier,,,,,
+2100G,PER,Responsible Person Communications Numbers,,,,,,
+2100G,PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,RP: Responsible Person,,,,
+2100G,PER03,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry","Only If PER03 = TE' or HP” or “WP” or “CP” or “AP”
+If PER03 =  'CP', populate /codeEntry as TE Else the PER03 value itself will be populated to /codentry",,
+2100G,PER04,Communication Number,"Complete communications number including country or area code when
+applicable",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/resposiblePersonEmailAddress,If PER03 = EM,,
+,,,,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode  - First 3 Digits
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber - Last 7 Digits","If PER03 = TE' or HP” or “WP” or “CP” or “AP”
+If number of digits = 10",,
+2100G,PER05,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry","Only If PER05 = TE' or HP” or “WP” or “CP” or “AP”
+If PER05 =  'CP', populate /codeEntry as TE Else the PER05 value itself will be populated to /codentry",,
+2100G,PER06,Communication Number,"Complete communications number including country or area code when
+applicable",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/resposiblePersonEmailAddress,If PER05 = EM,,
+,,,,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode  - First 3 Digits
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber - Last 7 Digits","If PER05 = TE' or HP” or “WP” or “CP” or “AP”
+If number of digits = 10",,
+2100G,PER07,Communication Number Qualifier,Code identifying the type of communication number,"AP Alternate Telephone
+BN Beeper Number
+CP Cellular Phone
+EM Electronic Mail
+EX Telephone Extension
+FX Facsimile
+HP Home Phone Number
+TE Telephone
+WP Work Phone Number","/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeSetName  as  ""IndividualPhoneType""
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/individualPhoneTypeCode/codeEntry","Only If PER07 = TE' or HP” or “WP” or “CP” or “AP”
+If PER07 =  'CP', populate /codeEntry as TE Else the PER07 value itself will be populated to /codentry",,
+2100G,PER08,Communication Number,"Complete communications number including country or area code when
+applicable",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/resposiblePersonEmailAddress,If PER07 = EM,,
+,,,,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneAreaCode  - First 3 Digits
+
+/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/addressPhoneList/telephoneNumber/phoneNumber - Last 7 Digits","If PER07 = TE' or HP” or “WP” or “CP” or “AP”
+If number of digits = 10",,
+2100G,N3,Responsible Person Street Address,Always send both N3 and N4 segments for address changes,,,,,
+2100G,N301,Address Information,"Address Line 1
+Input should be up to 35 characters",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/address,,,
+2100G,N302,Address Information,"Address Line 2
+Input should be up to 35 characters",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/address2,,,
+2100G,N4,"Responsible Person City, State, and Zip Code",,,,,,
+2100G,N401,City Name,City Name,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/cityName,,,
+2100G,N402,State or Province Code,State,,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/stateCode,,,
+2100G,N403,Postal Code,Postal Code,,"/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/zipCode(byte 1-5)
+
+	/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/zipExtensionCode (byte 6-9)",,,
+2100G,N404,Country Code,"If Country Code Not Equal to USA, then populate element",,/enrollment/member/otherResponsiblePersonInfo/otherResponsiblePersonInfo/responsibleAddressInfo/postalAddress/countryCode/countryCode,,,
+2100G,N407,Country Subdivision Code,,,,,,
+2100H — DROP OFF LOCATION Loop Repeat: 1,,,,,,,,
+2100H,NM1,Drop Off Location,,,,,,
+2100H,NM101,Entity ID Code,"Code identifying an organizational entity, a physical location, property or an
+individual",,,,,
+2100H,NM102,Entity Type Qualifier,Code qualifying the type of entity,,,,,
+2100H,NM103,Name Last/Org Name,Individual last name or organizational name,,,,,
+2100H,NM104,Name First,Individual first name,,,,,
+2100H,NM105,Name Middle,Individual middle name or initia,,,,,
+2100H,NM106,Name Prefix,Prefix to individual name,,,,,
+2100H,NM107,Name Suffix,Suffix to individual name,,,,,
+2100H,N3,Drop Off Location Street Address,,,,,,
+2100H,N301,Address Information,Drop Off Location Address Line,,,,,
+2100H,N302,Address Information,Drop Off Location Address Line (Required if a second address line exists.,,,,,
+2100H,N4,"Drop Off Location, City, State, Zip Code",,,,,,
+2100H,N401,City Name,Drop Off Location City Name,,,,,
+2100H,N402,State or Province Code,State or Province Code,,,,,
+2100H,N403,Postal Code,Drop Off Location Postal Zone or Zip Code,,,,,
+2100H,N404,Country Code,Drop off location Country Code,,,,,
+2200 — DISABILITY INFORMATION Loop Repeat: >1,,,,,,,,
+2200,DSB,Disability,Use this segement in case of a disablity,,,,,
+2200,DSB01,Disability Type Code,Code identifying the disability status of the individual,"1 Short Term Disability
+2 Long Term Disability
+3 Permanent or Total Disability
+4 No Disability",,Only the first occurence of 2200 loop will be mapped since the maxoccurence of /disabilityInfoForEligibility tag is 1.,,
+2200,DSB07,Product/Service ID Qualifier,,"DX: ICD9,
+ZZ: ICD10/Mutually Defined",,,,
+2200,DSB08,Medical Code Value,Diagnosis Code,,/enrollment/member/disabilityInfoForEligibility/diagnosisReference/ID,,,
+2200,DTP,DISABILITY ELIGIBILITY DATES,,,,,,
+2200,DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time","360 Initial Disability Period Start
+361 Initial Disability Period End",,,,
+2200,DTP02,Date Time Period Format Qualifier,,D8 Date Expressed in Format CCYYMMDD,,,,
+2200,DTP03,Date Time Period,Disability Eligibility Date,,/enrollment/member/disabilityInfoForEligibility/disabilityReportedDate,If DTP01 = 360,,
+2300 — HEALTH COVERAGE Loop Repeat: 99,,,,,,,,
+2300,HD,Health Coverage,,,,,,
+2300,HD01,Maintenance Type Code,Code identifying the specific type of item maintenance,"001 Change
+002 Delete
+021 Addition
+024 Cancellation or Termination
+025 Reinstatement
+026 Correction
+030 Audit or Compare
+032 Employee Information Not Applicable",/enrollment/member/planSelection/healthCoverageMaintenanceCode,"Only If  HD01 is ""024"", Then populate /healthCoverageMaintenanceCode as
+ TERMINATE",,
+2300,HD03,Insurance Line Code,Code identifying a group of insurance products,refer Section 4.3 for valid values.,/enrollment/member/planSelection/insuranceLineCode,Conversional copy required as per Section 4.3,,
+2300,HD04,Plan Coverage Description,A description or number that identifies the plan or coverage,,"/enrollment/member/planSelection/benefitPlanMatchData/Parameter/name
+
+/enrollment/member/planSelection/benefitPlanMatchData/Parameter/value
+
+
+•	Name – we will give hardcode as the tag ""benefitPlanName""
+•	Value – ‘corresponding HD04 value’",,Yes. (refer Comments),"From Product Standpoint, the expecation is , 2300.HD04 contains  the value which can be used to derive the Benefit plan in HRP."
+2300,HD05,Coverage Level Code,refer 4.3 for codes,,,,,
+2300,DTP,Health Coverage Dates,,,,,,
+2300,DTP01,Date Time Qualifier,"Code specifying type of date or time, or both date and time","348 Benefit Begin
+349 Benefit End
+543 Last Premium Paid Date
+303 Maintenance Effective
+356 Eligibility Begin
+357 Eligibility End",,,,
+2300,DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format","D8: Date Expressed in Format CCYYMMDD
+RD8: Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,,,
+2300,DTP03,Coverage Period,"Expression of a date, a time, or range of dates, times or dates and times/ Coverage Period",,/enrollment/member/planSelection/startDate,"Format :YYYY-MM-DD
+If 2300.DTP01 = 348 is present,
+Populate planSelection/startDate from 2300.DTP03
+Else
+From 2000.DTP03 when 2000.DTP*356",,
+,,,,,"/enrollment/member/planSelection/endDate
+/enrollment/member/planSelection/enrollmentInfo/disenrollDate",y,,
+2300,AMT,Health Coverage Policy,,,,,,
+2300,AMT01,Amount Qualifier Code,Code to qualify amount,"B9 Co-insurance - Actual
+C1 Co-payment Amount
+D2 Deductible Amount
+EBA Expected Expenditure Amount
+FK Other Unlisted Amount
+P3 Premium Amount
+R Spend Down",,,,
+2300,AMT02,Monetary Amount,Contract Amount,,,,,
+2300,REF,Health Coverage Policy Number,,,,,,
+2300,REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,"17 Client Reporting Category
+1L Group or Policy Number
+9V Payment Category
+CE Class of Contract Code
+E8 Service Contract (Coverage) Number
+M7 Medical Assistance Category
+PID Program Identification Number
+RB Rate code number
+X9 Internal Control Number
+XM Issuer Number
+XX1 Special Program Code
+XX2 Service Area Code
+ZX County Code
+ZZ Mutually Defined",,,,
+2300,REF02,Reference Identification,Members Group or Policy Number,,"/enrollment/member/planSelection/medicareEnrollmentPeriodCode/codeSetName
+/enrollment/member/planSelection/medicareEnrollmentPeriodCode/codeentry","If REF01 = ZZ and REF02  =  AEP,
+Populate /codeSetName  as 'MedicareEnrollmentPeriod' and
+ /codeentry as 1.",Yes. (refer Comments),This mapping is included in Adaptor map for the Product testing purpose.
+2310 — PROVIDER INFORMATION Loop Repeat: 30,,,,,,,,
+2310,LX,PROVIDER INFORMATION,,,,,,
+2310,LX01,Assigned Number,"This is a sequential number representing the number of loops for
+this insured person. Begin with 1",,,,,
+2310,NM1,PROVIDER NAME,,,,,,
+2310,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual","1X Laboratory
+3D Obstetrics and Gynecology Facility
+80 Hospital
+FA Facility
+OD Doctor of Optometry
+P3 Primary Care Provider
+QA Pharmacy
+QN Dentist
+Y2 Managed Care Organization","/enrollment/member/providerSelections/providerSelection/providerRoleType
+
+Map 2300.DTP*348 (Benefit plan begin date) to  /enrollment/member/providerSelections/providerSelection/providerDateRanges/startDate
+Map 2300.DTP*349 (Benefit plan end date) to  /enrollment/member/providerSelections/providerSelection/providerDateRanges/endDate","If NM101 = P3, populate as PCP
+
+Date format:YYYY-MM-DD",,"Provider Loop can contain Practitioner/supplier/supplier locations based on implementaions.
+Mapping is done for Practioner/Supplier from Product standpoint."
+2310,NM102,Entity Type Qualifier,Code qualifying the type of entity,"1 = Person, and 2 = Non-Person entity",,,,
+2310,NM103,Provider Last Name,Last name of provier or organization/clinic name,,/enrollment/member/providerSelections/providerSelection/providerDateRanges/providerMatch/practitioner/lastName,If NM101 = P3 and NM102 = 1,,
+2310,NM104,Provider First Name,,,/enrollment/member/providerSelections/providerSelection/providerDateRanges/providerMatch/practitioner/firstName,If NM101 = P3 and NM102 = 1,,
+2310,NM105,Provider Middle Name,,,,,,
+2310,NM106,Provider Name Prefix,,,,,,
+2310,NM107,Provider Name Suffix,,,,,,
+2310,NM108,ID Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code","34: SSN
+FI: Federal Tax ID
+SV: Service Provider Number(This is a number assigned by the payer used to identify a provider.)
+ XX: Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,
+2310,NM109,ID Code,Provider Identifier,,"//Practitioner
+enrollment/member/providerSelections/providerSelection/providerDateRanges/providerMatch/practitioner/hccIdentificationNumber",If NM101 = P3 and NM102 = 1 and NM108= SV,,
+,,,,,"//Supplier
+enrollment/member/providerSelections/providerSelection/providerDateRanges/providerMatch/supplier/hccIdentificationNumber",If NM101 = P3 and NM102 = 2 and NM108= SV,,
+2310,NM110,Entity Relationship Code,Code describing entity relationship,"25 Established Patient
+26 Not Established Patient
+72 Unknow",,,,
+2310,N3,PROVIDER ADDRESS,,,,,,
+2310,N301,Provider Address Line,Address line1,,,,,
+2310,N302,Provider Address Line,Address line2,,,,,
+2310,N4,"PROVIDER CITY, STATE, ZIP CODE",,,,,,
+2310,N401,Provider City Name,,,,,,
+2310,N402,Provider State Code,,,,,,
+2310,N403,Provider ZIP Code,,,,,,
+2310,N404,Provider Country Code,,,,,,
+2310,PER,PROVIDER COMMUNICATIONS NUMBERS,,,,,,
+2310,PER01,Contact Function Code,IC = Information Contact,,,,,
+2310,PER03,Communication Number Qualifier,"HP = Home Phone
+WP=Work Phone
+EM=Email
+TE= Telephone",,,,,
+2310,PER04,Communication Number,,,,,,
+2310,PER05,Communication Number Qualifier,"WP=Work Phone
+EM=Email",,,,,
+2310,PER06,Communication Number,,,,,,
+2310,PER07,Communication Number Qualifier,EM=Email,,,,,
+2310,PER08,Communication Number,,,,,,
+2310,PLA,Provider Change Reason,,,,,,
+2310,PLA01,Action Code,2: Change (Update),,,,,
+2310,PLA02,Entity Identifier Code,1P : Provider,,,,,
+2310,PLA03,Date,Provider Effective Date,,,,,
+2310,PLA05,Maintenance Reason Code,"14 Voluntary Withdrawal
+22 Plan Change
+46 Current Customer Information File in Error
+AA Dissatisfaction with Office Staff
+AB Dissatisfaction with Medical Care/Services Rendered
+AC Inconvenient Office Location
+AD Dissatisfaction with Office Hours
+AE Unable to Schedule Appointments in a Timely
+Manner
+AF Dissatisfaction with Physician’s Referral Policy
+AG Less Respect and Attention Time Given than to
+Other Patients
+AH Patient Moved to a New Location
+AI No Reason Given
+AJ Appointment Times not Met in a Timely Manner",,,,,
+2320 — COORDINATION OF BENEFITS Loop Repeat: 5,,,,,,,,
+2320,COB,COB-Coordination of Benefits,"If a client has >5 TPL spans, only the 5 most current spans will be used.",,,,,
+2320,COB01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim","P Primary
+S Secondary
+T Tertiary
+U Unknown",/enrollment/member/cobPolicy/dateRanges/responsibilitySequenceCode,"Conversion Values From EDI 834X12 To HRP XML :
+P=Primary, S=Secondary, U=Unknown",,
+2320,COB02,Reference Identification,Member Group or Policy Number,,/enrollment/member/cobPolicy/groupNumber,,,
+2320,COB03,Coordination of Benefits Code,Code identifying whether there is a coordination of benefits,"1: Coordination of Benefits;
+5 Unknown
+6: No Coordination of Benefits",,,,
+2320,COB04,Service Type Code,Code identifying the classification of service,"1 Medical Care
+35 Dental Care
+48 Hospital - Inpatient
+50 Hospital - Outpatient
+54 Long Term Care
+89 Free Standing Prescription Drug
+90 Mail Order Prescription Drug
+A4 Psychiatric
+AG Skilled Nursing Care
+AL Vision (Optometry)
+BB Partial Hospitalization (Psychiatric)",/enrollment/member/cobPolicy/benefitPlanTypeCode/codeSetName  as BenefitPlanType /enrollment/member/cobPolicy/benefitPlanTypeCode/codeEntry,Refer Conversion Copy Tab,,
+,,,,,,,,
+2320,REF,Additional Coordination of Benefits Identifiers,,,,,,
+2320,REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,"60 Account Suffix Code
+6P Group Number
+SY Social Security Number
+ZZ Mutually Defined","/enrollment/member/cobPolicy/subscriberIdList/identificationTypeCode/codeEntry
+
+/enrollment/member/cobPolicy/subscriberIdList/identificationTypeCode/codeSetName   - ""IdentificationType""","If REF01 is 6P, populate /codeEntry as 6P
+If REF01 is SY, populate /codeEntry as 34
+If REF01 is ZZ, populate /codeEntry as ZZ",,
+2320,REF02,Reference Identification,Member Group or Policy Number,,/enrollment/member/cobPolicy/subscriberIdList/identificationNumber,,,
+2320,DTP,Coordination of Benefits Eligibility Dates,,,,,,
+2320,DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time","344 Coordination of Benefits Begin
+345 Coordination of Benefits End",,,,
+2320,DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",D8 : CCYYMMDD,,,,
+2320,DTP03,Date Time Period,Coordination of Benefit Date,,/enrollment/member/cobPolicy/dateRanges/startDate,"If DTP01 = 344, Date format:YYYY-MM-DD",,
+,,,,,/enrollment/member/cobPolicy/dateRanges/endDate,"If DTP01 = 345, Date format:YYYY-MM-DD",,
+2330 — COORDINATION OF BENEFITS RELATED ENTITY Loop Repeat: 3,,,,,,,,
+2330,NM1,COORDINATION OF BENEFITS RELATED ENTITY,,,,,,
+2330,NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",36: Employer; GW: Group; IN: Insurer,,,,
+2330,NM102,Entity Type Qualifier,Code qualifying the type of entity,2 Non-Person Entity,,,,
+2330,NM103,Member Last Name,Coordination of Benefits Insurer Name,,/enrollment/member/cobPolicy/otherInsuranceCompanyName,If NM101 is IN,,
+2330,NM108,ID Code Qualifier,Code designating the system/method of code structure used for Identification Code,"FI Federal Taxpayer’s Identification Number
+NI National Association of Insurance Commissioners
+(NAIC) Identification
+XV Centers for Medicare and Medicaid Services PlanID","/enrollment/member/cobPolicy/carrierIds/identificationTypeCode/codeSetName
+Hardcode ""IdentificationType"" value in above tag
+
+/enrollment/member/cobPolicy/carrierIds/identificationTypeCode/codeEntry","If NM108 is ""NI"" - then map as codenentry as ""9""
+else if  NM108 is ""FI""- then map as codenentry as ""FI""
+else if  NM108 is ""XV""- then map as codenentry as ""18""",,
+2330,NM109,ID Code,"Coordination of Benefits Insurer Identification
+Code",,/enrollment/member/cobPolicy/carrierIds/identificationNumber,,,
+2330,N3,COORDINATION OF BENEFITS RELATED ENTITY ADDRESS,,,,,,
+2330,N301,Member Address Line,,,/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/address,If 2330.NM101 is IN,,
+2330,N302,Member Address Line,,,/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/address2,If 2330.NM101 is IN,,
+2330,N4,"COORDINATION OF BENEFITS RELATED ENTITY OTHER INSURANCE COMPANY CITY, STATE, ZIPCODE",,,,,,
+2330,N401,Member City Name,,,/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/cityName,If 2330.NM101 is IN,,
+2330,N402,Member State Code,,,/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/stateCode,If 2330.NM101 is IN,,
+2330,N403,Member ZIP Code,,,"Byte 1-5
+/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/zipCode
+
+Byte 6-9
+/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/zipExtensionCode",If 2330.NM101 is IN,,
+2330,N404,Member Country Code,,,/enrollment/member/cobPolicy/correspondenceInfo/addressInfo/postalAddress/countryCode/countryCode,If 2330.NM101 is IN,,
+2330,N407,Country Subdivision Code,,,,,,
+2700 — ADDITIONAL REPORTING CATEGORIES LOOP,,,,,,,,
+2700,LS,ADDITIONAL REPORTING CATEGORIES LOOP,,,"Reporting Category can be mapped to /qualifierlist
+/enrollment/member/qualifierList/qualifierValue  /enrollment/member/qualifierList/qualifierName
+/enrollment/member/qualifierList/startDate
+/enrollment/member/qualifierList/endDate
+But this is customisable and needs to be defined  handled at the implementaion side",,,
+,LS01,Loop Identifier Code,Use the value 2700,,,,,
+2710,LX,MEMBER REPORTING CATEGORIES,,,,,,
+,LX01,Assigned Number,"Use this sequential non-negative integer for LX loops for this
+member’s additional reporting categories.",,,"counter value should get incremented, starting from 1",,
+2750 — REPORTING CATEGORY Loop Repeat: 1,,,,,,,,
+2750,N1,REPORTING CATEGORY,,,,,,
+2750,N101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an",75: Participant,"/enrollment/member/reportingCategory[@counter=""?""]/entityIdentifierCode",,,
+2750,N102,Name,Member Reporting Category Name,,"/enrollment/member/reportingCategory[@counter=""?""]/reportingCategoryName",,,
+2750,REF,REPORTING CATEGORY REFERENCE,,,,,,
+2750,REF01,,Code qualifying the Reference Identification,"00 Contracting District Number
+17 Client Reporting Category
+18 Plan Number
+19 Division Identifier
+26 Union Number
+3L Branch Identifier
+6M Application Number
+9V Payment Category
+9X Account Category
+GE Geographic Number
+LU Location Number
+PID Program Identification Number
+XX1 Special Program Code
+XX2 Service Area Code
+YY Geographic Key
+ZZ Mutually Defined","/enrollment/member/reportingCategory[@counter=""?""]/referenceQualifierIdentifier","""@counter"" - this attribute has to be incremented based on the number of reporting catergories 2750 (for example 1,2,3 etc)",,
+2750,REF02,Reference Identification,Member Reporting Category Reference ID,,"/enrollment/member/reportingCategory[@counter=""?""]/referenceId","""@counter"" - this attribute has to be incremented based on the number of reporting catergories 2750 (for example 1,2,3 etc)",,
+2750,DTP,REPORTING CATEGORY DATE,,,,,,
+2750,DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",007 = Effective,,,,
+2750,DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format","D8: Date Expressed in Format CCYYMMDD
+RD8: Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,,,
+2750,DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times / Member Reporting Category Effective Date(s)",,"1) /enrollment/member/reportingCategory[@counter=""?""]/startDate","When DTP02 = D8, Populate DTP03 in
+the format of YYYY-MM-DD
+When DTP02 = RD8,
+Populate the First set of date in DTP03 before the hyphen (-), in the
+the format of YYYY-MM-DD",,
+,,,,,"/enrollment/member/reportingCategory[@counter=""?""]/endDate",,,
+n102,,,,,"enrollment/member/medicareHICN/transplantDateRanges/transplantDateRange/startDate
+
+enrollment/member/medicareHICN/transplantDateRanges/transplantDateRange","If 2750.N102 = ""Transplant""
+
+When When DTP02 = D8, Populate DTP03 in
+the format of YYYY-MM-DD
+When DTP02 = RD8,
+Populate the First set of date in DTP03 before the hyphen (-), in the
+the format of YYYY-MM-DD",Yes. (refer Comments),This mapping is included in Adaptor map for the Product testing purpose.
+,,,,,enrollment/member/medicareHICN/transplantDateRanges/transplantDateRange/endDate,"If 2750.N102 = ""Transplant""
+When DTP02 = RD8,
+Populate the second set of date in DTP03 after  the hyphen (-), in the
+the format of YYYY-MM-DD",Yes. (refer Comments),This mapping is included in Adaptor map for the Product testing purpose.
+2700,LE,"ADDITIONAL REPORTING CATEGORIES
+LOOP TERMINATION",,,,,,
+2700,LE01,Loop Identifier Code,Use the value 2700,,,,,
+,SE,Transaction Set Trailer,,,,,,
+,SE01,Number of Included Segments,Total number of segments included in the transaction set including ST and SE segments,,,Count Of ST,,
+,SE02,Transaction Set Control Number,ST02 and SE02 must be identical,,,,,
+,GE,Function Group Trailer,,,,,,
+,GE01,Number of Transaction Sets Included,Total number of transactions set included in the group or interchange,,,,,
+,GE02,Group Control Number,Submitter-specific number./GS06 and GE02 must be identical,,,,,
+,IEA,Interchange Control Trailer,,,,,,
+,IEA01,Number of Included Functional Groups,,,,,,
+,IEA02,Interchange Control Number,A control number assigned by the interchange sender. ISA13 and IEA02 must be identical,,,,,

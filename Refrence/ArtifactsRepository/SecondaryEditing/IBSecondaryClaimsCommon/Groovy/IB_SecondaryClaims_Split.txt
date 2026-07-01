@@ -1,0 +1,104 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage
+
+final String DEFAULT_LOB = "Unknown"
+
+// Get line number index based on LOB
+int getLineNumberIndex(String lob) {
+    switch (lob) {
+        case "Cotiviti Inst": return 14
+        case "Cotiviti Prof": return 10
+        case "Evicore": return 1
+        case "Optum": return 6
+        default: return -1
+    }
+}
+
+// Get claim ID index based on LOB
+int getClaimIDIndex(String lob) {
+    switch (lob) {
+        case "Evicore": return 0
+        case "Cotiviti Inst": return 13
+        case "Cotiviti Prof": return 9
+        case "Optum": return 4
+        default: return -1
+    }
+}
+
+// Clean input lines
+List<String> preprocessLines(String content, String lob) {
+    List<String> lines = content.split("\\R") as List
+    if (lines.size() < 2) return lines
+
+    lines = lines.subList(1, lines.size()) // Remove HDR
+    if (lob != "Optum" && lines.size() > 1) {
+        lines = lines.subList(0, lines.size() - 1) // Remove TLR
+    }
+
+    return lines
+}
+
+// Logic to generate line prefixes and track unique groups
+List<String> prefixLinesByClaimGrouping(List<String> lines, int claimIDIndex, int lineNumberIndex, Set<String> uniqueGroups) {
+    List<String> result = []
+    Map<String, Integer> claimLineTracker = [:]
+    int anonymousGroupCounter = 0
+    String lastGroupKey = ""
+
+    for (String line : lines) {
+        String[] parts = line.split("\\|")
+        String claimID = (claimIDIndex >= 0 && claimIDIndex < parts.length) ? parts[claimIDIndex]?.trim() : ""
+        String lineNumStr = (lineNumberIndex >= 0 && lineNumberIndex < parts.length) ? parts[lineNumberIndex]?.trim() : ""
+        int lineNum = lineNumStr.isInteger() ? lineNumStr.toInteger() : -1
+
+        String groupKey
+
+        if (claimID) {
+            groupKey = claimID
+        } else if (lineNum == 1 || lastGroupKey == "") {
+            anonymousGroupCounter++
+            groupKey = "UNKNOWN_${anonymousGroupCounter}"
+        } else {
+            groupKey = lastGroupKey
+        }
+
+        int lineCount = claimLineTracker.getOrDefault(groupKey, 0) + 1
+        claimLineTracker[groupKey] = lineCount
+        lastGroupKey = groupKey
+
+        String prefix = String.format("%03d", lineCount)
+        result.add("${prefix}|${line}")
+
+        uniqueGroups.add(groupKey)
+    }
+
+    return result
+}
+
+// Main logic
+void execute() {
+    def exchange = context.exchange
+    def message = exchange.messages[0]
+
+    String lob = exchange.properties.get("Lob") ?: DEFAULT_LOB
+    String messageContent = new String(message.getBodyAsSmartStream().getInputStream().readAllBytes())
+
+    List<String> lines = preprocessLines(messageContent, lob)
+    exchange.properties.put("ProcessedLineCount", lines.size())
+
+    int claimIDIndex = getClaimIDIndex(lob)
+    int lineNumberIndex = getLineNumberIndex(lob)
+
+    Set<String> uniqueGroups = new HashSet<>()
+    List<String> prefixedLines = prefixLinesByClaimGrouping(lines, claimIDIndex, lineNumberIndex, uniqueGroups)
+
+    exchange.properties.put("UniqueSplitCount", uniqueGroups.size())
+
+    String finalData = prefixedLines.join("\r\n") + "\r\n"
+    def headers = ["LOB": lob]
+
+    ProxyMessage singleMessage = context.createNewMessage(finalData, headers)
+    context.createExchangeResponse(headers, singleMessage)
+}
+
+// Run it
+execute()

@@ -1,0 +1,4 @@
+Field in CSV,Default value/Mapping logic
+Subscriber_ID,Unique value for a family (records with the same REF*0F).
+EdiFilename,Name of the Edi file
+Maintenance_Override,TRUE

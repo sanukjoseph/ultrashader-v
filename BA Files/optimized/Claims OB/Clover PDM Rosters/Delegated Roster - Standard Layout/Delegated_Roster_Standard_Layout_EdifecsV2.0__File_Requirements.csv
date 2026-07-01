@@ -1,0 +1,25 @@
+,Roster Type,Delegated - Generic
+,Roster Format (Inbound),Excel (.xlsx)
+,Roster Source Layout,Refer to Deleg. Roster Template Sample
+,Roster Target Layout,Refer to Deleg. Roster Template Sample (Same as source)
+,I-Network Format (Outbound),Comma Separated (.csv)
+,Outbound File name,delegated.csv
+,Include Headers in output,Yes
+,,
+,,
+,,
+,1. Source folder named “RawACTRoster” in the path given below in FSX UAT. So this folder will be used as a source folder for Edifecs processes to receive raw files.,
+,Source folder= \clover\iplus\Provider\EDIFECS\RawACTRoster\,
+,Source file naming convention is “xxxxx Vendor_name”.xlsx ; for example- 3326755 Cooper.xlsx or 3341244 Northside.xlsx,
+,,
+,2. Edifecs process to be triggered upon the file receipt in the above source folder and generate 4 output files. Naming convention of the files are below.,
+,Vendor-name = Input File Name,
+,a. Good file (which is ready for Santech ingestion) - “Vendor-name_timestamp”.csv,
+,b. Error Report file- “Vendor-name_edifecs_error_timestamp”.csv,
+,c. Reject file1- “Vendor-name_edifecs_<Tab Name>_validation_error_timestamp”.csv,
+,d. Reject file2- “Vendor-name_edifecs_transform_error_timestamp”.csv,
+,"e. Full File Rejection File Name- ""Vendor-name_Edifecs_FullFileReject_timestamp"".csv",
+,,
+,3. Destination folders to be created in FSX UAT as below,
+,a. Destination folder1= \clover\iplus\Provider\EDIFECS\formattedACTroster\ - this is only for good files,
+,b. Destination folder2= \clover\iplus\Provider\EDIFECS\ACTrosterError\ - this is for error report and reject files.,

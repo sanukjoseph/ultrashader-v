@@ -1,0 +1,143 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage
+import com.edifecs.etools.commons.io.SmartStream
+
+def exchange = context.exchange
+def exchProperties = exchange.properties
+def messages = exchange.messages
+def message = messages[0]
+def msgHeaders = message.headers
+
+InputStream messageInputStream = message.getBodyAsSmartStream().getInputStream()
+String messageContent = new String(messageInputStream.readAllBytes())
+
+// ---- helper: emit exactly one file-level trigger per input (send FIRST) ----
+def emitFileLevelTrigger = { int totalTx, String ridHint ->
+    def trigHdrs = [:]; exchProperties.each { k, v -> trigHdrs.put(k, v) }
+    trigHdrs["record_status"] = "fileLevel"
+    trigHdrs["isFileLevelTrigger"] = "true"
+    trigHdrs["totalTransactions"] = totalTx
+
+    String base = (exchProperties["sourceFileName"] ?: exchProperties["fileName"] ?: ridHint ?: "INPUT").toString().trim()
+    if (base.isEmpty()) base = "INPUT"
+    String trigRID = base + "_TRIGGER_" + System.currentTimeMillis()
+    trigHdrs["recordIdentifierFromSource"] = trigRID
+    trigHdrs["uniqueId"] = trigRID
+
+    ProxyMessage trigMsg = context.createNewMessage("FILE_LEVEL_TRIGGER", trigHdrs)
+    context.createExchangeResponse(msgHeaders, trigMsg)
+}
+
+// ---- empty file path: trigger FIRST, then BAD message, then return ----
+if (!messageContent || messageContent.trim().isEmpty()) {
+    emitFileLevelTrigger(0, "EMPTY")
+
+    exchProperties["record_status"] = "bad"
+    exchProperties["errorMessage"] = "File level error - File is empty"
+    exchProperties["totalTransactions"] = 0
+
+    ProxyMessage emptyMsg = context.createNewMessage("File level error - File is empty", exchProperties)
+    context.createExchangeResponse(msgHeaders, emptyMsg)
+    return
+}
+
+String[] lines = messageContent.split("\\r?\\n")
+
+Map<String, List<String>> checkNumberToLines = [:]
+Map<String, Map<String, String>> checkNumberToFieldsMap = [:]
+Map<String, Boolean> checkNumberIsBad = [:]
+Map<String, String> checkNumberToErrorMessage = [:]
+
+lines.eachWithIndex { line, index ->
+    if (line.trim().isEmpty()) return
+
+    String checkNumber = line.length() >= 50 ? line.substring(0, 50).trim() : "UNKNOWN"
+
+    // Line length error
+    if (line.length() != 257) {
+        checkNumberToLines.computeIfAbsent(checkNumber) { [] }.add(line)
+        checkNumberIsBad[checkNumber] = true
+        String errMsg = "Line ${index + 1} has invalid length ${line.length()} (expected 257)"
+        checkNumberToErrorMessage[checkNumber] = checkNumberToErrorMessage.containsKey(checkNumber)
+            ? checkNumberToErrorMessage[checkNumber] + " || " + errMsg
+            : errMsg
+        return
+    }
+
+    // Field extraction
+    String groupNumber     = line.substring(50, 100).trim()
+    String activityDate    = line.substring(166, 174).trim()
+    String epcDraftNumber  = line.substring(224, 240).trim()
+    String voidFlag        = line.substring(256, 257).trim()
+
+    boolean lineIsBad = false
+    String errorMessage = null
+
+    if (!checkNumber) {
+        checkNumber = "UNKNOWN"
+        lineIsBad = true
+        errorMessage = "Check number is missing"
+    } else {
+        if (!activityDate || !epcDraftNumber) {
+            lineIsBad = true
+            errorMessage = "Activity date, EPC draft number, or void flag is blank or inconsistent"
+        } else if (checkNumberToFieldsMap.containsKey(checkNumber)) {
+            def existing = checkNumberToFieldsMap[checkNumber]
+            if (
+                existing.activityDate != activityDate ||
+                existing.epcDraftNumber != epcDraftNumber ||
+                existing.voidFlag != voidFlag
+            ) {
+                lineIsBad = true
+                errorMessage = "Activity date, EPC draft number, or void flag is inconsistent"
+            }
+        } else {
+            checkNumberToFieldsMap[checkNumber] = [
+                activityDate   : activityDate,
+                epcDraftNumber : epcDraftNumber,
+                voidFlag       : voidFlag
+            ]
+        }
+    }
+
+    checkNumberToLines.computeIfAbsent(checkNumber) { [] }.add(line)
+
+    if (lineIsBad) {
+        checkNumberIsBad[checkNumber] = true
+        checkNumberToErrorMessage[checkNumber] = checkNumberToErrorMessage.containsKey(checkNumber)
+            ? checkNumberToErrorMessage[checkNumber] + " || " + errorMessage
+            : errorMessage
+    }
+}
+
+// === Compute global total output files (triggers are NOT counted) ===
+int globalTotalTransactions = checkNumberToLines.size()
+
+// === Send the ONE file-level trigger FIRST ===
+emitFileLevelTrigger(globalTotalTransactions, (String)(exchProperties["sourceFileName"] ?: "INPUT"))
+
+// === Output main files ===
+checkNumberToLines.each { checkNumber, lineList ->
+    def sb = new StringBuilder()
+    lineList.each { sb.append(it).append("\r\n") }
+
+    def perFileHeaders = [:]
+    exchProperties.each { k, v -> perFileHeaders.put(k, v) }
+    perFileHeaders["checkNumber"] = checkNumber
+
+    String firstLine = lineList.size() > 0 ? lineList[0] : ""
+    String groupNumber = (firstLine.length() >= 100) ? firstLine.substring(50, 100).trim() : ""
+    perFileHeaders["recordIdentifierFromSource"] = checkNumber + groupNumber
+
+    perFileHeaders["uniqueId"] = checkNumber
+    perFileHeaders["totalTransactions"] = globalTotalTransactions  // global count of main outputs
+
+    if (checkNumberIsBad.get(checkNumber)) {
+        perFileHeaders["record_status"] = "bad"
+        perFileHeaders["errorMessage"] = "SNIP-1:" + checkNumberToErrorMessage.get(checkNumber)
+    } else {
+        perFileHeaders["record_status"] = "good"
+    }
+
+    ProxyMessage newMsg = context.createNewMessage(sb.toString(), perFileHeaders)
+    context.createExchangeResponse(msgHeaders, newMsg)
+}

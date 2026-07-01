@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://healthedge.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/"
+ xmlns:enroll="http://www.healthedge.com/connector/schema/enrollmentsparse" xmlns:resp="http://www.healthedge.com/connector/schema/enrollmentsparseresponse"
+ targetNamespace="http://healthedge.com">
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparse" schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/enrollment-sparse.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/subscriptionsparse" schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/subscription-sparse.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/membershipsparse" schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/membership-sparse.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/base-types.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.codesynthesis.com/xmlns/xsstl" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/iso3166-country-code.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.codesynthesis.com/xmlns/xsstl" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/us-state-code.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.codesynthesis.com/xmlns/xsstl" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/phone-number.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparseresponse" schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/enrollment-sparse-response.xsd" />
+		</xsd:schema>
+		<xsd:schema>
+			<xsd:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../PRIME_SERVICES_XSD/connector-common-schema/match-input.xsd" />
+		</xsd:schema>
+        <xsd:schema>
+            <xsd:import namespace="http://www.healthedge.com/connector/schema/medicarehicn" schemaLocation="../PRIME_SERVICES_XSD/connector-medicarehicn/MedicareHICNInfo.xsd"/>
+        </xsd:schema>
+        <xsd:schema>
+            <xsd:import namespace="http://www.healthedge.com/connector/schema/cobpolicy" schemaLocation="../PRIME_SERVICES_XSD/connector-cobpolicy/cobPolicy.xsd"/>
+        </xsd:schema>
+        <xsd:schema>
+            <xsd:import namespace="http://www.healthedge.com/connector/schema/subsidy" schemaLocation="../PRIME_SERVICES_XSD/connector-subsidy/subsidies.xsd"/>
+        </xsd:schema>
+        <xsd:schema>
+            <xsd:import namespace="http://www.healthedge.com/connector/schema/memberfactors" schemaLocation="../PRIME_SERVICES_XSD/connector-memberfactors/memberFactors.xsd"/>
+        </xsd:schema>
+	</types>
+	<message name="enrollmentSparseInput">
+		<part name="enrollInput" element="enroll:enrollment" />
+	</message>
+	<message name="enrollmentSparseResponseOutput">
+		<part name="enrollOutput" element="resp:enrollmentResponse" />
+	</message>
+	<portType name="EnrollmentSparsePortType">
+		<operation name="submit">
+			<input message="tns:enrollmentSparseInput" />
+			<output message="tns:enrollmentSparseResponseOutput" />
+		</operation>
+	</portType>
+	<binding name="EnrollmentSparseBinding" type="tns:EnrollmentSparsePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<operation name="submit">
+			<soap:operation soapAction="http://healthedge.com/submit" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="EnrollmentSparse">
+		<port name="EnrollmentSparsePort" binding="tns:EnrollmentSparseBinding">
+			<soap:address
+				location="http://localhost:7001/cprime-integration-webservices/EnrollmentSparse" />
+		</port>
+	</service>
+</definitions>

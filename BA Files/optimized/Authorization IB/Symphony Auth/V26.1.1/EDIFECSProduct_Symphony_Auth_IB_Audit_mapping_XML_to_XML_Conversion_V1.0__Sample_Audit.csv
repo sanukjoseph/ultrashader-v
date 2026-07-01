@@ -1,0 +1,28 @@
+,Sample
+Header,"{
+		""inputFileID"": ""PtChmkgktLNLFz9N"",
+	 ""inputHeaderInfo"": {
+		""inputFileType"": ""XML"",
+		""inputArchiveFilename"": ""Input_20251103-001556463_Test-APIData-7-Multiple Records.xml"",
+		""inputFileReceiptDateTime"": ""2025-11-03T00:15:56.000000462"",
+		""inputFileName"": ""Test-APIData-7-Multiple Records.xml"",
+		""auditTime"": ""2025-11-03T00:15:56.000000462"",
+		""totalRecordCount"": ""6""
+	},
+	    ""sourceTypeIdentifier"": ""EDIFECS""
+}"
+Detail,"{
+		""recordIdentifier"": ""14918E29-4C01-4A01-9440-49BCBFDB3DD9"",
+		""recordIdentifierFromSource"": ""KSUM00032748"",
+		""memberId"": ""K44008029"",
+		""inputFileID"": ""PtChmkgktLNLFz9N"",
+	 ""businessAdaptor"": {
+		""adaptorReceiptDateTime"": ""2025-11-03T00:15:56.000000462"",
+		""adaptorAuditDateTime"": ""2025-11-03T00:16:10.000000079""
+	 },
+	 ""processStatus"": {
+	   ""processStageName"": ""EDIFECS-Record-sent-via-API"",
+	   ""adaptorStatus"": ""SUCCESS""
+   },
+		""sourceTypeIdentifier"": ""EDIFECS""
+}"

@@ -1,0 +1,106 @@
+Field Name,Mandatory/optional,Length,Format,Pre-Mapping Validation Rules,Sample Values
+Provider NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",1639798127
+Last Name,M,50,String,,Acosta
+First Name,M,50,String,,Daniel
+Middle Name,O,50,String,,
+Degree,M,25,String,,DO
+Board Specialty 1,M,200,String,,Internal Medicine-Internal Med
+Board Specialty 2,O,200,String,,
+Specialist or PCP,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (PCP, SPECIALIST, pcp, specialist, Pcp, Specialist)",PCP
+Provider-based Facility,M,50,String,,PPMC
+Board Certified,O,1,String,,
+Board 1,O,100,String,,American Board of Internal Medicine-Internal Med
+Board Status 1,O,100,String,,Practicing Specialty Cert
+Board Effective Date 1,O,12,Date,,08/21/2023
+Board Exp Date 1,O,12,Date,,04/01/2025
+Board 2,O,100,String,,
+Board Status 2,O,100,String,,
+Board Effective Date 2,O,12,Date,,
+Board Exp Date 2,O,12,Date,,
+PA DEA,O,50,String,,FA3424289
+PA DEA Exp Date,O,12,Date,,06/30/2026
+NJ DEA,O,50,String,,
+NJ DEA Exp Date,O,12,Date,,
+NJ CDS,O,50,String,,
+NJ CDS Exp Date,O,12,Date,,
+PA Medical License,O,50,String,,OS023729
+PA Med License Exp Date,O,12,Date,,10/31/2024
+NJ Medical License,O,50,String,,
+NJ Med License Exp Date,O,12,Date,,
+DOB,M,12,Date,"""Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)""",10/06/1992
+Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female, MALE, FEMALE, male, female)",M
+Languages,O,100,String,,
+Effective Date,M,12,Date,"""Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)""",07/01/2024
+Group Name,M,200,String,"Reject -
+ IF EMPTY",Penn Hospital Medicine Penn Presbyterian - PMG
+Group NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",1053447151
+Is Primary?,M,2,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (Y,N, y, n)",N
+Print Suppress,M,25,String,"Valid  values - Yes, No, Hospital-Based",Yes
+Panel Status,O,50,String,,
+Provider Email,O,150,String,,
+Address 1,M,100,String,"""Reject -
+ IF EMPTY""",51 North 39th Street
+Address 2,O,100,String,,
+Address City,M,50,String,"""Reject -
+ IF EMPTY""",Philadelphia
+Address State,M,50,String,"""Reject -
+ IF EMPTY""",PA
+Address Zip,M,50,String,"Reject -
+ IF EMPTY or
+ IF Length < 5",19104-2640
+County,O,50,String,,Philadelphia
+Phone,M,50,String,"""Reject -
+ IF EMPTY""",(215) 662-9436
+Fax,O,50,String,,(215) 243-3208
+TIN,M,10,String,"""Reject -
+ IF EMPTY or
+ IF LENGTH <> 10""",23-2743545
+Legal Business Name,O,200,String,,University of Penn-Medical Group
+Billing Address,M,150,String,"""Reject -
+ IF EMPTY""",PO Box 824320
+Billing City,M,50,String,"""Reject -
+ IF EMPTY""",Philadelphia
+Billing State,M,50,String,"""Reject -
+ IF EMPTY""",PA
+Billing Zip,M,50,String,"Reject -
+ IF EMPTY or
+ IF Length < 5",19182-4320
+Group Name,O,200,String,,Penn Hospital Medicine Penn Presbyterian - PMG
+CAQH ID,O,50,String,,
+Education,O,200,String,,Touro University Nevada College of Osteopathic Medicine
+Education From Date,O,12,Date,,08/01/2016
+Education To Date,O,12,Date,,05/28/2020
+Train Specialty 1,O,150,String,,Internal Medicine
+US/Canada Residency 1,O,150,String,,Mount Sinai Hosp and Miami Heart Institute (GME)
+US/Canada Residency From Date 1,O,12,Date,,06/24/2020
+US/Canada Residency To Date 1,O,12,Date,,06/23/2023
+Train Specialty 2,O,150,String,,
+US/Canada Residency 2,O,150,String,,
+US/Canada Residency From Date 2,O,12,Date,,
+US/Canada Residency To Date 2,O,12,Date,,
+Train Specialty 3,O,150,String,,
+US/Canada Residency 3,O,150,String,,
+US/Canada Residency From Date 3,O,12,Date,,
+US/Canada Residency To Date 3,O,12,Date,,
+Foreign Residency,O,150,String,,
+Foreign Residency From Date,O,12,Date,,
+Foreign Residency To Date,O,12,Date,,
+ORG ID (Penn Medicine Use; Do Not Delete),O,50,String,,10904
+Plan Code (Penn Medicine Use; Do Not Delete),O,50,String,,CLOVER
+Provider ID (Penn Medicine Use Only; Do Not Delete),O,50,String,,AR177102
+Link (Penn Medicine Use Only; Do Not Delete),O,50,String,,1891977
+Provider Number or PAR,O,50,String,,

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:base="http://www.healthedge.com/connector/schema/basetypes"
+           xmlns="http://www.healthedge.com/connector/schema/enrollmentsparselookup"
+           xmlns:tns="http://www.healthedge.com/connector/schema/enrollmentsparselookup"
+           xmlns:memberSparse="http://www.healthedge.com/connector/schema/membershipsparse"
+           xmlns:subSparse="http://www.healthedge.com/connector/schema/subscriptionsparse"
+           xmlns:enrollSparse="http://www.healthedge.com/connector/schema/enrollmentsparse"
+           xmlns:minput="http://www.healthedge.com/connector/schema/matchinput"
+           targetNamespace="http://www.healthedge.com/connector/schema/enrollmentsparselookup"
+           elementFormDefault="unqualified" version="4.1">
+    <xs:annotation>
+        <xs:documentation>
+            DISCLAIMER
+            This pre-release software provided by HealthEdge Inc. is a work-in-progress.
+            HealthEdge provides pre-release information to early adopters for the purpose of design and planning.
+            It has no warranty either explicit or implied and is subject to change.
+        </xs:documentation>
+    </xs:annotation>
+
+    <xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/membershipsparse" schemaLocation="membership-sparse.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/subscriptionsparse" schemaLocation="subscription-sparse.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparse" schemaLocation="enrollment-sparse.xsd"/>
+    <xs:import namespace="http://www.healthedge.com/connector/schema/matchinput" schemaLocation="../connector-common-schema/match-input.xsd"/>
+
+    <xs:element name="enrollmentSparseLookupResponse" type="EnrollmentSparseResponseType"/>
+    <xs:element name="subscriptionSparseLookupResponse" type="SubscriptionSparseResponseType"/>
+    <xs:element name="membershipSparseLookupResponse" type="MembershipSparseResponseType"/>
+    <xs:element name="enrollmentLookupCriteria" type="EnrollmentLookupType"/>
+    <xs:complexType name="EnrollmentLookupType">
+        <xs:complexContent>
+            <xs:extension base="minput:MemberMatchInputType">
+                <xs:sequence>
+                    <xs:element name="latestEndorsementEffectiveDate" type="xs:dateTime" minOccurs="0" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="membershipLookupCriteria" type="MembershipLookupType"/>
+    <xs:complexType name="MembershipLookupType">
+        <xs:complexContent>
+            <xs:extension base="minput:MemberMatchInputType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="subscriptionLookupCriteria" type="SubscriptionLookupType"/>
+    <xs:complexType name="SubscriptionLookupType">
+        <xs:complexContent>
+            <xs:extension base="minput:MemberMatchInputType">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="MembershipSparseResponseType">
+        <xs:sequence>
+            <xs:element ref="memberSparse:membership" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SubscriptionSparseResponseType">
+        <xs:sequence>
+            <xs:element ref="subSparse:subscription" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="EnrollmentSparseResponseType">
+        <xs:sequence>
+            <xs:element ref="enrollSparse:enrollment" minOccurs="0" maxOccurs="1"/>
+            <xs:group ref="base:ErrorStatusGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

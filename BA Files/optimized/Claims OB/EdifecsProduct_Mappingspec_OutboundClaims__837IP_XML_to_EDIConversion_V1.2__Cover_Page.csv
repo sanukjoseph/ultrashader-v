@@ -1,0 +1,27 @@
+EDIFECS Product - Outbound Claims I/P Mapping Specification,,,,,,,,,
+,,,,,,,,,
+Business Area: OB Claims XML to 837 I/P EDI Conversion,,,,,,,,,
+,,,,,,,,,
+"This document provides the Mapping Specification for outbound claims XML to EDI 837 I/P conversion.
+Document is intended for EDIFECS Product Team",,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,Version,,,,,
+,,,,,,,,,
+,Distribution of this document is limited to UST HealthProof,,,,,,,,
+,,,,,,,,,
+,Notice of Confidentiality and Custodial Responsibilities,,,,,,,,
+,"This UST HealthProof document contains confidential information that is
+UST HealthProof’s intellectual property. As a holder of this document, you
+ may NOT disclose its content or any information derived from it to
+any person outside of UST Proof Project Team.",,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+Sign Off,,,,,,,,,
+,Name,,Role,,Organization,,Date,,Approval
+Approver #1,,,,,,,,,
+Approver #2,,,,,,,,,
+Approver #3,,,,,,,,,
+Approver #4,,,,,,,,,

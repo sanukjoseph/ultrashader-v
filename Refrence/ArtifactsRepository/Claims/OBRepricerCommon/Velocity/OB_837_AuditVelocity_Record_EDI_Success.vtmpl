@@ -1,0 +1,9 @@
+{
+    "extractId": "${ExtractionID}",
+    "pageId": "${PageID}", 
+	"pageNum": 1,
+    "keyDataExtractStatus": "${ExtractionStatus}",
+    "keyColumn1Lov": ["${claimID}"],
+    "spInvokedBy": "OB Repricer Edifecs"
+}
+ 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+            xmlns:stl="http://www.codesynthesis.com/xmlns/xsstl"
+            xmlns:tns="http://www.ust-global.com/schema" 
+            xmlns:header="http://www.ust-global.com/schema/common" 
+            targetNamespace="http://www.ust-global.com/schema/common">
+
+  	<xsd:annotation>
+   		<xsd:documentation>
+      			Base XSD for all Wrapper XSDs developed by UST Global     
+    	</xsd:documentation>
+  	</xsd:annotation>
+  
+  	<xs:element name="header">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ediFilename" type="xs:string" />
+				<xs:element name="ediFileId" type="xs:string" />
+				<xs:element name="ediFileType" type="xs:string" />
+				<xs:element name="totalEdiTransaction"  type="xs:int" />
+				<xs:element name="totalMemberCount"  type="xs:int" />
+				<xs:element name="totalXMLTransactionCount"  type="xs:int" />
+				<xs:element name="XMLfileCreationDate" type="xs:dateTime" />
+				<xs:element name="correlationId" type="xs:string" />
+				<xs:element name="correlationIdDesc" type="xs:string" 	minOccurs="0" />
+				<xs:element name="senderId" type="xs:string" />
+				<xs:element name="receiverId" type="xs:string" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element> 
+
+</xsd:schema>

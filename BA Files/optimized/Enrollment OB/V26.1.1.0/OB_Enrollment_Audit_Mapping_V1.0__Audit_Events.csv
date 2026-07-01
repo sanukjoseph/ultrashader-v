@@ -1,0 +1,5 @@
+Audit events,,
+Audit Json trigger events,pageExtractStatus,pageErrorDesc
+XML file received,SUCCESS-EDIFECS- XML FILE RECEIVED,
+EDI validtion,"SUCCESS-EDIFECS-HIPAA VALIDATION/
+FAILURE",FAILURE-EDIFECS-HIPAA VALIDATION

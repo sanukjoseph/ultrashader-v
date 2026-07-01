@@ -1,0 +1,53 @@
+Group,Fields,837P - Values,837I - Values,Description
+inputDetails,inputId,"Value passed is  - {UID}- Uniqie for each file
+Example - -dtBkcCHu9bkKu8O","Value passed is  - {UID}- Uniqie for each file
+Example - -dtBkcCHu9bkKu8O",EDI file id
+,inputType,professional or institutional,professional or institutional,Defines the type of input file - API or File
+,totalTransactions,Total Number of Claims in a file - CLM Count in EDI,Total Number of Claims in a file - CLM Count in EDI,Total no. of transactions/Record received in API/File
+,inputFileName,Input Filename of the EDI file received with filename extension,Input Filename of the EDI file received with filename extension,Name of the input file received from source.
+,inputArchiveFilename,Input Filename of the EDI file archived in s3 with filename extension,Input Filename of the EDI file archived in s3 with filename extension,Name of the input file after archiving the input file.
+process,processStageName,Refer Audit events Tab,Refer Audit events Tab,Represent the name of the process stage which post the Audit point.
+,processStatus,Refer Audit events Tab,Refer Audit events Tab,Represent the Intermediate or Final status of the process stage which posts the Audit point.
+,processMessage,Refer Audit events Tab,Refer Audit events Tab,Specific information of a particular step after the process is completed.
+,processInputArchiveFilename,Input Filename of the EDI file received with filename extension,Input Filename of the EDI file received with filename extension,Name of the input Archive file of the process stage which posts the Audit point.
+,processOutputArchiveFilename,NA,NA,Name of the output Archive file of the process stage which posts the Audit point.
+,auditTime,The time the audit trigger event got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,The time the audit trigger event got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,Auditing time of each audit point
+identifiers,rayIdentifier,UUID,UUID,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed."
+,recordIdentifier,A Unique Record Identifier and 6 digit counter separated by a hyphen.,A Unique Record Identifier and 6 digit counter separated by a hyphen.,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record."
+,tenantIdentifier,"Hardcode as ""Product"" in adaptor.properties file and assign to variable"" tenantIdentifier""
+and call in profile","Hardcode as ""Product"" in adaptor.properties file and assign to  variable ""tenantIdentifier"" and call in profile",Unique identifier for the implementation team
+,sourceTypeIdentifier,"SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Paper}
+SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Electronic}
+
+EDIFECS_Inbound_Duplicate_File/EDIFECS_Inbound_Duplicate_Interchange (In case of Duplicate file/ ISA rejections )
+
+EDIFECS_InboundClaim_FileLevelError(In case of file level rejection)","SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Paper}
+SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Electronic}
+
+EDIFECS_Inbound_Duplicate_File/EDIFECS_Inbound_Duplicate_Interchange (In case of Duplicate file/ ISA rejections )
+
+EDIFECS_InboundClaim_FileLevelError(In case of file level rejection)",Identifier to find from where we received(Starting point) the initial Transaction/Record. This is a configurable field.
+,recordIdentifierFromSource,"senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+
+<Senderid>_Duplicate_File/Interchange  (In case of Duplicate file/Interchange rejections )","senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+
+<Senderid>_Duplicate_File/Interchange  (In case of Duplicate file/Interchange rejections )",This needs to be a configurable field.
+,referenceIdentifier,NA,NA,Place holder to add any specific Reference Identifier based on Business Requirement
+,retriedReferenceIdentifier,NA,NA,This field indicates unique identifier for a transaction that has been retried
+claim,claimTransactionType,Professional,Institutional,Specifies the type of transaction - professional/Institutional
+,claimRequestXMLArchiveFilename,NA,NA,"Name of requestXMLArchive file, which will be sent to HRP to load"
+,claimResponseXMLArchiveFilename,NA,NA,"Name of file - When we receive response from HRP, HRP response will be created as a XMLArchive file"
+,claimIdHRP,NA,NA,"Claim ID received from HRP, when claims are loaded and HRP response has the Claim ID"
+,cvcId,NA,NA,"Uniquie ID received from HRP, when claims are loaded and HRP response has the Claim ID"
+,claimAmount,2300.CLM02,2300.CLM02,
+,frequencyCode,2300.CLM05.03,2300.CLM05.03,
+,externalClaimNumber,NA,NA,Place holder to add any specific Reference Identifier based on Business Requirement
+,clearingHouseTraceNumber,2300.REF*D9,2300.REF*D9,
+,patientControlNumber,2300.CLM01,2300.CLM01,
+,patientName,2010CA.NM104/5/3/7  or 2010BA.NM104/5/3/7 seperated by comma,2010CA.NM104/5/3/7  or 2010BA.NM104/5/3/7 seperated by comma,Display the Patient name
+,patientDOB,2010CA.DMG02  OR 2010BA.DMG02,2010CA.DMG02  OR 2010BA.DMG02,Display Date of birth of the Patient
+,memberIdentificationNumber,2010BA.NM109,2010BA.NM109,Display Subscriber ID
+,memberName,2010BA.NM104/5/3/7  each seperated by comma,2010BA.NM104/5/3/7  each seperated by comma,Display Subscriber Name
+providerDetails,providerId,2010AA.NM109,2010AA.NM109,Billing Provider NPI from ED
+,providerName,2010AA.NM104/5/3  or 2010AA.NM103,2010AA.NM103,Billing Provider Name from EDI.
+,providerType,Person /Non-Person Entity(Based on2010AA.NM102),Non-Person Entity,Mention if the Billing provider is a Personal Entity or Non-Personal Entity.

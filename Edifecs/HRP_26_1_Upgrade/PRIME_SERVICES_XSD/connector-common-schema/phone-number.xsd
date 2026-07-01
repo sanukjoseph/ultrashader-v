@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:stl="http://www.codesynthesis.com/xmlns/xsstl"
+            targetNamespace="http://www.codesynthesis.com/xmlns/xsstl">
+
+  <xsd:annotation>
+    <xsd:documentation>
+      Copyright (C) 2006-2007 Code Synthesis Tools CC
+
+      Redistribution and use with or without modification are permitted
+      under the terms of the new BSD license. See the accompanying LICENSE
+      file.
+    </xsd:documentation>
+  </xsd:annotation>
+
+
+  <xsd:simpleType name="PhoneNumber">
+    <xsd:annotation>
+      <xsd:documentation>
+        Full international telephone number is up to 15 digits long.
+        The country code is up to 3 digits long. The area code is
+        country-dependent and is not used for some countries. If
+        used, it seems to be from 1 to 5 digits long. This leaves
+        the subscriber number up to 14 digits. Plus there is the
+        optional extension. Putting this all together, we get:
+
+        country-area-subscriber-extension
+
+        The area code and extension are optional. Here are a few
+        examples:
+
+        1-800-1234567    (country-area-subscriber)
+        1-800-1234567-89 (country-area-subscriber-extension)
+        34-912345678     (country-subscriber)
+        34-912345678-9   (country-subscriber-extension)
+
+        See also http://en.wikipedia.org/wiki/Area_code
+                 http://en.wikipedia.org/wiki/E.164
+
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([1-9][0-9]{0,2})(-[1-9][0-9]{0,4})?(-[1-9][0-9]{0,13})(-[0-9]+)?"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="PhoneCountryCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Telephone country code. Up to 3 digits long.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="xsd:unsignedShort">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="PhoneAreaCode">
+    <xsd:annotation>
+      <xsd:documentation>
+        Telephone area code. Up to 5 digits long.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="xsd:unsignedInt">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="99999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="PhoneSubscriberNumber">
+    <xsd:annotation>
+      <xsd:documentation>
+        Telephone subscriber number. Up to 14 digits long.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="xsd:unsignedLong">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="99999999999999"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+
+  <xsd:simpleType name="PhoneExtensionNumber">
+    <xsd:annotation>
+      <xsd:documentation>
+        Telephone extension number. Theoretically of arbitrary length.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:restriction base="xsd:unsignedLong"/>
+  </xsd:simpleType>
+
+
+  <xsd:complexType name="PhoneNumberStruct">
+    <xsd:annotation>
+      <xsd:documentation>
+        Structured full international telephone number.
+      </xsd:documentation>
+    </xsd:annotation>
+
+    <xsd:sequence>
+      <xsd:element name="country" type="stl:PhoneCountryCode"/>
+      <xsd:element name="area" type="stl:PhoneAreaCode" minOccurs="0"/>
+      <xsd:element name="subscriber" type="stl:PhoneSubscriberNumber"/>
+      <xsd:element name="extension" type="stl:PhoneExtensionNumber" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>

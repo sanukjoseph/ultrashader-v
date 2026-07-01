@@ -1,0 +1,1692 @@
+̥,Element Name,Usage,Enumeration Values,Hard Code / Default Value,XML Field,Mapping Logic,Notes/Comments
+,ISA - Interchange Control Header (Required),,,,,,
+ISA01,Authorization Information Qualifier,R,00 : No Authorization Information Present,00,,,
+ISA02,Authorization Information,R,"00: No Authorization Information Present (No
+Meaningful Information in I02)
+03:Additional Data Identification",Blank (10 spaces),,,
+ISA03,Security Information Qualifier,R,00,00,,,
+ISA04,Security Information,R,Blank (10 spaces),Blank (10 spaces),,,
+ISA05,Interchange ID Qualifier,R,ZZ - Mutually Defined,ZZ - Mutually Defined,,,
+ISA06,Interchange Sender ID,R,<Sender ID>,"Hardcode  as ""Product""",,,
+ISA07,Interchange ID Qualifier,R,ZZ,ZZ,,,
+ISA08,Interchange Receiver ID,R,<Receiver ID>,"Hardcode  as ""Product""",,,
+ISA09,Interchange Date,R,SysDate (YYMMDD),SysDate (YYMMDD),,,
+ISA10,Interchange Time,R,SysTime (HHMM),SysTime (HHMM),,,
+ISA11,Repetition Separator,R,^,^,,,
+ISA12,Interchange Control Version Number,R,00501,00501,,,
+ISA13,Interchange Control Number,R,,Generate ID In EDIFECS (9 Bytes),,,"Must be a fixed length with nine (9) characters and match IEA02 Used to identify file level duplicate collectively with GS06, ST02, and BHT03"
+ISA14,Acknowledgment Requested,R,"0 : No Interchange Acknowledgement Requested
+1 : Interchange Acknowledgment Requested",1,,,
+ISA15,Interchange Usage Indicator,R,P : Production Data T : Test,"P for Prod
+T for Test",,,
+ISA16,Component Element Separator,R,": = Element separator
+~ = Segment Terminator",:,,,
+,GS - Functional Group Header (Required),,,,,,
+GS01,Functional Identifier Code,R,HC : Health Care Claim (837),HC,,,
+GS02,Application Sender's Code,R,<Sender ID>,"Hardcode  as ""Product""",,,This value must match the value in ISA08 without the padding
+GS03,Application Receiver's Code,R,<HealthPlan ID>/,"Hardcode  as ""Product""",,,
+GS04,Date,R,SysDate (YYYYMMDD),SysDate (YYYYMMDD),,,
+GS05,Time,R,SysTime (HHMM),SysTime (HHMM),,,
+GS06,Group Control Number,R,<Group Control Number>,Generate ID In EDIFECS (1-9 Bytes),,,"This value must match the value in GE02
+
+Used to identify file level duplicates
+collectively with ISA13, ST02, and BHT03"
+GS07,Responsible Agency Code,R,X : Accredited Standards Committee X12,X,,,
+GS08,Version / Release / Industry Identifier Code,R,005010X222A2,005010X223A2,,,
+,ST - Transaction Set Header (Required),,,,,,
+ST01,Transaction Set Identifier Code,R,837 : Health Care Claim,837,,,
+ST02,Transaction Set Control Number,R,"<Transaction set Control Number>
+Starts from 001 and increments with each transaction set",Generate ID In EDIFECS (4 Bytes),,,
+ST03,Implementation Convention Reference,R,005010X223A2,005010X223A2,,,
+,BHT - Beginning of Hierarchical Transaction (Required),,,,,,
+BHT01,Hierarchical Structure Code,R,"0019- Information Source, Subscriber, Dependent",0019,,,
+BHT02,Transaction Set Purpose Code,R,"00- Reuse
+18-Original",00,,,
+BHT03,Reference Identification,R,Originator Application Transaction Identifier,Auto Generate In EDIFECS.,,,Should be CCYYMMDDHHMMSS
+BHT04,Date,R,,SysDate (YYYYMMDD),,,
+BHT05,Time,R,,SysTime (HHMMSS),,,
+BHT06,Transaction Type Code,R,"31- Subrogation Demand
+RP- Reporting
+CH- Chargeable",RP,,,
+,Loop 1000A (Required),,,,,,
+,Segment NM1 - Submitter Name  (Required),,,,,,
+1000A.NM101,Entity Identifier Code,R,41- Submitter,41,,,
+1000A.NM102,Entity Type Qualifier,R,"1- Person Entity
+2-Non Person Entity",2,,,
+1000A.NM103,Name Last or Organization Name,R,<Submitter Last/Org Name>,"Hardcode  as ""Product""",,,
+1000A.NM104,Name First,S,,,,,
+1000A.NM105,Name Middle,S,,,,,
+1000A.NM108,Identification Code Qualifier,R,46- ETIN (Electronic Transmitter Identification Number),46,,,
+1000A.NM109,Identification Code,R,,"Hardcode  as ""Product""",,,
+,Segment PER - Submitter EDI Contact Information  (Required),,,,,,
+1000A.PER01,Contact Function Code,R,IC Information Contact,IC,,,
+1000A.PER02,Name,S,<Submitter Name> - JOAN KOSSOW,"Hardcode  as ""Product""",,,
+1000A.PER03,Communication Number Qualifier,R,"""EM"" - Electronic Mail
+""FX"" - Facsimile
+""TE"" - Telephone",TE,,,
+1000A.PER04,Communication Number,R,<Email/Faxsimile Number/Telephone Number> - 2513450000,"Hardcode  as ""1234567890""",,,
+1000A.PER05,Communication Number Qualifier,S,"""EM"" - Electronic Mail
+""FX"" - Facsimile
+""TE"" - Telephone",,,,
+1000A.PER06,Communication Number,S,<Email/Faxsimile Number/Telephone Number> 2513450100,,,,
+1000A.PER07,Communication Number Qualifier,S,"""EM"" - Electronic Mail EM
+""FX"" - Facsimile
+""TE"" - Telephone",,,,
+1000A.PER08,Communication Number,S,<Email/Faxsimile Number/Telephone Number>,,,,
+,Loop 1000B (Required),,,,,,
+,Segment NM1 - Receiver Name  (Required),,,,,,
+1000B.NM101,Entity Identifier Code,R,40- Receiver,40,,,
+1000B.NM102,Entity Type Qualifier,R,2-Non Person Entity,2,,,
+1000B.NM103,Name Last or Organization Name,R,,"Hardcode  as ""Product""",,,
+1000B.NM108,Identification Code Qualifier,R,46- ETIN (Electronic Transmitter Identification Number),46,,,
+1000B.NM109,Identification Code,R,,"Hardcode  as ""Product""",,,
+,Loop 2000A (Required),,,,,,
+,Segment HL - Billing Provider Hierarchical Level  (Required),,,,,,
+2000A.HL01,Hierarchical ID Number,R,,Generated by Edifecs,,,
+2000A.HL03,Hierarchical Level Code,R,20 : Information Source,20,,,
+2000A.HL04,Hierarchical Child Code,R,"1 : Additional Subordinate HL Data Segment in This
+Hierarchical Structure.",Generated by Edifecs,,,
+,Segment PRV - Billing Provider Specialty Information  (Situational),,,,,,
+2000A.PRV01,Provider Code,R,BI : Billing,BI,,,
+2000A.PRV02,Reference Identification Qualifier,R,PXC :  Health Care Provider Taxonomy Code,PXC,,,
+2000A.PRV03,Reference Identification,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/speciality/specialtyInformation/taxonomyCode,First instance will be mapped if more than one taxonomycode,
+,Segment CUR - Foreign Currency Information (Situational),,,,,,
+2000A.CUR01,Entity Identifier Code,R,,,,,
+2000A.CUR02,Currency Code,R,<Currency Code>,,,,
+,Loop 2010AA (Required),,,,,,
+,Segment NM1 - Billing Provider Name (Required),,,,,,
+2010AA.NM101,Entity Identifier Code,R,85 - Billing provider,85,,,
+2010AA.NM102,Entity Type Qualifier,R,"1 : Person
+2 : Non-Person Entity",2,,,
+2010AA.NM103,Name Last or Organization Name,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/name,,
+2010AA.NM104,Name First,S,,,,,
+2010AA.NM105,Name Middle,S,,,,,
+2010AA.NM107,Name Suffix,S,,,,,
+2010AA.NM108,Identification Code Qualifier,S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",XX,,,
+2010AA.NM109,Identification Code,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/npi,,
+,Segment N3 - Billing Provider Address (Required),,,,,,
+2010AA.N301,Address Information,R,,,"claim/supplierLocation/correspondenceAddress/address,  If present
+Else getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/address",,
+2010AA.N302,Address Information,S,,,"claim/supplierLocation/correspondenceAddress/address2,  If present
+Else
+getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/address2",,
+,"Segment N4 - Billing Provider City, State, ZIP Code (Required)",,,,,,
+2010AA.N401,City Name,R,,,"claim/supplierLocation/correspondenceAddress/city,  If present
+Else
+getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/city",,
+2010AA.N402,State or Province Code,S,,,"claim/supplierLocation/correspondenceAddress/stateCode,  If present
+Else
+getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/stateCode",,
+2010AA.N403,Postal Code,S,,,"claim/supplierLocation/correspondenceAddress/zipCode + claim/supplierLocation/correspondenceAddress/zipExtension ,  If present
+Else
+getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/zipCode + getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/zipExtension",Plus Symbol Signifies Concatenation NOT Addition,
+2010AA.N404,Country Code,S,,,"claim/supplierLocation/correspondenceAddress/countryCode,  If present
+Else
+getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/address/countryCode",,
+2010AA.N407,Country Subdivision Code,S,,,,,
+,Segment REF - Billing Provider Tax Identification (Required),,,,,,
+2010AA.REF01,Reference Identification Qualifier,R,"SY - Social Security Number
+EI - Employer's Identification Number",EI,,,
+2010AA.REF02,Reference Identification,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/TIN,"(1-50 bytes, no hyphens)",
+,Segment - PER Billing Provider Contact Information (Situational),,,,,,
+2010AA.PER01,Contact Function Code,R,IC -  Information Contact,IC,,,
+2010AA.PER02,Name,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/name,,
+2010AA.PER03,Communication Number Qualifier,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",TE,,,
+2010AA.PER04,Communication Number,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/telephoneNumber,,
+2010AA.PER05,Communication Number Qualifier,S,"""EM"" : Electronic Mail",EM,,,
+2010AA.PER06,Communication Number,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/supplier/email,,
+,Loop 2010AB (Situational),,,,,,
+,Segment - NM1 Pay-to Address Name (Situational),,,,Map this loop only if the address is different from the 2010AA Address,,
+2010AB.NM101,Entity Identifier Code,R,87- Pay To Provider,87,,,
+2010AB.NM102,Entity Type Qualifier,R,"1- Person Entity
+2- Non Person Entity",2,,,
+,Segment - N3 Pay-to Address - ADDRESS (Required),,,,,,
+2010AB.N301,Address Information,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/address,,
+2010AB.N302,Address Information,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/address2,,
+,"Segment - N4 Pay-To Address City, State, ZIP Code (Required)",,,,,,
+2010AB.N401,City Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/city,,
+2010AB.N402,State or Province Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/stateCode,,
+2010AB.N403,Postal Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/zipCode + ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/zipExtension,Plus Symbol Signifies Concatenation NOT Addition,
+2010AB.N404,Country Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/payToAddress/countryCode,,
+2010AB.N407,Country Subdivision Code,S,,,,,
+,Loop 2010AC (Situational),,,,,,
+,Segment - NM1 Pay-To Plan Name (Situational),,,,,,
+2010AC.NM101,Entity Identifier Code,R,,,,,
+2010AC.NM102,Entity Type Qualifier,R,,,,,
+2010AC.NM103,Name Last or Organization Name,R,,,,,
+2010AC.NM108,Identification Code Qualifier,R,,,,,
+2010AC.NM109,Identification Code,R,,,,,
+,Segment - N3 Pay-to Plan Address (Required),,,,,,
+2010AC.N301,Address Information,R,,,,,
+2010AC.N302,Address Information,S,,,,,
+,"Segment - N4 Pay-To Plan City, State, ZIP Code (Required)",,,,,,
+2010AC.N401,City Name,R,,,,,
+2010AC.N402,State or Province Code,S,,,,,
+2010AC.N403,Postal Code,S,,,,,
+2010AC.N404,Country Code,S,,,,,
+2010AC.N407,Country Subdivision Code,S,,,,,
+,Segment - REF Pay-to Plan Secondary Identification (Required),,,,,,
+2010AC.REF01,Reference Identification Qualifier,R,,,,,
+2010AC.REF02,Reference Identification,R,,,,,
+,Segment - REF Pay-To Plan Tax Identification Number (Required),,,,,,
+2010AC.REF01,Reference Identification Qualifier,R,,,,,
+2010AC.REF02,Reference Identification,R,,,,,
+,Loop 2000B (Required),,,,,,
+,Segment - HL Subscriber Hierarchical Level (Required),,,,,,
+2000B.HL01,Hierarchical ID Number,R,,System Generated,,,
+2000B.HL02,Hierarchical Parent ID Number,R,,2000A.HL01,,,
+2000B.HL03,Hierarchical Level Code,R,22- Subscriber,22,,,
+2000B.HL04,Hierarchical Child Code,R,"0- No Subordinate HL Segment in This Hierarchical Structure
+1- Additional Subordinate HL Data Segment in This Hierarchical Structure",0 /1 Based On The Count,,,
+,Segment - SBR Subscriber Information (Required),,,,,,
+2000B.SBR01,Payer Responsibility Sequence Number Code,R,"A- Payer Responsibility Four
+B- Payer Responsibility Five
+C- Payer Responsibility Six
+D- Payer Responsibility Seven
+E- Payer Responsibility Eight
+F- Payer Responsibility Nine
+G- Payer Responsibility Ten
+H- Payer Responsibility Eleven
+P- Primary
+S- Secondary
+T- Tertiary
+U- Unknown",,"OtherInsuranceCount = Count(/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/companyName != """")
+
+If OtherInsuranceCount = 0
+ Populate ""S""
+Else If OtherInsuranceCount = 1
+ Populate ""T""
+Else If OtherInsuranceCount = 2
+ Populate ""A""
+Else If OtherInsuranceCount = 3
+ Populate ""B""",,
+2000B.SBR02,Individual Relationship Code,S,18-Self,"Hardcode as ""18""",,,
+2000B.SBR03,Reference Identification,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/groupNumber,,
+2000B.SBR04,Name,S,,,,,No mapping in product.. Took from GHC
+2000B.SBR09,Claim Filing Indicator Code,S,"11- Other Non-Federal Programs
+12- Preferred Provider Organization (PPO)
+13- Point of Service (POS)
+14- Exclusive Provider Organization (EPO)
+15- Indemnity Insurance
+16- Health Maintenance Organization (HMO) Medicare Risk
+17- Dental Maintenance Organization
+AM- Automobile Medical
+BL- Blue Cross/Blue Shield
+CH- Champus
+CI- Commercial Insurance Co.
+DS- Disability
+FI- Federal Employees Program
+HM- Health Maintenance Organization
+LM- Liability Medical
+MA- Medicare Part A
+MB- Medicare Part B
+MC- Medicaid
+OF- Other Federal Program
+TV- Title V
+VA- Veterans Affairs Plan
+WC- Workers' Compensation Health Claim
+ZZ- Mutually Defined",,"getClaimDetailsByHccIDResponseRecord/identifiers/identifier/value
+if
+getClaimDetailsByHccIDResponseRecord/identifiers/identifier/key is equal to ""CLAIM_FILING_INDICATOR_CODE",,Pull  CLAIM_FILING_CODE from CLAIM FACT
+,Loop 2010BA (Required),,,,,,
+,Segment - NM1 Subscriber Name (Required),,,,,,
+2010BA.NM101,Entity Identifier Code,R,IL- Insured Or Subscriber,IL,,,
+2010BA.NM102,Entity Type Qualifier,R,"1- Person Entity
+2- Non Person Entity
+Determine this value of ""1"" or ""2"" based on the next 2 fields.  If there is no First Name to pass, then assume this is a ""2"" for Non-Person Entity",1,,,
+2010BA.NM103,Name Last or Organization Name,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/subscriber/lastName,,
+2010BA.NM104,Name First,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/subscriber/firstName,,
+2010BA.NM105,Name Middle,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/subscriber/middleName,,
+2010BA.NM107,Name Suffix,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/subscriber/nameSuffix,,
+2010BA.NM108,Identification Code Qualifier,S,"MI- Member Identification Number
+II- Standard Unique Health Identifier for each Individual in the United States",MI,,,
+2010BA.NM109,Identification Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/hccId,,
+,Segment - N3 Subscriber Address (Situational),,,,,,
+2010BA.N301,Address Information,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/address,,
+2010BA.N302,Address Information,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/address2,,
+,"Segment - N4 Subscriber City, State, ZIP Code (Situational)",,,,,,
+2010BA.N401,City Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/city,,
+2010BA.N402,State or Province Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/stateCode,,
+2010BA.N403,Postal Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/zipCode + ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/zipExtension,,
+2010BA.N404,Country Code,S,,Map only when not 'US',ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/correspondenceAddress/countryCode,,
+2010BA.N407,Country Subdivision Code,S,,,,,
+,Segment - DMG Subscriber Demographic Information (Situational),,,,,,
+2010BA.DMG01,Date Time Period Format Qualifier,R,,D8,,,
+2010BA.DMG02,Date Time Period,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/subscriber/birthDate,"Remove""-""","Remove""-"""
+2010BA.DMG03,Gender Code,R,"F Female
+M Male
+U Uknown",,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/subscriptionInformation/subscriber/genderCode,,
+Segment - REF Subscriber Secondary Identification (Situational),,,,,,,
+2010BA.REF01,Reference Identification Qualifier,R,,,,,
+2010BA.REF02,Reference Identification,R,,,,,
+,Segment - REF Property and Casualty Claim Number (Situational),,,,,,
+2010BA.REF01,Reference Identification Qualifier,R,,,,,
+2010BA.REF02,Reference Identification,R,,,,,
+,Loop 2010BB (Required),,,,,,
+,Segment - NM1 Payer Name (Required),,,,,,
+2010BB.NM101,Entity Identifier Code,R,PR- Payer,PR,,,
+2010BB.NM102,Entity Type Qualifier,R,2-Non Person Entity,2,,,
+2010BB.NM103,Name Last or Organization Name,R,HealthPlan,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicName,,
+2010BB.NM108,Identification Code Qualifier,R,"PI :  Payor Identification
+XV : Centers for Medicare and Medicaid Services PlanID",XV,,,
+2010BB.NM109,Identification Code,R,,,claimDetails/claimExtract/subscriptionInformation/topAccount/id,,
+,Segment - N3 Payer Address (Situational),,,,,,
+2010BB.N301,Address Information,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/address,,
+2010BB.N302,Address Information,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/address2,,
+,"Segment - N4 Payer City, State, ZIP Code (Situational)",,,,,,
+2010BB.N401,City Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/city,,
+2010BB.N402,State or Province Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/stateCode,,
+2010BB.N403,Postal Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/zipCode + ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/zipExtension,,
+2010BB.N404,Country Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/payerInformation/hicAddress/countryCode,,
+2010BB.N407,Country Subdivision Code,S,,,,,
+,Segment - REF Payer Secondary Identification (Situational),,,,,,
+2010BB.REF01,Reference Identification Qualifier,R,,,,,
+2010BB.REF02,Reference Identification,R,,,,,
+,Segment - REF Billing Provider Secondary Identification (Situational),,,,,,
+2010BB.REF01,Reference Identification Qualifier,R,,,,,
+2010BB.REF02,Reference Identification,R,,,,,
+,Loop 2000C - Patient Hierarchical Level (Situational),,,,,,
+,Segment HL -  Patient Hierarchical Level (Situational),,,,,,
+2000C.HL01,Hierarchical ID Number,R,,System Generated,,,
+2000C.HL02,Hierarchical Parent ID Number,R,,2000B.HL01,,,
+2000C.HL03,Hierarchical Level Code,R,,23,,,
+2000C.HL04,Hierarchical Child Code,R,,0,,,
+,Segment PAT - Patient information,,,,,,
+2000C.PAT01,Individual Relationship Code,R,"01 : Spouse
+19 : Child
+18:self
+20 : Employee
+21 : Unknown
+39 : Organ Donor
+40:  Cadaver Donor
+53:  Life Partner
+G8 : Other Relationship",,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/relationshipToSubscriber,Need conversion copy,
+,Loop 2010CA - Patient Name (Situational),,,,,,
+,Segment - NM1 Patient Name (Required),,,,,,
+2010CA.NM101,Entity Identifier Code,R,QC- Patient,QC,,,
+2010CA.NM102,Entity Type Qualifier,R,1- Person,1,,,
+2010CA.NM103,Name Last or Organization Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/member/lastName,,
+2010CA.NM104,Name First,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/member/firstName,,
+2010CA.NM105,Name Middle,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/member/middleName,,
+2010CA.NM107,Name Suffix,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/member/nameSuffix,,
+,Segment - N3 Patient Address (Situational),,,,,,
+2010CA.N301,Address Information,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/address,,
+2010CA.N302,Address Information,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/address2,,
+,"Segment - N4 Patient City, State, ZIP Code (Situational)",,,,,,
+2010CA.N401,City Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/city,,
+2010CA.N402,State or Province Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/stateCode,,
+2010CA.N403,Postal Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/zipCode + ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/zipExtension,,
+2010CA.N404,Country Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/correspondenceAddress/countryCode,,
+2010CA.N407,Country Subdivision Code,S,,,,,
+,Segment - DMG Patient Demographic Information (Situational),,,,,,
+2010CA.DMG01,Date Time Period Format Qualifier,R,D8- Date Expressed In YYYYMMDD,D8,,,
+2010CA.DMG02,Date Time Period,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/member/birthdate,,
+2010CA.DMG03,Gender Code,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/patientInformation/member/genderCode,,
+,Segment - Property and Casuality Claim Number (Situational),,,,,,
+2010CA.REF01,Reference Identification Qualifier,R,Y4 Agency Claim Number,,,,
+2010CA.REF02,Reference Identification,R,,,,,
+,Loop 2300 (Required) — CLAIM INFORMATION Loop Repeat: 100,,,,,,
+,Segment - CLM Claim information (Situational),,,,,,
+2300.CLM01,Claim Submitter's Identifier,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/hccId,,
+2300.CLM02,Monetary Amount,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/requestedFeeAmount,,
+2300.CLM05.01,Facility Code Value,R,,,First 2 Bytes of ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/typeOfBillCode,,
+2300.CLM05.02,Facility Code Qualifier,R,A- Uniform Billing Claim Form Bill Type,A,,,
+2300.CLM05.03,Claim Frequency Type Code,R,,,"getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/frequency
+if <frequency> is null, thenThe 3rd byte of ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/typeOfBillCode",,
+2300.CLM07,Provider Accept Assignment Code,R,"A Assigned
+B Assignment Accepted on Clinical Lab Services Only
+C Not Assigned",,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/assignmentAcceptance,"Yes - A
+No - C",
+2300.CLM08,Yes/No Condition or Response Code,R,"N No
+W Not Applicable
+Y Yes",,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/ /claim/benefitAssignment,"If value  present is  'Y' or Yes then Y
+else 'N'",
+2300.CLM09,Release of Information Code,R,"I Informed Consent to Release Medical Information
+for Conditions or Diagnoses Regulated by Federal
+Statutes
+Y Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim",,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/informationRelease,If value is 'Y' then 'Y' else 'I',
+2300.CLM20,Delay Reason Code,S,"1 Proof of Eligibility Unknown or Unavailable
+2 Litigation
+3 Authorization Delays
+4 Delay in Certifying Provider
+5 Delay in Supplying Billing Forms
+6 Delay in Delivery of Custom-made Appliances
+7 Third Party Processing Delay
+8 Delay in Eligibility Determination
+9 Original Claim Rejected or Denied Due to a Reason
+Unrelated to the Billing Limitation Rules
+10 Administration Delay in the Prior Approval Process
+11 Other
+15 Natural Disaster",,,,
+,Segment - DTP Discharge Date/Hour (Situational),,,,"This DTP segment populated only if first 2 digits of /claim/typeOfBill is ""11"",""21"",""18"",""28"",""41"",""65"",""66"",""86""  andlast digit of /claim/typeOfBill is not equal to ""2"" and ""3""",,
+2300.DTP01,Date/Time Qualifier,R,096- Discharge,096,,,
+2300.DTP02,Date Time Period Format Qualifier,R,TM- Time Expressed In HHMM,TM,,,
+2300.DTP03,Date Time Period,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/dischargeTime,"If dischargeTime is not present
+ Map ""0000""",
+,Segment - DTP Statement Dates (Required),,,,,,
+2300.DTP01,Date/Time Qualifier,R,434 - Statement Dates,434,,,
+2300.DTP02,Date Time Period Format Qualifier,R,RD8 - Date Expressed In YYYYMMDD - YYYYMMDD,RD8,,,
+2300.DTP03,Date Time Period,R,"If D8 - CCYYMMDD
+If DT- CCYYMMDDHH",,"ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/startDate+ ""-"" +
+ ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/endDate",,
+,Segment - DTP Admission Date/Hour (Situational),,,,"This DTP segment populated only if first 2 digits of /claim/typeOfBill is ""11"",""21"",""18"",""28"",""41"",""65"",""66"",""86"",""12"",""22"",""32"",""33"",""34"",""81"",""82""",,
+2300.DTP01,Date/Time Qualifier,R,435 - Admission Dates,435,,,
+2300.DTP02,Date Time Period Format Qualifier,R,D8 - Date Expressed In YYYYMMDD,"D8 (if first 2 digits of /claim/typeOfBill is ""21"" or If AdmitTime is missing./
+DT (if first 2 digits of /claim/typeOfBill is ""21"",""11"",""18"",""28"",""41"",""65"",""66"",""86"",""12"",""22"",""32"",""33"",""34"",""81"",""82"")",,,
+2300.DTP03,Date Time Period,R,"If D8 - CCYYMMDD
+If DT- CCYYMMDDHH",,"if first 2 digits of /claim/typeOfBill is ""21"" or AdmitTime is missing then
+/claim/admitDate
+if first 2 digits of /claim/typeOfBill is""11"",""18"",""28"",""41"",""65"",""66"",""86"",""12"",""22"",""32"",""33"",""34"",""81"",""82"") then
+or
+/claim/admitDate + /claim/admitTime",,
+,Segment - DTP Date - Repricer Received Date (Situational),,,,,,
+2300.DTP01,Date/Time Qualifier,R,050 Received,050,,,
+2300.DTP02,Date Time Period Format Qualifier,R,D8 :  Date Expressed in Format CCYYMMDD,D8,,,
+2300.DTP03,Date Time Period,R,"If D8 - CCYYMMDD
+If DT- CCYYMMDDHH",,/claim/receiptDate,,Do we need this?
+,Segment - CL1 Institutional Claim Code (Required),,,,,,
+2300.CL101,Admission Type Code,R,"1-Emergency
+2-Urgent
+3-Elective",,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/admissionTypeCode,,
+2300.CL102,Admission Source Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/admissionSource,,
+2300.CL103,Patient Status Code,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/dischargeStatus,"Hardcode it to ""01"" if dischargeStatus is Empty","Hardcode it to ""01"" if dischargeStatus is Empty"
+,Segment - PWK Claim Supplemental Information (Situational),,,,,,
+2300.PWK01,Report Type Code,R,,,,,
+2300.PWK02,Report Transmission Code,R,,,,,
+2300.PWK05,Identification Code Qualifier,S,,,,,
+2300.PWK06,Identification Code,S,,,,,
+,Segment - CN1 Contract Information (Situational),,,,,,
+2300.CN101,Contract Type Code,R,,,,,
+2300.CN102,Monetary Amount,S,,,,,
+2300.CN103,"Percent, Decimal Format",S,,,,,
+2300.CN104,Reference Identification,S,,,,,
+2300.CN105,Terms Discount Percent,S,,,,,
+2300.CN106,Version Identifier,S,,,,,
+,Segment - AMT Patient Estimated Amount Due (Situational),,,,,,
+2300.AMT01,Amount Qualifier Code,R,F3 Patient Responsibility - Estimated,F3,,,
+2300.AMT02,Monetary Amount,R,,,claimDetails/EOBPayementInformation/eobClaimDetails/claim/memberAmount,,
+,Segment - REF Service Authorization Exception Code (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Referral Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Prior Authorization (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Payer Claim Control Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,F8 Original Reference Number,F8,,,
+2300.REF02,Reference Identification,R,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/hccId/,,
+,Segment - REF Repriced Claim Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Adjusted Repriced Claim Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Investigational Device Exemption Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Claim Identification For Transmission Intermediaries (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,D9 Claim Number,D9,,,
+2300.REF02,Reference Identification,R,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/clearingHouseTraceNumber/,,
+,Segment - REF Auto Accident State (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,"""LU""",,,
+2300.REF02,Reference Identification,R,,,"getClaimDetailsByHccIDResponseRecord/identifiers/identifier/value
+if
+getClaimDetailsByHccIDResponseRecord/identifiers/identifier/key is equal to ""AUTO_ACCIDENT_STATE_CODE",,
+,Segment - REF Medical Record Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,EA Medical Record Identification Number,EA,,,
+2300.REF02,Reference Identification,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/medicalRecordNumber,,
+,Segment - REF Demonstration Project Identifier (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - REF Peer Review Organization (PRO) Approval Number (Situational),,,,,,
+2300.REF01,Reference Identification Qualifier,R,,,,,
+2300.REF02,Reference Identification,R,,,,,
+,Segment - K3 File Information (Situational),,,,,,
+2300.K301,Fixed Format Information,R,,,,,
+,Segment - NTE Claim Note (Situational),,,,,,
+2300.NTE01,Note Reference Code,R,,,,,
+2300.NTE02,Description,R,,,,,
+,Segment - NTE Billing Note (Situational),,,,,,
+2300.NTE01,Note Reference Code,R,,,,,
+2300.NTE02,Description,R,,,,,
+,Segment - CRC EPSDT Referral (Situational),,,,,,
+2300.CRC01,Code Category,R,,,,,
+2300.CRC02,Yes/No Condition or Response Code,R,,,,,
+2300.CRC03,Condition Indicator,R,,,,,
+2300.CRC04,Condition Indicator,S,,,,,
+2300.CRC05,Condition Indicator,S,,,,,
+,Segment - HI Principal Diagnosis (Required),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,International Classification of Diseases Clinical Modification (ICD-10-CM),ABK,,,
+2300.HI01.02,Industry Code,R,,,eobClaimDetail/claim/Principlediagnosis/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI01.09,Yes/No Condition or Response Code,S,,,,,
+,Segment - HI Admitting Diagnosis (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,International Classification of Diseases Clinical Modification (ICD-10-CM) Admitting Diagnosis,ABJ,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/admitDiagnosis/diagnosisCode,,Remove the decimal and at third location and populate
+,Segment - HI Patient Reason For Visit (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,APR - ICD10CM,APR,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/reasonForVisitDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI02.01,Code List Qualifier Code,R,APR - ICD10CM,APR,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/reasonForVisitDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI03.01,Code List Qualifier Code,R,APR - ICD10CM,APR,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/reasonForVisitDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+,Segment - HI External Cause of Injury (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI01.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI02.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI02.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI03.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI03.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI04.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI04.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI05.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI05.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI06.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI06.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI07.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI07.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI08.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI08.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI09.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI09.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI10.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI10.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI11.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI11.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI12.01,Code List Qualifier Code,R,ABN - ICD10CM,ABN,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI12.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/externalDiagnosis/diagnosisInfo/poaIndicator,,
+,Segment - HI Diagnosis Related Group (DRG) Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,DR Diagnosis Related Group (DRG),DR,,,
+2300.HI01.02,Industry Code,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/calculatedDRG if present,
+Else,
+getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/submittedDRG",,
+,Segment - HI Other Diagnosis Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,ABF,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI01.09,Yes/No Condition or Response Code,S,Used to identify the diagnosis onset . A “Y” indicates that the onset occurred prior to admission to the hospital; an “N” indicates that the onset did NOT occur prior to admission to the hospital; a “U” indicates that it is unknown whether the onset occurred prior to admission to the hospital or not.,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI02.01,Code List Qualifier Code,R,International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,ABF,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI02.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI03.01,Code List Qualifier Code,R,International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,ABF,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI03.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI04.01,Code List Qualifier Code,R,International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,ABF,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI04.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI05.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI05.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI06.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI06.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI07.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI07.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI08.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI08.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI09.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI09.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI10.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI10.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI11.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI11.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+2300.HI12.01,Code List Qualifier Code,R,,ABF,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/diagnosisCode,,Remove the decimal and at third location and populate
+2300.HI12.09,Yes/No Condition or Response Code,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherDiagnosis/diagnosisInfo/poaIndicator,,
+,Segment - HI Principal Procedure Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,"BBR International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Principal Procedure
+Codes",BBR,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/principalProcedure/procedureCode,,
+2300.HI01.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,"Remove ""-"" in date and populate"
+2300.HI01.04,Date Time Period,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/principalProcedure/procedureDate,,
+,Segment - HI Other Procedure Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI01.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI01.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI02.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI02.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI02.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI03.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI03.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI03.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI04.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI04.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI04.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI05.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI05.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI05.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI06.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI06.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI06.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI07.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI07.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI07.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI08.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI08.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI08.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI09.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI09.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI09.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI10.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI10.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI10.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI11.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI11.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI11.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+2300.HI12.01,Code List Qualifier Code,R,BBQ- ICD10CM,BBQ,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureCode,,
+2300.HI12.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI12.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/procedureInfo/otherProcedure/procedure/procedureDate,,
+,Segment - HI Occurrence Span Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI01.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI01.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI02.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI02.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI02.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI03.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI03.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI03.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI04.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI04.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI04.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI05.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI05.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI05.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI06.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI06.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI06.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI07.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI07.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI07.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI08.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI08.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI08.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI09.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI09.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI09.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI10.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI10.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI10.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI11.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI11.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI11.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+2300.HI12.01,Code List Qualifier Code,R,BI - ICD10CM,BI,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/occurrenceCode,,
+2300.HI12.03,Date Time Period Format Qualifier,R,RD8- Date Expressed In CCYYMMDD - CCYYMMDD.,RD8,,,
+2300.HI12.04,Date Time Period,R,,,"getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prStartDate + ""-"" + getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceSpan/occurrenceCode/prEndDate",,
+,Segment - HI Occurrence Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI01.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI01.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI02.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI02.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI02.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI03.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI03.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI03.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI04.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI04.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI04.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI05.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI05.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI05.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI06.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI06.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI06.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI07.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI07.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI07.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI08.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI08.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI08.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI09.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI09.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI09.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI10.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI10.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI10.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI11.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI11.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI11.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+2300.HI12.01,Code List Qualifier Code,R,BH - ICD10CM,BH,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/occurrenceCode,,
+2300.HI12.03,Date Time Period Format Qualifier,R,D8- Date Expressed In CCYYMMDD.,D8,,,
+2300.HI12.04,Date Time Period,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prOccurrenceCode/occurrenceCode/prStartDate,,
+,Segment - HI Value Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI01.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI02.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI02.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI03.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI03.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI04.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI04.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI05.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI05.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI06.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI06.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI07.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI07.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI08.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI08.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI09.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI09.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI10.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI10.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI11.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI11.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+2300.HI12.01,Code List Qualifier Code,R,BE - ICD10CM,BE,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/valueCode,,
+2300.HI12.05,Monetary Amount,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prValueCodes/paymentRequestValueCode/amount,,
+,Segment - HI Condition Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI01.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI02.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI02.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI03.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI03.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI04.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI04.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI05.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI05.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI06.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI06.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI07.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI07.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI08.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI08.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI09.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI09.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI10.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI10.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI11.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI11.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+2300.HI12.01,Code List Qualifier Code,R,BG - Condition,BG,,,
+2300.HI12.02,Industry Code,R,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/prConditionCodes/string,,
+,Segment - HI Treatment Code Information (Situational),,,,,,
+2300.HI01.01,Code List Qualifier Code,R,,,,,
+2300.HI01.02,Industry Code,R,,,,,
+2300.HI02.01,Code List Qualifier Code,R,,,,,
+2300.HI02.02,Industry Code,R,,,,,
+2300.HI03.01,Code List Qualifier Code,R,,,,,
+2300.HI03.02,Industry Code,R,,,,,
+2300.HI04.01,Code List Qualifier Code,R,,,,,
+2300.HI04.02,Industry Code,R,,,,,
+2300.HI05.01,Code List Qualifier Code,R,,,,,
+2300.HI05.02,Industry Code,R,,,,,
+2300.HI06.01,Code List Qualifier Code,R,,,,,
+2300.HI06.02,Industry Code,R,,,,,
+2300.HI07.01,Code List Qualifier Code,R,,,,,
+2300.HI07.02,Industry Code,R,,,,,
+2300.HI08.01,Code List Qualifier Code,R,,,,,
+2300.HI08.02,Industry Code,R,,,,,
+2300.HI09.01,Code List Qualifier Code,R,,,,,
+2300.HI09.02,Industry Code,R,,,,,
+2300.HI10.01,Code List Qualifier Code,R,,,,,
+2300.HI10.02,Industry Code,R,,,,,
+2300.HI11.01,Code List Qualifier Code,R,,,,,
+2300.HI11.02,Industry Code,R,,,,,
+2300.HI12.01,Code List Qualifier Code,R,,,,,
+2300.HI12.02,Industry Code,R,,,,,
+,Segment - HCP Claim Pricing/Repricing Information (Situational),,,,,,
+2300.HCP01,Pricing Methodology,R,,,,,
+2300.HCP02,Monetary Amount,R,,,,,
+2300.HCP03,Monetary Amount,S,,,,,
+2300.HCP04,Reference Identification,S,,,,,
+2300.HCP05,Rate,S,,,,,
+2300.HCP06,Reference Identification,S,,,,,
+2300.HCP07,Monetary Amount,S,,,,,
+2300.HCP08,Product/Service ID,S,,,,,
+2300.HCP11,Unit or Basis for Measurement Code,S,,,,,
+2300.HCP12,Quantity,S,,,,,
+2300.HCP13,Reject Reason Code,S,,,,,
+2300.HCP14,Policy Compliance Code,S,,,,,
+2300.HCP15,Exception Code,S,,,,,
+,Loop 2310A (Situational),,,,,,
+,Segment - NM1 Attending Provider Name (Situational),,,,,,
+2310A.NM101,Entity Identifier Code,R,71- Attending Physician,71,,,
+2310A.NM102,Entity Type Qualifier,R,1- Person,1,,,
+2310A.NM103,Name Last or Organization Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/attendingInformation/practitioner/lastName,,
+2310A.NM104,Name First,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/attendingInformation/practitioner/firstName,,
+2310A.NM105,Name Middle,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/attendingInformation/practitioner/middleName,,
+2310A.NM107,Name Suffix,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/attendingInformation/practitioner/nameSuffix,,
+2310A.NM108,Identification Code Qualifier,S,XX- CMS NPI,XX,,,
+2310A.NM109,Identification Code,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/attendingInformation/NPI,,
+,Segment - PRV Provider Information (Situational),,,,,,
+2310A.PRV01,Provider Code,R,AT- Attending,AT,,,
+2310A.PRV02,Reference Identification Qualifier,R,PXC- Health Care Provider Taxonomy Code,PXC,,,
+2310A.PRV03,Reference Identification,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/attendingInformation/primarySpecialty/taxonomyCode,,
+,Segment - REF Attending Provider Secondary Identification (Situational),,,,,,
+2310A.REF01,Reference Identification Qualifier,R,,,,,
+2310A.REF02,Reference Identification,R,,,,,
+,Loop 2310B (Situational),,,,,,
+,Segment - NM1 Operating Physician Name (Situational),,,,,,
+2310B.NM101,Entity Identifier Code,R,72 Operating Physician,72,"If Operating physician information is present in XML, populate NM1*72*1
+else don't populate this segment",,Not getting operating phy in Soap XML. Need to validate it once the Ipus chgs are complete.
+2310B.NM102,Entity Type Qualifier,R,1 Person,1,,,
+2310B.NM103,Name Last or Organization Name,R,,,mapped from getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/ub92Info/operatingPhysician/lastName,,
+2310B.NM104,Name First,S,,,mapped from getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/ub92Info/operatingPhysician/firstName,,
+2310B.NM105,Name Middle,S,,,mapped from getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/ub92Info/operatingPhysician/middleName,,
+2310B.NM107,Name Suffix,S,,,mapped from getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/ub92Info/operatingPhysician/nameSuffix,,
+2310B.NM108,Identification Code Qualifier,S,XX Centers for Medicare and Medicaid Services National Provider Identifier,XX,,,
+2310B.NM109,Identification Code,S,,,mapped from getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/ub92Info/operatingPhysician/NPI,,
+,Segment - REF Operating Physician Secondary Identification (Situational),,,,,,
+2310B.REF01,Reference Identification Qualifier,R,"0B State License Number
+1G Provider UPIN Number
+1555 UPINs must be formatted as either X99999 or
+XXX999.
+G2 Provider Commercial Number
+LU Location Number",,,,
+2310B.REF02,Reference Identification,R,,,,,
+,Loop 2310C (Situational),,,,,,
+,Segment - NM1 Other Operating Physician Name (Situational),,,,Map it to 2310B first if 2310B is not mapped with any data already. Map it to 2310C only if 2310B is mapped with the data from XML,,
+2310C.NM101,Entity Identifier Code,R,ZZ Mutually Defined,ZZ,,,Not getting other operating phy in Soap XML. Need to validate it once the Ipus chgs are complete.
+2310C.NM102,Entity Type Qualifier,R,1 Person,2,,,
+2310C.NM103,Name Last or Organization Name,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherPractitionerList/practitioner/practitioner/lastName,,Map it to 2310B first if 2310B is not mapped with any data already. Map it to 2310C only if 2310B is mapped with the data from XML
+2310C.NM104,Name First,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherPractitionerList/practitioner/practitioner/firstName,,Map it to 2310B first if 2310B is not mapped with any data already. Map it to 2310C only if 2310B is mapped with the data from XML
+2310C.NM105,Name Middle,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherPractitionerList/practitioner/practitioner/middleName,,Map it to 2310B first if 2310B is not mapped with any data already. Map it to 2310C only if 2310B is mapped with the data from XML
+2310C.NM107,Name Suffix,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherPractitionerList/practitioner/practitioner/nameSuffix,,Map it to 2310B first if 2310B is not mapped with any data already. Map it to 2310C only if 2310B is mapped with the data from XML
+2310C.NM108,Identification Code Qualifier,S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",XX,,,
+2310C.NM109,Identification Code,,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/otherPractitionerList/practitioner/NPI,,
+,Segment - REF Other Operating Physician Secondary Identification (Situational),,,,,,
+2310C.REF01,Reference Identification Qualifier,R,,,,,
+2310C.REF02,Reference Identification,R,,,,,
+,Loop 2310D (Situational),,,,,,
+,Segment - NM1 Rendering Provider Name (Situational),,,Map this loop only if Provider NPI/ID is different from 2310A,,,
+2310D.NM101,Entity Identifier Code,R,82 Rendering Provider,82,,,
+2310D.NM102,Entity Type Qualifier,R,1 Person,I,,,
+2310D.NM103,Name Last or Organization Name,R,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/lastName/,Map from 1st Service line,
+2310D.NM104,Name First,S,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/firstName/,Map from 1st Service line,
+2310D.NM105,Name Middle,S,,,,,
+2310D.NM107,Name Suffix,S,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/credentialSuffix/,Map from 1st Service line,
+2310D.NM108,Identification Code Qualifier,S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",XX,,,
+2310D.NM109,Identification Code,S,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/NPI/,Map from 1st Service line,
+,Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,
+2310D.REF01,Reference Identification Qualifier,R,"0B State License Number
+1G Provider UPIN Number
+1555 UPINs must be formatted as either X99999 or
+XXX999.
+G2 Provider Commercial Number
+LU Location Number",G2,,,
+2310D.REF02,Reference Identification,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/NPI,Map from 1st Service line,
+,Loop 2310E (Situational),,,,,,
+,Segment - NM1 Service Facility Location Name (Situational),,,,,,
+2310E.NM101,Entity Identifier Code,R,77 Service Location,,,,
+2310E.NM102,Entity Type Qualifier,R,2 Non-Person Entity,,,,
+2310E.NM103,Name Last or Organization Name,R,,,,,
+2310E.NM108,Identification Code Qualifier,S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,
+2310E.NM109,Identification Code,S,,,,,
+,Segment - N3 Service Facility Location Address (Required),,,,,,
+2310E.N301,Address Information,R,,,,,
+2310E.N302,Address Information,S,,,,,
+,"Segment - N4 Service Facility Location City, State, ZIP Code (Required)",,,,,,
+2310E.N401,City Name,R,,,,,
+2310E.N402,State or Province Code,S,,,,,
+2310E.N403,Postal Code,S,,,,,
+2310E.N404,Country Code,S,,,,,
+2310E.N407,Country Subdivision Code,S,,,,,
+,Segment - REF Service Facility Location Secondary Identification (Situational),,,,,,
+2310E.REF01,Reference Identification Qualifier,R,,,,,
+2310E.REF02,Reference Identification,R,,,,,
+,Loop 2310F (Situational),,,,,,
+,Segment - NM1 Referring Provider Name (Situational),,,,,,
+2310F.NM101,Entity Identifier Code,R,,DN,,,
+2310F.NM102,Entity Type Qualifier,R,,1,,,
+2310F.NM103,Name Last or Organization Name,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/referringInformation/practitioner/lastName,,
+2310F.NM104,Name First,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/referringInformation/practitioner/firstName,,
+2310F.NM105,Name Middle,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/referringInformation/practitioner/middleName,,
+2310F.NM107,Name Suffix,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/referringInformation/practitioner/nameSuffix,,
+2310F.NM108,Identification Code Qualifier,S,,XX,,,
+2310F.NM109,Identification Code,S,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/referringInformation/NPI,,
+,Segment - REF Referring Provider Secondary Identification (Situational),,,,,,
+2310F.REF01,Reference Identification Qualifier,R,,G2,,,
+2310F.REF02,Reference Identification,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/referringInformation/NPI,,
+"Loop 2320 (Situational)  - First Instance
+ --- It will always be mapped with HRP Paid Details",,,,,,,
+,Segment - SBR Other Subscriber Information (Situational),,,,Should populate the details as given below for 1st 2320 instance,,
+2320.SBR01,Payer Responsibility Sequence Number Code,R,"A Payer Responsibility Four
+B Payer Responsibility Five
+C Payer Responsibility Six
+D Payer Responsibility Seven
+E Payer Responsibility Eight
+F Payer Responsibility Nine
+G Payer Responsibility Ten
+H Payer Responsibility Eleven
+P Primary
+S Secondary
+T Tertiary
+U Unknown","Hardcode it to ""P""","OtherInsuranceCount = Count(/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/companyName != """")
+
+Logic to populate this instance of 2320 SBR01 -
+If OtherInsuranceCount = 0
+ Populate ""P""
+Else If OtherInsuranceCount = 1
+ Populate ""S""
+Else If OtherInsuranceCount = 2
+ Populate ""T""
+Else If OtherInsuranceCount = 3
+ Populate ""A""",,GHC
+2320.SBR02,Individual Relationship Code,R,"01 Spouse
+18 Self
+19 Child
+20 Employee
+21 Unknown
+39 Organ Donor
+40 Cadaver Donor
+53 Life Partner
+G8 Other Relationship",18,,,
+2320.SBR03,Reference Identification,S,,,map from getClaimDetailsByHccIDResponse/claim/subscriptionInformation/groupNumber,,
+2320.SBR04,Name,S,,,,,
+2320.SBR09,Claim Filing Indicator Code,S,"11 Other Non-Federal Programs
+12 Preferred Provider Organization (PPO)
+13 Point of Service (POS)
+14 Exclusive Provider Organization (EPO)
+15 Indemnity Insurance
+16 Health Maintenance Organization (HMO) Medicare
+Risk
+17 Dental Maintenance Organization
+AM Automobile Medical
+BL Blue Cross/Blue Shield
+CH Champus
+CI Commercial Insurance Co.
+DS Disability
+FI Federal Employees Program
+HM Health Maintenance Organization
+LM Liability Medical
+MA Medicare Part A
+MB Medicare Part B
+MC Medicaid
+OF Other Federal Program
+claims.
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation Health Claim
+ZZ Mutually Defined
+71 Use Code ZZ when Type of Insurance is not",,"getClaimDetailsByHccIDResponseRecord/identifiers/identifier/value
+if
+getClaimDetailsByHccIDResponseRecord/identifiers/identifier/key is equal to ""CLAIM_FILING_INDICATOR_CODE",,
+,Segment - CAS Claim Level Adjustments (Situational),,,,,,
+2320.CAS01,Claim Adjustment Group Code,R,,,,,
+2320.CAS02,Claim Adjustment Reason Code,R,,,,,
+2320.CAS03,Monetary Amount,R,,,,,
+2320.CAS04,Quantity,S,,,,,
+2320.CAS05,Claim Adjustment Reason Code,S,,,,,
+2320.CAS06,Monetary Amount,S,,,,,
+2320.CAS07,Quantity,S,,,,,
+2320.CAS08,Claim Adjustment Reason Code,S,,,,,
+2320.CAS09,Monetary Amount,S,,,,,
+2320.CAS10,Quantity,S,,,,,
+2320.CAS11,Claim Adjustment Reason Code,S,,,,,
+2320.CAS12,Monetary Amount,S,,,,,
+2320.CAS13,Quantity,S,,,,,
+2320.CAS14,Claim Adjustment Reason Code,S,,,,,
+2320.CAS15,Monetary Amount,S,,,,,
+2320.CAS16,Quantity,S,,,,,
+2320.CAS17,Claim Adjustment Reason Code,S,,,,,
+2320.CAS18,Monetary Amount,S,,,,,
+2320.CAS19,Quantity,S,,,,,
+,Segment - AMT Coordination of Benefits (COB) Payer Paid Amount (Situational),,,,,,
+2320.AMT01,Amount Qualifier Code,R,D Payor Amount Paid,D,,,This amount should match the Claim Line SVD Paid Amount
+2320.AMT02,Monetary Amount,R,,,/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimTotals/paidAmount,,
+,Segment - AMT Remaining Patient Liability (Situational),,,,,,
+2320.AMT01,Amount Qualifier Code,R,EAF Amount Owed,,,,
+2320.AMT02,Monetary Amount,R,Remaining Patient Liability,,,,
+,Segment - AMT Coordination of Benefits (COB) Total Non-covered Amount (Situational),,,,,,
+2320.AMT01,Amount Qualifier Code,R,A8 Noncovered Charges - Actual,,,,
+2320.AMT02,Monetary Amount,R,,,,,
+,Segment - OI Other Insurance Coverage Information (Required),,,,,,
+2320.OI03,Yes/No Condition or Response Code,R,"N No
+W Not Applicable
+Y Yes",,"Hardcode to ""Y""",,
+2320.OI06,Release of Information Code,R,"I Informed Consent to Release Medical Information
+for Conditions or Diagnoses Regulated by Federal
+Statutes
+Y Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim",,"Hardcode to ""Y""",,
+,Segment - MIA Inpatient Adjudication Information (Situational),,,,,,
+2320.MIA01,Quantity,R,,,,,
+2320.MIA03,Quantity,S,,,,,
+2320.MIA04,Monetary Amount,S,,,,,
+2320.MIA05,Reference Identification,S,,,,,
+2320.MIA06,Monetary Amount,S,,,,,
+2320.MIA07,Monetary Amount,S,,,,,
+2320.MIA08,Monetary Amount,S,,,,,
+2320.MIA09,Monetary Amount,S,,,,,
+2320.MIA10,Monetary Amount,S,,,,,
+2320.MIA11,Monetary Amount,S,,,,,
+2320.MIA12,Monetary Amount,S,,,,,
+2320.MIA13,Monetary Amount,S,,,,,
+2320.MIA14,Monetary Amount,S,,,,,
+2320.MIA15,Quantity,S,,,,,
+2320.MIA16,Monetary Amount,S,,,,,
+2320.MIA17,Monetary Amount,S,,,,,
+2320.MIA18,Monetary Amount,S,,,,,
+2320.MIA19,Monetary Amount,S,,,,,
+2320.MIA20,Reference Identification,S,,,,,
+2320.MIA21,Reference Identification,S,,,,,
+2320.MIA22,Reference Identification,S,,,,,
+2320.MIA23,Reference Identification,S,,,,,
+2320.MIA24,Monetary Amount,S,,,,,
+,Segment - MOA Outpatient Adjudication Information (Situational),,,,,,
+2320.MOA01,Percentage as Decimal,S,,,,,
+2320.MOA02,Monetary Amount,S,,,,,
+2320.MOA03,Reference Identification,S,,,,,
+2320.MOA04,Reference Identification,S,,,,,
+2320.MOA05,Reference Identification,S,,,,,
+2320.MOA06,Reference Identification,S,,,,,
+2320.MOA07,Reference Identification,S,,,,,
+2320.MOA08,Monetary Amount,S,,,,,
+2320.MOA09,Monetary Amount,S,,,,,
+,Loop 2330A(Situational),,,,,,
+,Segment - NM1 Other Subscriber Name (Required),,,,,,
+2330A.NM101,Entity Identifier Code,R,IL : Insured or Subscriber,IL,,,Copy the details of the patient from 2000B loop here
+2330A.NM102,Entity Type Qualifier,R,"1 : Person
+2 : Non-Person Entity",1,,,
+2330A.NM103,Name Last or Organization Name,R,,,Copy from 2010BA,,
+2330A.NM104,Name First,S,,,Copy from 2010BA,,
+2330A.NM105,Name Middle,S,,,Copy from 2010BA,,
+2330A.NM107,Name Suffix,S,,,Copy from 2010BA,,
+2330A.NM108,Identification Code Qualifier,R,"II Standard Unique Health Identifier for each Individual
+MI Member Identification Number",MI,,,
+2330A.NM109,Identification Code,R,,,Copy from 2010BA,,
+,Segment - N3 Other Subscriber Address (Situational),,,,,,
+2330A.N301,Address Information,R,,,Copy from 2010BA,,
+2330A.N302,Address Information,S,,,Copy from 2010BA,,
+,Segment - N4 Other Subscriber City/State/ZIP Code (Situational),,,,,,
+2330A.N401,City Name,R,,,Copy from 2010BA,,
+2330A.N402,State or Province Code,S,,,Copy from 2010BA,,
+2330A.N403,Postal Code,S,,,Copy from 2010BA,,
+2330A.N404,Country Code,S,,US,Copy from 2010BA,,
+2330A.N407,Country Subdivision Code,S,,,Copy from 2010BA,,
+,Segment - REF Other Subscriber Secondary Information (Situational),,,,,,
+2330A.REF01,Reference Identification Qualifier,R,,,Copy from 2010BA,,
+2330A.REF02,Reference Identification,R,,,Copy from 2010BA,,
+,Loop 2330B(Situational),,,,,,
+,Segment - NM1 Other Payer Name (Required),,,,,,
+2330B.NM101,Entity Identifier Code,R,PR Payer,PR,,,
+2330B.NM102,Entity Type Qualifier,R,2 Non-Person Entity,2,,,
+2330B.NM103,Name Last or Organization Name,R,,,Copy from 2010BB loop,,
+2330B.NM108,Identification Code Qualifier,R,,XV,,,
+2330B.NM109,Identification Code,R,,,Copy from 2010BB loop,,
+,Segment - N3 Other Payer Address (Situational),,,,,,
+2330B.N301,Address Information,R,,,Copy from 2010BB loop,,
+2330B.N302,Address Information,S,,,Copy from 2010BB loop,,
+,Segment - N4 Other Payer City/State/ZIP Code (Situational),,,,,,
+2330B.N401,City Name,R,,,Copy from 2010BB loop,,
+2330B.N402,State or Province Code,S,,,Copy from 2010BB loop,,
+2330B.N403,Postal Code,S,,,Copy from 2010BB loop,,
+2330B.N404,Country Code,S,,US,Copy from 2010BB loop,,
+2330B.N407,Country Subdivision Code,S,,,,,
+,Segment - DTP Claim Check or Remittance Date (Situational),,,,"This should always be populated make sure its populate in case of Paid, Denied, and adjusted void claims",,
+2330B.DTP01,Date/Time Qualifier,R,573 Date Claim Paid,573,,,
+2330B.DTP02,Date Time Period Format Qualifier,R,D8 Date Expressed in Format CCYYMMDD,D8,,,
+2330B.DTP03,Date Time Period,R,,,getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/paymentDate,Remove '-',
+,Segment - REF Other Payer Secondary Identifier (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Prior Authorization Number (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,G1 Prior Authorization Number,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Referral Number (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,9F : Referral Number,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Claim Adjustment Indicator (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,T4 : Signal Code,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Claim Control Number (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,F8 : Original Reference Number,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Loop 2330C (Situational),,,,,,
+,Segment - NM1 Other Payer Attending Provider (Situational),,,,,,
+2330C.NM101,Entity Identifier Code,R,,,,,
+2330C.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Attending Provider Secondary Identification (Required),,,,,,
+2330C.REF01,Reference Identification Qualifier,R,,,,,
+2330C.REF02,Reference Identification,R,,,,,
+,Loop 2330D (Situational),,,,,,
+,Segment - NM1 Other Payer Operating Physician (Situational),,,,,,
+2330D.NM101,Entity Identifier Code,R,,,,,
+2330D.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Operating Physician Secondary Identification (Required),,,,,,
+2330D.REF01,Reference Identification Qualifier,R,,,,,
+2330D.REF02,Reference Identification,R,,,,,
+,Loop 2330E (Situational),,,,,,
+,Segment - NM1 Other Payer Other Operating Physician (Situational),,,,,,
+2330E.NM101,Entity Identifier Code,R,,,,,
+2330E.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Other Operating Physician Secondary Identification (Required),,,,,,
+2330E.REF01,Reference Identification Qualifier,R,,,,,
+2330E.REF02,Reference Identification,R,,,,,
+,Loop 2330F (Situational),,,,,,
+,Segment - NM1 Other Payer Service Facility Location (Situational),,,,,,
+2330F.NM101,Entity Identifier Code,R,,,,,
+2330F.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Service Facility Location Identification (Required),,,,,,
+2330F.REF01,Reference Identification Qualifier,R,,,,,
+2330F.REF02,Reference Identification,R,,,,,
+,Loop 2330G (Situational),,,,,,
+,Segment - NM1 Other Payer Rendering Provider Name (Situational),,,,,,
+2330G.NM101,Entity Identifier Code,R,,,,,
+2330G.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Rendering Provider Secondary Identification (Required),,,,,,
+2330G.REF01,Reference Identification Qualifier,R,,,,,
+2330G.REF02,Reference Identification,R,,,,,
+,Loop - 2330H (Situational),,,,,,
+,Segment - NM1 Other Payer Referring Provider (Situational),,,,,,
+2330H.NM101,Entity Identifier Code,R,,,,,
+2330H.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Referring Provider Secondary Identification (Required),,,,,,
+2330H.REF01,Reference Identification Qualifier,R,,,,,
+2330H.REF02,Reference Identification,R,,,,,
+,Loop - 2330I (Situational),,,,,,
+,Segment - NM1 Other Payer Billing Provider (Situational),,,,,,
+2330I.NM101,Entity Identifier Code,R,,,,,
+2330I.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Billing Provider Secondary Identification (Required),,,,,,
+2330I.REF01,Reference Identification Qualifier,R,,,,,
+2330I.REF02,Reference Identification,R,,,,,
+Loop 2320 (Situational) - Additional Instance,,,,,,,
+,Segment - SBR Other Subscriber Information (Situational),"Create additional instance of 2320 & its equivalent loops for each instance of OtherInsuranceClaimInfo only when the below condition matches
+
+/claim/otherInsuranceClaimInfoList/otherInsuranceClaimInfo/companyName != """"",,,,,
+2320.SBR01,Payer Responsibility Sequence Number Code,R,"A Payer Responsibility Four
+B Payer Responsibility Five
+C Payer Responsibility Six
+D Payer Responsibility Seven
+E Payer Responsibility Eight
+F Payer Responsibility Nine
+G Payer Responsibility Ten
+H Payer Responsibility Eleven
+P Primary
+S Secondary
+T Tertiary
+U Unknown",,"Logic to populate this instance of 2320 SBR01 -
+First instance of otherInsuranceInfoClaimInfo
+ Populate ""P""
+Second instance of otherInsuranceInfoClaimInfo
+ Populate ""S""
+Third instance of otherInsuranceInfoClaimInfo
+ Populate ""T""",,
+2320.SBR02,Individual Relationship Code,R,"01 Spouse
+18 Self
+19 Child
+20 Employee
+21 Unknown
+39 Organ Donor
+40 Cadaver Donor
+53 Life Partner
+G8 Other Relationship",18,,,
+2320.SBR03,Reference Identification,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/groupNumber,,
+2320.SBR04,Name,S,,,,,
+2320.SBR09,Claim Filing Indicator Code,S,"11 Other Non-Federal Programs
+12 Preferred Provider Organization (PPO)
+13 Point of Service (POS)
+14 Exclusive Provider Organization (EPO)
+15 Indemnity Insurance
+16 Health Maintenance Organization (HMO) Medicare
+Risk
+17 Dental Maintenance Organization
+AM Automobile Medical
+BL Blue Cross/Blue Shield
+CH Champus
+CI Commercial Insurance Co.
+DS Disability
+FI Federal Employees Program
+HM Health Maintenance Organization
+LM Liability Medical
+MA Medicare Part A
+MB Medicare Part B
+MC Medicaid
+OF Other Federal Program
+claims.
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation Health Claim
+ZZ Mutually Defined
+71 Use Code ZZ when Type of Insurance is not",,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/claimFilingIndicator,,
+,Segment - CAS Claim Level Adjustments (Situational),,,,,,
+2320.CAS01,Claim Adjustment Group Code,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentGroupCode,Group CAS segment based on eobAdjustmentGroupCode,Not getting these tags in Soap XML.
+2320.CAS02,Claim Adjustment Reason Code,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentReasonCode,,
+2320.CAS03,Monetary Amount,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentAmount,,
+2320.CAS04,Quantity,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentQuantity,,
+2320.CAS05,Claim Adjustment Reason Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentReasonCode,,
+2320.CAS06,Monetary Amount,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentAmount,,
+2320.CAS07,Quantity,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentQuantity,,
+2320.CAS08,Claim Adjustment Reason Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentReasonCode,,
+2320.CAS09,Monetary Amount,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentAmount,,
+2320.CAS10,Quantity,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentQuantity,,
+2320.CAS11,Claim Adjustment Reason Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentReasonCode,,
+2320.CAS12,Monetary Amount,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentAmount,,
+2320.CAS13,Quantity,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentQuantity,,
+2320.CAS14,Claim Adjustment Reason Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentReasonCode,,
+2320.CAS15,Monetary Amount,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentAmount,,
+2320.CAS16,Quantity,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentQuantity,,
+2320.CAS17,Claim Adjustment Reason Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentReasonCode,,
+2320.CAS18,Monetary Amount,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentAmount,,
+2320.CAS19,Quantity,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/headerEOBAdjustments/eobAdjustments/eobAdjustmentQuantity,,
+,Segment - AMT Coordination of Benefits (COB) Payer Paid Amount (Situational),,,,,,
+2320.AMT01,Amount Qualifier Code,R,D Payor Amount Paid,D,,,
+2320.AMT02,Monetary Amount,R,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/otherInsuranceClaimInfoList/otherInsuranceClaimInfo/priorPayments/money/,"If money != """"
+ Map AMT02 with ""money""
+ Map AMT01 with ""D""",
+,Segment - AMT Remaining Patient Liability (Situational),,,,,,
+2320.AMT01,Amount Qualifier Code,R,EAF Amount Owed,,,,
+2320.AMT02,Monetary Amount,R,,,,,
+,Segment - AMT Coordination of Benefits (COB) Total Non-covered Amount (Situational),,,,,,
+2320.AMT01,Amount Qualifier Code,R,A8 Noncovered Charges - Actual,,,,
+2320.AMT02,Monetary Amount,R,,,,,
+,Segment - OI Other Insurance Coverage Information (Required),,,,,,
+2320.OI03,Yes/No Condition or Response Code,R,"N No
+W Not Applicable
+Y Yes","Hardcode to ""Y""",,,
+2320.OI06,Release of Information Code,R,"I Informed Consent to Release Medical Information
+for Conditions or Diagnoses Regulated by Federal
+Statutes
+Y Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim","Hardcode to ""Y""",,,
+,Segment - MIA Inpatient Adjudication Information (Situational),,,,,,
+2320.MIA01,Quantity,R,,,,,
+2320.MIA03,Quantity,S,,,,,
+2320.MIA04,Monetary Amount,S,,,,,
+2320.MIA05,Reference Identification,S,,,,,
+2320.MIA06,Monetary Amount,S,,,,,
+2320.MIA07,Monetary Amount,S,,,,,
+2320.MIA08,Monetary Amount,S,,,,,
+2320.MIA09,Monetary Amount,S,,,,,
+2320.MIA10,Monetary Amount,S,,,,,
+2320.MIA11,Monetary Amount,S,,,,,
+2320.MIA12,Monetary Amount,S,,,,,
+2320.MIA13,Monetary Amount,S,,,,,
+2320.MIA14,Monetary Amount,S,,,,,
+2320.MIA15,Quantity,S,,,,,
+2320.MIA16,Monetary Amount,S,,,,,
+2320.MIA17,Monetary Amount,S,,,,,
+2320.MIA18,Monetary Amount,S,,,,,
+2320.MIA19,Monetary Amount,S,,,,,
+2320.MIA20,Reference Identification,S,,,,,
+2320.MIA21,Reference Identification,S,,,,,
+2320.MIA22,Reference Identification,S,,,,,
+2320.MIA23,Reference Identification,S,,,,,
+2320.MIA24,Monetary Amount,S,,,,,
+,Segment - MOA Outpatient Adjudication Information (Situational),,,,,,
+2320.MOA01,Percentage as Decimal,S,,,,,
+2320.MOA02,Monetary Amount,S,,,,,
+2320.MOA03,Reference Identification,S,,,,,
+2320.MOA04,Reference Identification,S,,,,,
+2320.MOA05,Reference Identification,S,,,,,
+2320.MOA06,Reference Identification,S,,,,,
+2320.MOA07,Reference Identification,S,,,,,
+2320.MOA08,Monetary Amount,S,,,,,
+2320.MOA09,Monetary Amount,S,,,,,
+,Loop 2330A(Situational),,,,,,
+,Segment - NM1 Other Subscriber Name (Required),,,,,,
+2330A.NM101,Entity Identifier Code,R,IL : Insured or Subscriber,IL,,,
+2330A.NM102,Entity Type Qualifier,R,"1 : Person
+2 : Non-Person Entity",1,,,
+2330A.NM103,Name Last or Organization Name,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherSubscriberLastName,,Copy from 2010BA if not present in otherInsuranceInfoClaimInfo
+2330A.NM104,Name First,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherSubscriberFirstName,,Copy from 2010BA if not present in otherInsuranceInfoClaimInfo
+2330A.NM105,Name Middle,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherSubscriberMiddleName,,Copy from 2010BA if not present in otherInsuranceInfoClaimInfo
+2330A.NM107,Name Suffix,S,,,,,
+2330A.NM108,Identification Code Qualifier,R,"II Standard Unique Health Identifier for each Individual
+MI Member Identification Number",MI,,,
+2330A.NM109,Identification Code,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherInsuranceSubscriberId,,Copy from 2010BA if not present in otherInsuranceInfoClaimInfo
+,Segment - N3 Other Subscriber Address (Situational),,,,,,
+2330A.N301,Address Information,R,,,,,
+2330A.N302,Address Information,S,,,,,
+,Segment - N4 Other Subscriber City/State/ZIP Code (Situational),,,,,,
+2330A.N401,City Name,R,,,,,
+2330A.N402,State or Province Code,S,,,,,
+2330A.N403,Postal Code,S,,,,,
+2330A.N404,Country Code,S,,,,,
+2330A.N407,Country Subdivision Code,S,,,,,
+,Segment - REF Other Subscriber Secondary Information (Situational),,,,,,
+2330A.REF01,Reference Identification Qualifier,R,,,,,
+2330A.REF02,Reference Identification,R,,,,,
+,Loop 2330B(Situational),,,,,,
+,Segment - NM1 Other Payer Name (Required),,,,,,
+2330B.NM101,Entity Identifier Code,R,PR Payer,PR,,,
+2330B.NM102,Entity Type Qualifier,R,2 Non-Person Entity,2,,,
+2330B.NM103,Name Last or Organization Name,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/companyName,,
+2330B.NM108,Identification Code Qualifier,R,,XV,,,
+2330B.NM109,Identification Code,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/providerNumber,"if providerNumber != """"
+  Map providerNumber
+Else
+  Map ""Payer"" + <Seq>
+
+Seq should start from 01 and increment by 1. Ex., Payer01, Payer02, Payer03 etc., for each 2320 loop",
+,Segment - N3 Other Payer Address (Situational),,,,,,
+2330B.N301,Address Information,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherInsuranceCompanyAddress/address,,"Map Address elements only if all the required elements are present - N301, N401, N402, N403"
+2330B.N302,Address Information,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherInsuranceCompanyAddress/address2,,"Map Address elements only if all the required elements are present - N301, N401, N402, N403"
+,Segment - N4 Other Payer City/State/ZIP Code (Situational),,,,,,
+2330B.N401,City Name,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherInsuranceCompanyAddress/city,,"Map Address elements only if all the required elements are present - N301, N401, N402, N403"
+2330B.N402,State or Province Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherInsuranceCompanyAddress/stateCode,,"Map Address elements only if all the required elements are present - N301, N401, N402, N403"
+2330B.N403,Postal Code,S,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/otherInsuranceCompanyAddress/zipCode,,"If zipCode length is < 9
+ concatenate zeros to make it to 9 digits. Ex., 402200000
+
+Map Address elements only if all the required elements are present - N301, N401, N402, N403"
+2330B.N404,Country Code,S,,US,,,
+2330B.N407,Country Subdivision Code,S,,,,,
+,Segment - DTP Claim Check or Remittance Date (Situational),,,,,,
+2330B.DTP01,Date/Time Qualifier,R,573 Date Claim Paid,"Hardcode ""573""",,,
+2330B.DTP02,Date Time Period Format Qualifier,R,D8 Date Expressed in Format CCYYMMDD,"Hardcode ""D8""",,,
+2330B.DTP03,Date Time Period,R,,,/claim/otherInsuranceInfoClaimList/otherInsuranceInfoClaimInfo/eobDate,"if eobDate != """"
+ Map eobDate",
+,Segment - REF Other Payer Secondary Identifier (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Prior Authorization Number (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,G1 Prior Authorization Number,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Referral Number (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,9F : Referral Number,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Claim Adjustment Indicator (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,T4 : Signal Code,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Segment - REF Other Payer Claim Control Number (Situational),,,,,,
+2330B.REF01,Reference Identification Qualifier,R,F8 : Original Reference Number,,,,
+2330B.REF02,Reference Identification,R,,,,,
+,Loop 2330C (Situational),,,,,,
+,Segment - NM1 Other Payer Attending Provider (Situational),,,,,,
+2330C.NM101,Entity Identifier Code,R,,,,,
+2330C.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Attending Provider Secondary Identification (Required),,,,,,
+2330C.REF01,Reference Identification Qualifier,R,,,,,
+2330C.REF02,Reference Identification,R,,,,,
+,Loop 2330D (Situational),,,,,,
+,Segment - NM1 Other Payer Operating Physician (Situational),,,,,,
+2330D.NM101,Entity Identifier Code,R,,,,,
+2330D.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Operating Physician Secondary Identification (Required),,,,,,
+2330D.REF01,Reference Identification Qualifier,R,,,,,
+2330D.REF02,Reference Identification,R,,,,,
+,Loop 2330E (Situational),,,,,,
+,Segment - NM1 Other Payer Other Operating Physician (Situational),,,,,,
+2330E.NM101,Entity Identifier Code,R,,,,,
+2330E.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Other Operating Physician Secondary Identification (Required),,,,,,
+2330E.REF01,Reference Identification Qualifier,R,,,,,
+2330E.REF02,Reference Identification,R,,,,,
+,Loop 2330F (Situational),,,,,,
+,Segment - NM1 Other Payer Service Facility Location (Situational),,,,,,
+2330F.NM101,Entity Identifier Code,R,,,,,
+2330F.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Service Facility Location Identification (Required),,,,,,
+2330F.REF01,Reference Identification Qualifier,R,,,,,
+2330F.REF02,Reference Identification,R,,,,,
+,Loop 2330G (Situational),,,,,,
+,Segment - NM1 Other Payer Rendering Provider Name (Situational),,,,,,
+2330G.NM101,Entity Identifier Code,R,,,,,
+2330G.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Rendering Provider Secondary Identification (Required),,,,,,
+2330G.REF01,Reference Identification Qualifier,R,,,,,
+2330G.REF02,Reference Identification,R,,,,,
+,Loop - 2330H (Situational),,,,,,
+,Segment - NM1 Other Payer Referring Provider (Situational),,,,,,
+2330H.NM101,Entity Identifier Code,R,,,,,
+2330H.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Referring Provider Secondary Identification (Required),,,,,,
+2330H.REF01,Reference Identification Qualifier,R,,,,,
+2330H.REF02,Reference Identification,R,,,,,
+,Loop - 2330I (Situational),,,,,,
+,Segment - NM1 Other Payer Billing Provider (Situational),,,,,,
+2330I.NM101,Entity Identifier Code,R,,,,,
+2330I.NM102,Entity Type Qualifier,R,,,,,
+,Segment - REF Other Payer Billing Provider Secondary Identification (Required),,,,,,
+2330I.REF01,Reference Identification Qualifier,R,,,,,
+2330I.REF02,Reference Identification,R,,,,,
+,Loop 2400 (Required),,,,,,
+,Segment - LX Service Line Number (Required),,,,,,
+2400.LX01,Assigned Number,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/claimLineId,,
+,Segment - SV2 Institutional Service Line (Required),,,,,,
+2400.SV201,Product/Service ID,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/revenueCode,,
+2400.SV202.01,Product/Service ID Qualifier,R,"HC :(HCPCS) Codes
+HP: Health Insurance Prospective Payment System
+(HIPPS)",,"Hardcode 'HP'  If /eobClaimDetail/claim/claimLine/claimLine/claimLineCustomTags/key  is  SERVICE_TYPE_NAME  AND
+/eobClaimDetail/claim/claimLine/claimLine/claimLineCustomTags/value is HIPPS Code
+
+Else
+Hardcode 'HC'",,
+2400.SV202.02,Product/Service ID,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/serviceCode,,
+2400.SV202.03,Procedure Modifier,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/modifierList/string,,
+2400.SV202.04,Procedure Modifier,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/modifierList/string,,
+2400.SV202.05,Procedure Modifier,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/modifierList/string,,
+2400.SV202.06,Procedure Modifier,S,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/modifierList/string,,
+2400.SV202.07,Description,S,,,,,
+2400.SV203,Monetary Amount,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/requestedAmount,,
+2400.SV204,Unit or Basis for Measurement Code,R,,,"If 2400.SV201 != """" and 2400.SV201 Starts with one of the code below, then Map ""DA"" Else Map ""UN""
+
+010,011,012,013,014,015,016,017,018,019,020,021",,
+2400.SV205,Quantity,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/units,,
+2400.SV207,Monetary Amount,S,,,,,
+,Segment - PWK Line Supplemental Information (Situational),,,,,,
+2400.PWK01,Report Type Code,R,,,,,
+2400.PWK02,Report Transmission Code,R,,,,,
+2400.PWK05,Identification Code Qualifier,S,,,,,
+2400.PWK06,Identification Code,S,,,,,
+,Segment - DTP Date - Service Date (Situational),,,,,,
+2400.DTP01,Date/Time Qualifier,R,472 Service,472,,,
+2400.DTP02,Date Time Period Format Qualifier,R,"D8 :Date Expressed in Format CCYYMMDD
+RD8 :Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",D8 / RD8,,"RD8 is ServiceStartDate is not the same as ServiceEndDate. D8 if they are the same, just export the ServiceStartDate",
+2400.DTP03,Date Time Period,R,,,"getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/serviceStartDate ""-"" getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/serviceEndDate",,
+,Segment - REF Line Item Control Number (Situational),,,,,,
+2400.REF01,Reference Identification Qualifier,R,,"Hardcode ""6R""",,,
+2400.REF02,Reference Identification,R,,,"Populate HCCClaimID + <Sequence>
+Sequence - Increment this number for each line and should like 001, 002, 003, 004, etc",,"Exmaple - 20201221101437001, 20201221101437002"
+,Segment - REF Repriced Line Item Reference Number (Situational),,,,,,
+2400.REF01,Reference Identification Qualifier,R,,,,,
+2400.REF02,Reference Identification,R,,,,,
+,Segment - REF Adjusted Repriced Line Item Reference Number (Situational),,,,,,
+2400.REF01,Reference Identification Qualifier,R,,,,,
+2400.REF02,Reference Identification,R,,,,,
+,Segment - AMT Service Tax Amount (Situational),,,,,,
+2400.AMT01,Amount Qualifier Code,R,,,,,
+2400.AMT02,Monetary Amount,R,,,,,
+,Segment - AMT Facility Tax Amount (Situational),,,,,,
+2400.AMT01,Amount Qualifier Code,R,,,,,
+2400.AMT02,Monetary Amount,R,,,,,
+,Segment - NTE Third Party Organization Notes (Situational),,,,,,
+2400.NTE01,Note Reference Code,R,TPO Third Party Organization Notes,,,,
+2400.NTE02,Description,R,,,,,
+,Segment - HCP Line Pricing/Repricing Information (Situational),,,,,,
+2400.HCP01,Pricing Methodology,R,,,,,
+2400.HCP02,Monetary Amount,R,,,,,
+2400.HCP03,Monetary Amount,S,,,,,
+2400.HCP04,Reference Identification,S,,,,,
+2400.HCP05,Rate,S,,,,,
+2400.HCP06,Reference Identification,S,,,,,
+2400.HCP07,Monetary Amount,S,,,,,
+2400.HCP08,Product/Service ID,S,,,,,
+2400.HCP09,Product/Service ID Qualifier,S,,,,,
+2400.HCP10,Product/Service ID,S,,,,,
+2400.HCP11,Unit or Basis for Measurement Code,S,"DA Days
+UN Unit",,,,
+2400.HCP12,Quantity,S,,,,,
+2400.HCP13,Reject Reason Code,S,"T1 Cannot Identify Provider as TPO (Third Party
+Organization) Participant
+T2 Cannot Identify Payer as TPO (Third Party
+Organization) Participant
+T3 Cannot Identify Insured as TPO (Third Party
+Organization) Participant
+T4 Payer Name or Identifier Missing
+T5 Certification Information Missing
+T6 Claim does not contain enough information for repricing",,,,
+2400.HCP14,Policy Compliance Code,S,"1 Procedure Followed (Compliance)
+2 Not Followed - Call Not Made (Non-Compliance Call
+Not Made)
+3 Not Medically Necessary (Non-Compliance NonMedically Necessary)
+4 Not Followed Other (Non-Compliance Other)
+5 Emergency Admit to Non-Network Hospital",,,,
+2400.HCP15,Exception Code,S,"1 Non-Network Professional Provider in Network
+Hospital
+2 Emergency Care
+3 Services or Specialist not in Network
+4 Out-of-Service Area
+5 State Mandates
+6 Other",,,,
+,Loop 2410 - Drug identification,,,,,,
+,Segment - LIN Drug identification (Situational),,,,,,
+2410.LIN02,Product/Service ID Qualifier,R,N4 National Drug Code in 5-4-2 Format,N4,,,
+2410.LIN03,Product/Service ID,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/ndcCodes/NDCCode/ndcCode,,
+,Segment - CTP Drug Quantity (Required),,,,,,
+2410.CTP04,Quantity,R,,,ClaimServiceStronglyTypedOBResponseRoot/ClaimServiceStronglyTypedOBResponse/getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/ndcCodes/NDCCode/quantity,,
+2410.CTP05,COMPOSITE UNIT OF MEASURE,R,,,,,
+2410.CTP05 - 1,Unit or Basis for Measurement Code,,"DA Days
+UN Unit",UN,,,
+,Segment - REF Prescription or compound drug association Number (Situational),,,,,,
+2410.REF01,Reference Identification Qualifier,R,"VY Link Sequence Number
+XZ Pharmacy Prescription Number",,,,
+2410.REF02,Reference Identification,R,,,,,
+,Loop 2420A (Situational),,,,,,
+,Segment - NM1 Operating Physician Name (Situational),,,,,,
+2420A.NM101,Entity Identifier Code,R,,,,,
+2420A.NM102,Entity Type Qualifier,R,,,,,
+2420A.NM103,Name Last or Organization Name,R,,,,,
+2420A.NM104,Name First,S,,,,,
+2420A.NM105,Name Middle,S,,,,,
+2420A.NM107,Name Suffix,S,,,,,
+2420A.NM108,Identification Code Qualifier,S,,,,,
+2420A.NM109,Identification Code,S,,,,,
+,Segment - REF Operating Physician Secondary Identification (Situational),,,,,,
+2420A.REF01,Reference Identification Qualifier,R,,,,,
+2420A.REF02,Reference Identification,R,,,,,
+2420A.REF04.01,Reference Identification Qualifier,R,,,,,
+2420A.REF04.02,Reference Identification,R,,,,,
+,Loop 2420B (Situational),,,,,,
+,Segment - NM1 Other Operating Physician Name (Situational),,,,,,
+2420B.NM101,Entity Identifier Code,R,,,,,
+2420B.NM102,Entity Type Qualifier,R,,,,,
+2420B.NM103,Name Last or Organization Name,R,,,,,
+2420B.NM104,Name First,S,,,,,
+2420B.NM105,Name Middle,S,,,,,
+2420B.NM107,Name Suffix,S,,,,,
+2420B.NM108,Identification Code Qualifier,S,,,,,
+2420B.NM109,Identification Code,S,,,,,
+,Segment - REF Other Operating Physician Secondary Identification (Situational),,,,,,
+2420B.REF01,Reference Identification Qualifier,R,,,,,
+2420B.REF02,Reference Identification,R,,,,,
+2420B.REF04.01,Reference Identification Qualifier,R,,,,,
+2420B.REF04.02,Reference Identification,R,,,,,
+,Loop 2420C (Situational),,,,,,
+,Segment - NM1 Rendering Provider Name (Situational),,,"Populate only if
+different from Claim level 2310D and 2310A",,,
+2420C.NM101,Entity Identifier Code,R,82 Rendering Provider,82,,,
+2420C.NM102,Entity Type Qualifier,R,1 Person,I,,,
+2420C.NM103,Name Last or Organization Name,R,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/lastName/,,
+2420C.NM104,Name First,S,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/firstName/,,
+2420C.NM105,Name Middle,S,,,getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/middleName,,
+2420C.NM107,Name Suffix,S,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/practitioner/credentialSuffix/,,
+2420C.NM108,Identification Code Qualifier,S,,XX,,,
+2420C.NM109,Identification Code,S,,,claimDetails/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/NPI/,,
+,Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,
+2420C.REF01,Reference Identification Qualifier,R,"0B State License Number
+1G Provider UPIN Number
+G2 Provider Commercial Number
+LU Location Number",G2,,,
+2420C.REF02,Reference Identification,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/renderingPractitioner/NPI,,Populate this if billing provider is different
+2420C.REF04.01,Reference Identification Qualifier,R,,,,,
+2420C.REF04.02,Reference Identification,R,,,,,
+,Loop 2420D (Situational),,,,,,
+,Segment - NM1 Referring Provider Name (Situational),,,,,,
+2420D.NM101,Entity Identifier Code,R,DN Referring Provider,DN,,,
+2420D.NM102,Entity Type Qualifier,R,1 Person,1,,,
+2420D.NM103,Name Last or Organization Name,R,,,/claim/claimLine/claimLine/referringInformation/practitioner/lastName,,
+2420D.NM104,Name First,S,,,/claim/claimLine/claimLine/referringInformation/practitioner/firstName,,
+2420D.NM105,Name Middle,S,,,/claim/claimLine/claimLine/referringInformation/practitioner/middleName,,
+2420D.NM107,Name Suffix,S,,,/claim/claimLine/claimLine/referringInformation/practitioner/nameSuffix,,
+2420D.NM108,Identification Code Qualifier,S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",XX,,,
+2420D.NM109,Identification Code,S,,,/claim/claimLine/claimLine/referringInformation/NPI,,
+,Segment - REF Referring Provider Secondary Identification (Situational),,,,,,
+2420D.REF01,Reference Identification Qualifier,R,"0B State License Number
+1G Provider UPIN Number
+G2 Provider Commercial Number",,/claim/claimLine/claimLine/referringInformation/practitionerIdQualifier,,
+2420D.REF02,Reference Identification,S,Referring Provider Secondary Identifier,,/claim/claimLine/claimLine/referringInformation/practitionerId,,
+2420D.REF04.01,Reference Identification Qualifier,R,2U Payer Identification Number,,,,
+2420D.REF04.02,Reference Identification,R,Other Payer Primary Identifier,,,,
+,Loop 2430 (Situational) - First instance,,,,,,
+,Segment - SVD Line Adjudication Information (Situational),,,,,,
+2430.SVD01,Identification Code,R,,,Create 1st instance of SVD and corresponding CAS segment loop all the time for all service lines and this SVD 01 should always match the 1st instance of 2330BB NM109 loop,,Populate it to Match the value in 2330B.NM109 which is the benefit plan ID on the claim.
+2430.SVD02,Monetary Amount,R,,,claim/claimLine/claimLine/paidAmount,,
+2430.SVD03.01,Product/Service ID Qualifier,R,"HC :(HCPCS) Codes
+HP: Health Insurance Prospective Payment System
+(HIPPS)",,"Hardcode 'HP'  If /eobClaimDetail/claim/claimLine/claimLine/claimLineCustomTags/key  is  SERVICE_TYPE_NAME  AND
+/eobClaimDetail/claim/claimLine/claimLine/claimLineCustomTags/value is HIPPS Code
+
+Else
+Hardcode 'HC'",,
+2430.SVD03.02,Product/Service ID,R,,,claim/claimLine/claimLine/serviceCode,,
+2430.SVD03.03,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.04,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.05,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.06,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.07,Description,S,,,,,
+2430.SVD04,Product/Service ID,R,,,claim/claimLine/revenueCode,,
+2430.SVD05,Quantity,R,,,claim/claimLine/claimLine/units,,
+2430.SVD06,Assigned Number,S,,,claim/claimLine/claimLine/originalLineNumber/,,"Map when originalLineNumber is different from re-ordered claimLineId
+and claim/claimLine/claimLine/isSplit/ is 'true'."
+,Segment - CAS Line Adjustment (Situational),,,,,,
+2430.CAS01,Claim Adjustment Group Code,R,"CO Contractual Obligations
+CR Correction and Reversals
+OA Other adjustments
+PI Payor Initiated Reductions
+PR Patient Responsibility",,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentGroupCode,Group the CAS segment based on the claimAdjustmentGroupCode,Not getting theses tags in Soap
+2430.CAS02,Claim Adjustment Reason Code,R,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentReasonCode,,
+2430.CAS03,Monetary Amount,R,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentAmount,,
+2430.CAS04,Quantity,S,,,,,
+2430.CAS05,Claim Adjustment Reason Code,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentReasonCode,,
+2430.CAS06,Monetary Amount,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentAmount,,
+2430.CAS07,Quantity,S,,,,,
+2430.CAS08,Claim Adjustment Reason Code,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentReasonCode,,
+2430.CAS09,Monetary Amount,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentAmount,,
+2430.CAS10,Quantity,S,,,,,
+2430.CAS11,Claim Adjustment Reason Code,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentReasonCode,,
+2430.CAS12,Monetary Amount,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentAmount,,
+2430.CAS13,Quantity,S,,,,,
+2430.CAS14,Claim Adjustment Reason Code,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentReasonCode,,
+2430.CAS15,Monetary Amount,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentAmount,,
+2430.CAS16,Quantity,S,,,,,
+2430.CAS17,Claim Adjustment Reason Code,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentReasonCode,,
+2430.CAS18,Monetary Amount,S,,,/claim/claimLine/claimLine/eobBaseBenefitInfo/claimAdjustments/claimAdjustment/claimAdjustmentAmount,,
+2430.CAS19,Quantity,S,,,,,
+,Segment - DTP Line Check or Remittance Date (Required),,,,,,
+2430.DTP01,Date/Time Qualifier,R,573 Date Claim Paid,573,,,
+2430.DTP02,Date Time Period Format Qualifier,R,D8 Date Expressed in Format CCYYMMDD,D8,,,
+2430.DTP03,Date Time Period,R,,,getClaimDetailsByHccIDResponseRecordList/getClaimDetailsByHccIDResponseRecord/getClaimDetailsByHccIDResponse/claimDetails/claimExtract/EOBPaymentInformation/paymentDate,,
+,Segment - AMT Remaining Patient Liability (Situational),,,,,,
+2430.AMT01,Amount Qualifier Code,R,,EAF,,,
+2430.AMT02,Monetary Amount,R,,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/eobClaimDetail/claim/claimLine/claimLine/eobBaseBenefitInfo/benefitInfo/memberResponsibilityAmount,,
+,Loop 2430 (Situational) - ADDITIONAL INSTANCES,,,,,,
+,Segment - SVD Line Adjudication Information (Situational),,,,,,
+2430.SVD01,Identification Code,R,,Populate it to Match the value in 2330B.NM109 which is the benefit plan ID on the claim.,,,Not getting theses tags in Soap
+2430.SVD02,Monetary Amount,R,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/eobPaidAmount,,
+2430.SVD03.01,Product/Service ID Qualifier,R,"HC :(HCPCS) Codes
+HP: Health Insurance Prospective Payment System
+(HIPPS)",,"Hardcode 'HP'  If /eobClaimDetail/claim/claimLine/claimLine/claimLineCustomTags/key  is  SERVICE_TYPE_NAME  AND
+/eobClaimDetail/claim/claimLine/claimLine/claimLineCustomTags/value is HIPPS Code
+
+Else
+Hardcode 'HC'",,
+2430.SVD03.02,Product/Service ID,R,,,claim/claimLine/claimLine/serviceCode,,
+2430.SVD03.03,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.04,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.05,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.06,Procedure Modifier,S,,,claim/claimLine/claimLine/modifierList/string,,
+2430.SVD03.07,Description,S,,,,,
+2430.SVD04,Product/Service ID,R,,,,,
+2430.SVD05,Quantity,R,,,claim/claimLine/claimLine/units,,
+2430.SVD06,Assigned Number,S,,,claim/claimLine/claimLine/originalLineNumber/,,"Map when originalLineNumber is different from re-ordered claimLineId
+and claim/claimLine/claimLine/isSplit/ is 'true'."
+,Segment - CAS Line Adjustment (Situational),,,,,,
+2430.CAS01,Claim Adjustment Group Code,R,"CO Contractual Obligations
+CR Correction and Reversals
+OA Other adjustments
+PI Payor Initiated Reductions
+PR Patient Responsibility",,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustment/eobAdjustmentGroupCode,Group the CAS segment based on eobAdjustmentGroupCode,
+2430.CAS02,Claim Adjustment Reason Code,R,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentReasonCode,,
+2430.CAS03,Monetary Amount,R,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentAmount,,
+2430.CAS04,Quantity,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentQuantity,,
+2430.CAS05,Claim Adjustment Reason Code,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentReasonCode,,
+2430.CAS06,Monetary Amount,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentAmount,,
+2430.CAS07,Quantity,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentQuantity,,
+2430.CAS08,Claim Adjustment Reason Code,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentReasonCode,,
+2430.CAS09,Monetary Amount,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentAmount,,
+2430.CAS10,Quantity,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentQuantity,,
+2430.CAS11,Claim Adjustment Reason Code,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentReasonCode,,
+2430.CAS12,Monetary Amount,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentAmount,,
+2430.CAS13,Quantity,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentQuantity,,
+2430.CAS14,Claim Adjustment Reason Code,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentReasonCode,,
+2430.CAS15,Monetary Amount,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentAmount,,
+2430.CAS16,Quantity,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentQuantity,,
+2430.CAS17,Claim Adjustment Reason Code,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentReasonCode,,
+2430.CAS18,Monetary Amount,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentAmount,,
+2430.CAS19,Quantity,S,,,claimLine/claimLine/customEOBInfoList/customEOBInfo/servicLineEobAdjustments/eobAdjustment/eobAdjustmentQuantity,,
+,Segment - DTP Line Check or Remittance Date (Required),,,,,,
+2430.DTP01,Date/Time Qualifier,R,573 Date Claim Paid,573,,,
+2430.DTP02,Date Time Period Format Qualifier,R,D8 Date Expressed in Format CCYYMMDD,D8,,,
+2430.DTP03,Date Time Period,R,,getClaimDetailsByHccIDListResponse/claimDetails/claimExtract/EOBPaymentInformation/paymentDate,,,
+,Segment - AMT Remaining Patient Liability (Situational),,,,,,
+2430.AMT01,Amount Qualifier Code,R,,,,,
+2430.AMT02,Monetary Amount,R,,,,,
+,Segment SE (Required),,,,,,
+,SE Transaction Set Trailer (Required),,,,,,
+SE01,Number of Included Segments,R,,Count Of ST,,,
+SE02,Transaction Set Control Number,R,,STO2 Value,,,
+,Segment GE (Required),,,,,,
+,GE Functional Group Trailer (Required),,,,,,
+GE01,Number of Transaction Sets Included,R,,Count Of GS,,,
+GE02,Group Control Number,R,,GS06 Value,,,
+,Segment IEA (Required),,,,,,
+,IEA Interchange Control Trailer (Required),,,,,,
+IEA01,Number of Included Functional Groups,R,,Count Of ISA,,,
+IEA02,Segment -,R,,ISA13 Value,,,

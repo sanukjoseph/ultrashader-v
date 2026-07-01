@@ -1,0 +1,10 @@
+,Revision History,,,,
+,,,,,
+,V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+,1.0,,Prasanth Obla,,"Initial Version
+• Mapping Specs"
+,1.1,05-28-2025,Prasanth Obla,,Updated Length for few fields
+,,05-30-2025,Deepthi Marella,Prashanth Obla,Update the Case changes to the values in the list
+,,6/6/25,Deepthi Marella,Prashanth Obla,Updated Secondary Speciality Logic to validate both Taxonomy Code and Description in Crosswalk with Case in sesnsitive
+,,6/23/25,Deepthi Marella,Prashanth Obla,Updated Tax id length as '9-10'
+,,6/27/25,Deepthi Marella,Prashanth Obla,Updated the correct logic for Primary and Secondary Speciality field in both Layout and Mapping sheets

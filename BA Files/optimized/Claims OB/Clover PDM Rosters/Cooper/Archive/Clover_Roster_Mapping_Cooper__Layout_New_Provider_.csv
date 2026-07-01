@@ -1,0 +1,92 @@
+##,Fields,Mandatory/Optional,Length,Format,Pre-Mapping Validation Rules,Comments
+1,Service Market,O,100,String,,
+2,Provider NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",
+3,First Name,M,50,String,"Reject -
+ IF EMPTY",
+4,Last Name,M,50,String,"Reject -
+ IF EMPTY",
+5,Degree,M,25,String,"Reject -
+ IF EMPTY",
+6,Primary Specialty,O,100,String,,
+7,Secondary Specialty,O,100,String,"Same record need to split into 2 separate records with the specialty on this field if the below condition matches
+IF PRESENT AND Primary Specialty <> Secondary Specialty
+  VALIDATE AGAINST Taxonomy Crosswalk Description
+    IF PRESENT -> Split and map an additional record with the specialty into I N/w output
+    IF Not PRESENT -> Reject the split additional record with the speciality into error report",
+8,Taxonomy Code,M,10,Alphanumeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10
+
+Example - 208M00000X",
+9,PCP or Specialist?,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (PCP, SPECIALIST)",
+10,Hospitalist?,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (Y, N, YES, NO)",
+11,Board Certified?,O,50,String,"Reject -
+ IF NOT IN LIST (Y,Yes,N,No,Certified,Active,BOARD CERTIFIED,Eligible,Expired,Not Certified)",
+12,Board Name,O,100,String,,
+13,License #,O,50,String,,
+14,DEA #,O,50,String,,
+15,CDS #,O,50,String,,
+16,Social Security #,O,11,String,"Reject -
+ IF NOT IN FORMAT (xxx-xx-xxxx)
+
+Example - 123-45-6789",
+17,Medical School Name,O,50,String,,
+18,Medical School Grad Year,O,50,String,,
+19,DOB,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)",
+20,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female)",
+21,Original Credential Date,O,12,String,,
+22,Most Recent Credential Date,O,12,String,,
+23,Next Reappointment Date,O,12,String,,
+24,Additional Languages?,O,100,String,,
+25,Active Date,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)",
+26,Practice/Group Name,M,100,String,"Reject -
+ IF EMPTY",
+27,Practice/Group NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",
+28,List Location in Directory?,M,50,String,,
+29,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",M,50,String,,
+30,Provider Email,O,100,String,"Reject -
+ IF PRESENT and NOT IN EMAIL FORMAT
+Valid Format - [username@domain.ext](no spaces allowed)",
+31,Service Address,M,100,String,"Reject -
+ IF EMPTY",Developers has used the minimum required length based on Mahe's confirmation
+32,Service Address 2,O,100,String,,Developers has used the minimum required length based on Mahe's confirmation
+33,Service Location City,M,50,String,"Reject -
+ IF EMPTY",Developers has used the minimum required length based on Mahe's confirmation
+34,Service Location State,M,50,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE",Developers has used the minimum required length based on Mahe's confirmation
+35,Service Location Zip,M,50,String,"Reject -
+ IF EMPTY",Developers has used the minimum required length based on Mahe's confirmation
+36,Service Location County,O,50,String,,Developers has used the minimum required length based on Mahe's confirmation
+37,Service Location Phone,M,50,String,"Reject -
+ IF EMPTY",Developers has used the minimum required length based on Mahe's confirmation
+38,Service Location Fax,O,50,String,,Developers has used the minimum required length based on Mahe's confirmation
+39,Tax ID,M,9-10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10",Corrected the minimum length based on Mahe's confirmation
+40,Remit Address,M,100,String,"Reject -
+ IF EMPTY",
+41,Remit Address 2,O,100,String,,
+42,Remit Address City,M,50,String,"Reject -
+ IF EMPTY",
+43,Remit Address State,M,50,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE",
+44,Remit Address Zip,M,50,String,"Reject -
+ IF EMPTY",
+45,Billing Phone,O,50,String,,
+46,Billing Fax,O,50,String,,

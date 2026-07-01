@@ -1,0 +1,336 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage
+import com.edifecs.etools.commons.io.SmartStream
+
+// ===== Configurable field/length constants =====
+final int MIN_PARSE_LEN = 54      // to read recordType (0-3) and EPPID (4-53)
+final int HEADER_LEN    = 869     // 0001 expected length
+final int DETAIL_LEN    = 915     // 0002 expected length
+
+// Field positions (0-based, end-exclusive) in 0002
+final int CHK_START = 375
+final int CHK_END   = 387         // 12 chars
+final int PAY_START = 799
+final int PAY_END   = 849         // 50 chars
+
+def exchange = context.exchange
+def exchProperties = exchange.properties
+def messages = context.exchange.messages
+def message = messages[0]
+def msgHeaders = message.headers
+
+InputStream messageInputStream = message.getBodyAsSmartStream().getInputStream()
+String messageContent = new String(messageInputStream.readAllBytes())
+
+// ===== Helper: emit a single file-level trigger (one per input) =====
+def emitSingleFileLevelTrigger = { int totalTx, String ridHint ->
+    def trigHdrs = [:]; exchProperties.each { k, v -> trigHdrs.put(k, v) }
+    trigHdrs["record_status"] = "fileLevel"
+    trigHdrs["isFileLevelTrigger"] = "true"
+    trigHdrs["totalTransactions"] = totalTx
+
+    String base = (exchProperties["sourceFileName"] ?: exchProperties["fileName"] ?: ridHint ?: "INPUT").toString().trim()
+    if (base.isEmpty()) base = "INPUT"
+    String trigRID = base + "_TRIGGER_" + System.currentTimeMillis()
+
+    trigHdrs["recordIdentifierFromSource"] = trigRID
+    trigHdrs["uniqueId"] = trigRID
+
+    ProxyMessage trigMsg = context.createNewMessage("FILE_LEVEL_TRIGGER", trigHdrs)
+    context.createExchangeResponse(msgHeaders, trigMsg)
+}
+
+// ===== Handle empty file (trigger FIRST, then BAD message) =====
+if (!messageContent || messageContent.replaceAll("\\s", "").isEmpty()) {
+    emitSingleFileLevelTrigger(0, "EMPTY")
+
+    def badHdrs = [:]; exchProperties.each { k, v -> badHdrs.put(k, v) }
+    badHdrs["record_status"] = "bad"
+    badHdrs["errorMessage"] = "File level error - File is empty"
+    badHdrs["totalTransactions"] = 0
+    badHdrs["uniqueId"] = "EMPTY"
+
+    ProxyMessage emptyMsg = context.createNewMessage("File level error - File is empty", badHdrs)
+    context.createExchangeResponse(msgHeaders, emptyMsg)
+    return
+}
+
+String[] lines = messageContent.split("\\r?\\n", -1)
+
+// ------- Parse lines into buckets (keep EPPID logic intact) ------
+Map<String, List<String>> eppidToLines = [:]
+// Collect ONLY 0002 lines with missing EPPID -> BAD bucket
+List<String> missingEppidDetailLines = []
+
+lines.each { line ->
+    if (line.replaceAll("\\s", "").isEmpty()) return
+
+    if (line.length() < MIN_PARSE_LEN) {
+        // Too short to read EPPID—treat as its own bucket; will be handled later as missing header or length error
+        String badEppid = "SHORTLINE"
+        eppidToLines.computeIfAbsent(badEppid) { [] }.add(line)
+        return
+    }
+
+    String recordType = line.substring(0, 4)
+
+    // *** Ignore any records other than 0001 or 0002 ***
+   if (!(recordType == "0001" || recordType == "0002")) {
+        return
+    } 
+
+    String eppid = line.substring(4, 54)
+
+    if (eppid.replaceAll("\\s", "").isEmpty()) {
+        // Only 0002 with blank EPPID is requested to be BAD
+        if ("0002".equals(recordType)) {
+            missingEppidDetailLines.add(line)
+            return
+        }
+        // For non-0002 with blank EPPID, do nothing special per requirement
+    } else {
+        eppidToLines.computeIfAbsent(eppid.trim()) { [] }.add(line)
+    }
+}
+
+// ===== Helper to count how many outputs a single EPPID bucket will produce =====
+Closure<Integer> countOutputsForGroup = { List<String> linesList ->
+    def headerLine = linesList.find { it.startsWith("0001") }
+    def detailLines = linesList.findAll { it.startsWith("0002") }
+
+    if (!headerLine) {
+        // Missing header -> single BAD file
+        return 1
+    }
+
+    List<String> validDetailLines = []
+    List<String> invalidDetailLines = []
+    List<String> errorMsgs = []
+
+    // Header length check
+    if (headerLine.length() < HEADER_LEN) {
+        errorMsgs.add("0001 header length is ${headerLine.length()}, expected 869 (too short).")
+    } else if (headerLine.length() > HEADER_LEN) {
+        errorMsgs.add("0001 header length is ${headerLine.length()}, expected 869 (too long).")
+    }
+
+    // Detail length checks
+    detailLines.eachWithIndex { detailLine, i ->
+        if (detailLine.length() < DETAIL_LEN) {
+            invalidDetailLines.add(detailLine)
+            errorMsgs.add("Detail line ${i + 1} too short, length=${detailLine.length()} (expected 915).")
+        } else if (detailLine.length() > DETAIL_LEN) {
+            invalidDetailLines.add(detailLine)
+            errorMsgs.add("Detail line ${i + 1} too long, length=${detailLine.length()} (expected 915).")
+        } else {
+            validDetailLines.add(detailLine)
+        }
+    }
+
+    int badCount = errorMsgs.isEmpty() ? 0 : 1
+    if (validDetailLines.isEmpty()) {
+        // No valid detail -> header-only GOOD file
+        return badCount + 1
+    }
+
+    // Count groups that will be produced from valid details
+    Map<String, List<String>> groupKeyToDetailLines = [:]
+    validDetailLines.each { detailLine ->
+        String rawCheckNumber = detailLine.substring(CHK_START, CHK_END)
+        String checkNumber = rawCheckNumber.trim()
+        String paymentId = detailLine.substring(PAY_START, PAY_END).trim()
+
+        String groupKey = (checkNumber == "" || rawCheckNumber == "000000000000") ?
+                "ZCHK_PAYID_${paymentId}" : "CHK_${checkNumber}"
+
+        groupKeyToDetailLines.computeIfAbsent(groupKey) { [] }.add(detailLine)
+    }
+
+    return badCount + groupKeyToDetailLines.size()
+}
+
+// ===== PASS 1: compute global total (final number of **main** files to be sent) =====
+int globalTotalTransactions = 0
+eppidToLines.each { _, linesList ->
+    globalTotalTransactions += countOutputsForGroup(linesList)
+}
+// Add one BAD output if we have any 0002 lines with missing EPPID
+if (!missingEppidDetailLines.isEmpty()) {
+    globalTotalTransactions += 1
+}
+
+// ===== Send the SINGLE file-level trigger FIRST =====
+emitSingleFileLevelTrigger(globalTotalTransactions, (String)(exchProperties["sourceFileName"] ?: "INPUT"))
+
+// ===== PASS 2: emit **main** messages ONLY (no triggers here) =====
+eppidToLines.each { eppid, linesList ->
+    def headerLine = linesList.find { it.startsWith("0001") }
+    def detailLines = linesList.findAll { it.startsWith("0002") }
+
+    if (!headerLine) {
+        def perFileHeaders = [:]; exchProperties.each { k, v -> perFileHeaders.put(k, v) }
+        perFileHeaders["EPPID"] = eppid
+        perFileHeaders["record_status"] = "bad"
+        perFileHeaders["errorMessage"] = "Missing 0001 header record for EPPID " + eppid
+        perFileHeaders["totalTransactions"] = globalTotalTransactions
+        perFileHeaders["recordIdentifierFromSource"] = eppid + "MISSINGHEADER"
+        perFileHeaders["uniqueId"] = perFileHeaders["recordIdentifierFromSource"]
+
+        ProxyMessage newMsg = context.createNewMessage(linesList.join("\r\n"), perFileHeaders)
+        context.createExchangeResponse(msgHeaders, newMsg)
+        return
+    }
+
+    List<String> validDetailLines = []
+    List<String> invalidDetailLines = []
+    List<String> errorMsgs = []
+
+    // Header length check
+    if (headerLine.length() < HEADER_LEN) {
+        errorMsgs.add("0001 header length is ${headerLine.length()}, expected 869 (too short).")
+    } else if (headerLine.length() > HEADER_LEN) {
+        errorMsgs.add("0001 header length is ${headerLine.length()}, expected 869 (too long).")
+    }
+
+    // Detail length checks
+    detailLines.eachWithIndex { detailLine, i ->
+        if (detailLine.length() < DETAIL_LEN) {
+            invalidDetailLines.add(detailLine)
+            errorMsgs.add("Detail line ${i + 1} too short, length=${detailLine.length()} (expected 915).")
+        } else if (detailLine.length() > DETAIL_LEN) {
+            invalidDetailLines.add(detailLine)
+            errorMsgs.add("Detail line ${i + 1} too long, length=${detailLine.length()} (expected 915).")
+        } else {
+            validDetailLines.add(detailLine)
+        }
+    }
+
+    // Emit BAD bucket if any length errors
+    if (!errorMsgs.isEmpty()) {
+        def badSb = new StringBuilder()
+        badSb.append(headerLine).append("\r\n")
+        invalidDetailLines.each { badSb.append(it).append("\r\n") }
+
+        String badCheckNumber = ""
+        String badPaymentId = ""
+        if (!invalidDetailLines.isEmpty()) {
+            String firstBadDetail = invalidDetailLines[0]
+            if (firstBadDetail.length() >= CHK_END) {
+                badCheckNumber = firstBadDetail.substring(CHK_START, CHK_END).trim()
+            }
+            if (firstBadDetail.length() >= PAY_END) {
+                badPaymentId = firstBadDetail.substring(PAY_START, PAY_END).trim()
+            }
+        }
+        // Distinct BAD RID (safer)
+        String badRecordId = ""
+        if (badCheckNumber && badCheckNumber != "000000000000") {
+            badRecordId = eppid + badCheckNumber + "_BAD"
+        } else if (badPaymentId) {
+            badRecordId = eppid + badPaymentId + "_BAD"
+        } else {
+            badRecordId = eppid + "_BAD"
+        }
+
+        def badHeaders = [:]; exchProperties.each { k, v -> badHeaders.put(k, v) }
+        badHeaders["EPPID"] = eppid
+        badHeaders["record_status"] = "bad"
+        badHeaders["errorMessage"] = errorMsgs.join("||")
+        badHeaders["totalTransactions"] = globalTotalTransactions
+        badHeaders["recordIdentifierFromSource"] = badRecordId
+        badHeaders["uniqueId"] = badRecordId
+        badHeaders["checkNumber"] = badCheckNumber ?: ""
+        badHeaders["paymentNumber"] = badPaymentId ?: ""
+
+        ProxyMessage badMsg = context.createNewMessage(badSb.toString(), badHeaders)
+        context.createExchangeResponse(msgHeaders, badMsg)
+    }
+
+    // If no valid details, emit HEADER_ONLY good file
+    if (validDetailLines.isEmpty()) {
+        def sb = new StringBuilder()
+        sb.append(headerLine).append("\r\n")
+
+        def perFileHeaders = [:]; exchProperties.each { k, v -> perFileHeaders.put(k, v) }
+        perFileHeaders["EPPID"] = eppid
+        perFileHeaders["groupKey"] = "HEADER_ONLY"
+        perFileHeaders["paymentId"] = ""
+        perFileHeaders["checkNumber"] = ""
+        perFileHeaders["record_status"] = "good"
+        perFileHeaders["totalTransactions"] = globalTotalTransactions
+        perFileHeaders["recordIdentifierFromSource"] = eppid + "_HEADER_ONLY"
+        perFileHeaders["uniqueId"] = perFileHeaders["recordIdentifierFromSource"]
+
+        ProxyMessage newMsg = context.createNewMessage(sb.toString(), perFileHeaders)
+        context.createExchangeResponse(msgHeaders, newMsg)
+        return
+    }
+
+    // Group valid details by CheckNumber first, else by PaymentId
+    Map<String, List<String>> groupKeyToDetailLines = [:]
+    Map<String, String> groupKeyToRID = [:]
+    Map<String, String> groupKeyToPaymentId = [:]
+
+    validDetailLines.each { detailLine ->
+        String rawCheckNumber = detailLine.substring(CHK_START, CHK_END)
+        String checkNumber = rawCheckNumber.trim()
+        String paymentId = detailLine.substring(PAY_START, PAY_END).trim()
+
+        String groupKey
+        String groupRID
+
+        if (checkNumber == "" || rawCheckNumber == "000000000000") {
+            groupKey = "ZCHK_PAYID_${paymentId}"
+            groupRID = eppid + paymentId
+        } else {
+            groupKey = "CHK_${checkNumber}"
+            groupRID = eppid + checkNumber
+        }
+
+        groupKeyToDetailLines.computeIfAbsent(groupKey) { [] }.add(detailLine)
+        groupKeyToRID[groupKey] = groupRID
+        groupKeyToPaymentId[groupKey] = paymentId
+    }
+
+    // Emit GOOD files per group
+    groupKeyToDetailLines.each { groupKey, detailGroup ->
+        def sb = new StringBuilder()
+        sb.append(headerLine).append("\r\n")
+        detailGroup.each { sb.append(it).append("\r\n") }
+
+        String origPaymentNumber = groupKeyToPaymentId[groupKey]
+        String origCheckNumber = ""
+        if (groupKey.startsWith("ZCHK_PAYID_")) {
+            origCheckNumber = "000000000000"
+        } else if (groupKey.startsWith("CHK_")) {
+            origCheckNumber = groupKey.substring(4)
+        }
+
+        def perFileHeaders = [:]; exchProperties.each { k, v -> perFileHeaders.put(k, v) }
+        perFileHeaders["EPPID"] = eppid
+        perFileHeaders["groupKey"] = groupKey
+        perFileHeaders["paymentId"] = origPaymentNumber
+        perFileHeaders["paymentNumber"] = origPaymentNumber ?: ""
+        perFileHeaders["checkNumber"] = origCheckNumber ?: ""
+        perFileHeaders["record_status"] = "good"
+        perFileHeaders["totalTransactions"] = globalTotalTransactions
+        perFileHeaders["recordIdentifierFromSource"] = groupKeyToRID[groupKey]
+        perFileHeaders["uniqueId"] = groupKeyToRID[groupKey]
+
+        ProxyMessage newMsg = context.createNewMessage(sb.toString(), perFileHeaders)
+        context.createExchangeResponse(msgHeaders, newMsg)
+    }
+}
+
+// ===== Emit ONE BAD file for 0002 lines with missing EPPID (if present) =====
+if (!missingEppidDetailLines.isEmpty()) {
+    def perFileHeaders = [:]; exchProperties.each { k, v -> perFileHeaders.put(k, v) }
+    perFileHeaders["EPPID"] = ""
+    perFileHeaders["record_status"] = "bad"
+    perFileHeaders["errorMessage"] = "EPPID is missing. This Field's standard option is 'Mandatory'."
+    perFileHeaders["totalTransactions"] = globalTotalTransactions
+    perFileHeaders["recordIdentifierFromSource"] = "MISSING_EPPID_0002_" + System.currentTimeMillis()
+    perFileHeaders["uniqueId"] = perFileHeaders["recordIdentifierFromSource"]
+
+    ProxyMessage missingEppidMsg = context.createNewMessage(missingEppidDetailLines.join("\r\n"), perFileHeaders)
+    context.createExchangeResponse(msgHeaders, missingEppidMsg)
+}

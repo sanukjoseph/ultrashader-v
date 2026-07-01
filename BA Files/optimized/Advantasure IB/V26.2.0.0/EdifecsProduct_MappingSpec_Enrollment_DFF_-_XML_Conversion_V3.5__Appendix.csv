@@ -1,0 +1,14 @@
+Transaction type,Retro changes,Full Replace,Multiple record for a member,Carry Retro chnages to HRP
+▪    DEM (Demographics) – Non spanable always contains the latest value,X,X,X,NA
+▪    ADR – Address History,ü,,ü,X
+▪    PLN – Plan Enrollment History,ü,,ü,ü
+▪    PWO – Premium Withhold,ü,,ü,
+▪    LIS – Low Income Subsidy,ü,ü,ü,
+▪    LEP – Late Enrollment Penalty,ü,ü,ü,
+▪    FLG – Flag set in the system,ü,,ü,
+▪    BRK – Broker,ü,,ü,
+▪    PCP – Primary Care Physician,ü,,ü,ü
+▪    GRP – Group/Subgroup information,ü,,ü,ü
+▪    RDR – Rider,ü,,ü,ü
+▪    COB – Coordination of Benefits,ü,,ü,ü
+▪    MCD - Medicaid,ü,,ü,

@@ -1,0 +1,5274 @@
+# Claims IB
+
+## Claims IB/Audit JSON_Mapping.xlsx — Cover Page
+
+```csv
+,IB Claims Audit Processing -  EDIFECS,,,,,,,,,
+,,,,,,,,,,
+,Business Area: Claims IB,,,,,,,,,
+,,,,,,,,,,
+,This document provides the Mapping Specification for EDI 837I/P Claims IB. Document is intended for EDIFECS Product Team,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,Version,,V26.2.0.0,,,
+,,,,,,,,,,
+,,Distribution of this document is limited to UST HealthProof,,,,,,,,
+,,,,,,,,,,
+,,Notice of Confidentiality and Custodial Responsibilities,,,,,,,,
+,,"This UST HealthProof document contains confidential information that is
+UST HealthProof’s intellectual property. As a holder of this document, you
+ may NOT disclose its content or any information derived from it to
+any person outside of UST Proof Project Team.",,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,,,,,,,,,,
+,Sign Off,,,,,,,,,
+,,Name,,Role,,Organization,,Date,,Approval
+,Approver #1,,,,,,,,,
+,Approver #2,,,,,,,,,
+,Approver #3,,,,,,,,,
+,Approver #4,,,,,,,,,
+```
+
+## Claims IB/Audit JSON_Mapping.xlsx — JSON Mapping
+
+```csv
+Group,Fields,837P - Values,837I - Values,Description
+inputDetails,inputId,"Value passed is  - {UID}- Uniqie for each file
+Example - -dtBkcCHu9bkKu8O","Value passed is  - {UID}- Uniqie for each file
+Example - -dtBkcCHu9bkKu8O",EDI file id
+,inputType,professional or institutional,professional or institutional,Defines the type of input file - API or File
+,totalTransactions,Total Number of Claims in a file - CLM Count in EDI,Total Number of Claims in a file - CLM Count in EDI,Total no. of transactions/Record received in API/File
+,inputFileName,Input Filename of the EDI file received with filename extension,Input Filename of the EDI file received with filename extension,Name of the input file received from source.
+,inputArchiveFilename,Input Filename of the EDI file archived in s3 with filename extension,Input Filename of the EDI file archived in s3 with filename extension,Name of the input file after archiving the input file.
+process,processStageName,Refer Audit events Tab,Refer Audit events Tab,Represent the name of the process stage which post the Audit point.
+,processStatus,Refer Audit events Tab,Refer Audit events Tab,Represent the Intermediate or Final status of the process stage which posts the Audit point.
+,processMessage,Refer Audit events Tab,Refer Audit events Tab,Specific information of a particular step after the process is completed.
+,processInputArchiveFilename,Input Filename of the EDI file received with filename extension,Input Filename of the EDI file received with filename extension,Name of the input Archive file of the process stage which posts the Audit point.
+,processOutputArchiveFilename,NA,NA,Name of the output Archive file of the process stage which posts the Audit point.
+,auditTime,The time the audit trigger event got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,The time the audit trigger event got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,Auditing time of each audit point
+identifiers,rayIdentifier,UUID,UUID,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed."
+,recordIdentifier,A Unique Record Identifier and 6 digit counter separated by a hyphen.,A Unique Record Identifier and 6 digit counter separated by a hyphen.,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record."
+,tenantIdentifier,"Hardcode as ""Product"" in adaptor.properties file and assign to variable"" tenantIdentifier""
+and call in profile","Hardcode as ""Product"" in adaptor.properties file and assign to  variable ""tenantIdentifier"" and call in profile",Unique identifier for the implementation team
+,sourceTypeIdentifier,"SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Paper}
+SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Electronic}
+
+EDIFECS_Inbound_Duplicate_File/EDIFECS_Inbound_Duplicate_Interchange (In case of Duplicate file/ ISA rejections )
+
+EDIFECS_InboundClaim_FileLevelError(In case of file level rejection)","SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Paper}
+SubmitterName(1000A. NM103+"",""+NM105+"",""+NM104)_{Electronic}
+
+EDIFECS_Inbound_Duplicate_File/EDIFECS_Inbound_Duplicate_Interchange (In case of Duplicate file/ ISA rejections )
+
+EDIFECS_InboundClaim_FileLevelError(In case of file level rejection)",Identifier to find from where we received(Starting point) the initial Transaction/Record. This is a configurable field.
+,recordIdentifierFromSource,"senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+
+<Senderid>_Duplicate_File/Interchange  (In case of Duplicate file/Interchange rejections )","senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+
+<Senderid>_Duplicate_File/Interchange  (In case of Duplicate file/Interchange rejections )",This needs to be a configurable field.
+,referenceIdentifier,NA,NA,Place holder to add any specific Reference Identifier based on Business Requirement
+,retriedReferenceIdentifier,NA,NA,This field indicates unique identifier for a transaction that has been retried
+claim,claimTransactionType,Professional,Institutional,Specifies the type of transaction - professional/Institutional
+,claimRequestXMLArchiveFilename,NA,NA,"Name of requestXMLArchive file, which will be sent to HRP to load"
+,claimResponseXMLArchiveFilename,NA,NA,"Name of file - When we receive response from HRP, HRP response will be created as a XMLArchive file"
+,claimIdHRP,NA,NA,"Claim ID received from HRP, when claims are loaded and HRP response has the Claim ID"
+,cvcId,NA,NA,"Uniquie ID received from HRP, when claims are loaded and HRP response has the Claim ID"
+,claimAmount,2300.CLM02,2300.CLM02,
+,frequencyCode,2300.CLM05.03,2300.CLM05.03,
+,externalClaimNumber,NA,NA,Place holder to add any specific Reference Identifier based on Business Requirement
+,clearingHouseTraceNumber,2300.REF*D9,2300.REF*D9,
+,patientControlNumber,2300.CLM01,2300.CLM01,
+,patientName,2010CA.NM104/5/3/7  or 2010BA.NM104/5/3/7 seperated by comma,2010CA.NM104/5/3/7  or 2010BA.NM104/5/3/7 seperated by comma,Display the Patient name
+,patientDOB,2010CA.DMG02  OR 2010BA.DMG02,2010CA.DMG02  OR 2010BA.DMG02,Display Date of birth of the Patient
+,memberIdentificationNumber,2010BA.NM109,2010BA.NM109,Display Subscriber ID
+,memberName,2010BA.NM104/5/3/7  each seperated by comma,2010BA.NM104/5/3/7  each seperated by comma,Display Subscriber Name
+providerDetails,providerId,2010AA.NM109,2010AA.NM109,Billing Provider NPI from ED
+,providerName,2010AA.NM104/5/3  or 2010AA.NM103,2010AA.NM103,Billing Provider Name from EDI.
+,providerType,Person /Non-Person Entity(Based on2010AA.NM102),Non-Person Entity,Mention if the Billing provider is a Personal Entity or Non-Personal Entity.
+```
+
+## Claims IB/Audit JSON_Mapping.xlsx — Audit Events
+
+```csv
+processStageName,processStatus,processMessage,JSON TRIGGER EVENT,Comments
+EDIFECS,MESSAGE READ,,As soon as IB file is picked for processing (Identifier block will not be present)- File level,Removed for now since this entry is causing issues at JAVA layer due to the missing identifier block.
+EDIFECS-Validation,PROCESS START,,Start of SNIP validations,
+EDIFECS-Validation,PROCESS END,,"After the SNIP Validations, if it’s a good record",
+EDIFECS-Validation,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.","After the SNIP Validations, if it’s a bad record",
+EDIFECS-Conversion,PROCESS START,,Start of XML conversion,
+EDIFECS-Conversion,PROCESS END,,After the XML conversion if it’s a success,
+EDIFECS-Conversion,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",After the XML conversion if it’s a failure,
+EDIFECS,MESSAGE PUBLISHED,,EDIFECS process ends,
+,,,,
+EDIFECS-Validation,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",In case the full file is rejected due to error in header segments. – File level,
+EDIFECS-Validation,ERROR,Duplicate_File_<FileName>,In case the duplicate file name,
+EDIFECS-Validation,ERROR,Duplicate_Interchange_<SenderId>_<ReciverId>_<Time>_<Date>_<InterchangeControlNumber>,In case the interchange Duplicate,
+```
+
+## Claims IB/EDIFECSProduct_277CA_MappingSpec&Tablestructure_V1.0.xlsx — CoverPage
+
+```csv
+277CA Mapping Specification- EDIFECS,,,,,,,,,
+,,,,,,,,,
+Business Area: IB Claims - 277CA as Post Adjudication Response,,,,,,,,,
+,,,,,,,,,
+This document provides the Mapping Specification for 277CA. Document is intended for EDIFECS Product Team,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,Version,,V26.1,,,
+,,,,,,,,,
+,Distribution of this document is limited to UST HealthProof,,,,,,,,
+,,,,,,,,,
+,Notice of Confidentiality and Custodial Responsibilities,,,,,,,,
+,"This UST HealthProof document contains confidential information that is
+UST HealthProof’s intellectual property. As a holder of this document, you
+ may NOT disclose its content or any information derived from it to
+any person outside of UST Proof Project Team.",,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+Sign Off,,,,,,,,,
+,Name,,Role,,Organization,,Date,,Approval
+Approver #1,,,,,,,,,
+Approver #2,,,,,,,,,
+Approver #3,,,,,,,,,
+Approver #4,,,,,,,,,
+```
+
+## Claims IB/EDIFECSProduct_277CA_MappingSpec&Tablestructure_V1.0.xlsx — VersionHistory
+
+```csv
+Revision History,,,,
+,,,,
+,,,,
+,,,,
+V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+1,10/11/2025,Ambily Raj,Rameshwar Singh,Initial Version. Baselined
+```
+
+## Claims IB/EDIFECSProduct_277CA_MappingSpec&Tablestructure_V1.0.xlsx — Table Layout
+
+```csv
+277CA REPO TABLE,Data Type/Length
+RECORD_ID,VARCHAR(50)
+RAY_ID,VARCHAR(50)
+CLAIM_TYPE,VARCHAR(30)
+SENDERID,VARCHAR(15)
+RECEIVERID,VARCHAR(15)
+CLAIM_RECEIVED_DATE,DATE(10)
+PAYER_NAME,VARCHAR(60)
+PAYER_ID,VARCHAR(80)
+SUBMITTER_LNAME,VARCHAR(60)
+SUBMITTER_FNAME,VARCHAR(35)
+SUBMITTER_MNAME,VARCHAR(25)
+SUBMITTER_ID,VARCHAR(80)
+EXTERNAL_CLAIM_BATCH_NO,VARCHAR(50)
+BILLED_AMT,NUMERIC(18)
+BILLINGPROVIDER_LNAME,VARCHAR(60)
+BILLINGPROVIDER_FNAME,VARCHAR(35)
+BILLINGPROVIDER_MNAME,VARCHAR(25)
+BILLINGPROVIDER_SUFFIX,VARCHAR(10)
+BILLINGPROVIDER_ID,VARCHAR(80)
+PATIENT_LNAME,VARCHAR(60)
+PATIENT_FNAME,VARCHAR(35)
+PATIENT_MNAME,VARCHAR(25)
+PATIENT_SUFFIX,VARCHAR(10)
+PATIENT_ID,VARCHAR(80)
+FACILITY_TYPE_CODE,VARCHAR(2)
+FREQUENCY_CODE,VARCHAR(1)
+SERVICE_DATE,VARCHAR(35)
+PATIENT_CONTROL_NUMER,VARCHAR(50)
+CLEARINGHOUSE_TRACENO,VARCHAR(50)
+CLAIM_STATUS,VARCHAR(50)
+CLAIM_HCCID,VARCHAR(30)
+CLAIM_LOAD_STATUS,VARCHAR(30)
+INPUT_FILE_NAME,VARCHAR(255)
+INPUT_ID,VATCHAR(100)
+ACK_CREATED_TIME,DATETIME
+ERROR_DESCRIPTION,VARCHAR(5000)
+RETRY_FLAG,VARCHAR(10)
+SOURCE_DATA_CREATED_TIME,DATETIME
+SOURCE_DATA_UPDATED_TIME,DATETIME
+```
+
+## Claims IB/EDIFECSProduct_277CA_MappingSpec&Tablestructure_V1.0.xlsx — IB to Table mapping
+
+```csv
+277CA REPO TABLE,EDI 837 Placeholder/DefaultValue
+RECORD_ID,Record id
+RAY_ID,Ray id
+CLAIM_TYPE,"I FOR 837I, P FOR 837P"
+SENDERID,ISA06
+RECEIVERID,ISA08
+CLAIM_RECEIVED_DATE,"Current Date, CCYYMMDD"
+PAYER_NAME,2010BB.NM103
+PAYER_ID,2010BB.NM109
+SUBMITTER_LNAME,1000A.NM103
+SUBMITTER_FNAME,1000A.NM104
+SUBMITTER_MNAME,1000A.NM105
+SUBMITTER_ID,1000A.NM109
+EXTERNAL_CLAIM_BATCH_NO,BHT03
+BILLED_AMT,2300.CLM02
+BILLINGPROVIDER_LNAME,2010AA.NM103
+BILLINGPROVIDER_FNAME,2010AA.NM104
+BILLINGPROVIDER_MNAME,2010AA.NM105
+BILLINGPROVIDER_SUFFIX,2010AA.NM106
+BILLINGPROVIDER_ID,2010AA.NM109
+PATIENT_LNAME,Map from 2010CA.NM103 if present else from 2010BA.NM103
+PATIENT_FNAME,Map from 2010CA.NM104 if present else from 2010BA.NM104
+PATIENT_MNAME,Map from 2010CA.NM105 if present else from 2010BA.NM105
+PATIENT_SUFFIX,Map from 2010CA.NM107 if present else from 2010BA.NM107
+PATIENT_ID,2010BA.NM109
+FACILITY_TYPE_CODE,2300.CLM05-1
+FREQUENCY_CODE,2300.CLM05-3
+SERVICE_DATE,"2400.DTP*472 - earliest service level dates in loop 2400 (DTP01-472) to the latest service level
+date(Proff/2300.DTP*434 (Inst)"
+PATIENT_CONTROL_NUMER,2300.CLM01
+CLEARINGHOUSE_TRACENO,2300.REF*D9
+CLAIM_STATUS,
+CLAIM_HCCID,
+CLAIM_LOAD_STATUS,
+INPUT_FILE_NAME,
+INPUT_ID,
+ACK_CREATED_TIME,
+ERROR_DESCRIPTION,
+RETRY_FLAG,
+SOURCE_DATA_CREATED_TIME,
+SOURCE_DATA_UPDATED_TIME,
+```
+
+## Claims IB/EDIFECSProduct_277CA_MappingSpec&Tablestructure_V1.0.xlsx — 277CA Mapping
+
+```csv
+EDI LoopID.Segment,EDI Data Element Name,EDI Element Description,Usage,Enumeration Values,Sample values,Hardcoded Values,TABLE/COLUMN NAME,Mapping Logic
+ISA,,,,,,,,
+ISA01,Authorization Information Qualifier,Authorization Information Qualifier,R,"00 No Authorization Information Present (No Meaningful Information in I02)
+03 Additional Data Identification",,"Hardcode as ""00""",,
+ISA02,Authorization Information,Authorization Information,R,,,Leave it blank,,
+ISA03,Security Information Qualifier,Security Information Qualifier,R,"00 No Security Information Present (No Meaningful Information in I04)
+01 Password",,"Hardcode as ""00""",,
+ISA04,Security Information,Security Information,R,,,Leave it blank,,
+ISA05,Interchange ID Qualifier,Interchange ID Qualifier,R,ZZ Mutually Defined,,"Hardcode as ""ZZ""",,
+ISA06,Interchange Sender ID,Interchange Sender ID,R,,,,RECEIVERID,
+ISA07,Interchange ID Qualifier,Interchange ID Qualifier,R,ZZ Mutually Defined,,"Hardcode as ""ZZ""",,
+ISA08,Interchange Receiver ID,Interchange Receiver ID,R,,,,SENDERID,
+ISA09,Interchange Date,Interchange Date,R,,,"Map this value from  current date in the format of ""YYMMDD""",,
+ISA10,Interchange Time,Interchange Time,R,,,Map this value from   current time in the format of HHMM,,
+ISA11,Repetition Separator,Repetition Separator,R,,,"Hardcode as ""^""",,
+ISA12,Interchange Control Version Number,Interchange Control Version Number,R,,,Hardcode as “00501”,,
+ISA13,Interchange Control Number,Interchange Control Number,R,,,Unique ISA control number needs to generated in Edifecs for each EDI file.,,
+ISA14,Acknowledgment Requested,Acknowledgment Requested,R,"0 No Interchange Acknowledgment Requested
+1 Interchange Acknowledgment Requested (TA1)",,"Hardcode as ""0""",,
+ISA15,Interchange Usage Indicator,Interchange Usage Indicator,R,"P Production Data
+T Test Data",,"""P""  if it is a Production region
+""T""  if it is a Non-Production region",,
+ISA16,Component Element Separator,Component Element Separator,R,,,"Hardcode  as "":""",,
+GS,Segment: Functional Group Header,,R,,,,,
+GS01,Functional Identifier Code,Code identifying a group of application related transaction sets,R,,,Hardcode as “HN”,,
+GS02,Application Sender's Code,Code identifying party sending transmission; codes agreed to by trading partners,R,,,,RECEIVERID,
+GS03,Application Receiver's Code,Code identifying party receiving transmission; codes agreed to by trading partners,R,,,,SENDERID,
+GS04,Date,Date the Group Header is created.,R,,,"Map this value from  current date in the format of ""YYYYMMDD""",,
+GS05,Time,"Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)",R,,,"Map this value from current Time in the format of ""HHMM""",,
+GS06,Group Control Number,Assigned number originated and maintained by the sender,R,,,Generate unique ID In EDIFECS (1-9 Bytes),,
+GS07,Responsible Agency Code,Code identifying the issuer of the standard; this code is used in conjunction with Data Element 480,R,X : Accredited Standards Committee X12,,"Hardcode as ""X""",,
+GS08,Version / Release / Industry Identifier Code,"Code indicating the version, release, subrelease, and industry identifier of the EDI standard being used, including the GS and GE segments; if code in DE455 in GS segment is X, then in DE 480 positions 1-3 are the version number; positions 4-6 are the release and subrelease, level of the version; and positions 7-12 are the industry or trade association identifiers (optionally assigned by user); if code in DE455 in GS segment is T, then other formats are allowed",R,,,"Hardcode as ""005010X214""",,
+ST,Segment: Transaction Set Header,,R,,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,R,,,Hardcode as 277,,
+ST02,Transaction Set Control Number,Identifying control number that must be unique within the transaction set functional group assigned by the originator for a transaction set,R,,,Generate unique ID In EDIFECS,,
+ST03,Implementation Convention Reference,Reference assigned to identify Implementation Convention,R,,,"Hardcode as ""005010X214""",,
+BHT Beginning of Hierarchical Transaction,,,R,,TR3 Example: BHT*0085*08*0000221*20060201*1635*TH~,,,
+BHT01,Hierarchical Structure Code,,R,"0085 Information Source, Information Receiver, Provider of Service, Patient",,Hardcode as'0085',,
+BHT02,Transaction Set Purpose Code,,R,08 Status,,Hardcode as '08',,
+BHT03,Reference Identification,,R,"The inventory file number of the transmission assigned by the Information
+Source’s system. This number operates as a transaction (batch) control number.",,Generate unique ID In EDIFECS,,
+BHT04,Date,,R,,,"Current date , CCYYMMDD",,
+BHT05,Time,,R,,,"Current time HHMM,",,
+BHT06,Transaction Type Code,,R,TH Receipt Acknowledgment Advice,,Hardcode as 'TH',,
+2000A HL Information Source Level   Max -1,,,R,,TR3 Example: TR3 Example: HL*1**20*1,,,
+2000A.HL01,Hierarchical ID Number,,,,,"HL01 must begin with the value ""1"" and increment by one each time an HL is used in the transaction. Only numeric values are allowed in HL01.",,
+2000A.HL03,Hierarchical Level Code,,,20 Information Source,,Hardcode as '20',,
+2000A.HL04,Hierarchical Child Code,,,1 Additional Subordinate HL Data Segment in This Hierarchical Structure.,,Hardcode as 1,,
+2100A NM1 Information Source Name Max-1,,,O,,TR3 Example: NM1*PR*2*ABC INSURANCE*****PI*12345~,,,
+2100A NM101,Entity Identifier Code,,R,"AY Clearinghouse
+PR Payer",,Hardcode as 'PR',,
+2100A NM102,Entity Type Qualifier,,R,2 Non-Person Entity,,Hardcode as '2',,
+2100A NM103,Name Last or Organization Name,,R,,,,PAYER_NAME,
+2100A NM108,Identification Code Qualifier,,R,"46 Electronic Transmitter Identification Number (ETIN)
+ FI Federal Taxpayer's Identification Number
+ PI Payor Identification
+ XV Centers for Medicare and Medicaid Services PlanID",,Hardcode as '46',,
+2100A NM109,Identification Code,,R,,,,PAYER_ID,
+TRN Transmission Receipt Control Identifier,,,R,,TR3 Example: TRN*1*734C542B43064BE0B9BE3D2AFFB8FF46~,,,
+2200A TRN01,Trace Type Code,,R,1 Current Transaction Trace Numbers,,Hardcode as '1',,
+2200A TRN02,Reference Identification,,R,"This is a unique trace number that identifies a specific transaction. This
+number is assigned by the Information Source.",,Unique Id,,
+DTP Information Source Receipt Date,,,O,,TR3 Example: TR3 Example: DTP*050*D8*20060228,,,
+2200A DTP01,Date/Time Qualifier,,R,050 Received,,Hardcode as '050',,
+2200A DTP02,Date Time Period Format Qualifier,,R,D8 Date Expressed in Format CCYYMMDD,,D8,,
+2200A DTP03,Date Time Period,,R,,,,CLAIM_RECEIVED_DATE,
+DTP Information Source Process Date MAX-1,,,O,,DTP*009*D8*20060301~,,,
+2200A DTP01,Date/Time Qualifier,,R,009 Process,,Hardcode as '009',,
+2200A DTP02,Date Time Period Format Qualifier,,R,D8 Date Expressed in Format CCYYMMDD,,D8,,
+2200A DTP03,Date Time Period,,R,,,,CLAIM_RECEIVED_DATE,
+HL Information Receiver Level MAX-1,,,R,,TR3 Example: HL*2*1*21*1,,,
+2000B HL01,Hierarchical ID Number,,R,,,Incremental value,,
+2000B HL02,Hierarchical Parent ID Number,,R,,,Hierarchical Parent ID Number,,
+2000B HL03,Hierarchical Level Code,,R,21 Information Receiver,,Hardcode as '21',,
+2000B HL04,Hierarchical Child Code,,R,"0 No Subordinate HL Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03=U, reject entire transaction. Used when the Information Receiver STC03=U, reject entire transaction.
+ 1 Additional Subordinate HL Data Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03 = WQ, accept entire transmission.",,Hardcode as '1',,
+NM1 Information Receiver Name,,,O,,NM1*41*1*SMITH*ROBERT*J***46*188888000A~,,,
+2100B NM101,Entity Identifier Code,,R,41 Submitter,,Hardcode as '41',,
+2100B NM102,Entity Type Qualifier,,R,"1 Person
+ 2 Non-Person Entity",,"Hardcode as '1'  if  SUBMITTER_FNAME is not blank , Else
+Hardcode as '2'",,
+2100B NM103,Name Last or Organization Name,,R,,,,SUBMITTER_LNAME,
+2100B NM104,Name First,,O,,,,SUBMITTER_FNAME,
+2100B NM105,Name Middle,,O,,,,SUBMITTER_MNAME,
+2100B NM108,Identification Code Qualifier,,R,46 Electronic Transmitter Identification Number (ETIN),,Hardcode as '46',,
+2100B NM109,Identification Code,,R,,,,SUBMITTER_ID,
+TRN Information Receiver Application Trace Identifier,,,O,,,,,
+2200B TRN01,Trace Type Code,,R,2 Referenced Transaction Trace Numbers,,Hardcode as '2',,
+2200B TRN02,Reference Identification,,R,,,,EXTERNAL_CLAIM_BATCH_NO,
+STC Information Receiver Status Information,,,O,,,,,
+2200B STC01,Health Care Claim Status,,R,,,,,
+2200B STC01-01,Industry Code,,R,,,,Refer Xwalk,Implementaion teams to configure the xwalk based on their requirement
+2200B STC01-02,Industry Code,,R,,,,Refer Xwalk,
+2200B STC01-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ AY Clearinghouse
+ PR Payer",,Hardcode as 'PR',,
+2200B STC02,Date,,R,CCYYMMDD,,CCYYMMDD- Current date,,
+2200B STC03,Action Code,,R,"U Reject
+ User Note 1: User Note 1:
+ Required when the entire claim transaction (ST-SE) is rejected due to submitter
+ level errors. No subordinate HL information is reported.
+ Required when the entire claim transaction (ST-SE) is rejected due to submitter
+ level errors. No subordinate HL information is reported.
+ WQ Accept
+ User Note 1: User Note 1:
+ Required when code value “U” is not used. At least one subordinate HL loop must
+ be reported.",,,Refer Xwalk,
+2200B STC04,Monetary Amount,,R,,,,BILLED_AMT,
+2200B STC10,Health Care Claim Status,,O,,,,,
+2200B STC10-01,Industry Code,,R,,,,,
+2200B STC10-02,Industry Code,,R,,,,,
+2200B STC10-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ AY Clearinghouse
+ PR Payer",,,,
+2200B STC11,Health Care Claim Status,,O,,,,,
+2200B STC11-01,Industry Code,,R,,,,,
+2200B STC11-02,Industry Code,,R,,,,,
+2200B STC11-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ AY Clearinghouse
+ PR Payer",,,,
+QTY Total Accepted Quantity,,,O,,QTY*90*1,,,
+2200B QTY01,Quantity Qualifier,,R,90  Acknowledged Quantity,,Hardcode as '90',,
+2200B QTY02,Quantity,,R,,Total Accepted Quantity,,,"total number of claims accepted in ST-SE, since one ST-SE contains only one claim, this will be 1."
+QTY Total Rejected Quantity,,,O,,,,,
+2200B QTY01,Quantity Qualifier,,R,AA Unacknowledged Quantity,,,,
+2200B QTY02,Quantity,,R,,Total Rejected Quantity,,,
+AMT Total Accepted Amount,,,O,,,,,
+2200B AMT01,Amount Qualifier Code,,R,YU In Process,,Hardcode as 'YU'',,
+2200B AMT02,Total Accepted Amount,,R,,,,BILLED_AMT,"total dollar amount of claims accepted in ST-SE.  Since one ST-SE contains only one claim, this will be BILLED_AMT of that claim."
+AMT Total Rejected Amount,,,O,,,,,
+2200B AMT01,Amount Qualifier Code,,R,YY Returned,,,,
+2200B AMT02,Monetary Amount,,R,,,,,total dollar amount of claims rejected
+HL Billing Provider of Service Level,,,,,HL*3*2*19*1,,,
+2000C HL01,Hierarchical ID Number,,R,,,Incremental value,,
+2000C HL02,Hierarchical Parent ID Number,,R,,,Hierarchical Parent ID Number,,
+2000C HL03,Hierarchical Level Code,,R,19 Provider of Service,,Hardcode as '19',,
+2000C HL04,Hierarchical Child Code,,R,"0 No Subordinate HL Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03=U, reject entire transaction. Used when the Information Receiver STC03=U, reject entire transaction.
+ 1 Additional Subordinate HL Data Segment in This Hierarchical Structure.
+ User Note 1: User Note 1:
+ Used when the Information Receiver STC03 = WQ, accept entire transmission.",,Hardcode as '1',,
+NM1 Billing Provider Name,,,O,,,,,
+2100C NM101,Entity Identifier Code,,R,85 Billing Provider,,Hardcode as '85',,
+2100C NM102,Entity Type Qualifier,,R,"1 Person
+ 2 Non-Person Entity",,"Hardcode as '1'  if  BILLINGPROVIDER_FNAME is not blank , Else
+Hardcode as '2'",,
+2100C NM103,Name Last or Organization Name,,R,,,,BILLINGPROVIDER_LNAME,
+2100C NM104,Name First,,O,,,,BILLINGPROVIDER_FNAME,
+2100C NM105,Name Middle,,O,,,,BILLINGPROVIDER_MNAME,
+2100C NM107,Name Suffix,,O,,,,BILLINGPROVIDER_SUFFIX,
+2100C NM108,Identification Code Qualifier,,R,"FI
+ Federal Taxpayer's Identification Number
+ XX Centers for Medicare and Medicaid Services National Provider Identifier",,"Hardcode as 'XX""",,
+2100C NM109,Identification Code,,R,,,,BILLINGPROVIDER_ID,
+TRN Provider of Service Information Trace Identifier,,,O,,,,,
+2200C TRN01,Trace Type Code,,R,1 Current Transaction Trace Numbers,,Hardcode as '1',,
+2200C TRN02,Reference Identification,,R,,,Unique Id,,
+STC Billing Provider Status Information,,,O,,,,,
+2200C STC01,Health Care Claim Status,,R,,,,,
+2200C STC01-01,Industry Code,,R,,,,Refer Xwalk,Implementaion teams to configure the xwalk based on their requirement
+2200C STC01-02,Industry Code,,R,,,,Refer Xwalk,
+2200C STC01-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ AY Clearinghouse
+ PR Payer",,Hardcode as 'PR',,
+2200C STC03,Action Code,,R,"U Reject
+ User Note 1: User Note 1:
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ WQ Accept",,,Refer Xwalk,
+2200C STC04,Monetary Amount,,R,,,,BILLED_AMT,
+2200C STC10,Health Care Claim Status,,O,,,,,
+2200C STC10-01,Industry Code,,R,,,,,
+2200C STC10-02,Industry Code,,R,,,,,
+2200C STC10-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ AY Clearinghouse
+ PR Payer",,,,
+2200C STC11,Health Care Claim Status,,O,,,,,
+2200C STC11-01,Industry Code,,R,,,,,
+2200C STC11-02,Industry Code,,R,,,,,
+2200C STC11-03,Entity Identifier Code,,O,"36 Employer
+ 40 Receiver
+ 41 Submitter
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ AY Clearinghouse
+ PR Payer",,,,
+REF Provider Secondary Identifier,,,O,,,,,
+2200C REF01,Reference Identification Qualifier,,R,"0B
+ State License Number
+ 1G Provider UPIN Number
+ G2 Provider Commercial Number
+ LU Location Number
+ SY Social Security Number
+ TJ
+ Federal Taxpayer's Identification Number",,,,
+2200C REF02,Reference Identification,,R,,,,,
+"QTY
+ Total Accepted Quantity",,,O,,,,,
+2200C QTY01,Quantity Qualifier,,R,QA Quantity Approved,,Hardcode as 'QA',,
+2200C QTY02,Quantity,,R,,,,,"total number of claims accepted in ST-SE, since one ST-SE contains only one claim, this will be 1."
+QTY Total Rejected Quantity,,,O,,,,,
+2200C QTY01,Quantity Qualifier,,R,QC Quantity Disapproved,,,,
+2200C QTY02,Quantity,,R,,,,,
+AMT Total Accepted Amount,,,O,,,,,
+2200C AMT01,Amount Qualifier Code,,R,YU In Process,,Hardcode as 'YU'',,
+2200C AMT02,Monetary Amount,,R,,,,BILLED_AMT,"total dollar amount of claims accepted in ST-SE.  Since one ST-SE contains only one claim, this will be BILLED_AMT of that claim."
+AMT Total Rejected Amount,,,O,,,,,
+2200C AMT01,Amount Qualifier Code,,R,YY Returned,,,,
+2200C AMT02,Monetary Amount,,R,,,,,
+HL  Patient Level,,,O,,,,,
+2000D HL01,Hierarchical ID Number,,R,,,Incremental value,,
+2000D HL02,Hierarchical Parent ID Number,,R,,,Hierarchical Parent ID Number,,
+2000D HL03,Hierarchical Level Code,,R,PT Patient,,Hardcode as 'PT',,
+NM1 Patient Name,,,O,,,,,
+2100D NM101,Entity Identifier Code,,R,QC Patient,,Hardcode as 'QC',,
+2100D NM102,Entity Type Qualifier,,R,1 Person,,Hardcode as '1',,
+2100D NM103,Name Last or Organization Name,,R,,,,PATIENT_LNAME,
+2100D NM104,Name First,,O,,,,PATIENT_FNAME,
+2100D NM105,Name Middle,,O,,,,PATIENT_MNAME,
+2100D NM107,Name Suffix,,O,,,,PATIENT_SUFFIX,
+2100D NM108,Identification Code Qualifier,,R,"II Standard Unique Health Identifier for each Individual in the United States
+ User Note 1:
+ Required if the HIPAA Individual Patient Identifier is mandated for use. If not
+ required use MI.
+ Required if the HIPAA Individual Patient Identifier is mandated for use. If not
+ required use MI.
+ MI Member Identification Number",,Hardcode as 'MI',,
+2100D NM109,Identification Code,,R,,,,PATIENT_ID,
+TRN Provider of Service Information Trace Identifier,,,O,,,,,
+2200D TRN01,Trace Type Code,,R,2 Referenced Transaction Trace Numbers,,Hardcode as '2',,
+2200D TRN02,Reference Identification,,R,Patient Control Number,,,PATIENT_CONTROL_NUMER,
+"STC Claim Level Status
+ Information",Max: >1,,O,,,,,
+2200D STC01,Health Care Claim Status,,R,,,,,
+2200D STC01-01,Industry Code,,R,,,,Refer Xwalk tab,This configurable xwalk. Implementaion teams to configure the xwalk based on their requirement
+2200D STC01-02,Industry Code,,R,,,,Refer Xwalk tab,
+2200D STC01-03,Entity Identifier Code,,O,"03 Dependent
+ 1P Provider
+ 1Z Home Health Care
+ 40 Receiver
+ 41 Submitter
+ 71 Attending Physician
+ 72 Operating Physician
+ 73 Other Physician
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ DK Ordering Physician
+ DN Referring Provider
+ DQ Supervising Physician
+ FA Facility
+ GB Other Insured
+ HK Subscriber
+ IL Insured or Subscriber
+ LI Independent Lab
+ PR Payer
+ QB Purchase Service Provider
+ QC Patient
+ QD Responsible Party
+ TL Testing Laboratory
+ TU Third Party Repricing Organization (TPO)
+ MSC Mammography Screening Center
+ PRP Primary Payer
+ SEP Secondary Payer
+ TTP Tertiary Payer",,Hardcode as PR,,
+2200D STC02,Status Information Effective Date,,R,,,CCYYMMDD- Current date,,
+2200D STC03,Action Code,,R,"U Reject
+ User Note 1: User Note 1:
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ Use this code to indicate the provider’s group of claims has been rejected. If any
+ portion of the provider’s group of claims is accepted then the code “WQ” - Accept
+ must be used.
+ WQ Accept",,,Refer Xwalk,
+2200D STC04,Monetary Amount,,R,,,,BILLED_AMT,
+2200D STC10,Health Care Claim Status,,O,,,,,
+2200D STC10-01,Industry Code,,R,,,,,
+2200D STC10-02,Industry Code,,R,,,,,
+2200D STC10-03,Entity Identifier Code,,O,"03 Dependent
+ 1P Provider
+ 1Z Home Health Care
+ 40 Receiver
+ 41 Submitter
+ 71 Attending Physician
+ 72 Operating Physician
+ 73 Other Physician
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ DK Ordering Physician
+ DN Referring Provider
+ DQ Supervising Physician
+ FA Facility
+ GB Other Insured
+ HK Subscriber
+ IL Insured or Subscriber
+ LI Independent Lab
+ PR Payer
+ QB Purchase Service Provider
+ QC Patient
+ QD Responsible Party
+ TL Testing Laboratory
+ TU Third Party Repricing Organization (TPO)
+ MSC Mammography Screening Center
+ PRP Primary Payer
+ SEP Secondary Payer
+ TTP Tertiary Payer",,,,
+2200D STC11,Health Care Claim Status,,O,,,,,
+2200D STC11-01,Industry Code,,R,,,,,
+2200D STC11-02,Industry Code,,R,,,,,
+2200D STC11-03,Entity Identifier Code,,O,"3 Dependent
+ 1P Provider
+ 1Z Home Health Care
+ 40 Receiver
+ 41 Submitter
+ 71 Attending Physician
+ 72 Operating Physician
+ 73 Other Physician
+ 77 Service Location
+ 82 Rendering Provider
+ 85 Billing Provider
+ 87 Pay-to Provider
+ DK Ordering Physician
+ DN Referring Provider
+ DQ Supervising Physician
+ FA Facility
+ GB Other Insured
+ HK Subscriber
+ IL Insured or Subscriber
+ LI Independent Lab
+ PR Payer
+ QB Purchase Service Provider
+ QC Patient
+ QD Responsible Party
+ TL Testing Laboratory
+ TU Third Party Repricing Organization (TPO)
+ MSC Mammography Screening Center
+ PRP Primary Payer
+ SEP Secondary Payer
+ TTP Tertiary Payer",,,,
+2200D STC12,Free-form Message Text,,O,,,,,
+"REF
+ Payer Claim Control Number",,,O,,,,,
+2200D REF01,Reference Identification Qualifier,,R,1K Payor's Claim Number,,Hardcode as '1K',,
+2200D REF02,Reference Identification,,R,,,,CLAIM_HCCID,
+REF Claim Identifier Number For Clearinghouse and Other Transmission Intermediaries,,,O,,,,,
+2200D REF01,Reference Identification Qualifier,,R,D9 Claim Number,,Hardcode as 'D9',,
+2200D REF02,Reference Identification,,R,,,,CLEARINGHOUSE_TRACENO,
+REF Institutional Bill Type Identification,,,O,,,,,
+2200D REF01,Reference Identification Qualifier,,R,BLT Billing Type,,Hardcode as 'BLT',,Only if CLAIM_TYPE is I
+2200D REF02,Reference Identification,,R,,,,Concatenate FACILITY_TYPE_CODE and FREQUENCY_CODE,Only if CLAIM_TYPE is I
+DTP Claim Level Service Date,,,O,,,,,
+2200D DTP01,Date/Time Qualifier,,R,472 Service,,Hardcode as '472',,
+2200D DTP02,Date Time Period Format Qualifier,,R,"D8 Date Expressed in Format CCYYMMDD
+ RD8 Range of Dates Expressed in Format CCYYMMDD-CCYYMMDD",,"D8 if SERIVICE_DATE is in format CCYYMMDD
+RD8 if SERIVICE_DATE is in format CCYYMMDD -CCYYMMDD",,
+2200D DTP03,Date Time Period,,R,,,,SERVICE_DATE,
+"SVC
+ Service Line Information",,,O,,,,,
+2220D SVC01,Composite Medical Procedure Identifier,,R,,,,,
+2220D SVC01-01,Product/Service ID Qualifier,,R,"AD American Dental Association Codes
+ ER Jurisdiction Specific Procedure and Supply Codes
+ HC Health Care Financing Administration Common Procedural Coding System
+ (HCPCS) Codes
+HP Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility
+ Rate Code
+ IV Home Infusion EDI Coalition (HIEC) Product/Service Code
+ NU National Uniform Billing Committee (NUBC) UB92 Codes
+ WK Advanced Billing Concepts (ABC) Codes",,,,
+2220D SVC01-02,Product/Service ID,,R,,,,,
+2220D SVC01-03,Procedure Modifier,,O,,,,,
+2220D SVC01-04,Procedure Modifier,,O,,,,,
+2220D SVC01-05,Procedure Modifier,,O,,,,,
+2220D SVC01-06,Procedure Modifier,,O,,,,,
+2220D SVC02,Monetary Amount,,R,,,,,
+2220D SVC04,Product/Service ID,,O,,,,,
+2220D SVC07,Quantity,,O,,,,,
+"SE
+ Transaction Set Trailer",,,R,,,,,
+SE01,Number of Included Segments,,R,,,"Total number of segments included in a transaction set including ST and SE
+segments",,
+SE02,Transaction Set Control Number,,R,,,Same as ST02,,
+GE Functional Group Trailer (Required),,,,,,,,
+GE01,,Number of Transaction Sets Included,R,,,Count Of GS,,
+GE02,,Group Control Number,R,,,GS06 Value,,
+IEA Interchange Control Trailer (Required),,,,,,,,
+IEA01,,Number of Included Functional Groups,R,,,Count Of ISA,,
+IEA02,,Interchange Control Number,R,,,ISA13 Value,,
+```
+
+## Claims IB/EDIFECSProduct_277CA_MappingSpec&Tablestructure_V1.0.xlsx — Xwalk
+
+```csv
+2200D.STC,,,,,,,2200B.STC,,,,,,2200C.STC,,,,
+CLAIM_STATUS,STC01-01,STC01-02,STC03,Comments,,,CLAIM_STATUS,STC01-01,STC01-02,STC03,Comments,,CLAIM_STATUS,STC01-01,STC01-02,STC03,Comments
+CONSOLIDATED,A2,19,WQ,,,,CONSOLIDATED,A1,19,WQ,,,CONSOLIDATED,A1,19,WQ,
+NEEDS_REPAIR,P5,19,WQ,,,,NEEDS_REPAIR,A1,19,WQ,,,NEEDS_REPAIR,A1,19,WQ,
+NEEDS_REVIEW,P5,19,WQ,,,,NEEDS_REVIEW,A1,19,WQ,,,NEEDS_REVIEW,A1,19,WQ,
+DENIED,F2,20,WQ,,,,DENIED,A1,19,WQ,,,DENIED,A1,19,WQ,
+REJECTED,A3,19,U,,,,REJECTED,A1,19,WQ,,,REJECTED,A1,19,WQ,
+FINAL,F1,20,WQ,,,,FINAL,A1,19,WQ,,,FINAL,A1,19,WQ,
+NEEDS_REPRICING,P2,19,WQ,,,,NEEDS_REPRICING,A1,19,WQ,,,NEEDS_REPRICING,A1,19,WQ,
+WAITING_FOR_EXTERNAL_SYSTEM,P2,19,WQ,,,,WAITING_FOR_EXTERNAL_SYSTEM,A1,19,WQ,,,WAITING_FOR_EXTERNAL_SYSTEM,A1,19,WQ,
+DEFAULT,A1,19,WQ,"1. HRP Transaction Manager claims
+
+2. Unable to load the claim to HRP because of any webservice input xml file issue
+
+3. LCN Json Missing/Claim Status missing.",,,DEFAULT,A1,19,WQ,"1. HRP Transaction Manager claims
+
+2. Unable to load the claim to HRP because of any webservice input xml file issue
+
+3. LCN Json Missing/Claim Status missing.",,DEFAULT,A1,19,WQ,"1. HRP Transaction Manager claims
+
+2. Unable to load the claim to HRP because of any webservice input xml file issue
+
+3. LCN Json Missing/Claim Status missing."
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — Cover Page
+
+```csv
+EDI 837I/P Mapping Specification- EDIFECS,,,,,,,,,
+,,,,,,,,,
+Business Area: Claims IB,,,,,,,,,
+,,,,,,,,,
+This document provides the Mapping Specification for EDI 837I/P Claims IB. Document is intended for EDIFECS Product Team,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,Version,,V26.2,,,
+,,,,,,,,,
+,Distribution of this document is limited to UST HealthProof,,,,,,,,
+,,,,,,,,,
+,Notice of Confidentiality and Custodial Responsibilities,,,,,,,,
+,"This UST HealthProof document contains confidential information that is
+UST HealthProof’s intellectual property. As a holder of this document, you
+ may NOT disclose its content or any information derived from it to
+any person outside of UST Proof Project Team.",,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+,,,,,,,,,
+Sign Off,,,,,,,,,
+,Name,,Role,,Organization,,Date,,Approval
+Approver #1,,,,,,,,,
+Approver #2,,,,,,,,,
+Approver #3,,,,,,,,,
+Approver #4,,,,,,,,,
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — Version History
+
+```csv
+Revision History,,,,
+,,,,
+,,,,
+,,,,
+V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+1.0,02/16/23,Ambily Raj/Jishnu,Shijila M/ Rameshwar Singh,
+1.1,03/13/23,Ambily Raj/Jishnu,Shijila M/ Rameshwar Singh,"Removed the mapping logic for  /professionalClaim/memberInformation/  tag in the 2000B and 2010BA Loop. Expectaion is  /professionalClaim/memberInformation/ tag will be mapped from 2000C and 2010CA loop  for dependent claims.
+Removed the mapping logic for /institutionalClaim/memberInformation/tag in the 2010BA Loop and Edpectation is
+/institutionalClaim/memberInformation/ tag will mapped from 2010CA loop  for dependent claims."
+1.2,45049,Ambily Raj/Jishnu,Shijila M/ Rameshwar Singh,Changed the mapping for /header/correlationId and /recordId for 837I and P.
+1.3,06/02/2023,Ambily Raj,Shijila M/ Rameshwar Singh,Cosmetic changes done for 837P and changed the mapping of  /recordId  for 837P and 837I
+1.4,06/08/2023,Ambily Raj,Shijila M/ Rameshwar Singh,Changed the mapping of  /XMLFileCreationDate  for 837P and 837I
+1.5,06/09/2023,Jishnu,Shijila M/ Rameshwar Singh,"2300.REF01/REF02 – Added Enumeration values.
+2320.SBR01 - Added more details in Transformation logic .
+2010BA – Added more details in Comments. No change in logic
+2300.PWK01 - Added more detail in comments for attachment type code"
+1.6,06/09/2023,Jishnu/Ambily,Rameshwar Singh,2320.SBR01 - Added more details in Transformation logic .
+1.7,06/09/2023,Jishnu/Ambily,Rameshwar Singh,Made changes in mapping default value tab for file  creation date format
+1.8,06/28/2023,Jishnu/Ambily,Rameshwar Singh,Reframed enumeration values2000B.SBR02  and added logic for SBR03
+1.9,07/05/2023,Jishnu/Ambily,Rameshwar Singh,"2430.DTP03 removed repricer response date mapping as its not required for Inbound claims
+Corrected /taxamount mapping for COB.
+Removed CN1 Mapping"
+1.10,07/13/2023,Jishnu/Ambily,Rameshwar Singh,"Removed mapping for 2400.AMT02(Service Tax amount and Facility Tax amount)
+Added mapping for below tags in 2430.CAS.
+Removed mapping for HCP segment"
+1.11,07/13/2023,Jishnu/Ambily,Rameshwar Singh,"Added transformation logic for 2300.CLM07 -Assignment acceptance in 837P &837I
+Added transformation logic for 2400.SV104 -837P
+Added Mapping for 2330B.DTP03 -837I/P
+Added Mapping for 2010BA. N4
+Added Mapping to 2010CA.N4"
+1.12,07/13/2023,Jishnu/Ambily,Rameshwar Singh,"Added mapping for HCC Claim line number -2400.LX1 in 837P
+Corrected mapping logic for /serviceLineItem/renderingPractitionerSpecialty  from 2000A.PRV03"
+1.13,07/13/2023,Jishnu/Ambily,Rameshwar Singh,Added transformation logic for 2010BA.NM109
+1.14,08/24/2023,Jishnu,Rameshwar Singh,Added transformation logic for  diagnosis code  2300.HI for Both professional and Institutional
+1.15,11/9/23,Jishnu,Rameshwar Singh,Added EDI File Type in 837P Base Mapping(Default Val) and 837I Base Mapping(Default Val)
+1.16,11/21/2023,Jishnu,Rameshwar Singh,Added mapping for Institutional  2000A.PRV03
+1.17,11/28/2023,Jishnu,Rameshwar Singh,"Added logic for 2010AA.PER 03
+Added crosswalk table for PWK
+Added mapping logic in 2400.DTP"
+1.18,1/17/24,Jishnu,Rameshwar Singh,"Added mapping for -837I 2330B NM109 (NM1*PR)
+Added mapping for - 837P 2430 CAS codes
+Added mapping logic for PER segment 837P"
+1.19,2/5/24,Jishnu,Rameshwar Singh,"PSD1569- Added qualifier ""DN"" for 2310A.NM101' (Professional)
+PSD 1616- Added logic only two digit allowed after decimal point for allowed amount (Inst & Prof)
+PSD1640-
+1)added mapping in 2400.SV101-7  ServiceDescription under serviceLineItem(Both Institutional and Professional).
+2)2010AA.N302 to the second instance of street address (inst)
+3)2310C.N302 to the second instance of street address (prof)"
+V2.0,4/4/24,Ambily,Rameshwar Singh,Changes for INTP-7868. -  Added mapping for /sourceTypeIdentifier  (Institutional/Professional)
+V2.1,5/17/24,Ambily,Rameshwar Singh,"Changes for INTP-8520. - Added mapping for /recordId  (Institutional/Professional)
+Changes for PSD-2335 - Updated mapping for 2010AA.PER Segment"
+,7/24/24,SwedhaKumar,Ambily Raj,"Changes for INTP-9238 - Updated the 2300 HI segment, removed mapping for multiple occurances as the target max occurence is one.
+Changes for INTP - 9197 - Updated the 2300CRC segment, removed mapping for multiple occurances (CRC04, CRC05) as the target max occurence is one."
+,8/9/24,SwedhaKumar,Ambily Raj,"Changes for INTP-9450 - Updated the Prof mapping - 2300.CLM02 segment mapping logic ie., Map CLM02 <billedAmount> only when 2320.CAS  is pesent"
+V2.2,9/19/24,Ambily Raj,Rameshwar Singh,Changes for INTP-10071: Claims Lifecycle Notification changes.
+,10/24/24,Ambily Raj,Rameshwar Singh,Changes for PSD-3735: To load Referring Practitioner details(837I)
+V2.3,5/25/26,Ambily Raj,Rameshwar Singh,Changes for PSD-8434: Mapping Enhancements
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — 837P Base Mapping
+
+```csv
+EDILoopID. Segment,EDI Data Element Name,EDI Element Description,Usage,Enumeration Values,Sample values,Mapped to XSD element,HRP Element Description,Transformation Logic,Comments
+ISA (Interchange Control Header Segment),,,,,,,,,
+ISA,Segment: Interchange Control Header,,R,,,,,,
+ISA01,Authorization Information Qualifier,Code identifying the type of information in the Authorization Information,R,00 : No Authorization Information Present,,,,,
+ISA02,Authorization Information,,R,Blank (10 spaces),,,,,
+ISA03,Security Information Qualifier,Code identifying the type of information in the Security Information,R,00 : No Security Information Present,,,,,
+ISA04,Security Information,"security information about the interchange sender
+or the data in the interchange",R,Blank (10 spaces),,,,,
+ISA05,Interchange ID Qualifier,radin,R,ZZ : Mutually Defined,,,,,
+ISA06,Interchange Sender ID,Sender ID,R,<Sender ID>,,professionalClaimIBRequestRoot/header/senderId,Sender ID from EDI837 X12 will be mapped to the header of each claim bundle.,,
+,,,,<Sender ID>,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/tradingPartnerID,Sender ID from EDI837 X12 will be mapped to the Trading Partner ID.,,
+,,,,<Sender ID>,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimSource,,"Crosswalk Name : P_IB_837_ClaimSourceLookup
+•Provide the Sender Id and Receiver Id as the source columns.
+•Provide the ClaimSource and ClaimDeliveryType as the target columns.",
+ISA07,Interchange ID Qualifier,"Code indicating the system/method of code structure used to designate the
+sender or receiver ID element being qualified",R,ZZ : Mutually Defined,,,,,
+ISA08,Interchange Receiver ID,Receiver Id,R,<Receiver ID>,,professionalClaimIBRequestRoot/header/receiverId,Receiver ID from EDI837 X12 will be mapped to the header of each claim bundle.,,
+ISA09,Interchange Date,Date of the interchange,R,SysDate (YYMMDD),Example : 210630,,,,
+ISA10,Interchange Time,Time of the interchange,R,SysTime (HHMM),Example : 1732,,,,
+ISA11,Interchange Control Standards Identifier,,R,^,,,,,
+ISA12,Interchange Control Version Number,Code specifying the version number of the interchange control segments,R,00501,,,,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,R,,Example : 319003402,,,,
+ISA14,Acknowledgment Requested,Code indicating sender’s request for an interchange acknowledgment,R,"0 : No Interchange Acknowledgement Requested
+1 : Interchange Acknowledgment Requested",,,,,
+ISA15,Usage Identifier,"Code indicating whether data enclosed by this interchange envelope is test,
+production or information",R,P : Production Data T : Test,,,,,
+ISA16,Component Element Separator,The delimiter used to separate component data elements,R,": = Element separator
+~ = Segment Terminator",,,,,
+GS (Functional Group Header),,,,,,,,,
+GS,Segment: Functional Group Header,,R,,,,,,
+GS01,Functional Identifier Code,The two-character identifier Code for the transaction set included.,R,HC : Health Care Claim (837),,,,,
+GS02,Application Senders Code,"Code identifying party sending transmission,  codes agreed to by trading partners
+This is Submitter-specific.",R,<Sender ID>,,,,,
+GS03,Application Receivers Code,Code identifying party receiving transmission; codes agreed to by trading partners,R,<HealthPlan ID>/,,,,,
+GS04,Date,Date the Group Header is created.,R,SysDate (YYYYMMDD),Example : 210630,,,,
+GS05,Time,Time the Group Header is created.,R,SysTime (HHMM),Example : 1732,,,,
+GS06,Group Control Number,Submitter-specific number.,R,<Group Control Number>,319003402,,,,
+GS07,Responsible Agency Code,Code identifying the issuer of the EDI standard being used.,R,X : Accredited Standards Committee X12,,,,,
+GS08,Version/Release/Industry Identifier Code,"Code indicating the version, release, subrelease, and industry identifier of the EDI
+standard being used,
+ST03 and GS08 must be identical",R,005010X222A1,,,,,
+ST (Transaction Set Header),,,,,,,,,
+ST,Segment: Transaction Set Header,,R,,,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,R,837 : Health Care Claim,,,,,
+ST02,Transaction Set Control Number,Unique Sequential Number Assigned by Internal Processes for each Transaction Set. Starts from 001 and increments with each transaction set,R,"<Transaction set Control Number>
+Starts from 001 and increments with each transaction set",319003402,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/externalBatchSequenceNumber,,,
+ST03,Implementation Convention Reference,Standards Approved by ACS X12 Review Board.                 ST03 and GS08 must be identical,R,005010X222A1,,,,,
+BHT,Segment: Beginning Of Hierarchical Transaction,,R,,,,,,
+BHT01,Hierarchical Structure Code,Code indicating the hierarchical application structure of a transaction set,R,"0019 : Information Source, Subscriber, Dependent",,,,,
+BHT02,Transaction Set Purpose Code,"Code identifying purpose of transaction set.  Used to convey the electronic transmission status of
+the 837 batch",R,"00 : Original
+18 : Reissue",,,,,
+BHT03,Reference Identification,Reference information as defined for a particular Transaction Set,R,<Originator Application Transaction Identifier>,319003402,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/externalClaimBatchNumber,"Batch number assigned by external
+system.",,
+BHT04,Date,The date the transaction was created,R,SysDate (YYYYMMDD),20210630,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/cleanClaimDate,"Mapped from BHT04, formatted to YYYY-MM-DD
+Date as of which all of the information
+necessary to process the
+claim was received. This information
+can be used to determine
+whether interest should be calculated
+on the claim. -- reflected in Clean Claim Date at claim line level",,
+,,,,SysDate (YYYYMMDD),,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/receiptDate,"Mapped from BHT04, formatted to YYYY-MM-DD
+
+Date on which the Health Care Company
+was first made aware- of the
+claim. - reflected as Received Date in HRP UI",,
+BHT05,Time,The time the transaction was created,R,SysTime (HHMMSS),173250,,,,
+BHT06,Transaction Type Code,Code specifying the type of transaction,R,"CH- Chargeable
+RP- Reporting",,,,,
+Loop 1000A — SUBMITTER NAME (Required)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment NM1 - Submitter Name  (Required),,R,,,,,,
+1000A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,41 : Submitter,,,,,
+1000A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-person Entity",,,,,
+1000A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/submitterName,<Submitter Last/Org Name>,,
+1000A.NM104,Name First,Individual first name,S,,,,,,
+1000A.NM105,Name Middle,Individual middle name or initial,S,,,,,,
+1000A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,46 : Electronic Transmitter Identification Number (ETIN,,,,,
+1000A.NM109,Identification Code,Code identifying a party or other code,R,100X,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/submitterId,<Submitter ID>,,
+PER,Segment PER - Submitter EDI Contact Information,,R,,,,,,
+1000A.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC -  Information Contact,,,,,
+1000A.PER02,Name,Submitter Contact Name,S,<<Submitter Name>>,,,,,
+1000A.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+1000A.PER04,Communication Number,Complete communications number including country or area code when applicable,R,,,,,,
+1000A.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+1000A.PER06,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+1000A.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+1000A.PER08,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+Loop 1000B — RECEIVER NAME (Required) Loop Repeat: 1,,,,,,,,,
+NM1,Segment NM1 - Receiver Name  (Required),,R,,,,,,
+1000B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,40 : Receiver,,,,,
+1000B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+1000B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,
+1000B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,46 :  Electronic Transmitter Identification Number (ETIN,,,,,
+1000B.NM109,Identification Code,Code identifying a party,R,,,,,,
+Loop 2000A — BILLING PROVIDER HIERARCHICAL LEVEL (Required)  Loop Repeat: >1,,,,,,,,,
+HL,Segment HL - Billing Provider Hierarchical Level  (Required),,R,,,,,,
+2000A.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,"The first HL01 within each ST-SE envelope must begin with “1”,
+and be incremented by one each time an HL is used in the
+transaction",,,,,
+2000A.HL02,Hierarchical Parent ID Number,,R,,,,,,
+2000A.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,20 : Information Source,,,,,
+2000A.HL04,Hierarchical Child Code,ndccode,R,"1 : Additional Subordinate HL Data Segment in This
+Hierarchical Structure.",,,,,
+PRV,Segment PRV - Billing Provider Specialty Information  (Situational),,S,,,,,,
+2000A.PRV01,Provider Code,Code identifying the type of provider,R,BI : Billing,,,,,
+2000A.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC :  Health Care Provider Taxonomy Code,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/additionalCodes/codes/qualifier,,,Needs review with configuration team
+2000A.PRV03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/additionalCodes/codes/code,,,Needs review with configuration team
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingPractitionerSpecialty,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+CUR,Segment CUR - Foreign Currency Information (Situational),,S,,,,,,
+2000A.CUR01,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,
+2000A.CUR02,Currency Code,Code (Standard ISO) for country in whose currency the charges are specified,R,,,,,,
+Loop 2010AA - BILLING PROVIDER NAME (Required) Loop Repeat: 1,,,,,,,,,
+NM1,Segment NM1 - Billing Provider Name (Required),,R,,,,,,
+2010AA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,85 :  Billing Provider,,,,,
+2010AA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2010AA.NM103,Name Last or Organization Name,Individual last name or organizational name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/supplierBillingName,"If NM102 is Person, this should be
+the Billing Provider Last Name.
+If NM102 is Non-Person, this
+should be the Organization Name",,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierName/lastName,,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderLastName,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+2010AA.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierName/firstName,,Required when NM102 = 1,
+,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderFirstName,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+2010AA.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierName/middleName,,Required when NM102 = 1,
+2010AA.NM105,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderMiddleName,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+2010AA.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierName/nameSuffix,,Required when NM102 = 1,
+2010AA.NM107,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderSuffix,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+2010AA.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2010AA.NM109,Identification Code,Code identifying a party or other code / Billing Provider Identifier,S,,1477569838,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/npi,,,
+2010AA.NM109,,,,,1477569838,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderNPI,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+N3,Segment N3 - Billing Provider Address (Required),,R,,,,,,
+2010AA.N301,Address Information,Address information,R,,777 BANNOCK ST,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/streetAddress,The first line of the street address.,,
+2010AA.N302,Address Information,Address information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/streetAddress,,"Concatenate the value (if present) to this XML field, separated by comma and space (, )",
+N4,"Segment N4 - Billing Provider City, State, ZIP Code (Required)",,R,,,,,,
+2010AA.N401,City Name,Free-form text for city name,R,,DENVER,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/cityName,City,,
+2010AA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,CO,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/stateCode,State abbreviation,,
+2010AA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,802044507,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/postalCode,zip code,,
+2010AA.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/countryCode,Concrete type for Country code,"Map to the value ""US"" if not present",
+2010AA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment REF - Billing Provider Tax Identification (Required),,R,,,,,,
+2010AA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"EI : Employer’s Identification Number
+SY : Social Security Number",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/taxIdCode,"Supplier tax identification code (SSN, EID, etc.)",,
+,,,,"EI : Employer’s Identification Number
+SY : Social Security Number",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderIdQualifier,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',
+2010AA.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/taxIdentificationNumber,Billing Provider Tax Identification Number,If /837/2000A/2010AA/REF01 (Reference Identification Qualifier) is ‘EI’ then it will be mapped into ‘XX-XXXXXXX’ format to taxIdentificationNumber,
+,Reference Identification,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/taxIdentificationNumber,Billing Provider Tax Identification Number,If /837/2000A/2010AA/REF01 (Reference Identification Qualifier) is ‘SY’ then it will be mapped into ‘XXX-XX-XXXX’ format to taxIdentificationNumber,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/otherId,"Supplier tax identification code (SSN, EID, etc.).",When REF01=SY,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/otherRenderingProviderId,,if 2310B loop and 2420A loop  does not exist and 2010AA.NM102='1',Added mapping to copy the Billing provider details to line level rendering provider fields when claim level and service line level rendering provider details are not present and if the billing provider is a person
+REF,Segment REF - Billing Provider UPIN/License Information (Situational),,S,,,,,,
+2010AA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"1G  : Provider UPIN Number
+0B :  State License Number",,,,,
+2010AA.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/supplierPINNumber,Supplier PIN number.,When REF01=1G,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/otherId,Supplier's other ID,"When REF01=0B or 1G And
+if its not already mapped from 2010AA.REF02",
+PER,Segment - PER Billing Provider Contact Information (Situational),,S,,,,,,
+2010AA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group name,R,IC -  Information Contact,,,,,
+2010AA.PER02,Name,Billing Provider Contact Name,S,,,,,,
+2010AA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2010AA.PER04,Communication Number,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/phoneCountryCode,Phone Country Code,"If PER03/05/07 is TE, Map the Phone number in PER04/06/08
+/phoneCountryCode  :
+First byte of Phone number if it is 11 byte
+/phoneAreaCode:
+2,3,4 bytes  of Phone number if it is 11 bytes
+First 3 bytes of Phone number if it  is 10 bytes
+/phoneNumber :
+last 7 bytes of Phone number",
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/phoneAreaCode,phoneAreaCode,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/phoneNumber,PhoneNumberType,,
+2010AA.PER05,Communication Number Qualifier,Code identifying the type of communication numbe,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone
+""EX"" : Telephone Extension",,,,,
+2010AA.PER06,Communication Number,Communication Number,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/phoneExtensionNumber,,"If PER03/05 is TE and the very next qualifier (PER05/07) following is 'EX', map the Extension in PER06/08",PER✽IC✽JOHN SMITH✽TE✽5555551234✽EX✽123~
+2010AA.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone
+""EX"" : Telephone Extension",,,,,
+2010AA.PER08,Communication Number,,S,,,,,,
+Loop 2010AB - PAY-TO ADDRESS NAME (Situational)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Pay-to Address Name (Situational),,S,,,,,,
+2010AB.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,87: Pay-to Provider,,,,,
+2010AB.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2:  Non-Person Entity",,,,,
+N3,Segment - N3 Pay-to Address - ADDRESS (Required),,R,,,,,,
+2010AB.N301,Address Information,Address Information,R,,PO BOX 677931,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payToAddress/streetAddress,The first line of the street address.,,
+2010AB.N302,Address Information,Address Information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payToAddress/streetAddress,,"Concatenate the value (if present) to this XML field, separated by comma and space (, )",
+N4,"Segment - N4 Pay-To Address City, State, ZIP Code (Required)",,R,,,,,,
+2010AB.N401,City Name,Free-form text for city name,R,,DALLAS,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payToAddress/cityName,city,,
+2010AB.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,TX,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payToAddress/stateCode,State abbreviation,,
+2010AB.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,752677931,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payToAddress/postalCode,zip code,,
+2010AB.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payToAddress/countryCode,Country code,"Map to the value ""US"" if not present",
+2010AB.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2010AC - — PAY-TO PLAN NAME  (Situational)   Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Pay-To Plan Name (Situational),,S,,,,,,
+2010AC.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PE : Payee,,,,,
+2010AC.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2010AC.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,
+2010AC.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code (67),R,,,,,,
+2010AC.NM109,Identification Code,Code identifying a party or other code,R,,,,,,
+N3,Segment - N3 Pay-to Plan Address (Required),,R,,,,,,
+2010AC.N301,Address Information,Address Information,R,,,,,,
+2010AC.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Pay-To Plan City, State, ZIP Code (Required)",,R,,,,,,
+2010AC.N401,City Name,Free-form text for city name,R,,,,,,
+2010AC.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2010AC.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2010AC.N404,Country Code,Code identifying the country,S,,,,,,
+2010AC.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Pay-to Plan Secondary Identification (Required),,R,,,,,,
+2010AC.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010AC.REF02,Reference Identification,"Reference information as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Pay-To Plan Tax Identification Number (Required),,R,,,,,,
+2010AC.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EI : Employer’s Identification Number,,,,,
+2010AC.REF02,Reference Identification,"Reference information as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2000B — SUBSCRIBER HIERARCHICAL LEVEL  (Required)  Loop Repeat: >1,,,,,,,,,
+HL,Segment - HL Subscriber Hierarchical Level (Required),,R,,,,,,
+2000B.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,"2000A.HL01 + 1
+
+Incremented at each new HL segment.",,,,,
+2000B.HL02,Hierarchical Parent ID Number,"Identification number of the next higher hierarchical data segment that the data
+segment being described is subordinate to",R,2000A.HL01,,,,,
+2000B.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,22 - Subscriber,,,,,
+2000B.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described.",R,"0 :  HL04 has no subordinate levels  (the subscriber is the patient and there are no dependent claims)
+1: HL04 has subordinate levels",,,,,
+SBR,Segment - SBR Subscriber Information (Required),,R,,,,,,
+2000B.SBR01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim",R,"P : Primary
+S : Secondary
+T  : Tertiary",,,,,
+2000B.SBR02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,S,18 : Self,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/relationshipToSubscriberCode,Code indicating the member's relationship to the subscriber.,,If 2000C.PAT  does not exist.
+2000B.SBR03,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/groupNumber,Subscriber's group number,,
+2000B.SBR04,Name,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/planName,Name of subscriber's plan,,
+2000B.SBR05,Insurance Type Code,Code identifying the type of insurance policy within a specific insurance program,S,"12 :  Medicare Secondary Working Aged Beneficiary or
+Spouse with Employer Group Health Plan
+13 : Medicare Secondary End-Stage Renal Disease
+Beneficiary in the Mandated Coordination Period
+with an Employer’s Group Health Plan
+14 : Medicare Secondary, No-fault Insurance including
+Auto is Primary
+15 : Medicare Secondary Worker’s Compensation
+16 : Medicare Secondary Public Health Service (PHS)or
+Other Federal Agency
+41 : Medicare Secondary Black Lung
+42 : Medicare Secondary Veteran’s Administration
+43 : Medicare Secondary Disabled Beneficiary Under
+Age 65 with Large Group Health Plan (LGHP)
+47 : Medicare Secondary, Other Liability Insurance",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/insuranceTypeCode,"The type of health insurance coverage appliable to this claim (for example, Medicare, Group Health Plan, etc.)",,
+2000B.SBR09,Claim Filing Indicator Code,,S,"11 : Other Non-Federal Programs
+12 : Preferred Provider Organization (PPO)
+13 : Point of Service (POS)
+14 : Exclusive Provider Organization (EPO)
+15 : Indemnity Insurance
+16 : Health Maintenance Organization (HMO) Medicare
+Risk
+17 : Dental Maintenance Organization
+AM :  Automobile Medical
+BL :  Blue Cross/Blue Shield
+CH :  Champus
+CI :  Commercial Insurance Co.
+DS :  Disability
+FI :  Federal Employees Program
+HM :  Health Maintenance Organization
+LM :  Liability Medical
+MA :  Medicare Part A
+MB :  Medicare Part B
+MC :  Medicaid
+OF :  Other Federal Program
+1484 Use code OF when submitting Medicare Part D
+claims.
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation Health Claim
+ZZ Mutually Defined
+71 Use Code ZZ when Type of Insurance is not known.",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimFilingCode,"Claim filing idicator code, passthrough
+from an external system.",,
+PAT,Segment - PAT Patient Information (Situational),,S,,,,,,
+2000B.PAT05,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",S,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2000B.PAT06,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times / Patient Death Date",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/dateOfDeath,,In the format YYYY-MM-DD,
+,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/dateOfDeath,,In the format YYYY-MM-DD,If 2000C.PAT  does not exist.
+2000B.PAT07,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,01 : Actual Pounds,,,,,
+2000B.PAT08,Weight,Numeric value of weight,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/weight,,,
+,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/weight,,,If 2000C.PAT  does not exist.
+2000B.PAT09,Yes/No Condition or Response Code,Code indicating  whether the patient is pregnant or not pregnant.,S,Y :Yes,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/pregnant,,,
+,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecordprofessionalClaim/memberInformation/pregnant,,,If 2000C.PAT  does not exist.
+Loop2010BA — SUBSCRIBER NAME (Required) Loop Repeat: 1,,,S,,,,,,
+NM1,Segment - NM1 Subscriber Name (Required),,R,,,,,,
+2010BA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,IL :  Insured or Subscriber,,,,,
+2010BA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2010BA.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/lastName,Subscriber Last Name,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/lastname,,,Need to remove this mapping.
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/lastName,Member Last Name,,If 2010CA.NM1  does not exist.
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/subscriberName,Subscriber's full name,Subscriber's full name concatenate NM103/5/4/7,
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/memberName,Subscriber's full name,,If 2010CA.NM1  does not exist.
+2010BA.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/firstName,,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/firstname,,,Need to remove this mapping.
+2010BA.NM104,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/firstName,,,If 2010CA.NM1  does not exist.
+2010BA.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/middleName,,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/middlename,,,Need to remove this mapping.
+2010BA.NM105,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/middleName,,,If 2010CA.NM1  does not exist.
+2010BA.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/nameSuffix,,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/suffix,,,Need to remove this mapping.
+2010BA.NM107,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/nameSuffix,,,If 2010CA.NM1  does not exist.
+2010BA.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"II :  Standard Unique Health Identifier for each Individual in the United States
+MI  :  Member Identification Number",,,,,
+2010BA.NM109,Identification Code,Code identifying a party or other code / Subscriber Primary Identifier,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/submittedSubscriberId,"Submitted subscriber ID passed
+through from external system.",,
+2010BA.NM109,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/subscriberIdentificationNumber,"Identification number of the subscribed individual. This number can be assigned by the Health Care Company, Medicare, or some other organization, and is used as part of the identification system in HealthRules",,
+2010BA.NM109,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/memberIdentificationNumber,Member HCC ID,Only 2000C Loop doesn't exist,
+N3,Segment - N3 Subscriber Address (Situational),,S,,,,,,
+2010BA.N301,Address Information,Address Information,R,,4600 W 9TH AVE UNIT 216,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/streetAddress,The first line of the street address.,,
+2010BA.N301,,,R,,4600 W 9TH AVE UNIT 216,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/streetAddress,The first line of the street address.,,If 2010CA.N3  does not exist.
+2010BA.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Subscriber City, State, ZIP Code (Situational)",,S,,,,,,
+2010BA.N401,City Name,Free-form text for city name,R,,DENVER,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/cityName,city,,
+2010BA.N401,,,R,,DENVER,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/cityName,city,,If 2010CA.N4  does not exist.
+2010BA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,CO,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/stateCode,State abbreviation,,
+2010BA.N402,,,S,,CO,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/stateCode,State abbreviation,,If 2010CA.N4  does not exist.
+2010BA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,802042991,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/postalCode,zip code,,
+2010BA.N403,,,S,,802042991,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/postalCode,zip code,,If 2010CA.N4  does not exist.
+2010BA.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/countryCode,Country Code,"Map to the value ""US"" if not present",
+2010BA.N404,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/countryCode,CountryCode,"Map to the value ""US"" if not present",If 2010CA.N4  does not exist.
+2010BA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+DMG,Segment - DMG Subscriber Demographic Information (Situational),,S,,,,,,
+2010BA.DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2010BA.DMG02,Date Time Period,Date Time Period,R,,19471120,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/dateOfBirth,"In the format YYYY-MM-DD
+
+Subscriber's DOB.",In the format YYYY-MM-DD,
+2010BA.DMG02,,,R,,19471120,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/dateOfBirth,"In the format YYYY-MM-DD
+
+Member's DOB.",In the format YYYY-MM-DD,"If 2010CA.DMG  does not exist.
+
+In the format YYYY-MM-DD"
+2010BA.DMG03,Gender Code,Code indicating the sex of the individual,R,"F : Female
+M : Male",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/genderCode,Subscriber's gender code,"M=Male, F=Female, U=Unknown",
+2010BA.DMG03,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/genderCode,Member gender code,"M=Male, F=Female, U=Unknown","If 2010CA.DMG  does not exist.
+
+ M=Male, F=Female, U=Unknown"
+REF,Segment - REF Subscriber Secondary Identification (Situational),,S,,,,,,
+2010BA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010BA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+REF,Segment - REF Property and Casualty Claim Number (Situational),,S,,,,,,
+2010BA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010BA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+PER,Segment - PER Property and Casualty Subscriber Contact Information (Situational),,S,,,,,,
+2010BA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC : Information Contact,,,,,
+2010BA.PER02,Name,,S,,,,,,
+2010BA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,TE :  Telephone,,,,,
+2010BA.PER04,Communication Number,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/phoneCountryCode,Phone Country Code,First byte  of 2010BA.PER04 Only If 2010BA.PER04  is 11 bytes,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/phoneAreaCode,phoneAreaCode,"2nd, 3rd, 4th bytes  if  2010BA.PER04  is 11 bytes
+
+First 3 bytes If 2010BA.PER04  is 10 bytes",
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/phoneNumber,PhoneNumberType,last 7 bytes of 2010BA.PER04,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneCountryCode,Phone Country Code,First byte  of 2010BA.PER04 Only If 2010BA.PER04  is 11 bytes,If Patient Loop(2000C.PAT)  does not exist.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneAreaCode,phoneAreaCode,"2nd, 3rd, 4th bytes  if  2010BA.PER04  is 11 bytes
+
+First 3 bytes If 2010BA.PER04  is 10 bytes",If Patient Loop(2000C.PAT)  does not exist.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneNumber,PhoneNumberType,last 7 bytes of 2010BA.PER04,If Patient Loop(2000C.PAT)  does not exist.
+2010BA.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,EX :  Telephone Extension,,,,,
+2010BA.PER06,Communication Number,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/phoneExtensionNumber,Telephone extension number. Theoretically of arbitrary length,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneExtensionNumber,Telephone extension number. Theoretically of arbitrary length,,If Patient Loop(2000C.PAT)  does not exist.
+Loop 2010BB  — PAYER NAME (Required)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Payer Name (Required),,R,,,,,,
+2010BB.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PR : Payer,,,,,
+2010BB.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2010BB.NM103,Name Last or Organization Name,,R,,,,,,
+2010BB.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,"PI :  Payor Identification
+XV : Centers for Medicare and Medicaid Services PlanID",,,,,
+2010BB.NM109,Identification Code,Code identifying a party or other code / Payer Identifier,R,,,,,,
+N3,Segment - N3 Payer Address (Situational),,S,,,,,,
+2010BB.N301,Address Information,Address Information,R,,,,,,
+2010BB.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Payer City, State, ZIP Code (Situational)",,S,,,,,,
+2010BB.N401,City Name,Free-form text for city name,R,,,,,,
+2010BB.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2010BB.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2010BB.N404,Country Code,Code identifying the country,S,,,,,,
+2010BB.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Payer Secondary Identification (Situational),,S,,,,,,
+2010BB.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"2U : Payer Identification Number
+EI :  Employer’s Identification Number",,,,,
+2010BB.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+REF,Segment - REF Billing Provider Secondary Identification (Situational),,S,,,,,,
+2010BB.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010BB.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+"Loop 2000C - Patient Hierarchical Level (Situational)   Loop Repeat: >1
+                In case of dependent claims (if  dependant is the patient ), Loop ID-2000C and Loop ID-2010CA are sent.
+                When subscriber is the patient, Loop ID-2000C and Loop ID-2010CA are not sent.",,,,,,,,,
+NM1,NM1 Patient Name (Required),,R,,,,,,
+2000C.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,,,,,,
+2000C.HL02,Hierarchical Parent ID Number,"Identification number of the next higher hierarchical data segment that the data
+segment being described is subordinate to",R,,,,,,
+2000C.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,"23 : Dependent (the information
+in this HL applies to the patient when the subscriber
+and the patient are not the same person)",,,,,
+2000C.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described",R,"0 :  No Subordinate HL Segment in This Hierarchical
+Structure",,,,,
+PAT,Patient information,,R,,,,,,
+2000C.PAT01,Individual Relationship Code,Code indicating the relationship between two individuals or entities,R,"01 : Spouse
+19 : Child
+20 : Employee
+21 : Unknown
+39 : Organ Donor
+40:  Cadaver Donor
+53:  Life Partner
+G8 : Other Relationship",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/relationshipToSubscriberCode,,,
+2000C.PAT05,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",S,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2000C.PAT06,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times / Patient Death Date",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/dateOfDeath,,In the format YYYY-MM-DD,
+2000C.PAT07,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,01 : Actual Pounds,,,,,
+2000C.PAT08,Weight,Numeric value of weight,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/weight,,,
+2000C.PAT09,Yes/No Condition or Response Code,Code indicating  whether the patient is pregnant or not pregnant.,S,Y :Yes,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecordprofessionalClaim/memberInformation/pregnant,,,
+Loop 2010CA - Patient Name (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Patient Name (Required),,R,,,,,,
+2010CA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,QC : Patient,,,,,
+2010CA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1: Person,,,,,
+2010CA.NM103,Name Last or Organization Name,Patient Last Name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/lastName,,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/memberName,,concatenate NM103/5/4/7,
+2010CA.NM104,Name First,Patient First Name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/firstName,,,
+2010CA.NM105,Name Middle,Patient Middle Name or Initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/middleName,,,
+2010CA.NM107,Name Suffix,Patient Name Suffix,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/nameSuffix,,,
+N3,Segment - N3 Patient Address (Situational),,S,,,,,,
+2010CA.N301,Address Information,Patient Address Line,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/streetAddress,,,
+2010CA.N302,Address Information,Patient Address Line,S,,,,,,
+N4,"Segment - N4 Patient City, State, ZIP Code (Situational)",,S,,,,,,
+2010CA.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/cityName,,,
+2010CA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/stateCode,,,
+2010CA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/postalCode,,,
+2010CA.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/countryCode,,"Map to the value ""US"" if not present",
+2010CA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+DMG,Segment - DMG Patient Demographic Information (Situational),,S,,,,,,
+2010CA.DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2010CA.DMG02,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times/Patient Birth Date",R,,19670712,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/dateOfBirth,,In the format YYYY-MM-DD,
+2010CA.DMG03,Gender Code,Code indicating the sex of the individual,R,"F: Female
+M :Male
+U : Unknown",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/genderCode,,"M=Male, F=Female, U=Unknown",
+REF,Segment - Property and Casuality Claim Number (Situational),,S,,,,,,
+2010CA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,
+2010CA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+PER,Segment -Property and Casuality Patient Contact Information (Situational),,S,,,,,,
+2010CA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC :Information Contact,,,,,
+2010CA.PER02,Name,Free-form name,S,,,,,,
+2010CA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,TE :  Telephone,,,,,
+2010CA.PER04,Communication Number,"Complete communications number including country or area code when
+applicable",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneCountryCode,Phone Country Code,First byte  of 2010CA.PER04 Only If 2010CA.PER04  is 11 bytes,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneAreaCode,phoneAreaCode,"2nd, 3rd, 4th bytes  if  2010CA.PER04  is 11 bytes
+
+First 3 bytes If 2010CA.PER04  is 10 bytes",
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneNumber,PhoneNumberType,last 7 bytes of 2010CA.PER04,
+2010CA.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,EX : Telephone Extension,,,,,
+2010CA.PER06,Communication Number,Complete communications number including country or area code when applicable,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/phoneExtensionNumber,Telephone extension number. Theoretically of arbitrary length,,
+"Loop 2300  - CLAIM INFORMATION(Required)  Loop Repeat: 100
+       When patient is the subscriber : The claim information(Loop ID-2300), is placed following Loop ID-2010BB in the Subscriber Hierarchical Level(HL) and patient information is sent in Loop ID-2010BA.
+       When patient is the dependent :  The claim information(Loop ID-2300),is placed following Loop ID-2010CA  in the Patient HL and the patient information is sent in Loop ID-2010CA .",,,,,,,,,
+CLM,Segment - CLM Claim information (Situational),,S,,,,,,
+2300.CLM01,Claim Submitter's Identifier,Identifier used to track a claim from creation by the health care provider through payment,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberInformation/accountNumber,Account Number of the patient,,
+2300.CLM02,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/billedAmount,Billed Amount / COB related,Map only when 2320.CAS  is present,
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/totalPaymentDue/chargedAmount,Submitted Charges,,
+2300.CLM05.01,Facility Code Value,"Code identifying where services were, or may be, performed /Place of Service Code",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/placeOfServiceCode,,,
+2300.CLM05.02,Facility Code Qualifier,Code identifying the type of facility referenced,R,B :Place of Service Codes for Professional Services,,,,,
+2300.CLM05.03,Claim Frequency Type Code,Code specifying the frequency of the claim,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/frequencyCode,frequency Code (Trigger value for Void and Replace actions for the claim),,
+2300.CLM06,Yes/No Condition or Response Code,Provider or Supplier Signature Indicator,R,"Y : provider signature is on file
+N : provider signature is not on file",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/providerSignature/name,Provider or Supplier Signature Indicator,Map only when CLM06 value is 'Y',
+2300.CLM07,Provider Accept Assignment Code,Code indicating whether the provider accepts assignment,R,"A : Assigned
+B : Assignment Accepted on Clinical Lab Services Only
+C :  Not Assigned",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/supplierInformationList/supplierInformation/assignmentAcceptance,Assignment accepted (Indicates whether or not payment assignment was accepted),"If 2300.CLM07 = “A”, Map “Y”
+Else If 2300.CLM07  = “C”, Map “N”",
+2300.CLM08,Yes/No Condition or Response Code,Benefits Assignment Certification Indicator,R,"Y : Yes
+N : No
+W :  Not Applicable",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/benefitAssignment,"Benefits accepted (If true, indicates that benefit  assignment was accepted)",,
+2300.CLM09,Release of Information Code,"Code indicating whether the provider has on file a signed statement by the patient
+authorizing the release of medical data to other organizations",R,"I : Informed Consent  to Release Medical Information for Conditions or Diagnoses
+Y :Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberAuthorization/releaseAuthorization,Release Signature (Member authorization to release medical information),,
+2300.CLM10,Patient Signature Source Code,"Code indicating how the patient or subscriber authorization signatures were
+obtained and how they are being retained by the provider",S,P :  Signature generated by provider because the patient was not physically present for services,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberAuthorization/insuredSignature,Provider Signature (Signature of the insured person),,
+2300.CLM11.01,Related-Causes Code,"Code identifying an accompanying cause of an illness, injury or an accident",R,"AA : Auto Accident
+EM : Employment
+OA : Other Accident",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/memberEmployment,Employment related indicator,Map Y when value =EM,
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/autoAccident,Auto Accident indicator,Map Y when value =AA,
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/otherAccident,Other accodent indicator,Map Y when value =OA,
+2300.CLM11.02,Related-Causes Code,"Code identifying an accompanying cause of an illness, injury or an accident (when more than one related cause code applies)",S,"AA : Auto Accident
+EM : Employment
+OA : Other Accident",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/memberEmployment,Employment related indicator,Map Y when value =EM,
+2300.CLM11.02,,,S,"AA : Auto Accident
+EM : Employment
+OA : Other Accident",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/autoAccident,Auto Accident indicator,Map Y when value =AA,
+2300.CLM11.02,,,S,"AA : Auto Accident
+EM : Employment
+OA : Other Accident",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/otherAccident,Other accodent indicator,Map Y when value =OA,
+2300.CLM11.04,State or Province Code,"Code (Standard State/Province) as defined by appropriate government
+agency",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/autoAccidentStateCode,"Accident State (If member condition is related to an auto accident, the state in which the accident occurred)",,
+2300.CLM11.05,Country Code,Country Code,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionRelatedTo/autoAccidentCountryCode,"Accident Country (If member condition is related to an auto accident, the country in which the accident occurred)","Map to the value ""US"" if not present",
+2300.CLM12,Special Program Code,,S,,,,,,
+2300.CLM20,Delay Reason Code,,S,,,,,,
+DTP,Segment - DTP Date - Onset of Current Illness or Symptom (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,431 :Onset of Current Symptoms or Illness,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/memberCurrentConditionDate,Date of condition's first occurrence,In the format YYYY-MM-DD,
+DTP,Segment - DTP Date - Initial Treatment Date (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,454 : Initial Treatment,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/priorIllnessInformation/startDate,Date on which the prior illness started,In the format YYYY-MM-DD,
+DTP,Segment - DTP Date - Last Seen Date (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,304: Latest Visit or Consultation,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Acute Manifestation (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,453: Acute Manifestation of a Chronic Condition,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Accident (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,439: Accident,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Last Menstrual Period (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,484:  Last Menstrual Period,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Last X-ray Date (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,455: Last X-Ray,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Hearing and Vision Prescription Date (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,471: Prescription,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Disability Dates (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,"314 : Disability ( when both disability start and end date are being reported)
+360 :  Initial Disability Period Start (if patient is currently disabled and
+disability end date is unknown.)
+361 : Initial Disability Period End ( if patient is no longer disabled and the)
+start date is unknown",,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,"D8 :  Date Expressed in Format CCYYMMDD
+RD8 :  Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/unableToWorkInOccupation/startDate,"If the member is unable to work at their occupation, the start date for that condition","When DTP01=314, DTP03 will be in RD8 format. Map the first CCYYMMDD in the format YYYY-MM-DD.
+When DTP01 = 360, Map DTP03 In the format YYYY-MM-DD.",
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/unableToWorkInOccupation/endDate,"If the member is unable to work at their occupation, the end date for that condition","When DTP01=314, DTP03 will be in CCYYMMDD-CCYYMMDD format. Map the second CCYYMMDD in the format YYYY-MM-DD.
+When DTP01 = 361, Map DTP03 In the format YYYY-MM-DD.",
+DTP,Segment - DTP Date - Last Worked (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,297 : Initial Disability Period Last Day Worked,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Authorized Return to Work (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,296 : Initial Disability Period Last Day Worked,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Admission (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,435 : Admission,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/currentServiceHospitalization/startDate,The start date for the hospital stay if the current service involved hospitalization,In the format YYYY-MM-DD,
+DTP,Segment - DTP Date - Discharge (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,096 : Discharge,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/currentServiceHospitalization/endDate,The end date for the hospital stay if the current service involved hospitalization,In the format YYYY-MM-DD,
+DTP,Segment - DTP Date - Assumed and Relinquished Care Dates (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,090 :  Report Start,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Property and Casualty Date of First Contact (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,096 :  First Visit or Consultation,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+DTP,Segment - DTP Date - Repricer Received Date (Situational),,S,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,050 :  Received,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,,,,,
+PWK,Segment - PWK Claim Supplemental Information (Situational),,S,,,,,,
+2300.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,"03 Report Justifying Treatment Beyond UtilizationGuidelines
+04 Drugs Administered
+05 Treatment Diagnosis
+06 Initial Assessment
+07 Functional Goals
+08 Plan of Treatment
+09 Progress Report
+10 Continued Treatment
+11 Chemical Analysis
+13 Certified Test Report
+15 Justification for Admission
+21 Recovery Plan
+A3 Allergies/Sensitivities Document
+A4 Autopsy Report
+AM Ambulance Certification
+AS Admission Summary
+B2 Prescription
+B3 Physician Order
+B4 Referral Form
+BR Benchmark Testing Results
+BS Baseline
+BT Blanket Test Results
+CB Chiropractic Justification
+CK Consent Form(s)
+CT Certification
+D2 Drug Profile Document
+DA Dental Models
+DB Durable Medical Equipment Prescription
+DG Diagnostic Report
+DJ Discharge Monitoring Report
+DS Discharge Summary
+EB Explanation of Benefits (Coordination of Benefits or
+Medicare Secondary Payor)
+HC Health Certificate
+HR Health Clinic Records
+I5 Immunization Record
+ASC X12N • INSURANCE SUBCOMMITTEE 005010X222 • 837 • 2300 • PWK
+TECHNICAL REPORT • TYPE 3 CLAIM SUPPLEMENTAL INFORMATION
+MAY 2006 183
+IR State School Immunization Records
+LA Laboratory Results
+M1 Medical Record Attachment
+MT Models
+NN Nursing Notes
+OB Operative Note
+OC Oxygen Content Averaging Report
+OD Orders and Treatments Document
+OE Objective Physical Examination (including vital
+signs) Document
+OX Oxygen Therapy Certification
+OZ Support Data for Claim
+P4 Pathology Report
+P5 Patient Medical History Document
+PE Parenteral or Enteral Certification
+PN Physical Therapy Notes
+PO Prosthetics or Orthotic Certification
+PQ Paramedical Results
+PY Physician’s Report
+PZ Physical Therapy Certification
+RB Radiology Films
+RR Radiology Reports
+RT Report of Tests and Analysis Report
+RX Renewable Oxygen Content Averaging Report
+SG Symptoms Document
+V5 Death Notification
+XP Photographs",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeEntry,Attachment Type like Prescription,"/codeEntry is mapped from 2300.PWK01
+Please refer crosswalk sheet",
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeSetName,"AttachmentTypeCode
+Internal field for fetching the Attachment type","/codeSetName will be  hardcoded as AttachmentTypeCode.
+Please refer crosswalk sheet",
+2300.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be
+sent",R,"AA : Available on Request at Provider Site
+BM : By Mail
+EL : Electronically Only
+EM : E-Mail
+FT : File Transfer
+FX : By Fax",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/transmissionType,Attachment transmission mode,"If ""AA"" Map ""Available on Request at Provider Site""
+If ""BM"" Map ""By Mail""
+If ""EL"" Map ""Electronically Only""
+If ""EM"" Map ""E-Mail""
+If ""FT"" Map ""File Transfer""
+If ""FX"" Map ""By Fax""",Needs review with configuration team
+2300.PWK05,Identification Code Qualifier,Code identifying a party or other code,S,AC:  Attachment Control Number,,,,,
+2300.PWK06,Identification Code,Attachment Control Number. Used to identify the attached electronic documentation.The number in PWK06 is carried in the TRN of the electronic attachment,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/attachmentSetReference/ID,Attachment Control number,Map only the first occurence of PWK,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/attachmentComment,Attachment control number. Static URL to be prefixed for loading the image,,
+CN1,Segment - CN1 Contract Information (Situational),,,,,,,,
+2300.CN101,Contract Type Code,Code identifying a contract type,R,"01 : Diagnosis Related Group (DRG)
+02 : Per Diem
+03 : Variable Per Diem
+04 : Flat
+05 : Capitated
+06 : Percent
+09 : Other",,,,,
+2300.CN102,Monetary Amount,Contract Amount,S,,,,,,
+2300.CN103,"Percent, Decimal Format",Contract Percentage,S,,,,,,
+2300.CN104,Reference Identification,Contract Code,S,,,,,,
+2300.CN105,Terms Discount Percent,"Terms discount percentage, expressed as a percent, available to the purchaser if
+an invoice is paid on or before the Terms Discount Due Date",S,,,,,,
+2300.CN106,Version Identifier,Contract Version Identifier,S,,,,,,
+AMT,Segment - AMT Patient Amount Paid (Situational),,,,,,,,
+2300.AMT01,Amount Qualifier Code,Code to qualify amount,R,F5 : Patient Amount Paid,,,,,
+2300.AMT02,Monetary Amount,Patient Amount Paid,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/totalPaymentDue/receivedAmount,Paid Amount,,
+REF,Segment - REF Service Authorization Exception Code (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,4N :  Special Payment Reference Number,,,,,
+2300.REF02,Reference Identification,Service Authorization Exception Code,R,,,,,,
+REF,Segment - REF Mandatory Medicare (Section 4081) Crossover Indicator (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F5 : Medicare Version Code,,,,,
+2300.REF02,Reference Identification,Medicare Section 4081 Indicator,R,"Y : 4081
+N : Regular crossover",,,,,
+REF,Segment - REF Mammography Certification Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EW:  Mammography Certification Number,,,,,
+2300.REF02,Reference Identification,Mammography Certification Number,R,,,,,,
+REF,Segment - REF Referral Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F :  Referral Number,,,,,
+2300.REF02,Reference Identification,Referral Number,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referralNumber,Referral Number of Referring Practitioner,,
+REF,Segment - REF Prior Authorization (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,
+2300.REF02,Reference Identification,Prior Authorization Number,R,,,,,,
+REF,Segment - REF Payer Claim Control Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F8 : Original Reference Number,,,,,
+2300.REF02,Reference Identification,Payer Claim Control Number,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/hccClaimNumber,"Original Claim ID
+ Claim ID (Unique identifier assigned to the supplier invoice )
+HccClaimNumberType",Map only for void/replacement claims (2300.CLM05.03 = '7' or '8',
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/medicaidResubmission/originalReferenceNumber,"If a resubmission, the original reference number",Map only for void/replacement claims (2300.CLM05.03 = '7' or '8',
+REF,Segment - REF Clinical Laboratory Improvement Amendment (CLIA) Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"X4 : Clinical Laboratory Improvement Amendment
+Number",,,,,
+2300.REF02,Reference Identification,Clinical Laboratory Improvement Amendment Number,R,,,,,,
+REF,Segment - REF Repriced Claim Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9A : Repriced Claim Reference Number,,,,,
+2300.REF02,Reference Identification,Repriced Claim Reference Number,R,,,,,,
+REF,Segment - REF Adjusted Repriced Claim Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9C :  Adjusted Repriced Claim Reference Number,,,,,
+2300.REF02,Reference Identification,Adjusted Repriced Claim Reference Number,R,,,,,,
+REF,Segment - REF Investigational Device Exemption Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,LX : Qualified Products List,,,,,
+2300.REF02,Reference Identification,Investigational Device Exemption Identifier,R,,,,,,
+REF,Segment - REF Claim Identification For Transmission Intermediaries (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,D9 : Claim Number,,,,,
+2300.REF02,Reference Identification,Value Added Network Trace Number,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/clearingHouseTraceNumber,Clearing house trace number,,
+REF,Segment - REF Medical Record Number (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EA :  Medical Record Identification Number,,,,,
+2300.REF02,Reference Identification,Value Added Network Trace Number,R,,,,,,
+REF,Segment - REF Demonstration Project Identifier (Situational),,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,P4 :   Project Code,,,,,
+2300.REF02,Reference Identification,Value Added Network Trace Number,R,,,,,,
+K3,Segment - K3 File Information (Situational),,,,,,,,
+2300.K301,Fixed Format Information,Data in fixed format agreed upon by sender and receiver,R,,,,,,
+NTE,Segment - NTE Claim Note (Situational),,,,,,,,
+2300.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,ADD Additional Information,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/professionalRemarks/remarkCode,,,
+2300.NTE02,Description,A free-form description to clarify the related data elements and their content  /  Claim Note Text,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/professionalRemarks/remarks/remark,Contains general remarks related to the claim,,
+CR1,Segment - CR1 Ambulance Transport Information (Situational),,,,,,,,
+2300.CR101,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,ZZ Mutually Defined,,,,,
+2300.CR102,Weight,Patient Weight,S,"N No
+650 If no, then choose “NU” in CRC03 indicating no
+referral given.
+Y Yes",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/patientWeight,Patient Weight,,
+2300.CR104,Ambulance Transport Reason Code,Code indicating the reason for ambulance transport,R,"A : Patient was transported to nearest facility
+B : Patient was transported for the benefit of a preferred physician
+C : Patient was transported for the nearness of family members
+D : Patient was transported for the care of a specialist
+E : Patient Transferred to Rehabilitation Facility",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/transportReasonCode,Transport Reason,,
+2300.CR105,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,DH : Miles,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/transportUnitTypeCode,Transport Unit Type,,
+2300.CR106,Quantity,Transport Distance,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/transportValueCount,Transport Value,,
+2300.CR109,Description,"Round Trip Purpose Description. Required when the ambulance service is for a round
+trip.",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/roundTripPurpose,Round Trip Purpose,,
+2300.CR110,Description,Stretcher Purpose Description,S,,,,,,
+CR2,Segment - CR2 Spinal Manipulation Service Information (Situational),,,,,,,,
+2300.CR208,Nature of Condition Code,Code indicating the nature of a patient’s condition,R,,,,,,
+2300.CR210,Description,Patient Condition Description,S,,,,,,
+2300.CR211,Description,Patient Condition Description,S,,,,,,
+CRC,Segment - CRC Ambulance Certification (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,07 : Ambulance Certification,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"Y : Yes
+N : No",,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/conditionIndicators/conditionCode,Condition code,,
+2300.CRC04,Condition Indicator,Code indicating a condition when a second condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/conditionIndicators/conditionCode,Condition code,,
+2300.CRC05,Condition Indicator,Code indicating a condition when a third condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/conditionIndicators/conditionCode,Condition code,,
+2300.CRC06,Condition Indicator,Code indicating a condition when a fourth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/conditionIndicators/conditionCode,Condition code,,
+2300.CRC07,Condition Indicator,Code indicating a condition when a fifth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/conditionIndicators/conditionCode,Condition code,,
+CRC,Segment - CRC Patient Condition Information: Vision (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,"E1 : Spectacle Lenses
+E2 : Contact Lenses
+E3 : Spectacle Frames",,,,,
+2300.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"Y : Yes
+N : No",,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"L1 : General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met
+L2 : Replacement Due to Loss or Theft L3 : Replacement Due to Breakage or Damage
+L4 : Replacement Due to Patient Preference
+ L5 : Replacement Due to Medical Reason",,,,,
+2300.CRC04,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC05,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC06,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC07,Condition Indicator,Code indicating a condition,S,,,,,,
+CRC,Segment - CRC Homebound Indicator (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,75 :  Functional Limitations,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,Y :Yes,,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,IH : Independent at Home,,,,,
+CRC,Segment - CRC EPSDT Referral (Situational),,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,ZZ : Mutually Defined,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"Y : Yes
+N : No",,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"AV : Available - Not Used
+NU :Not Used
+S2 :Under Treatment
+ST :New Services Requested",,,,,
+2300.CRC04,Condition Indicator,Code indicating a condition,S,,,,,,
+2300.CRC05,Condition Indicator,Code indicating a condition,S,,,,,,
+HI,Segment - HEALTH CARE DIAGNOSIS CODE (Required),,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list/ Principal Diagnosis Type Code,R,"ABK : ICD10 -CM - Principal Diagnosis
+BK : ICD9 -CM - Principal Diagnosis",,,,,
+2300.HI01.02,Industry Code,Code indicating a code from a specific industry code list/Principal Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI02.01,Code List Qualifier Code,Diagnosis Type Code,R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI02.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI03.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI03.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI04.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI04.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI05.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI05.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI06.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI06.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI07.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI07.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI08.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI08.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI09.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI09.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI10.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI10.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI11.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI11.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+2300.HI12.01,Code List Qualifier Code,"Diagnosis Type Code (Required when it is necessary to report an additional
+diagnosis and the preceding HI data elements have been used to
+report other diagnoses)",R,"ABF : ICD10 -CM -  Diagnosis
+BF : ICD9 -CM -  Diagnosis",,,,,
+2300.HI12.02,Industry Code,Diagnosis Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/diagnosisCodes/diagnosisCode,Diagnosis code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",
+HI,Segment - HI Anesthesia Related Procedure (Situational),,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BP : Health Care Financing Administration Common Procedural Coding System Principal Procedure,,,,,
+2300.HI01.02,Industry Code,Anesthesia Related Principal Surgical Procedure,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/anesthesiaSurgicalProcedureCodes/anesthesiaSurgicalProcedureCode,"Anesthesia related procedure code
+Datatype: code set",,
+2300.HI02.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BO :  Health Care Financing Administration Common Procedural Coding System,,,,,
+2300.HI02.02,Industry Code,Anesthesia Related  Surgical Procedure,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/anesthesiaSurgicalProcedureCodes/anesthesiaSurgicalProcedureCode,"Anesthesia related procedure code
+Datatype: code set",,
+HI,Segment - HI CONDITION INFORMATION (Situational),,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI01.02,Industry Code,Condition Code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/conditionCodes/conditionCode,,,
+2300.HI02.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI02.02,Industry Code,Condition Code,R,,,,,,
+2300.HI03.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI03.02,Industry Code,Condition Code,R,,,,,,
+2300.HI04.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI04.02,Industry Code,Condition Code,R,,,,,,
+2300.HI05.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI05.02,Industry Code,Condition Code,R,,,,,,
+2300.HI06.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI06.02,Industry Code,Condition Code,R,,,,,,
+2300.HI07.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI07.02,Industry Code,Condition Code,R,,,,,,
+2300.HI08.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI08.02,Industry Code,Condition Code,R,,,,,,
+2300.HI09.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI09.02,Industry Code,Condition Code,R,,,,,,
+2300.HI10.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI10.02,Industry Code,Condition Code,R,,,,,,
+2300.HI11.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI11.02,Industry Code,Condition Code,R,,,,,,
+2300.HI12.01,Code List Qualifier Code,Code identifying a specific industry code list,R,BG: Condition,,,,,
+2300.HI12.02,Industry Code,Condition Code,R,,,,,,
+HCP,Segment - HCP Claim Pricing/Repricing Information (Situational),,,,,,,,
+2300.HCP01,Pricing Methodology,"Code specifying pricing methodology at which the claim or line item has been
+priced or repriced",R,,,,,,
+2300.HCP02,Monetary Amount,Repriced Allowed Amount,R,,,,,,
+2300.HCP03,Monetary Amount,Repriced Saving Amount,S,,,,,,
+2300.HCP04,Reference Identification,Repricing Organization Identifier,S,,,,,,
+2300.HCP05,Rate,Repricing Per Diem or Flat Rate Amount,S,,,,,,
+2300.HCP06,Reference Identification,Repriced Approved Ambulatory Patient Group Code,S,,,,,,
+2300.HCP07,Monetary Amount,Repriced Approved Ambulatory Patient Group Amount,S,,,,,,
+2300.HCP13,Reject Reason Code,Code assigned by issuer to identify reason for rejection,S,,,,,,
+2300.HCP14,Policy Compliance Code,Code specifying policy compliance,S,,,,,,
+2300.HCP15,Exception Code,Code specifying the exception reason for consideration of out-of-network health care services,S,,,,,,
+Loop 2310A  - REFERRING PROVIDER NAME (Situational)  Loop Repeat: 2,,,R,,,,,,
+NM1,Segment - NM1 Referring Provider Name (Situational),,R,,,,,,
+2310A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"DN : Referring Provider
+P3 : Primary Care Provider",,,,,
+2310A.NM102,Entity Type Qualifier,y,R,1 : Person,,,,,
+2310A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referringPractitionerName,,"Form this element by concatenating First Name and Last Name separated by space ( )
+
+2310A.NM104  + 2310A.NM103",
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referringPractitionerLastName,,,
+2310A.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referringPractitionerFirstName,,,
+2310A.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referringPractitionerMiddleName,,,
+2310A.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referringPractitionerSuffix,,,
+2310A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2310A.NM109,Identification Code,Referring Provider Identifier,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/npi,Referring Practitioner's National Provider Id,,
+REF,Segment - REF Referring Provider Secondary Identification (Situational),,,,,,,,
+2310A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/idQualifier,Identifies the IdType,,
+2310A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Referring Provider Secondary Identifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/referringPractitionerInformation/referringPractitionerIdentification,Referring Practitioner's Id,,
+Loop 2310B — RENDERING PROVIDER NAME Loop Repeat: 1 (Situational),,,,,,,,,
+NM1,Segment - NM1 Rendering Physician Name (Situational),,,,,,,,
+2310B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 : Rendering Provider,,,,,
+2310B.NM102,Entity Type Qualifier,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"1 : Person
+2 : Non-Person Entity",,,,,
+2310B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderLastName,,if  Loop 2420A does not exist,
+2310B.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderFirstName,,if  Loop 2420A does not exist,
+2310B.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderMiddleName,,if  Loop 2420A does not exist,
+2310B.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderSuffix,,if  Loop 2420A does not exist,
+2310B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2310B.NM109,Identification Code,Code identifying a party or other code /Rendering Provider Identifier,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderNPI,,if  Loop 2420A does not exist,
+PRV,Segment - PRV Rendering Provider Specialty Information (Situational),,,,,,,,
+2310B.PRV01,Provider Code,Code identifying the type of provider,R,PE : Performing,,,,,
+2310B.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC : Health Care Provider Taxonomy Code,,,,,
+2310B.PRV03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier / Provider Taxonomy Code",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingPractitionerSpecialty,,if  Loop 2420A does not exist,
+REF,Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,,,
+2310B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU : Location Number",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderIdQualifier,,if  Loop 2420A does not exist,
+2310B.REF02,Reference Identification,Rendering Provider Secondary Identifier,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/otherRenderingProviderId,,if  Loop 2420A does not exist,
+Loop 2310C — SERVICE FACILITY LOCATION NAME Loop Repeat: 1 (Situational),,,,,,,,,
+NM1,Segment - NM1 Service Facility Location Name (Situational),,,,,,,,
+2310C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",R,77 : Service Location,,,,,
+2310C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2310C.NM103,Name Last or Organization Name,Individual last name or organizational name /Laboratory or Facility Name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/facilityName,Facility Name,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/outsideLabUsed/labName,Name of Lab,"If 2420C.NM103 present map that, else map this element
+
+Name of Lab",
+2310C.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,Facility NPI,,
+2310C.NM109,Identification Code,Laboratory or Facility Primary Identifier,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/npi,,,
+N3,Segment - N3 Service Facility Location Address (Required),,,,,,,,
+2310C.N301,Address Information,Address information,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/streetAddress,,,
+2310C.N302,Address Information,Address information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/streetAddress,,second instance of street address,
+N4,"Segment - N4 Service Facility Location City, State, ZIP Code (Required)",,,,,,,,
+2310C.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/cityName,City Name,,
+2310C.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/stateCode,State,,
+2310C.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/postalCode,Zip Code,,
+2310C.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/countryCode,Country Code,"Map to the value ""US"" if not present",
+2310C.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Service Facility Location Secondary Identification (Situational),,,,,,,,
+2310C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2310C.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Laboratory or Facility Secondary Identifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/otherId,Facility ID,,
+PER,Segment - PER Service Facility Contact Information (Situational),,,,,,,,
+2310C.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC : Information Contact,,,,,
+2310C.PER02,Name,Name,S,,,,,,
+2310C.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,TE : Telephone,,,,,
+2310C.PER04,Communication Number,Complete communications number including country or area code when applicable,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/renderingFacility/telephoneNumber,Facility telephone number,,
+2310C.PER05,Communication Number Qualifier,Code identifying the type of communication number,R,EX :  Telephone Extension,,,,,
+2310C.PER06,Communication Number,"Complete communications number including country or area code when
+applicable",S,,,,,,
+Loop 2310D — SUPERVISING PROVIDER NAME (Situational)   Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Supervising Provider Name (Situational),,,,,,,,
+2310D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DQ : Supervising Physician,,,,,
+2310D.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+2310D.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,
+2310D.NM104,Name First,Individual first name,S,,,,,,
+2310D.NM105,Name Middle,Individual middle name or initial,S,,,,,,
+2310D.NM107,Name Suffix,Suffix to individual name,S,,,,,,
+2310D.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,,,,,,
+2310D.NM109,Identification Code,Code identifying a party or other code /  Supervising Provider Identifier,S,,,,,,
+REF,Segment - REF Supervising Provider Secondary Identification (Situational),,,,,,,,
+2310D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2310D.REF02,Reference Identification,Supervising Provider Secondary Identifier,R,,,,,,
+Loop 2310E  - AMBULANCE PICK-UP LOCATION  (Situational)  Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Pick-up Location (Situational),,,,,,,,
+2310E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PW :  Pickup Address,,,,,
+2310E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2  :  Non-Person Entity,,,,,
+N3,Segment - N3 Ambulance Pick-up Location Address (Required),,,,,,,,
+2310E.N301,Address Information,Ambulance Pick-up Address Line,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/address,Address line 1,,
+2310E.N302,Address Information,Ambulance Pick-up Address Line,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/address2,Address line 2,,
+N4,"Segment - N4 Ambulance Pick-up Location City, State, ZIP Code (Required)",,,,,,,,
+2310E.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/city,,,
+2310E.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/stateCode,,,
+2310E.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/zipCode,,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/zipSuffixCode,,,
+2310E.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/pickupAddress/countryCode/countryCode,,"Map to the value ""US"" if not present",
+2310E.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2310F — AMBULANCE DROP-OFF LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Drop-off Location (Situational),,,,,,,,
+2310F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,45 : Drop-off Location,,,,,
+2310F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2  :  Non-Person Entity,,,,,
+2310F.NM103,Name Last or Organization Name,Ambulance Drop-off Location,S,,,,,,
+N3,Segment - N3 Ambulance Drop-off Location Address (Required),,,,,,,,
+2310F.N301,Address Information,Ambulance Drop-off Address Line,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/address,,,
+2310F.N302,Address Information,Ambulance Drop-off Address Line,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/address2,,,
+N4,"Segment - N4 Ambulance Drop-off Location City, State, ZIP Code (Required)",,,,,,,,
+2310F.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/city,City Name,,
+2310F.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/stateCode,State,,
+2310F.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/zipCode,Zip Code,Map byte 1-5,
+2310F.N403,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/zipSuffixCode,Zip Code Suffix,Map byte 6-9,
+2310F.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/ambulanceInformationList/ambulanceInformation/dropOffAddress/countryCode/countryCode,Country,"Map to the value ""US"" if not present",
+2310F.N407,Country Subdivision Code,Code identifying the country subdivision,,,,,,,
+"Loop 2320 — OTHER SUBSCRIBER INFORMATION(Situational) Loop Repeat: 10
+
+The invoice attachment (professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment)
+will be repeated based upon the number of 2320 loops. .i.e  for each payer loop, one individual invoice attachment loop is populated in target XML.",,,S,,,,,,
+SBR,Segment - SBR Other Subscriber Information (Situational),,,,,,,,
+2320.SBR01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim",R,"A Payer Responsibility Four
+B Payer Responsibility Five
+C Payer Responsibility Six
+D Payer Responsibility Seven
+E Payer Responsibility Eight
+F Payer Responsibility Nine
+G Payer Responsibility Ten
+H Payer Responsibility Eleven
+P Primary
+S Secondary
+T Tertiary
+U Unknown",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/payerPriorityCode,"Indicates whether other insurance is primary, secondary, or tertiary",,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeSetName,,Hardcode as 'AttachmentTypeCode',
+2320.SBR02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,R,18 : Self,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeEntry,,Hardcode  as '18',
+2320.SBR03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Insured Group or Policy Number",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/subscriberInformation/otherHealthPlan,"If yes, subscriber has an additional health plan",populate this field only once as ‘Y’ when the claim has at least one 2320 loop,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobGroupNumber,Group number indicated on the EOB,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/groupNumber,Group number of the other insurance plan,,
+2320.SBR04,Name,Other Insured Group Name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobGroupName,Group name indicated on the EOB,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/planName,Plan ID number indicated on the EOB,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/planName,Name of the insurance plan,,
+2320.SBR05,Insurance Type Code,Code identifying the type of insurance policy within a specific insurance program,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/insuranceTypeCode,Type of the other insurance,,
+2320.SBR09,Claim Filing Indicator Code,Code identifying type of claim,S,,"MB :Medicare Part B
+MA: Medicare Part A
+MC: Medicaid",professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/eobAttachment/claimFilingIndicator,,,
+CAS,Segment - CAS Claim Level Adjustments (Situational),,,,,,,,
+2320.CAS01,Claim Adjustment Group Code,Code identifying the general category of payment adjustment,R,"CO : Contractual Obligations
+CR : Correction and Reversals
+OA : Other adjustments
+PI : Payor Initiated Reductions
+PR : Patient Responsibility",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/groupCode,,,
+2320.CAS02,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,,,
+2320.CAS03,Monetary Amount,Monetary Amount,R,,,F,,When CAS01='PR' and CAS02='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,,When CAS01='PR' and CAS02='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,,When CAS01='PR' and CAS02='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,,When CAS01='PR' and CAS02=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,,When CAS01='CO' and CAS02=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,,When CAS01='CO' and CAS02='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,,When CAS01='CO' and CAS02='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,,,
+2320.CAS04,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,,,
+2320.CAS05,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,,,
+2320.CAS06,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,,When CAS01='PR' and CAS05='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,,When CAS01='PR' and CAS05='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,,When CAS01='PR' and CAS05='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,,When CAS01='PR' and CAS05=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,,When CAS01='CO' and CAS05=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,,When CAS01='CO' and CAS05='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,,When CAS01='CO' and CAS05='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,,,
+2320.CAS07,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,,,
+2320.CAS08,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,,,
+2320.CAS09,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,,When CAS01='PR' and CAS08='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,,When CAS01='PR' and CAS08='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,,When CAS01='PR' and CAS08='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,,When CAS01='PR' and CAS08=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,,When CAS01='CO' and CAS08=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,,When CAS01='CO' and CAS08='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,,When CAS01='CO' and CAS08='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,,,
+2320.CAS10,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,,,
+2320.CAS11,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,,,
+2320.CAS12,Monetary Amount,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,,When CAS01='PR' and CAS11='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,,When CAS01='PR' and CAS11='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,,When CAS01='PR' and CAS11='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,,When CAS01='PR' and CAS11=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,,When CAS01='CO' and CAS11=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,,When CAS01='CO' and CAS11='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,,When CAS01='CO' and CAS11='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,,,
+2320.CAS13,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,,,
+2320.CAS14,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,,,
+2320.CAS15,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,,When CAS01='PR' and CAS14='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,,When CAS01='PR' and CAS14='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,,When CAS01='PR' and CAS14='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,,When CAS01='PR' and CAS14=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,,When CAS01='CO' and CAS14=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,,When CAS01='CO' and CAS14='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,,When CAS01='CO' and CAS14='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,,,
+2320.CAS16,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,,,
+2320.CAS17,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,,,
+2320.CAS18,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,,When CAS01='PR' and CAS17='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,,When CAS01='PR' and CAS17='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,,When CAS01='PR' and CAS17='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,,When CAS01='PR' and CAS17=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,,When CAS01='CO' and CAS17=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,,When CAS01='CO' and CAS17='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,,When CAS01='CO' and CAS17='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,,,
+2320.CAS19,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,,,
+AMT,Segment - AMT Coordination of Benefits (COB) Payer Paid Amount (Situational),,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,D : Payor Amount Paid,,,,,
+2320.AMT02,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/netPaidAmount,Net paid amount.,,
+,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/allowedAmount,Net paid amount.,"Sum netpaid amount(2320.AMT02) and CAS*PR amounts for the payer in header 2320 loop and map to this field
+
+Only two digits allowed after the decimal",
+AMT,Segment - AMT Remaining Patient Liability (Situational),,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,EAF :  Amount Owed,,,,,
+2320.AMT02,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberResponsibilityAmount,Member Responsibility Amount,,
+AMT,Segment - AMT Coordination of Benefits (COB) Total Non-covered Amount (Situational),,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,A8 :  Noncovered Charges - Actual,,,,,
+2320.AMT02,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount,Monetary Amount,Please refer comments,All 2320.CAS03 / 2320.CAS06 /2320.CAS09 /2320.CAS12/2320.CAS15/2320.CAS18  Amounts for all CAS01-CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2320.CAS segment mapping will also get added to  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount
+OI,Segment - OI Other Insurance Coverage Information (Required),,,,,,,,
+2320.OI03,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,,,,,,
+2320.OI04,Patient Signature Source Code,"Code indicating how the patient or subscriber authorization signatures were
+obtained and how they are being retained by the provider",S,,,,,,
+2320.OI06,Release of Information Code,Code indicating whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations,R,,,,,,
+MOA,Segment - MOA Outpatient Adjudication Information (Situational),,,,,,,,
+2320.MOA01,Percentage as Decimal,"Percentage expressed as a decimal (e.g., 0.0 through 1.0 represents 0% through
+100%)",S,,,,,,
+2320.MOA02,Monetary Amount,Monetary amount,S,,,,,,
+2320.MOA03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+2320.MOA04,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+2320.MOA05,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+2320.MOA06,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+2320.MOA07,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+2320.MOA08,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+2320.MOA09,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /  Claim Payment Remark Code",S,,,,,,
+Loop 2330A —  OTHER SUBSCRIBER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Subscriber Name (Required),,,,,,,,
+2330A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,IL : Insured or Subscriber,,,,,
+2330A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2330A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberLastName,Subscriber's Last Name,,
+,,,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/lastName,"Contains information (lastName)relating to the person who is covered by the other insurance, if applicable.",,
+2330A.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberFirstName,,,
+2330A.NM104,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/firstName,,,
+2330A.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberMiddleName,Subscriber's Middle Name,,
+2330A.NM105,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/middleName,"Contains information (middleName) relating to the person who is covered by the other insurance, if applicable.",,
+2330A.NM107,Name Suffix,Suffix to individual name,S,E,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberNameSuffix,Subscriber name suffix,,
+2330A.NM107,,,S,E,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/OtherInsuranceInformationList/OtherInsuranceInformation/nameSuffix,"Contains information (The suffix (e.g. Jr, II, III))relating to the person who is covered by the other insurance, if applicable.",,
+2330A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,"II : Standard Unique Health Identifier for each Individual
+in the United States
+MI :Member Identification Number",,,,,
+2330A.NM109,Identification Code,Code identifying a party or other code,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/otherInsuredID,"Member's
+identification number as assigned by the COB payer",,
+N3,Segment - N3 Other Subscriber Address (Situational),,,,,,,,
+2330A.N301,Address Information,Address Information,R,,,,,,
+2330A.N302,Address Information,Address Information,S,,,,,,
+N4,Segment - N4 Other Subscriber City/State/ZIP Code (Situational),,,,,,,,
+2330A.N401,City Name,Free-form text for city name,R,,,,,,
+2330A.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2330A.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2330A.N404,Country Code,Code identifying the country,S,,,,,,
+2330A.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Other Subscriber Secondary Information (Situational),,,,,,,,
+2330A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,SY :  Social Security Number,,,,,
+2330A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier / Other Insured Additional Identifier",R,,,,,,
+Loop 2330B — OTHER PAYER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Name (Required),,,,,,,,
+2330B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PR : Payer,,,,,
+2330B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :  Non-Person Entity,,,,,
+2330B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/companyName,Insurance company name,,
+2330B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",R,"PI :  Payor Identification
+XV : Centers for Medicare and Medicaid Services PlanID",,,,,
+2330B.NM109,Identification Code,Code identifying a party or other code,R,,,,,,
+N3,Segment - N3 Other Payer Address (Situational),,,,,,,,
+2330B.N301,Address Information,Address Information,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/address,Address first line,,
+2330B.N302,Address Information,Address Information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/address2,Address second line,,
+N4,Segment - N4 Other Payer City/State/ZIP Code (Situational),,,,,,,,
+2330B.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/cityName,City Name,,
+2330B.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/stateCode,State Code,,
+2330B.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/zipCode,"Zip Code
+byte 1-5","Zip Code
+byte 1-5",
+2330B.N403,,,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/zipExtensionCode,"Zip Code Extension
+byte 6-9","Zip Code Extension
+byte 6-9",
+2330B.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/countryCode/countryCode,Country Code,"Map to the value ""US"" if not present",
+2330B.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+DTP,Segment - DTP Claim Check or Remittance Date (Situational),,,,,,,,
+2330B.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,573 : Date Claim Paid,,,,,
+2330B.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,
+2330B.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,20210305,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobDate,"User-entered date on which the EOB was generated.
+
+In the format YYYY-MM-DD",,
+REF,Segment - REF Other Payer Secondary Identifier (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"2U : Payer Identification Number
+EI : Employer’s Identification Number
+FY : Claim Office Number
+NF : National Association of Insurance Commissioners
+(NAIC) Code",,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Other Payer Secondary Identifier",R,,22105302412107COA,,,,
+REF,Segment - REF Other Payer Prior Authorization Number (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Other Payer Prior Authorization Number",R,,,,,,
+REF,Segment - REF Other Payer Referral Number (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F :  Referral Number,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/  Other Payer Prior Authorization or Referral
+Number",R,,,,,,
+REF,Segment - REF Other Payer Claim Adjustment Indicator (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,T4 : Signal Code,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ : Other Payer Claim Adjustment Indicator",R,,,,,,
+REF,Segment - REF Other Payer Claim Control Number (Situational),,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F8 : Original Reference Number,,,,,
+2330B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ : Other Payer’s Claim Control Number",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobClaimID,,,
+Loop 2330C — OTHER PAYER REFERRING PROVIDER (Situational)  Loop Repeat: 2,,,,,,,,,
+NM1,Segment - NM1 Other Payer Referring Provider (Situational),,,,,,,,
+2330C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"DN : Referring Provider
+P3 : Primary Care Provider",,,,,
+2330C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+REF,Segment - REF Other Payer Referring Provider Secondary Identification (Required),,,,,,,,
+2330C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,,,,
+2330C.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier  /Other Payer Referring Provider Identifier,R,,,,,,
+Loop 2330D — OTHER PAYER RENDERING PROVIDER (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Rendering Provider (Situational),,,,,,,,
+2330D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 :Other Payer Referring Provider Identifier,,,,,
+2330D.NM102,Entity Type Qualifier,Code qualifying the type of entity /Other Payer Referring Provider Identifier,R,"1 :Person
+2 :Non-Person Entity",,,,,
+REF,Segment - REF Other Payer Rendering Provider Secondary Identification (Required),,,,,,,,
+2330D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B :State License Number
+1G :Provider UPIN Number
+G2 :Provider Commercial Number
+LU :Location Number",,,,,
+2330D.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier /Other Payer Referring Provider Identifier,R,,,,,,
+Loop 2330E — OTHER PAYER SERVICE FACILITY LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Service Facility Location (Situational),,,,,,,,
+2330E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,77 : Service Locatio,,,,,
+2330E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :Non-Person Entity,,,,,
+REF,Segment - REF Other Payer Service Facility Location Secondary Identification (Required),,,,,,,,
+2330E.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2330E.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier /Other Payer Service Facility Location Secondary
+Identifie",R,,,,,,
+Loop 2330F  — OTHER PAYER SUPERVISING PROVIDER (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Supervising Provider (Situational),,,,,,,,
+2330F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DQ : Supervising Physician,,,,,
+2330F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+REF,Segment - REF Other Payer Supervising Provider Secondary Identification (Required),,,,,,,,
+2330F.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2330F.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Other Payer Supervising Provider Identifier",R,,,,,,
+Loop 2330G — OTHER PAYER BILLING PROVIDER  (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Other Payer Billing Provider (Situational),,,,,,,,
+2330G.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,85 : Billing Provider,,,,,
+2330G.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+REF,Segment - REF Other Payer Billing Provider Secondary Identification (Required),,,,,,,,
+2330G.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"G2 : Provider Commercial Number
+LU : Location Number",,,,,
+2330G.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/ Other Payer Billing Provider Identifier",R,,,,,,
+Loop 2400  — SERVICE LINE NUMBER(Required) Loop Repeat: 50,,,,,,,,,
+LX,Segment - LX Service Line Number (Required),,,,,,,,
+2400.LX01,Assigned Number,Number assigned for differentiation within a transaction set,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/originalLineNumber,Original claim line number,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/hccClaimLineNumber,Claim Line number,Map only for COB claims(when 2430 Loop exists),
+SV1,Segment - SV1 Professional Service (Required),,,,,,,,
+2400.SV101.01,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID (234)",R,"HC  :  Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+ER : Jurisdiction Specific Procedure and Supply Codes
+IV :Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+WK :Advanced Billing Concepts (ABC) Codes",,,,,
+2400.SV101.02,Product/Service ID,identifying number for a product or service,R,,90837,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/serviceCode,Service code associated with the claim line,,
+2400.SV101.03,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,HE,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/modifierList/modifier,Modifier,,
+2400.SV101.04,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/modifierList/modifier,Modifier,,
+2400.SV101.05,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/modifierList/modifier,Modifier,,
+2400.SV101.06,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/modifierList/modifier,Modifier,,
+2400.SV101.07,Description,A free-form description to clarify the related data elements and their content,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/serviceDescription,,,PSD1640 added service description
+2400.SV102,Monetary Amount,Monetary Amount,R,,233.19,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/billedAmount,Billed Amount / COB related,Map only for COB claims (when Claim Level 2320 exists),COB related
+,,,,,233.19,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/billedAmount,Billed Amount / COB related,Map only for COB claims (when Claim Level 2320 exists),COB related
+,,,,,233.19,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/serviceFee,Service Fee,,
+,,,,,233.19,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/outsideLabUsed/chargeAmount,Amount charged by outside Lab,Sum of all service lines' amounts,
+2400.SV103,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,"UN : Unit
+MJ : Minutes",,,,,
+2400.SV104,Quantity,Numeric value of quantity,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/serviceUnitCount,Identifies the type of unit,If 2400.SV103 = “UN”,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/minuteCount,Number of minutes,If 2400.SV103 = “MJ”,
+2400.SV105,Facility Code Value,"Code identifying where services were, or may be, performed; the first and second positions of the Uniform Bill Type Code for Institutional Services or the Place of Service Codes for Professional or Dental Services.",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/placeOfServiceCode,Code indicating the palce of service,Copy from 2300.CLM05-01 if 2400.SV105 is not present,
+2400.SV107.01,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/diagnosisCodePointers/diagnosisCodePointer,Diagnosis code applicable to the service line,,
+2400.SV107.02,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/diagnosisCodePointers/diagnosisCodePointer,Diagnosis code applicable to the service line,,
+2400.SV107.03,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/diagnosisCodePointers/diagnosisCodePointer,Diagnosis code applicable to the service line,,
+2400.SV107.04,Diagnosis Code Pointer,A pointer to the diagnosis code in the order of importance to this service,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/diagnosisCodePointers/diagnosisCodePointer,Diagnosis code applicable to the service line,,
+2400.SV109,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response /Emergency Indicator,S,Y :Yes,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/emg,Emergency Indicator,,
+2400.SV111,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response /EPSDT Indicator,S,Y :Yes,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/epsdtFamilyPlan,Early and Preiodic Screen for Diagnosis and Treatment Indicator,,
+2400.SV112,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response/ Family Planning Indicator,S,Y :Yes,,,,,
+2400.SV115,Copay Status Code,"Code indicating whether or not co-payment requirements were met on a line by
+line basis",S,0 : Copay exempt,,,,,
+SV5,Segment - SV5 Durable Medical Equipment Service (Situational),,,,,,,,
+2400.SV501.01,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,"HC : Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes",,,,,
+2400.SV501.02,Product/Service ID,Identifying number for a product or service,R,,,,,,
+2400.SV502,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",R,DA: Days,,,,,
+2400.SV503,Quantity,Numeric value of quantity,R,,,,,,
+2400.SV504,Monetary Amount,Monetary Amount,R,,,,,,
+2400.SV505,Monetary Amount,Monetary Amount,R,,,,,,
+2400.SV506,Frequency Code,Code indicating frequency or type of activities or actions being reported,R,"1 :Weekly
+4 :Monthly
+6 :Daily",,,,,
+PWK,Segment - PWK Line Supplemental Information (Situational),,,,,,,,
+2400.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,,,,,,
+2400.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be sent",R,,,,,,
+2400.PWK05,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,AC :  Attachment Control Number,,,,,
+2400.PWK06,Identification Code,Code identifying a party or other code,S,,,,,,
+PWK,Segment - PWK Durable Medical Equipment Certificate of Medical Necessity Indicator (Situational),,,,,,,,
+2400.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,CT : Certification,,,,,
+2400.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be
+sent",R,"AB :Previously Submitted to Payer
+AD :Certification Included in this Claim
+AF :Narrative Segment Included in this Claim
+AG :No Documentation is Required
+NS :Not Specified",,,,,
+CR1,Segment - CR1 Ambulance Transport Information (Situational),,,,,,,,
+2400.CR101,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",S,LB : Pound,,,,,
+2400.CR102,Weight,Numeric value of weight,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/patientWeight,Weight of patient,,
+2400.CR104,Ambulance Transport Reason Code,Code indicating the reason for ambulance transport,R,"A : Patient was transported to nearest facility
+B : Patient was transported for the benefit of a preferred physician
+C : Patient was transported for the nearness of family members
+D : Patient was transported for the care of a specialist
+E : Patient Transferred to Rehabilitation Facility",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/transportReasonCode,transportReasonCode,,
+2400.CR105,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,DH : Miles,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/transportUnitTypeCode,transport unit of measurement like Miles.. Etc,,
+2400.CR106,Quantity,Transport Distance,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/transportValueCount,transport distance in miles,,
+2400.CR109,Description,"Round Trip Purpose Description. Required when the ambulance service is for a round
+trip.",S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/roundTripPurpose,Round trip Purpose description,,
+2400.CR110,Description,Stretcher Purpose Description,S,,,,,,
+CR3,Segment - CR3 Durable Medical Equipment Certification (Situational),,,,,,,,
+2400.CR301,Certification Type Code,Code indicating the type of certification,R,"I : Initial
+R : Renewal
+S : Revised",,,,,
+2400.CR302,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",R,MO : Months,,,,,
+2400.CR303,Quantity,Numeric value of quantity,R,,,,,,
+CRC,Segment - CRC Ambulance Certification (Situational),,,,,,,,
+2400.CRC01,Code Category,Specifies the situation or category to which the code applies,R,07 : Ambulance Certification,,,,,
+2400.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"Y : Yes
+N : No",,,,,
+2400.CRC03,Condition Indicator,Code indicating a condition,R,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/conditionIndicators/conditionCode,Condition Code value,,
+2400.CRC04,Condition Indicator,Code indicating a condition when a second condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/conditionIndicators/conditionCode,Condition Code value,,
+2400.CRC05,Condition Indicator,Code indicating a condition when a third condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/conditionIndicators/conditionCode,Condition Code value,,
+2400.CRC06,Condition Indicator,Code indicating a condition when a fourth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/conditionIndicators/conditionCode,Condition Code value,,
+2400.CRC07,Condition Indicator,Code indicating a condition when a fifth condition code is necessary,S,"01 : Patient was admitted to a hospital
+04 : Patient was moved by stretcher
+05 : Patient was unconscious or in shock
+06 : Patient was transported in an emergency situation
+07 : Patient had to be physically restrained
+08 : Patient had visible hemorrhaging
+09 : Ambulance service was medically necessary
+12 : Patient is confined to a bed or chair",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/conditionIndicators/conditionCode,Condition Code value,,
+CRC,Segment - CRC Hospice Employee Indicator (Situational),,R,,,,,,
+2400.CRC01,Code Category,Specifies the situation or category to which the code applies,R,70 : Hospice,,,,,
+2400.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"Y : Yes
+N : No",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/isHospiceEmployee,Hospice Employed Provider Indicator,Map 'Y' when CRC02='Y',
+2400.CRC03,Condition Indicator,Code indicating a condition,R,65 : Open,,,,,
+CRC,Segment - CRC Condition Indicator/Durable Medical Equipment (Situational),,,,,,,,
+2400.CRC01,Code Category,Specifies the situation or category to which the code applies,R,09 : Durable Medical Equipment Certification,,,,,
+2400.CRC02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"Y : Yes
+N : No",,,,,
+2400.CRC03,Condition Indicator,Code indicating a condition,R,"38 :  Certification signed by the physician is on file at the
+supplier’s office
+ZV : Replacement Item",,,,,
+2400.CRC04,Condition Indicator,Code indicating a condition,S,"38 :  Certification signed by the physician is on file at the
+supplier’s office
+ZV : Replacement Item",,,,,
+DTP,Segment - DTP Date - Service Date (Required),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,472 : Service,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,"RD8 :  Range of Dates Expressed in Format CCYYMMDDCCYYMMDD
+D8 : Date Expressed in Format CCYYMMDD",,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,20201112,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/startDate,Start date of service,"01-08 -If we receive date format  CCYYMMDD We need to map both start date and end date
+
+
+byte 1-8 in the format YYYY-MM-DD",
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/endDate,End date of service,byte 10-17 in the format YYYY-MM-DD,
+DTP,Segment - DTP Date - Prescription Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,471 : Prescription,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP DATE - Certification Revision/Recertification Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,607 :  Certification Revision,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Begin Therapy Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,463 : Begin Therapy,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Last Certification Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,461 : Last Certification,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Last Seen Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,304 : Latest Visit or Consultation,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Test Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,"738 :Most Recent Hemoglobin or Hematocrit or Both
+739 :Most Recent Serum Creatine",,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Shipped Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,011 : Shipped,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Last X-ray Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,455 : Last X-Ray,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+DTP,Segment - DTP Date - Initial Treatment Date (Situational),,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,454:  Initial Treatment,,,,,
+2400.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,,,,
+QTY,Segment - QTY Ambulance Patient Count (Situational),,,,,,,,
+2400.QTY01,Quantity Qualifier,Code specifying the type of quantity,R,PT : Patients,,,,,
+2400.QTY02,Quantity,Numeric value of quantity,R,,,,,,
+QTY,Segment - QTY Obstetric Anesthesia Additional Units (Situational),,,,,,,,
+2400.QTY01,Quantity Qualifier,Code specifying the type of quantity,R,FL : Units,,,,,
+2400.QTY02,Quantity,Numeric value of quantity,R,,,,,,
+MEA,Segment - MEA Test Result (Situational),,,,,,,,
+2400.MEA01,Measurement Reference ID Code,Code identifying the broad category to which a measurement applies,R,"OG Original
+TR Test Results",,,,,
+2400.MEA02,Measurement Qualifier,"Code identifying a specific product or process characteristic to which a
+measurement applies",R,"HT Height
+R1 Hemoglobin
+R2 Hematocrit
+R3 Epoetin Starting Dosage
+R4 Creatinine",,,,,
+2400.MEA03,Measurement Value,The value of the measurement,R,,,,,,
+CN1,Segment - CN1 Contract Information (Situational),,,,,,,,
+2400.CN101,Contract Type Code,Code identifying a contract type,R,"01 : Diagnosis Related Group (DRG)
+02 : Per Diem
+03 : Variable Per Diem
+04 : Flat
+05 : Capitated
+06 : Percent
+09 : Other",,,,,
+2400.CN102,Monetary Amount,Monetary Amount,S,,,,,,
+2400.CN103,"Percent, Decimal Format",Percent given in decimal format,S,,,,,,
+2400.CN104,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /: Contract Code",S,,,,,,
+2400.CN105,Terms Discount Percent,"Terms discount percentage, expressed as a percent, available to the purchaser if
+an invoice is paid on or before the Terms Discount Due Date",S,,,,,,
+2400.CN106,Version Identifier,"Revision level of a particular format, program, technique or algorithm",S,,,,,,
+REF,Segment - REF Line Item Control Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,6R : Provider Control Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Repriced Line Item Reference Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9B : Repriced Line Item Reference Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Adjusted Repriced Line Item Reference Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9D : Adjusted Repriced Line Item Reference Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Prior Authorization (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2400.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2400.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Mammography Certification Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EW : Mammography Certification Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Clinical Laboratory Improvement Amendment (CLIA) Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"X4 : Clinical Laboratory Improvement Amendment
+Number",,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Immunization Batch Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,BT : Batch Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+REF,Segment - REF Referral Number (Situational),,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F  :Referral Number,,,,,
+2400.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2400.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2400.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+AMT,Segment - AMT Sales Tax Amount (Situational),,,,,,,,
+2400.AMT01,Amount Qualifier Code,Code to qualify amount,R,T :Tax,,,,,
+2400.AMT02,Monetary Amount,Monetary Amount,R,,,,,,COB related
+AMT,Segment - AMT Postage Claimed Amount (Situational),,,,,,,,
+2400.AMT01,Amount Qualifier Code,Code to qualify amount,R,F4 : Postage Claimed,,,,,
+2400.AMT02,Monetary Amount,Monetary Amount,R,,,,,,
+K3,Segment - K3 File Information (Situational),,,,,,,,
+2400.K301,Fixed Format Information,Data in fixed format agreed upon by sender and receiver,R,,,,,,
+NTE,Segment - NTE Line Note (Situational),,,,,,,,
+2400.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,"ADD :Additional Information
+DCP: Goals, Rehabilitation Potential, or Discharge Plans",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineItemRemark/remarkCode,,,
+2400.NTE02,Description,A free-form description to clarify the related data elements and their content,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineItemRemark/remark,Remarks added for Service line,,
+NTE,Segment - NTE Third Party Organization Notes (Situational),,,,,,,,
+2400.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,TPO : Third Party Organization Notes,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineItemRemark/remarkCode,,,
+2400.NTE02,Description,A free-form description to clarify the related data elements and their content,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineItemRemark/remark,Remarks added for Service line,,
+PS1,Segment - PS1 Purchased Service Information (Situational),,,,,,,,
+2400.PS101,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+2400.PS102,Monetary Amount,Monetary Amount,R,,,,,,
+HCP,Segment - HCP Line Pricing/Repricing Information (Situational),,,,,,,,
+2400.HCP01,Pricing Methodology,"Code specifying pricing methodology at which the claim or line item has been
+priced or repriced",R,"00: Zero Pricing (Not Covered Under Contract)
+01: Priced as Billed at 100%
+02 :Priced at the Standard Fee Schedule
+03 :Priced at a Contractual Percentage
+04 : Bundled Pricing
+05 : Peer Review Pricing
+06 : Per Diem Pricing
+07 : Flat Rate Pricing
+08  :Combination Pricing
+09 : Maternity Pricing
+10 : Other Pricing
+11 : Lower of Cost
+12 : Ratio of Cost
+13 : Cost Reimbursed
+14 : Adjustment Pricing",,,,,
+2400.HCP02,Monetary Amount,Monetary Amount,R,,,,Amount allowed by the repricer,,
+2400.HCP03,Monetary Amount,Monetary Amount,S,,,,,,
+2400.HCP04,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifie /Repricing Organization Identifier",S,,,,ID of the repricing source,,
+2400.HCP05,Rate,Rate expressed in the standard monetary denomination for the currency specified,S,,,,,,
+2400.HCP06,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier /Repriced Approved Ambulatory Patient Group
+Code",S,,,,,,
+2400.HCP07,Monetary Amount,,S,,,,,,
+2400.HCP09,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",S,"ER : Jurisdiction Specific Procedure and Supply Codes
+HC :Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+IV : Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+WK : Advanced Billing Concepts (ABC) Codes",,,,,
+2400.HCP10,Product/Service ID,Identifying number for a product or service,S,,,,,,
+2400.HCP11,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which a measurement has been taken",S,"MJ : Minutes
+UN: Unit",,,,,
+2400.HCP12,Quantity,Numeric value of quantity,S,,,,,,
+2400.HCP13,Reject Reason Code,Code assigned by issuer to identify reason for rejection,S,"T1 :Cannot Identify Provider as TPO (Third Party
+Organization) Participant
+T2 :Cannot Identify Payer as TPO (Third Party
+Organization) Participant
+T3 :Cannot Identify Insured as TPO (Third Party
+Organization) Participant
+T4 :Payer Name or Identifier Missing
+T5 :Certification Information Missing
+T6 :Claim does not contain enough information for repricing",,,Reject reason code,,
+2400.HCP14,Policy Compliance Code,Code specifying policy compliance,S,"1 :Procedure Followed (Compliance)
+2:Not Followed - Call Not Made (Non-Compliance Call
+Not Made)
+3: Not Medically Necessary (Non-Compliance NonMedically Necessary)
+4 :Not Followed Other (Non-Compliance Other)
+5 : Emergency Admit to Non-Network Hospital",,,,,
+2400.HCP15,Exception Code,"Code specifying the exception reason for consideration of out-of-network health
+care services",S,"1 :Non-Network Professional Provider in Network
+Hospital
+2 :Emergency Care
+3: Services or Specialist not in Network
+4 :Out-of-Service Area
+5 :State Mandates
+6 :Other",,,,,
+Loop 2410  — DRUG IDENTIFICATION Drug identification Loop Repeat: 1,,,,,,,,,
+LIN,Segment - LIN Drug identification (Situational),,,,,,,,
+2410.LIN02,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,N4 : National Drug Code in 5-4-2 Format,,"professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/ndcCodes/qualifier
+
+Xwalk  N4  as ND to qualifier
+UP dont require a Xwalk
+(Birdsong)",,Map N4 as 'ND',need to check the x walk/configuration team
+2410.LIN03,Product/Service ID,Identifying number for a product or service,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/ndcCodes/ndcCode,NationalDrugCodereference.,,
+CTP,Segment - CTP Drug Quantity (Required),,,,,,,,
+2410.CTP04,Quantity,Numeric value of quantity,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/ndcCodes/quantity,Quantity; maximum of 8 digits.,,
+2410.CTP05-1,COMPOSITE UNIT OF MEASURE-Unit or Basis for Measurement Code,"To identify a composite unit of measure. Code specifying the units in which a value is being expressed, or
+manner in which a measurement has been taken",R,"F2 : International Unit
+GR : Gram
+ME :Milligram
+ML :Milliliter
+UN :Unit",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/ndcCodes/measurementType,"Identifies the unit of measurement,such as ML (milliliter),OU (ounce),etc.",,
+REF,Segment - REF Prescription or Compound Drug Association Number (Situational),,,,,,,,
+2410.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"VY : Link Sequence Number
+XZ : Pharmacy Prescription Number",,,,,
+2410.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,
+Loop 2420A  — RENDERING PROVIDER NAME(Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Renderring Physician Name (Situational),,,,,,,,
+2420A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 : Rendering Provider,,,,,
+2420A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2420A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderLastName,Rendering Provider's Last Name,,
+2420A.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderFirstName,Rendering Provider's First Name,,
+2420A.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderMiddleName,,,
+2420A.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderSuffix,,,
+2420A.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code,S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420A.NM109,Identification Code,Code identifying a party or other code /: Rendering Provider Identifier,S,1000959250,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderNPI,Rendering Provider's National Provider Id,,
+PRV,Segment - PRV Rendering Provider Specialty Information (Situational),,,,,,,,
+2420A.PRV01,Provider Code,Code identifying the type of provider,R,PE : Performing,,,,,
+2420A.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC : Health Care Provider Taxonomy Code,,,,,
+2420A.PRV03,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,1041C0700X,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingPractitionerSpecialty,Rendering Provider's Speciality,,
+REF,Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,,,
+2420A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU : Location Number",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/renderingProviderIdQualifier,Rendering provider secondary id type,,
+2420A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/otherRenderingProviderId,Rendering Provider's Id,,
+2420A.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420A.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420B  — PURCHASED SERVICE PROVIDER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Purchased Service Provider Name (Situational),,,,,,,,
+2420B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,QB : Purchase Service Provider,,,,,
+2420B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,
+2420B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420B.NM109,Identification Code,Code identifying a party or other code,S,,,,,,
+REF,Segment - REF Purchased Service Provider Secondary Identification (Situational),,,,,,,,
+2420B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,,,,
+2420B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2420B.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420B.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420C  — SERVICE FACILITY LOCATION NAME  (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Service Facility Location Name (Situational),,,,,,,,
+2420C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,77 : Service Location,,,,,
+2420C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :Non-Person Entity,,,,,
+2420C.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/outsideLabUsed/labName,Name of Lab/facility,,
+2420C.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420C.NM109,Identification Code,Code identifying a party or other code,S,,,,,,
+N3,Segment - N3 Service Facility Location Address (Required),,,,,,,,
+2420C.N301,Address Information,Address Information,R,,,,,,
+2420C.N302,Address Information,Address Information,S,,,,,,
+N4,"Segment - N4 Service Facility Location City, State, ZIP Code (Required)",,,,,,,,
+2420C.N401,City Name,Free-form text for city name,R,,,,,,
+2420C.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,
+2420C.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,
+2420C.N404,Country Code,Code identifying the country,S,,,,,,
+2420C.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Service Facility Location Secondary Identification (Situational),,,,,,,,
+2420C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"LU : Location Number
+G2 : Provider Commercial Number",,,,,
+2420C.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2420C.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420C.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420D — SUPERVISING PROVIDER NAME (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Supervising Provider Name (Situational),,,,,,,,
+2420D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DQ : Supervising Physician,,,,,
+2420D.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+2420D.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineSupervisingPhysicianInformation/lastName,,,
+2420D.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineSupervisingPhysicianInformation/firstName,,,
+2420D.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineSupervisingPhysicianInformation/middleInitial,,,
+2420D.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineSupervisingPhysicianInformation/suffix,,,
+2420D.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code,S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420D.NM109,Identification Code,Code identifying a party or other code,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineSupervisingPhysicianInformation/npi,,,
+REF,Segment - REF Supervising Provider Secondary Identification (Situational),,,,,,,,
+2420D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number
+LU: Location Number",,,,,
+2420D.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineSupervisingPhysicianInformation/otherId,,,
+2420D.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420D.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420E — ORDERING PROVIDER NAME (Situational) Loop Repeat: 1,,,R,,,,,,
+NM1,Segment - NM1 Ordering Provider Name (Situational),,,,,,,,
+2420E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",R,DK :Ordering Physician,,,,,
+2420E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 : Person,,,,,
+2420E.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/lastName,,,
+2420E.NM104,Name First,Individual first name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/firstName,,,
+2420E.NM105,Name Middle,Individual middle name or initial,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/middleName,,,
+2420E.NM107,Name Suffix,Suffix to individual name,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/suffix,,,
+2420E.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420E.NM109,Identification Code,Code identifying a party or other code,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/npi,,,
+N3,Segment - N3 Ordering Provider Address (Situational),,,,,,,,
+2420E.N301,Address Information,Address Information,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/address,,,
+2420E.N302,Address Information,Address Information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/address2,,,
+N4,"Segment - N4 Ordering Provider City, State, ZIP Code (Situational)",,,,,,,,
+2420E.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/city,,,
+2420E.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/stateCode,,,
+2420E.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/zipCode,,byte 1-5,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/zipSuffixCode,,byte 6-9,
+2420E.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/countryCode/countryCode,,"Map to the value ""US"" if not present",
+2420E.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+REF,Segment - REF Ordering Provider Secondary Identification (Situational),,,,,,,,
+2420E.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/otherIdType,,,
+2420E.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineOrderingPhysicianInformation/otherId,,,
+2420E.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U  :Payer Identification Number,,,,,
+2420E.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+PER,Segment - PER Ordering Provider Contact Information (Situational),,,,,,,,
+2420E.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC -  Information Contact,,,,,
+2420E.PER02,Name,Submitter Contact Name,S,<<Submitter Name>>,,,,,
+2420E.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2420E.PER04,Communication Number,Complete communications number including country or area code when applicable,R,,,,,,
+2420E.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2420E.PER06,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+2420E.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,,
+2420E.PER08,Communication Number,Complete communications number including country or area code when applicable,S,,,,,,
+Loop 2420F — REFERRING PROVIDER NAME (Situational) Loop Repeat: 2,,,,,,,,,
+NM1,Segment - NM1 Referring Provider Name (Situational),,,,,,,,
+2420F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an individual",R,"DN :Referring Provider
+P3 :Primary Care Provider",,,,,
+2420F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,
+2420F.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,
+2420F.NM104,Name First,Individual first name,S,,,,,,
+2420F.NM105,Name Middle,Individual middle name or initial,S,,,,,,
+2420F.NM107,Name Suffix,Suffix to individual name,S,,,,,,
+2420F.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,
+2420F.NM109,Identification Code,Code identifying a party or other code,S,,,,,,
+REF,Segment - REF Referring Provider Secondary Identification (Situational),,,,,,,,
+2420F.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B: State License Number
+1G : Provider UPIN Number
+G2 : Provider Commercial Number",,,,,
+2420F.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+2420F.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U : Payer Identification Number,,,,,
+2420F.REF04.02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,
+Loop 2420G — AMBULANCE PICK-UP LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Pick-up Location (Situational),,,,,,,,
+2420G.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PW : Pickup Address,,,,,
+2420G.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+N3,Segment- N3 Ambulance Pick-up Location Address (Required),,,,,,,,
+2420G.N301,Address Information,Address Information,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/address,Address line 1,,
+2420G.N302,Address Information,Address Information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/address2,Address line 2,,
+N4,"Segment - N4 Ambulance Pick-up Location City, State, ZIP Code (Required)",,,,,,,,
+2420G.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/city,,,
+2420G.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/stateCode,,,
+2420G.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/zipCode,"Zip Code
+1-5 digits","Zip Code
+1-5 digits",
+2420G.N403,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/zipSuffixCode,"Zip Code Suffix
+
+6-9 digits","Zip Code Suffix
+
+6-9 digits",
+2420G.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/pickupAddress/countryCode/countryCode,,"Map to the value ""US"" if not present",
+2420G.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+Loop 2420H  — AMBULANCE DROP-OFF LOCATION (Situational) Loop Repeat: 1,,,,,,,,,
+NM1,Segment - NM1 Ambulance Drop-off Location (Situational),,,,,,,,
+2420H.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,45 :  Drop-off Location,,,,,
+2420H.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,
+2420H.NM103,Name Last or Organization Name,Individual last name or organizational name,S,,,,,,
+N3,Segment - N3 Ambulance Drop-off Location Address (Required),,,,,,,,
+2420H.N301,Address Information,Address Information,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/address,Address line 1,,
+2420H.N302,Address Information,Address Information,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/address2,Address line 2,,
+N4,"Segment - N4 Ambulance Drop-off Location City, State, ZIP Code (Required)",,,,,,,,
+2420H.N401,City Name,Free-form text for city name,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/city,City,,
+2420H.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/stateCode,State,,
+2420H.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/zipCode,Zip Code,"Zip Code
+1-5 digits",
+2420H.N403,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/zipSuffixCode,Zip Code Suffix,"Zip Code Suffix
+
+6-9 digits",
+2420H.N404,Country Code,Code identifying the country,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/lineAmbulanceInformationList/lineAmbulanceInformation/dropOffAddress/countryCode/countryCode,Country,"Map to the value ""US"" if not present",
+2420H.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,
+"Loop 2430   — LINE ADJUDICATION INFORMATION(Situational) Loop Repeat: 15
+
+1. Service line cob mapping under - /invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation will happen based upon the matching of 2430.SVD01 against the 2330B.NM109.
+
+2. The below header/sub tag mapping will have sum of all the different payer amounts for each of the service line.
+/serviceLineItem/eobPaymentInformation",,,,,,,,,
+SVD,Segment - SVD Line Adjudication Information (Situational),,,,,,,,
+2430.SVD01,Identification Code,Code identifying a party or other code,R,,611X1,,,This is matched against 2330B.NM109,
+2430.SVD02,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/netPaidAmount,Net Paid Amount,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/netPaidAmount,Net Paid Amount,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/allowedAmount,,Sum netpaid amount (2430.SVD02) and CAS*PR amounts for the payer in line level - 2430 loop and map to this field,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/allowedAmount,,Sum netpaid amount (2430.SVD02) and CAS*PR amounts of all payers in line level (all 2430 loops) and map to this field,
+2430.SVD03.01,Product/Service ID Qualifier,Code identifying the type/source of the descriptive number used in Product/Service ID,R,"ER : Jurisdiction Specific Procedure and Supply Codes
+HC : Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+IV :Home Infusion EDI Coalition (HIEC) Product/Service
+Code",HC,,,,
+2430.SVD03.02,Product/Service ID,Identifying number for a product or service,R,,90837,,,,
+2430.SVD03.03,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,HE,,,,
+2430.SVD03.04,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,,,,
+2430.SVD03.05,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,,,,
+2430.SVD03.06,Procedure Modifier,"This identifies special circumstances related to the performance of the service, as defined by trading partners",S,,GT,,,,
+2430.SVD03.07,Description,"A free-form description to clarify the related data elements and their
+content",S,,,,,,
+2430.SVD05,Quantity,Numeric value of quantity/: Paid Service Unit Count,R,,,,,,
+2430.SVD06,Assigned Number,Number assigned for differentiation within a transaction set/: Bundled or Unbundled Line Number,S,,,,,,
+CAS,Segment - CAS Line Adjustment (Situational),2430 CAS codes received on the each individual service line needs to be mapped to casCodes under “lineeobinformation/lineeobcasCodes”,,,,,,,
+2430.CAS01,Claim Adjustment Group Code,Code identifying the general category of payment adjustment,R,"CO : Contractual Obligations
+CR : Correction and Reversals
+OA : Other adjustments
+PI : Payor Initiated Reductions
+PR : Patient Responsibility",,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/groupCode,Group Code,,
+,,,,,,/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/groupCode,Group Code,,
+2430.CAS02,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code,,
+,,,,,,professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode,CAS code,,
+2430.CAS03,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS02='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS02='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS02='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS02=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS02=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS02='105',
+,,,,,,,Non-covered amount.,"When CAS01='CO' and CAS02='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,]=,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS02='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS02='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS02='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS02=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS02=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/taxAmount,Tax amount,When CAS01='CO' and CAS02='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS02='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS02='45',
+,,,,611X1,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,
+2430.CAS04,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity,,
+,,,,,,/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/quantity,Quantity,,
+2430.CAS05,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code,,
+2430.CAS06,Monetary Amount,Monetary amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS05='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS05='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS05='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS05=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS05=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS05='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS05='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS05='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS05='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS05='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS05='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS05=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS05=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/taxAmount,Tax amount,When CAS01='CO' and CAS05='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS05='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS05='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,
+2430.CAS07,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity,,
+2430.CAS08,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code,,
+2430.CAS09,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS08='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS08='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS08='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS08=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS08=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS08='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS08='96'
+
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS08='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS08='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS08='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS08='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS08=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS08=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/taxAmount,Tax amount,When CAS01='CO' and CAS08='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS08='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS08='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,
+2430.CAS10,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity,,
+2430.CAS11,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code,,
+2430.CAS12,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS11='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS11='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS11='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS11=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS11=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS11='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS11='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS11='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS11='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS11='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS11='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS11=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS11=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/taxAmount,Tax amount,When CAS01='CO' and CAS11='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS11='96'
+
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS11='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,
+,,,,,,/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,
+2430.CAS13,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity,,
+2430.CAS14,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code,,
+2430.CAS15,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS14='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS14='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS14='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS14=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS14=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS14='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS14='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS14='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS14='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS14='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS14='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS14=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS14=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/taxAmount,Tax amount,When CAS01='CO' and CAS14='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS14='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS14='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/amount,,,
+2430.CAS16,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/quantity,,,
+2430.CAS17,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/casCode,,,
+2430.CAS18,Monetary Amount,Monetary Amount,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS17='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS17='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS17='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS17=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS17=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS17='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS17='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  /professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS17='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS17='1',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS17='2',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS17='3',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberPenalty,Member penalty.,When CAS01='PR' and CAS17=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS17=225/237/B4,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/taxAmount,Tax amount,When CAS01='CO' and CAS17='105',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS17='96'
+
+Please refer the Comments",All 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18 Amounts  for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping  will also get  added to the  professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount.
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS17='45',
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,
+2430.CAS19,Quantity,Numeric value of quantity,S,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity,,
+DTP,Segment - DTP Line Check or Remittance Date (Required),,,,,,,,
+2430.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,573 : Date Claim Paid,,,,,
+2430.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :Date Expressed in Format CCYYMMDD,,,,,
+2430.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,20210526,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobDate,"User-entered date on which the EOB was generated.
+
+In the format YYYY-MM-DD","In the format YYYY-MM-DD
+Map the first instance when we have 2430.DTP segment  under more than claim line for same SVD01.",
+AMT,Segment - AMT Remaining Patient Liability (Situational),,,,,,,,
+2430.AMT01,Amount Qualifier Code,Code to qualify amounT,R,EAF : Amount Owed,,,,,
+2430.AMT02,Monetary Amount,Monetary Amount,R,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberResponsibilityAmount,Member responsibility amount,,
+,,,,,,professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/memberResponsibilityAmount,Member responsibility amount,,
+Loop 2440  — FORM IDENTIFICATION CODE (Situational) Loop Repeat: >1,,,,,,,,,
+LQ,Segment - LQ Form Identification Code (Situational),,,,,,,,
+2440.LQ01,Code List Qualifier Code,Code identifying a specific industry code list,R,"AS : Form Type Code
+UT : Centers for Medicare and Medicaid Services (CMS)
+Durable Medical Equipment Regional Carrier
+(DMERC) Certificate of Medical Necessity (CMN)
+Forms",,,,,
+2440.LQ02,Industry Code,Code indicating a code from a specific industry code list,R,,,,,,
+FRM,Segment - FRM Supporting Documentation (Required),,,,,,,,
+2440.FRM01,Assigned Identification,Alphanumeric characters assigned for differentiation within a transaction set,R,,,,,,
+2440.FRM02,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response/ Question Response,S,"N No
+W Not Applicable
+Y Yes",,,,,
+2440.FRM03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",S,,,,,,
+2440.FRM04,Date,"Date expressed as CCYYMMDD where CC represents the first two digits of the
+calendar year",S,,,,,,
+2440.FRM05,"Percent, Decimal Format","Percent given in decimal format (e.g., 0.0 through 100.0 represents 0% through
+100%)",S,,,,,,
+Segment SE - Transaction Set Trailer (Required),,,,,,,,,
+SE,SE Transaction Set Trailer (Required),,R,,,,,,
+SE01,Number of Included Segments,"Total number of segments included in a transaction set including ST and SE
+segments",R,,Count Of ST - 74,,,,
+SE02,Transaction Set Control Number,"Identifying control number that must be unique within the transaction set
+functional group assigned by the originator for a transaction set.  It must be identical to ST02.",R,,ST02 Value - 319003402,,,,
+Segment GE - Functional Group Trailer  (Required),,,,,,,,,
+GE,GE Functional Group Trailer (Required),,R,,,,,,
+GE01,Number of Transaction Sets Included,"Total number of transaction sets included in the functional group or interchange
+(transmission) group",R,,Count Of GS - 1,,,,
+GE02,Group Control Number,Assigned number originated and maintained by the sender .  It must be identical to GS06.,R,,319003402,,,,
+Segment IEA -  Interchange Control Trailer(Required),,,,,,,,,
+IEA,IEA Interchange Control Trailer (Required),,R,,,,,,
+IEA01,Number of Included Functional Groups,A count of the number of functional groups included in an interchange,R,,Count Of ISA - 1,,,,
+IEA02,Interchange Control Number,A control number assigned by the interchange sender.  It must be identical to ISA13,R,,ISA13 Value - 319003402,,,,
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — 837P Base Mapping(Default Val)
+
+```csv
+XSD Element,Element Description,Default Value
+professionalClaimIBRequestRoot/header/inputFilename,Inbound EDI File Name,Input Filename of the EDI file received with filename extension
+professionalClaimIBRequestRoot/header/inputId,EDI file id,"{UID}- Unique for each file
+Example - -dtBkcCHu9bkKu8O"
+professionalClaimIBRequestRoot/header/totalClaimCount,Total number of claims,Total Number of claims in the Inbound EDI 837P file
+professionalClaimIBRequestRoot/header/inputType,Defines the type of input file - API or File,"Hardcode as ""Professional"""
+professionalClaimIBRequestRoot/header/XMLfileCreationDate,File created date in format YYYY-MM-DD HH:mm:ss - This is used for internal reference. Not loaded to HRP UI,"Processing date/time in the format:
+yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"
+professionalClaimIBRequestRoot/header/correlationId,Unique string or alphanumeric value identifying each file.,A Unique Record Identifier
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/entryDate,"Date on which the claim was first
+entered into HealthRules. - in HRP UI it is auto populated to claim load date/time",Processing date/time in the format: YYYY-MM-DDTHH:mm:ss
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimDeliveryType,"The method by which the claim was
+received.","E' -  Electronic
+'S'  - SDS paper 837
+Crosswalk Name : P_IB_837_ClaimSourceLookup
+•Provide the Sender Id and Receiver Id as the source columns.
+•Provide the ClaimSource and ClaimDeliveryType as the target columns."
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/payeeTypeField,"Indicates whether the claim is to be
+paid to a supplier or a member.",Hardcode as 'Supplier'
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimPayorType,"Indicates if the payables and payment
+are generated internally after
+adjudicating claims using
+healthRules (Value 1), or if the payments are handled by an external payor (Value 2).",Hardcode as '1 '
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/benefitPlanType,"Benefit plan type (medical, dental,
+etc.)",Hardcode as 1 (medical)
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/rayId,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",GUID
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/recordId,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",GUID
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/recordIdFromSource,,senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/sourceTypeIdentifier,Identifier to find from where we received(Starting point) the initial Transaction/Record.,"SubmitterName(1000A. NM103+NM104)_{Paper}
+SubmitterName(1000A. NM103+NM104)_{Electronic}"
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/tenantIdentifier,Unique identifier for the implementation team,"Hardcode as ""Product"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount,Non covered amount - COB- Claim level,Map 2320.CAS03 / 2320.CAS06 /2320.CAS09 /2320.CAS12/2320.CAS15/2320.CAS18   for all CAS01-CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2320.CAS segment mapping.
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/serviceLineItems/serviceLineItem/eobPaymentInformation/nonCoveredAmount,Non covered amount - COB - Line elevel,Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non covered amount - COB - Line elevel,Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimUDTList/claimUDT/udtListValueSet/attributeRoleName,,"Hardcode as ""Submitted Claim Key"""
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimUDTList/claimUDT/udtListValueSet/attrValueAsString,,Should be same value as pupulated in institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordId
+professionalClaimIBRequestRoot/professionalClaimIBRequest/professionalClaimSubmitRequestRecordList/professionalClaimSubmitRequestRecord/professionalClaim/claimUDTList/claimUDT/userDefinedTermReference/ID,,"Hardcode as ""Submitted Claim Key"""
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — 837I Base Mapping
+
+```csv
+EDI LoopID.Segment,EDI Data Element Name,EDI Element Description,Usage,Enumeration Values,Sample values,Mapped to XSD element,HRP Element Description,Transformation Logic,Comments /Needs to review,
+ISA - Interchange Control Header Segment,,,,,,,,,,
+ISA01,Authorization Information Qualifier,Code identifying the type of information in the Authorization Information,R,00 : No Authorization Information Present,,,,,,
+ISA02,Authorization Information,Code identifying the type of information in the Authorization Information,R,"00: No Authorization Information Present (No
+Meaningful Information in I02)
+03:Additional Data Identification",,,,,,
+ISA03,Security Information Qualifier,Code identifying the type of information in the Security Information,R,00,,,,,,
+ISA04,Security Information,"security information about the interchange sender
+or the data in the interchange",R,Blank (10 spaces),,,,,,
+ISA05,Interchange ID Qualifier,"Code indicating the system/method of code structure used to designate the
+sender or receiver ID element being qualified",R,ZZ - Mutually Defined,,,,,,
+ISA06,Interchange Sender ID,"Identification code published by the sender for other parties to use as the receiver
+ID to route data to them; the sender always codes this value in the sender ID
+element",R,<Sender ID>,Example: 100SS,institutionalClaimIBRequestRoot/header/senderId,Sender ID from EDI837 X12 will be mapped to the header of each claim bundle.,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/tradingPartnerID,Sender ID from EDI837 X12 will be mapped to the Trading Partner ID.,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimSource,"Reference to the ClaimSource
+codeset.",,,
+ISA07,Interchange ID Qualifier,"Code indicating the system/method of code structure used to designate the
+sender or receiver ID element being qualified",R,ZZ,,,,,,
+ISA08,Interchange Receiver ID,Receiver Id,R,<Receiver ID>,,institutionalClaimIBRequestRoot/header/receiverId,Receiver ID from EDI837 X12 will be mapped to the header of each claim bundle.,,,
+ISA09,Interchange Date,Date of the interchange,R,SysDate (YYMMDD),Example : 220915,,,,,
+ISA10,Interchange Time,Time of the interchange,R,SysTime (HHMM),Example : 0145,,,,,
+ISA11,Repetition Separator,"the repetition separator is a delimiter and not a data
+element; this field provides the delimiter used to separate repeated occurrences
+of a simple data element or a composite data structure; this value must be
+different than the data element separator, component element separator, and the
+segment terminator",R,^,,,,,,
+ISA12,Interchange Control Version Number,Code specifying the version number of the interchange control segments,R,00501,,,,,,
+ISA13,Interchange Control Number,A control number assigned by the interchange sender,R,,Exaample:000004846,,,,,
+ISA14,Acknowledgment Requested,Code indicating sender’s request for an interchange acknowledgment,R,1= Interchange Acknowledgment Requested,,,,,,
+ISA15,Interchange Usage Indicator,"Code indicating whether data enclosed by this interchange envelope is test,
+production or information",R,P=Production,,,,,,
+ISA16,Component Element Separator,The delimiter used to separate component data elements,R,: = Element Seperator,,,,,,
+GS -Functional Group Header Segment,,,,,,,,,,
+GS01,Functional Identifier Code,The two-character identifier Code for the transaction set included.,R,HC : Health Care Claim (837),,,,,,
+GS02,Application Sender's Code,"Code identifying party sending transmission,  codes agreed to by trading partners
+This is Submitter-specific.",R,<Sender ID>,Example : 100ZM,,,,,
+GS03,Application Receiver's Code,Code identifying party receiving transmission; codes agreed to by trading partners,R,<HealthPlan ID>,,,,,,
+GS04,Date,Date the Group Header is created.,R,SysDate (YYYYMMDD),20210701,,,,,
+GS05,Time,Time the Group Header is created.,R,SysTime (HHMM),1213,,,,,
+GS06,Group Control Number,Submitter-specific number.,R,<Group Control Number>,75041,,,,,
+GS07,Responsible Agency Code,Code identifying the issuer of the EDI standard being used.,R,X : Accredited Standards Committee X12,,,,,,
+GS08,Version / Release / Industry Identifier Code,"Code indicating the version, release, subrelease, and industry identifier of the EDI
+standard being used,
+ST03 and GS08 must be identical",R,005010X223A2,,,,,,
+ST - Transaction Set Header Segment,,,,,,,,,,
+ST01,Transaction Set Identifier Code,Code uniquely identifying a Transaction Set,R,837 : Health Care Claim,,,,,,
+ST02,Transaction Set Control Number,Unique Sequential Number Assigned by Internal Processes for each Transaction Set. Starts from 001 and increments with each transaction set,R,"<Transaction set Control Number>
+Starts from 001 and increments with each transaction set",002,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/externalBatchSequenceNumber,External batch sequence number.,,,
+ST03,Implementation Convention Reference,Standards Approved by ACS X12 Review Board.                 ST03 and GS08 must be identical,R,005010X223A2,,,,,,
+BHT - Beginning Of Hierarchical Transaction Segment,,,,,,,,,,
+BHT01,Hierarchical Structure Code,Code indicating the hierarchical application structure of a transaction set,R,"0019- Information Source, Subscriber, Dependent",,,,,,
+BHT02,Transaction Set Purpose Code,"Code identifying purpose of transaction set.  Used to convey the electronic transmission status of
+the 837 batch",R,"00 : Original
+18 : Reissue",,,,,,
+BHT03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,<Originator Application Transaction Identifier>,75041,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/externalClaimBatchNumber,"Batch number assigned by external
+system.",,,
+BHT04,Date,The date the transaction was created,R,SysDate (YYYYMMDD) -,20210701,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/receiptDate,"Date on which the Health Care Company
+was first made aware of the
+claim - reflected as Received Date in HRP UI","Mapped from BHT04, formatted to YYYY-MM-DD",,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/cleanClaimDate,"Date as of which all of the information
+necessary to process the
+claim was received. This information
+can be used to determine
+whether interest should be calculated
+on the claim. -- reflected in Clean Claim Date at claim line level","Mapped from BHT04, formatted to YYYY-MM-DD",,
+BHT05,Time,The time the transaction was created,R,SysTime (HHMMSS),121314,,,,,
+BHT06,Transaction Type Code,Code specifying the type of transaction,R,CH- Chargeable,,,,,,
+Loop 1000A (Required)Loop Repeat: 1,,,,,,,,,,
+Segment NM1 - Submitter Name  (Required),,,,,,,,,,
+1000A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,41 : Submitter,,,,,,
+1000A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-person Entity",,,,,,
+1000A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,<Submitter Last/Org Name>,THE SSI GROUP,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/submitterName,<Submitter Last/Org Name>,,In highmark it is 1000A.(NM103+NM104+NM105),
+1000A.NM104,Name First,Individual first name,S,,,,,,,
+1000A.NM105,Name Middle,Individual middle name or initial,S,,,,,,,
+1000A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,46 : Electronic Transmitter Identification Number (ETIN,,,,,,
+1000A.NM109,Identification Code,Code identifying a party or other code,R,<Submitter ID>,100SS,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/submitterId,Claim submitter Id,,",Claim submitter Id",
+Segment PER - Submitter EDI Contact Information,,,,,,,,,,
+1000A.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group named,R,IC,,,,,,
+1000A.PER02,Name,Submitter Contact Name,S,<Submitter Name> - JOAN KOSSOW,,,,,,
+1000A.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" - Electronic Mail
+""FX"" - Facsimile
+""TE"" - Telephone",,,,,,
+1000A.PER04,Communication Number,Complete communications number including country or area code when applicable,R,<Email/Faxsimile Number/Telephone Number> - 2513450000,,,,,,
+1000A.PER05,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" - Electronic Mail
+""FX"" - Facsimile
+""TE"" - Telephone",,,,,,
+1000A.PER06,Communication Number,Complete communications number including country or area code when applicable,S,<Email/Faxsimile Number/Telephone Number> 2513450100,,,,,,
+1000A.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" - Electronic Mail EM
+""FX"" - Facsimile
+""TE"" - Telephone",,,,,,
+1000A.PER08,Communication Number,Complete communications number including country or area code when applicable,S,<Email/Faxsimile Number/Telephone Number>,,,,,,
+Loop 1000B (Required)Loop Repeat: 1,,,,,,,,,,
+Segment NM1 - Receiver Name  (Required),,,,,,,,,,
+1000B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,"40 : Receiver
+41:Submitter",,,,,,
+1000B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-person Entity",,,,,,
+1000B.NM103,Name Last or Organization Name,Code identifying an organizational NAME,R,HealthPlan Name,CO ACCESS,,,,,
+1000B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,46 : Electronic Transmitter Identification Number (ETIN,,,,,,
+1000B.NM109,Identification Code,Code identifying a party,R,<HealthPlan Payer ID> - COA,,,,,,
+Loop 2000A (Required)Loop Repeat: >1,,,,,,,,,,
+Segment HL - Billing Provider Hierarchical Level  (Required),,,,,,,,,,
+2000A.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,"The first HL01 within each ST-SE envelope must begin with “1”,
+and be incremented by one each time an HL is used in the
+transaction",,,,,,
+2000A.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,20 : Information Source,,,,,,
+2000A.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described.",R,"1 : Additional Subordinate HL Data Segment in This
+Hierarchical Structure.",,,,,,
+Segment PRV - Billing Provider Specialty Information  (Situational),,,,,,,,,,
+2000A.PRV01,Provider Code,Code identifying the type of provider,R,BI : Billing,,,,,,
+2000A.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC :  Health Care Provider Taxonomy Code,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/additionalCodes/codes/qualifier,,,,
+2000A.PRV03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/additionalCodes/codes/code,,,,
+Segment CUR - Foreign Currency Information (Situational),,,,,,,,,,
+2000A.CUR01,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,85 - Billing provider,,,,,,
+2000A.CUR02,Currency Code,Code (Standard ISO) for country in whose currency the charges are specified,R,<Currency Code>,,,,,,
+Loop 2010AA (Required) Loop Repeat: 1,,,,,,,,,,
+Segment NM1 - Billing Provider Name (Required),,,,,,,,,,
+2010AA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,85 - Billing provider,,,"Indicates if the payables and payment
+are generated internally after
+adjudicating claims using
+healthRules, or if the payments are
+handled by an external payor.",,,
+2010AA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,,
+2010AA.NM103,Name Last or Organization Name,Individual last name or organizational name,R,<Billing Provider Organizational Name>,MILLCREEK OF ARKANSAS,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/payToName,"If NM102 is Person, this should be
+the Billing Provider Last Name.
+If NM102 is Non-Person, this
+should be the Organization Name",,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/fullName,Billing Recipient  Full Name,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/supplierName,Name of the supplier.,,,
+2010AA.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX :  Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2010AA.NM109,Identification Code,Code identifying a party or other code / Billing Provider Identifier,S,<Billing Provider NPI> -,0052482036,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/npi,Supplier's National Provider ID,,,
+Segment N3 - Billing Provider Address (Required),,,,,,,,,,
+2010AA.N301,Address Information,Code identifying the address,R,<Billing Provider Address Line>,4495 YUKON COURT APT 78,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/address,The first line of the street address.,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/address,The first line of the street address.,,,
+2010AA.N302,Address Information,Code identifying the address,S,<Billing Provider Address Line>,PO BOX 17471,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/address,,"Concatenate the value (if present) to this XML field, separated by comma and space (, )",,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/address2,,second instance of street address,,
+"Segment N4 - Billing Provider City, State, ZIP Code (Required)",,,,,,,,,,
+2010AA.N401,City Name,Code identifying the address,R,,DENVER,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/cityName,city,,Need to confirm on address,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/cityName,city,,,
+2010AA.N402,State or Province Code,Code identifying the address,S,,CO,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/stateCode,State abbreviation,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/stateCode,State abbreviation,,,
+2010AA.N403,Postal Code,Code identifying the address,S,,802044507,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/zipCode,zip code,Map byte 1-5,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/zipSuffixCode,Zip code suffix,Map byte 6-9,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/zipCode,zip code,Map byte 1-5,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/zipSuffixCode,Zip code suffix,Map byte 6-9,,
+2010AA.N404,Country Code,Code identifying the address,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/countryCode/countryCode,Country code,"Map ""US"" if no value present",,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/countryCode/countryCode,Country code,"Map ""US"" if no value present",,
+2010AA.N407,Country Subdivision Code,,S,,,,,,,
+Segment REF - Billing Provider Tax Identification (Required),,,,,,,,,,
+2010AA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EI : Employer’s Identification Number,,,,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/taxIdentificationNumber,Supplier tax identification number,if /837/2000A/2010AA/REF01 (Reference Identification Qualifier) is ‘EI’ then it will be mapped into ‘XX-XXXXXXXX’ format to taxIdentificationNumber (institutionalClaim/supplierInformation/taxIdentificationNumber).,In COA we do have  mapping for SY and EI Seperately but  In care plus only had SSN identidfication segment .Need to confirm,
+Segment - PER Billing Provider Contact Information (Situational),,,,,,,,,,
+2010AA.PER01,Contact Function Code,Code identifying the major duty or responsibility of the person or group name,R,IC -  Information Contact,,,,,,
+2010AA.PER02,Name,Billing Provider Contact Name,S,,,,,,,
+2010AA.PER03,Communication Number Qualifier,Code identifying the type of communication number,R,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone","""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone",,,,If PER03='EM' Don’t mapped to any field in XML,
+2010AA.PER04,Communication Number,"Complete communications number including
+country or area code",R,,3033981735,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/faxNumber,Supplier's fax number,"If PER03/05/07 ='FX', Map the /faxNumber from PER04/06/08",,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/telephoneNumber,Supplier telephone number.,"If PER03/05/07 ='TE', Map the/telephoneNumber from PER04/06/08",,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/billingRecipient/telephoneNumber,Billing Recipient telephone number.,"If PER03/05/07 ='TE', Map the/telephoneNumber from PER04/06/08",,
+2010AA.PER05,Communication Number Qualifier,Code identifying the type of communication numbe,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone
+""EX"" : Telephone Extension",,,,,,
+2010AA.PER06,Communication Number,Communication Number,S,,3033981649,,,,If PER03='EM' Don’t mapped to any field in XML,
+2010AA.PER07,Communication Number Qualifier,Code identifying the type of communication number,S,"""EM"" : Electronic Mail
+""FX"" : Facsimile
+""TE"" : Telephone
+""EX"" : Telephone Extension",,,,,,
+2010AA.PER08,Communication Number,,S,,3033981649,,,,,
+Loop 2010AB (Situational) Loop Repeat: 1,,,,,,,,,,
+Segment - NM1 Pay-to Address Name (Situational),,,,,,,,,,
+2010AB.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,87: Pay-to Provider,,,,,,
+2010AB.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2:  Non-Person Entity",,,,,,
+Segment - N3 Pay-to Address - ADDRESS (Required),,,,,,,,,,
+2010AB.N301,Address Information,Address Information,R,PO BOX 17379,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/address,The first line of the street address.,,,
+2010AB.N302,Address Information,Address Information,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/address,,"Concatenate the value (if present) to this XML field, separated by comma and space (, )",,
+"Segment - N4 Pay-To Address City, State, ZIP Code (Required)",,,,,,,,,,
+2010AB.N401,City Name,Free-form text for city name,R,DENVER,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/cityName,city,,,
+2010AB.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,CO,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/stateCode,State abbreviation,,,
+2010AB.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,802170379,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/zipCode,zip code,1-5 digits,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/zipSuffixCode,Zip code suffix,6-9 digits,,
+2010AB.N404,Country Code,Code identifying the country,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payToInformation/countryCode/countryCode,Country code,‘countryCode’ tag can be loaded as ‘US’ by default when there is no corresponding value in the N4 segments in EDI,,
+2010AB.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Loop 2010AC (Situational)  Loop Repeat: 1,,,,,,,,,,
+Segment - NM1 Pay-To Plan Name (Situational),,,,,,,,,,
+2010AC.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PE : Payee,,,,,,
+2010AC.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 : Non-Person Entity,,,,,,
+2010AC.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2010AC.NM108,Identification Code Qualifier,Code designating the system/method of code structure used for Identification Code (67),R,,,,,,,
+2010AC.NM109,Identification Code,Code identifying a party or other code,R,,,,,,,
+Segment - N3 Pay-to Plan Address (Required),,,,,,,,,,
+2010AC.N301,Address Information,Address Information,R,,,,,,,
+2010AC.N302,Address Information,Address Information,S,,,,,,,
+"Segment - N4 Pay-To Plan City, State, ZIP Code (Required)",,,,,,,,,,
+2010AC.N401,City Name,Free-form text for city name,R,,,,,,,
+2010AC.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,,
+2010AC.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,,,,,,,
+2010AC.N404,Country Code,Code identifying the country,S,,,,,,,
+2010AC.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Segment - REF Pay-to Plan Secondary Identification (Required),,,,,,,,,,
+2010AC.REF01,Reference Identification Qualifier,,R,,,,,,,
+2010AC.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - REF Pay-To Plan Tax Identification Number (Required),,,,,,,,,,
+2010AC.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EI : Employer’s Identification Number,,,,,,
+2010AC.REF02,Reference Identification,"Reference information as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Loop 2000B (Required) Loop Repeat: >1,,,,,,,,,,
+Segment - HL Subscriber Hierarchical Level (Required),,,,,,,,,,
+2000B.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,"2000A.HL01 + 1
+
+Incremented at each new HL segment.",,1,,,,
+2000B.HL02,Hierarchical Parent ID Number,"Identification number of the next higher hierarchical data segment that the data
+segment being described is subordinate to",R,2000A.HL01,,,,,,
+2000B.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,22- Subscriber,,,,,,
+2000B.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described.",R,"0 :  HL04 has no subordinate levels  (the subscriber is the patient and there are no dependent claims)
+1: HL04 has subordinate levels",0 /1 Based On The Count - 1,,,,,
+Segment - SBR Subscriber Information (Required),,,,,,,,,,
+2000B.SBR01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim",R,"P : Primary
+S : Secondary
+T  : Tertiary",S,,,,,
+2000B.SBR02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,S,18 Self,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/relationshipToSubscriberCode,"Code indicating member's relationship to
+the account subscriber",,If 2000C.PAT  does not exist.,
+2000B.SBR03,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/insuranceGroupNumber,insuranceGroupNumber,,,
+2000B.SBR04,Name,,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/groupName,"The name of the group or plan through which the
+health insurance coverage is provided to the
+insured.",,,
+2000B.SBR09,Claim Filing Indicator Code,Code identifying type of claim,S,"11 : Other Non-Federal Programs
+12 : Preferred Provider Organization (PPO)
+13 : Point of Service (POS)
+14 : Exclusive Provider Organization (EPO)
+15 : Indemnity Insurance
+16 : Health Maintenance Organization (HMO) Medicare
+Risk
+17 : Dental Maintenance Organization
+AM :  Automobile Medical
+BL :  Blue Cross/Blue Shield
+CH :  Champus
+CI :  Commercial Insurance Co.
+DS :  Disability
+FI :  Federal Employees Program
+HM :  Health Maintenance Organization
+LM :  Liability Medical
+MA :  Medicare Part A
+MB :  Medicare Part B
+MC :  Medicaid
+OF :  Other Federal Program
+1484 Use code OF when submitting Medicare Part D
+claims.
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation Health Claim
+ZZ Mutually Defined
+71 Use Code ZZ when Type of Insurance is not known.",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimFilingCode,"Claim filing idicator code, passthrough
+from an external system",,,
+Loop 2010BA (Required)Loop Repeat: 1,,One instance of OtherInsuranceInformation will always carry the details from 2010BA Loop.),,,,,,,,
+Segment - NM1 Subscriber Name (Required),,,,,,,,,,
+2010BA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,IL :  Insured or Subscriber,,,,,,
+2010BA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,,
+2010BA.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/lastName,Member Last Name,,If 2010CA.NM1  does not exist.,
+2010BA.NM103,,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/segmentedName/lastName,Subscriber Last Name,,,
+2010BA.NM104,Name First,Individual first name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/firstName,Member First Name,,If 2010CA.NM1  does not exist.,
+2010BA.NM104,,,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/segmentedName/firstName,Subscriber First Name,,,
+2010BA.NM104,,,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/memberName,Member full name.,,If 2010CA.NM1  does not exist.,
+2010BA.NM104,,,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/subscriberName,Subscriber's full name,"Subscriber's full name concatenate
+NM103,05,04,07 (Last,Middle,First,Suffix)",,
+2010BA.NM105,Name Middle,Individual middle name or initial,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/middleName,Member Middle Name,,,
+2010BA.NM105,,,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/segmentedName/middleName,Subscriber Middle Name,,If 2010CA.NM1  does not exist.,
+2010BA.NM107,Name Suffix,Suffix,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/nameSuffix,Member name suffix,,If 2010CA.NM1  does not exist.,
+2010BA.NM107,,,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/segmentedName/suffix,Subscriber name suffix,,,
+2010BA.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"II :  Standard Unique Health Identifier for each Individual in the United States
+MI  :  Member Identification Number",,,,,,
+2010BA.NM109,Identification Code,Code identifying a party or other code / Subscriber Primary Identifier,S,000561005,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/submittedSubscriberId,"Submitted subscriber ID passed
+through from external system.",Remove all special characters including space and map only the alphanumeric characters,,
+2010BA.NM109,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/memberIdentificationNumber,Member HCC ID,"Remove all special characters including space and map only the alphanumeric characters
+Only 2000C Loop doesn't exist",,
+2010BA.NM109,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/identificationNumber,"Identification number of the subscribed individual. This number can be assigned by the Health Care Company, Medicare, or some other organization, and is used as part of the identification system in HealthRules",Remove all special characters including space and map only the alphanumeric characters,,
+Segment - N3 Subscriber Address (Situational),,,,,,,,,,
+2010BA.N301,Address Information,Address Information,R,4495 YUKON COURT APT 78,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/streetAddress,The first line of the street address.,,If 2010CA.N3  does not exist.,
+,,,,,,institutionalClaim/insuranceInformation/subscriberInformation/streetAddress,,,,
+2010BA.N302,Address Information,,S,,,,,,,
+"Segment - N4 Subscriber City, State, ZIP Code (Situational)",,,,,,,,,,
+2010BA.N401,City Name,Free-form text for city name,R,WHEAT RIDGE,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/cityName,city,,If 2010CA.N4  does not exist.,
+,,,,,,institutionalClaim/insuranceInformation/subscriberInformation/cityName,,,,
+2010BA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,CO,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/stateCode,State abbreviation,,If 2010CA.N4  does not exist.,
+,,,,,,institutionalClaim/insuranceInformation/subscriberInformation/stateCode,,,,
+2010BA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,800333283,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/postalCode,zip code,,If 2010CA.N4  does not exist.,
+,,,,,,institutionalClaim/insuranceInformation/subscriberInformation/postalCode,,,,
+2010BA.N404,Country Code,Code identifying the country,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/countryCode,Country code,"Map ""US"" if no value present",If 2010CA.N4  does not exist.,
+,,,,,,,,,,
+2010BA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,institutionalClaim/insuranceInformation/subscriberInformation/countryCode/countryCode,Country code,"Map ""US"" if no value present",,
+Segment - DMG Subscriber Demographic Information (Situational),,,,,,,,,,
+2010BA.DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format,,,,,,
+2010BA.DMG02,Date Time Period,Date Time Period,R,YYYYMMDD,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/dateOfBirth,Member dateOfBirth,In the format YYYY-MM-DD,"If 2010CA.DMG  does not exist.
+
+In the format YYYY-MM-DD",
+2010BA.DMG03,Gender Code,Code indicating the sex of the individual,R,"F : Female
+M : Male",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/genderCode,genderCode,"M=Male, F=Female, U=Unknown",If 2010CA.DMG  does not exist.,
+Segment - REF Subscriber Secondary Identification (Situational),,,,,,,,,,
+2010BA.REF01,Reference Identification Qualifier,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+2010BA.REF02,Reference Identification,Code qualifying the Reference Identification,R,,,,,,,
+Segment - REF Property and Casualty Claim Number (Situational),,,,,,,,,,
+2010BA.REF01,Reference Identification Qualifier,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+2010BA.REF02,Reference Identification,Code qualifying the Reference Identification,R,,,,,,,
+Loop 2010BB (Required) Loop Repeat: 1,,,,,,,,,,
+Segment - NM1 Payer Name (Required),,,,,,,,,,
+2010BB.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PR -Payer,,,,,,
+2010BB.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :Non-Person Entity,,,,,,
+2010BB.NM103,Name Last or Organization Name,Name Last or Organization Name,R,HealthPlan,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/payerInformation/payerName,"The name of the Payer, Exchange, etc",,,
+2010BB.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,"PI :  Payor Identification
+XV : Centers for Medicare and Medicaid Services PlanID",,,,,,
+2010BB.NM109,Identification Code,Code identifying a party or other code / Subscriber Primary Identifier,R,COACC,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/payerInformation/payerIdentificationNumber,"Identification number of the subscribed individual. This number can be assigned by the Health Care Company, Medicare, or some other organization, and is used as part of the identification system in HealthRules",,,
+Segment - N3 Payer Address (Situational),,,,,,,,,,
+2010BB.N301,Address Information,Address Information,R,PO BOX 17471,,,,,,
+2010BB.N302,Address Information,Address Information,S,,,,,,,
+"Segment - N4 Payer City, State, ZIP Code (Situational)",,,,,,,,,,
+2010BB.N401,City Name,Free-form text for city name,R,DENVER,,,,,,
+2010BB.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,CO,,,,,,
+2010BB.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks (zip code for United States),S,802170470,,,,,,
+2010BB.N404,Country Code,Code identifying the country,S,,,,,,,
+2010BB.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Segment - REF Payer Secondary Identification (Situational),,,,,,,,,,
+2010BB.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2010BB.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Segment - REF Billing Provider Secondary Identification (Situational),,,,,,,,,,
+2010BB.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2010BB.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+2010BB.DMG03,Gender Code,,R,,,,,,,
+"Loop 2000C - Patient Hierarchical Level (Situational)  In case of dependent claims (if the dependant is the patient ),  2000C loop will be there and the 2300 and 2400 loop will be below 2000C in that scenario)",,,,,,,,,,
+Segment HL -  Patient Hierarchical Level (Situational),,,,,,,,,,
+2000C.HL01,Hierarchical ID Number,"A unique number assigned by the sender to identify a particular data segment in
+a hierarchical structure",R,,,,,,,
+2000C.HL02,Hierarchical Parent ID Number,"Identification number of the next higher hierarchical data segment that the data
+segment being described is subordinate to",R,,,,,,,
+2000C.HL03,Hierarchical Level Code,Code defining the characteristic of a level in a hierarchical structure,R,"23 : Dependent (the information
+in this HL applies to the patient when the subscriber
+and the patient are not the same person)",,,,,,
+2000C.HL04,Hierarchical Child Code,"Code indicating if there are hierarchical child data segments subordinate to the
+level being described",R,"0 :  No Subordinate HL Segment in This Hierarchical
+Structure",,,,,,
+Segment PAT - Patient information,,,,,,,,,,
+2000C.PAT01,Individual Relationship Code,Code indicating the relationship between two individuals or entities,R,"01 : Spouse
+19 : Child
+18:self
+20 : Employee
+21 : Unknown
+39 : Organ Donor
+40:  Cadaver Donor
+53:  Life Partner
+G8 : Other Relationship",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/relationshipToSubscriberCode,,,,
+Loop 2010CA - Patient Name (Situational)  Loop Repeat: 1,,,,,,,,,,
+Segment - NM1 Patient Name (Required),,,,,,,,,,
+2010CA.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,QC : Patient,,,,,,
+2010CA.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1: Person,,,,,,
+2010CA.NM103,Name Last or Organization Name,Organization Name Last Name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/lastName,,,,
+2010CA.NM104,Name First,Patient  First Name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/firstName,,,,
+2010CA.NM104,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/memberName,,concatenate NM103/5/4/7,,
+2010CA.NM105,Name Middle,Patient Middle Name or Initial,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/middleName,,,,
+2010CA.NM107,Name Suffix,Patient Name Suffix,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/nameSuffix,,,,
+Segment - N3 Patient Address (Situational),,,,,,,,,,
+2010CA.N301,Address Information,Code identifying the Patient address,R,,1000 JACKSON ST,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/Street Address,,,,
+2010CA.N302,Address Information,Code identifying the Patient address,S,,,,,,,
+"Segment - N4 Patient City, State, ZIP Code (Situational)",,,,,,,,,,
+2010CA.N401,City Name,Free-form text for city name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/cityname,,,,
+2010CA.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/statecode,,,,
+2010CA.N403,Postal Code,Code defining international postal zone code excluding punctuation and blanks,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/postalcode,,,,
+2010CA.N404,Country Code,Code identifying the country,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/countrycode,,"Map to the value ""US"" if not present",,
+2010CA.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Segment - DMG Patient Demographic Information (Situational),,,,,,,,,,
+2010CA.DMG01,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 : Date Expressed in Format CCYYMMDD,,,,,,
+2010CA.DMG02,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times/Patient Birth Date",R,,19670712,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/dateOfBirth,,In the format YYYY-MM-DD,,
+2010CA.DMG03,Gender Code,Code indicating the sex of the individual,R,"F: Female
+M :Male
+U : Unknown",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/genderCode,,"M=Male, F=Female, U=Unknown",,
+Segment - Property and Casuality Claim Number (Situational),,,,,,,,,,
+2010CA.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2010CA.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+"Loop 2300  - CLAIM INFORMATION(Required)  Loop Repeat: 100
+       When patient is the subscriber : The claim information(Loop ID-2300), is placed following Loop ID-2010BB in the Subscriber Hierarchical Level(HL) and patient information is sent in Loop ID-2010BA.
+       When patient is the dependent :  The claim information(Loop ID-2300),is placed following Loop ID-2010CA  in the Patient HL and the patient information is sent in Loop ID-2010CA .",,,,,,,,,,
+Segment - CLM Claim information (Situational),,,,,,,,,,
+2300.CLM01,Claim Submitter's Identifier,Identifier used to track a claim from creation by the health care provider through payment,R,<patientControlNumber> 1003795048I7791539,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/patientControlNumber,Patient control number.,,,
+2300.CLM02,Monetary Amount,"Monetary Amount   CLM02 is the total amount of all submitted charges of service segments
+for this claim.",R,214.25,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/totals,total amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/billedAmount,Amount billed,Populate this only for COB claims ( 2320 loop is present ),It falls under COB mapping,
+2300.CLM05.01,Facility Code Value,"Code identifying where services were, or may be, performed; the first
+and second positions of the Uniform Bill Type Code for Institutional
+Services or the Place of Service Codes for Professional or Dental
+Services.",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/typeOfBillCode,"The type of bill code submitted on the claim;
+facility claims only",concatenate 2300.CLM05-01 and 2300.CLM05-03,,
+2300.CLM05.02,Facility Code Qualifier,Code identifying the type of facility referenced,R,D :Place of Service Codes for institutional Services,,,,,,
+2300.CLM05.03,Claim Frequency Type Code,"code specifying the frequency of the claim; this is the third position of
+the Uniform Billing Claim Form Bill Type",R,1,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/frequencyCode,"Trigger value for Void and Replace
+actions for the claim.",,,
+2300.CLM07,Provider Accept Assignment Code,Code indicating whether the provider accepts assignment,R,"A : Assigned
+B : Assignment Accepted on Clinical Lab Services Only
+C :  Not Assigned",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/assignmentAcceptance,,"If 2300.CLM07 = “A”, Map “Y”
+Else If 2300.CLM07  = “C”, Map “N”",,
+2300.CLM08,Yes/No Condition or Response Code,Benefits Assignment Certification Indicator,R,"Y : Yes
+N : No
+W :  Not Applicable",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/payerInformation/benefitAssignmentIndicator,benefit Assignment Indicator,,,
+2300.CLM09,Release of Information Code,"Code indicating whether the provider has on file a signed statement by the patient
+authorizing the release of medical data to other organizations",R,"I : Informed Consent  to Release Medical Information for Conditions or Diagnoses
+Y :Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/payerInformation/releaseInformationInd,releaseInformationInd,,,
+2300.CLM20,Delay Reason Code,Code indicating the reason why a request was delayed,S,,,,,,,
+Segment - DTP Discharge Date/Hour (Situational),,,,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,096 Discharge,,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,"D8 Date Expressed in Format CCYYMMDD
+DT Date and Time Expressed in Format
+CCYYMMDDHHMM",,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,HH:MM,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/dischargeInformation/dischargeTimeCount,Time at which member was discharged from the facility,,,
+Segment - DTP Statement Dates (Required),,,,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,434 Statement,,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8 :  Date Expressed in Format CCYYMMDD,,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,,20210311-20210311,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/statementCoveredPeriod/startDate,Contains elements that define the period covered by the payment request - Start Date,byte 1-8 in format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/statementCoveredPeriod/endDate,Contains elements that define the period covered by the payment request - End Date,byte 10-17  in format YYYY-MM-DD,,
+Segment - DTP Admission Date/Hour (Situational),,,,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,435 :Admission,,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,"If D8 - CCYYMMDD
+If DT- CCYYMMDDHH",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/admissionInformation/admissionDate,Date of admission to the facility,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/admissionInformation/admissionTimeCount,Time of admission to the facility,when DTP02=DT map byte 9-12,,
+Segment - DTP Date - Repricer Received Date (Situational),,,,,,,,,,
+2300.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,050 Received,,,,,,
+2300.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :  Date Expressed in Format CCYYMMDD,,,,,,
+2300.DTP03,Date Time Period,Date Time Period,R,"If D8 - CCYYMMDD
+If DT- CCYYMMDDHH",,,,In the format YYYY-MM-DD,,
+Segment - CL1 Institutional Claim Code (Required),,,,,,,,,,
+2300.CL101,Admission Type Code,Code indicating the priority of this admission,R,"1-Emergency
+2-Urgent
+3-Elective",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/admissionInformation/admissionTypeCode,Admission type.,,,
+2300.CL102,Admission Source Code,Code indicating the source of this admissio,S,1,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/admissionInformation/admissionSourceCode,Admission source code.,,,
+2300.CL103,Patient Status Code,Code indicating patient status as of the “statement covers through date,R,01,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/dischargeInformation/dischargeStatusCode,Discharge status code.,,,
+Segment - PWK Claim Supplemental Information (Situational),,,,,,,,,,
+2300.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,"03 Report Justifying Treatment Beyond Utilization
+Guidelines
+04 Drugs Administered
+05 Treatment Diagnosis
+06 Initial Assessment
+07 Functional Goals
+08 Plan of Treatment
+09 Progress Report
+10 Continued Treatment
+11 Chemical Analysis
+13 Certified Test Report
+15 Justification for Admission
+21 Recovery Plan
+A3 Allergies/Sensitivities Document
+A4 Autopsy Report
+AM Ambulance Certification
+AS Admission Summary
+B2 Prescription
+B3 Physician Order
+B4 Referral Form
+BR Benchmark Testing Results
+BS Baseline
+BT Blanket Test Results
+CB Chiropractic Justification
+CK Consent Form(s)
+CT Certification
+D2 Drug Profile Document
+DA Dental Models
+DB Durable Medical Equipment Prescription
+DG Diagnostic Report
+DJ Discharge Monitoring Report
+DS Discharge Summary
+EB Explanation of Benefits (Coordination of Benefits or
+Medicare Secondary Payor)
+HC Health Certificate
+HR Health Clinic Records
+I5 Immunization Record
+005010X223 • 837 • 2400 • PWK ASC X12N • INSURANCE SUBCOMMITTEE
+LINE SUPPLEMENTAL INFORMATION TECHNICAL REPORT • TYPE 3
+430 MAY 2006
+IR State School Immunization Records
+LA Laboratory Results
+M1 Medical Record Attachment
+MT Models
+NN Nursing Notes
+OB Operative Note
+OC Oxygen Content Averaging Report
+OD Orders and Treatments Document
+OE Objective Physical Examination (including vital
+signs) Document
+OX Oxygen Therapy Certification
+OZ Support Data for Claim
+P4 Pathology Report
+P5 Patient Medical History Document
+PE Parenteral or Enteral Certification
+PN Physical Therapy Notes
+PO Prosthetics or Orthotic Certification
+PQ Paramedical Results
+PY Physician’s Report
+PZ Physical Therapy Certification
+RB Radiology Films
+RR Radiology Reports
+RT Report of Tests and Analysis Report
+RX Renewable Oxygen Content Averaging Report
+SG Symptoms Document
+V5 Death Notification
+XP Photographs",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeEntry,Attachment Type like Prescription,Please refer crosswalk sheet,"Code entry describes the value of the codes
+E.g ""B2""",
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeSetName,Internal field for fetching the Attachment type,"AttachmentTypeCode
+Please refer crosswalk sheet","Code entry describes the decsription of the codes
+E.g  B2 - ""Prescription""",
+2300.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be
+sent",R,"AA Available on Request at Provider Site
+179 This means that the additional information is not
+being sent with the claim at this time. Instead, it is
+available to the payer (or appropriate entity) at their
+request.
+BM By Mail
+EL Electronically Only
+180 Indicates that the attachment is being transmitted in
+a separate X12 functional group.
+EM E-Mail
+FT File Transfe",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/transmissionType,Attachment transmission mode,"If ""AA"" Map ""Available on Request at Provider Site""
+If ""BM"" Map ""By Mail""
+If ""EL"" Map ""Electronically Only""
+If ""EM"" Map ""E-Mail""
+If ""FT"" Map ""File Transfer""
+If ""FX"" Map ""By Fax""",Needs review with configuration team,
+2300.PWK05,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,,,,,,,
+2300.PWK06,Identification Code,Code identifying a party or other code,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attachmentSetReference/ID,Attachment Control number,Map only the first occurence of PWK,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/attachmentComment,Attachment control number. Static URL to be prefixed for loading the image,,,
+Segment - CN1 Contract Information (Situational),,,,,,,,,,
+2300.CN101,Contract Type Code,Code identifying a contract type,R,"01 Diagnosis Related Group (DRG)
+02 Per Diem
+03 Variable Per Diem
+04 Flat
+05 Capitated
+06 Percent
+09 Other",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/externalClaimFees/externalClaimFee/feeTypeCode/codeEntry,Fee type code entry,,,
+2300.CN102,Monetary Amount,Monetary amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/externalClaimFees/externalClaimFee/feeAmount,Amount of the fee,,,
+2300.CN103,"Percent, Decimal Format","Percent given in decimal format (e.g., 0.0 through 100.0 represents 0% through
+100%)",S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/externalClaimFees/externalClaimFee/feePercent,Percentage of the fee,,,
+2300.CN104,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",S,,,,,,,
+2300.CN105,Terms Discount Percent,"Terms discount percentage, expressed as a percent, available to the purchaser if
+an invoice is paid on or before the Terms Discount Due Date",S,,,,,,,
+2300.CN106,Version Identifier,"Revision level of a particular format, program, technique or algorithm",S,,,,,,,
+Segment - AMT Patient Estimated Amount Due (Situational),,,,,,,,,,
+2300.AMT01,Amount Qualifier Code,Code to qualify amount,R,F3 Patient Responsibility - Estimated,,,,,,
+2300.AMT02,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/dueFromPatient/estimatedAmount,Estimated due amount from patient,,,
+Segment - REF Service Authorization Exception Code (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,4N :Special Payment Reference Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,"1 Immediate/Urgent Care
+2 Services Rendered in a Retroactive Period
+3 Emergency Care
+4 Client has Temporary Medicaid
+5 Request from County for Second Opinion to Determine
+if Recipient Can Work
+6 Request for Override Pending
+7 Special Handling",,,,,,
+Segment - REF Referral Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F Referral Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - REF Prior Authorization (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1 : Prior Authorization Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/treatmentAuthorizationCode,Authorization code for the treatment,,,
+Segment - REF Payer Claim Control Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F8 Original Reference Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/hccClaimNumber,"Original Claim ID
+ Claim ID (Unique identifier assigned to the supplier invoice )
+HccClaimNumberType",Map only for void/replacement claims,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/dcnNumber,"If a resubmission, the original reference number",,Need to check on HRP field name,
+Segment - REF Repriced Claim Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9A-Repriced Claim Reference Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - REF Adjusted Repriced Claim Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9C :  Adjusted Repriced Claim Reference Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - REF Investigational Device Exemption Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,LX : Qualified Products List,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - REF Claim Identification For Transmission Intermediaries (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,D9 : Claim Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/clearingHouseTraceNumber,Clearing House Trace Number,,,
+Segment - REF Auto Accident State (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,LU Location Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/accidentStateCode,Accdent State (State in which accident occurred),,,
+Segment - REF Medical Record Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,EA Medical Record Identification Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/memberInformation/medicalRecordNumber,Medical record Number,,,
+Segment - REF Demonstration Project Identifier (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,P4 -Project Code,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - REF Peer Review Organization (PRO) Approval Number (Situational),,,,,,,,,,
+2300.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G4-Peer Review Organization (PRO) Approval Number,,,,,,
+2300.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Segment - K3 File Information (Situational),,,,,,,,,,
+2300.K301,Fixed Format Information,Data in fixed format agreed upon by sender and receiver,R,,,,,,,
+Segment - NTE Claim Note (Situational),,,,,,,,,,
+2300.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,"ALG Allergies
+DCP Goals, Rehabilitation Potential, or Discharge Plans
+DGN Diagnosis Description
+DME Durable Medical Equipment (DME) and Supplies
+005010X223 • 837 • 2300 • NTE ASC X12N • INSURANCE SUBCOMMITTEE
+CLAIM NOTE TECHNICAL REPORT • TYPE 3
+178 MAY 2006
+MED Medications
+NTR Nutritional Requirements
+ODT Orders for Disciplines and Treatments
+RHB Functional Limitations, Reason Homebound, or Both
+RLH Reasons Patient Leaves Home
+RNH Times and Reasons Patient Not at Home
+SET Unusual Home, Social Environment, or Both
+SFM Safety Measures
+SPT Supplementary Plan of Treatment
+UPI Updated Information",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalRemarks/remarkCode,,,,
+2300.NTE02,Description,A free-form description to clarify the related data elements and their content  /  Claim Note Text,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalRemarks/remarks/remark,Contains general remarks related to claim,,,
+Segment - NTE Billing Note (Situational),,,,,,,,,,
+2300.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,ADD Additional Information,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalRemarks/remarkCode,,,,
+2300.NTE02,Description,A free-form description to clarify the related data elements and their content  /  Claim Note Text,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalRemarks/remarks/remark,Contains general remarks related to claim,,,
+Segment - CRC EPSDT Referral (Situational),,,,,,,,,,
+2300.CRC01,Code Category,Specifies the situation or category to which the code applies,R,ZZ Mutually Defined,,,,,,
+2300.CRC02,Yes/No Condition or Response Code,Certification Condition Indicator,R,"N No
+650 If no, then choose “NU” in CRC03 indicating no
+referral given.
+Y Yes",,,,,,
+2300.CRC03,Condition Indicator,Code indicating a condition,R,"AV Available - Not Used
+652 Patient refused referral.
+NU Not Used
+653 This conditioner indicator must be used when the
+submitter answers “N” in CRC02.
+S2 Under Treatment
+654 Patient is currently under treatment for referred
+diagnostic or corrective health problem.
+ST New Services Requested
+655 Patient is referred to another provider for diagnostic
+or corrective treatment for at least one health
+problem identified during an initial or periodic
+screening service (not including dental referrals).
+OR
+Patient is scheduled for another appointment with
+screening provider for diagnostic or corrective
+treatment for at least one health problem identified
+during an initial or periodic screening service (not
+including dental referrals).",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/epsdtReferralCodes/epsdtReferralCode,"Early & Periodic Screening, Diagnosis, and Treatment Code",,,
+2300.CRC04,Condition Indicator,Code indicating a condition,S,,,,,,,
+2300.CRC05,Condition Indicator,Code indicating a condition,S,,,,,,,
+Segment - HI Principal Diagnosis (Required),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABK : ICD10 -CM - Principal Diagnosis
+BK : ICD9 -CM - Principal Diagnosis",,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/primaryDiagnosisCode,"Primary Diagnosis (Primary diagnosis code for the trial
+
+claim)","If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI01.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/primaryDiagnosisPOAIndicator,Primary diagnosis POA indicator,,,
+Segment - HI Admitting Diagnosis (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABJ -  International Classification of Diseases Clinical
+Modification (ICD-10-CM) Admitting Diagnosis",,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/admitDiagnosisCode,Diagnosis code that resulted in admission.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+Segment - HI Patient Reason For Visit (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,Code identifying a specific industry code list/ Principal Diagnosis Type Code,R,"APR - International Classification of Diseases Clinical
+Modification (ICD-10-CM) Patient’s Reason for Visit
+PR- International Classification of Diseases Clinical
+Modification (ICD-9-CM) Patient’s Reason for Visit",,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/patientReasonForVisitList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"APR - International Classification of Diseases Clinical
+Modification (ICD-10-CM) Patient’s Reason for Visit
+PR- International Classification of Diseases Clinical
+Modification (ICD-9-CM) Patient’s Reason for Visit",,,,,,
+2300.HI02.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/patientReasonForVisitList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"APR - International Classification of Diseases Clinical
+Modification (ICD-10-CM) Patient’s Reason for Visit
+PR- International Classification of Diseases Clinical
+Modification (ICD-9-CM) Patient’s Reason for Visit",,,,,,
+2300.HI03.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/patientReasonForVisitList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+Segment - HI External Cause of Injury (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI01.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI02.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI02.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI03.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI03.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI04.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI04.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI05.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI05.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI06.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI06.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI07.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI07.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI08.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI08.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI09.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI09.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI10.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI10.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI11.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI11.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"ABN : International Classification of Diseases Clinical
+Modification (ICD-10-CM) External Cause of Injury
+Code
+BN : International Classification of Diseases Clinical
+Modification (ICD-9-CM) External Cause of Injury
+Code (E-codes)",,,,,,
+2300.HI12.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/diagnosisCode,Diagnosis code.,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI12.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/externalDiagnosisList/poaIndicator,POA indicator,,,
+Segment - HI Diagnosis Related Group (DRG) Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,DR Diagnosis Related Group (DRG),,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/ppsCode,Prospective payment system code,001-999,,
+Segment - HI Other Diagnosis Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI01.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI02.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI02.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI03.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI03.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI04.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI04.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI05.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI05.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI06.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI06.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI07.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI07.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI08.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI08.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI09.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI09.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI10.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI10.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI11.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI11.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,ABF International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis,,,,,,
+2300.HI12.02,Industry Code,Diagnosis Code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/diagnosisCode,Diagnosis Code,"If we get more than 3 digits, should add a dot (.)after 3rd Character",,
+2300.HI12.09,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/diagnosisList/otherDiagnosisList/poaIndicator,POA Indicator,,,
+Segment - HI Principal Procedure Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBR International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Principal Procedure
+Codes",,,,,,
+2300.HI01.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/primaryProcedure/principleProcedureCode,Principal Procedure Code (Identification code for principal procedure performed),,,
+2300.HI01.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI01.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/primaryProcedure/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+Segment - HI Other Procedure Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI01.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI01.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI01.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI02.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI02.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI02.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI03.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI03.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI03.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI04.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI04.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI04.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI05.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI05.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI05.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI06.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI06.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI06.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI07.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI07.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI07.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI08.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI08.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI08.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI09.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI09.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI09.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI10.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI10.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI10.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI11.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI11.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI11.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,"BBQ International Classification of Diseases Clinical
+Modification (ICD-10-PCS) Other Procedure Codes",,,,,,
+2300.HI12.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureCode,Procedure Code,,,
+2300.HI12.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI12.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherProcedureList/procedureDate,Procedure Date,In the format YYYY-MM-DD,,
+Segment - HI Occurrence Span Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI01.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,"Occurence Span Code (To identify an event related to payment of the claim. These codes
+
+identify occurrences that happened
+
+over a span of time.",,,
+2300.HI01.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI01.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,"Occuence Span Start Date (Dates
+
+that identify an event related to payment of the claim)",In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI02.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI02.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI02.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI03.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI03.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI03.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI04.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI04.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI04.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI05.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI05.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI05.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI06.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI06.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI06.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI07.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI07.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI07.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI08.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI08.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI08.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI09.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI09.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI09.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI10.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI10.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,,,,,
+2300.HI10.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI11.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI11.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI11.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BI - Occurrence Span,,,,,,
+2300.HI12.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/spanCode,Occurence Span Code,,,
+2300.HI12.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,RD8-Range of Dates Expressed in Format CCYYMMDDCCYYMMDD,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+2300.HI12.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/startDate,Occurence Span Start Date,In the format YYYY-MM-DD,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/occurrenceSpans/endDate,Occurence Span End Date,,,
+Segment - HI Occurrence Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI01.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI01.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI01.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI02.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI02.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI02.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI03.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI03.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI03.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI04.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI04.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI04.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI05.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI05.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI05.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI06.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI06.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI06.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI07.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI07.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI07.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI08.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI08.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI08.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI09.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI09.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI09.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI10.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI10.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI10.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI11.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI11.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI11.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BH - Occurrence,,,,,,
+2300.HI12.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceCode,Code indicating cause of event occurrence,,,
+2300.HI12.03,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 - Date Expressed in Format CCYYMMDD,,,,,,
+2300.HI12.04,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/eventOccurrences/occurrenceDate,Date on which the event occurred,In the format YYYY-MM-DD,,
+Segment - HI Value Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI01.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI01.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI02.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI02.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI03.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI03.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI04.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI04.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI05.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI05.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI06.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI06.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI07.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI07.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI08.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI08.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI09.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI09.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI10.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI10.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI11.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI11.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BE -Value,,,,,,
+2300.HI12.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCode,Value code,,,
+2300.HI12.05,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/valueCodes/valueCodeAmount,Dollar amount associated with the value code,,,
+Segment - HI Condition Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI01.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI02.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI03.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI04.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI05.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI06.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI07.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI08.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI09.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI10.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI11.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,BG - Condition,,,,,,
+2300.HI12.02,Industry Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/conditionCodes/conditionCode,Condition code value,,,
+Segment - HI Treatment Code Information (Situational),,,,,,,,,,
+2300.HI01.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI01.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI02.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI02.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI03.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI03.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI04.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI04.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI05.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI05.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI06.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI06.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI07.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI07.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI08.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI08.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI09.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI09.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI10.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI10.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI11.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI11.02,Industry Code,Diagnosis Code,R,,,,,,,
+2300.HI12.01,Code List Qualifier Code,"Code identifying a specific industry code list
+Principal Diagnosis Type Code",R,TC -Treatment Codes,,,,,,
+2300.HI12.02,Industry Code,Diagnosis Code,R,,,,,,,
+Segment - HCP Claim Pricing/Repricing Information (Situational),,,,,,,,,,
+2300.HCP01,Pricing Methodology,Code specifying pricing methodology at which the claim or line item has been priced or repriced,R,"00 Zero Pricing (Not Covered Under Contract)
+01 Priced as Billed at 100%
+02 Priced at the Standard Fee Schedule
+03 Priced at a Contractual Percentage
+04 Bundled Pricing
+05 Peer Review Pricing
+06 Per Diem Pricing
+07 Flat Rate Pricing
+08 Combination Pricing
+09 Maternity Pricing
+10 Other Pricing
+11 Lower of Cost
+12 Ratio of Cost
+13 Cost Reimbursed
+14 Adjustment Pricin",,,,,,
+2300.HCP02,Monetary Amount,Monetary amount,R,,,,,,,
+2300.HCP03,Monetary Amount,Monetary amount,S,,,,,,,
+2300.HCP04,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",S,,,,,,,
+2300.HCP05,Rate,Rate,S,,,,,,,
+2300.HCP06,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",S,,,,,,,
+2300.HCP07,Monetary Amount,Monetary Amount,S,,,,,,,
+2300.HCP08,Product/Service ID,Identifying number for a product or service,S,,,,,,,
+2300.HCP09,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID (234",S,"ER :Jurisdiction Specific Procedure and Supply Codes
+HC: Health Care Financing Administration Common
+Procedural Coding System (HCPCS) Codes
+HP Health Insurance Prospective Payment System
+(HIPPS) Skilled Nursing Facility Rate Code
+HP: Health Insurance Prospective Payment System
+(HIPPS) Skilled Nursing Facility Rate Code
+IV: Home Infusion EDI Coalition (HIEC) Product/Service
+Code
+WK Advanced Billing Concepts (ABC) Codes",,,,,This segment not availble in COA and careplus .updated the details based on companion  guide. Need to confirm,Need to check in companion guide
+2300.HCP11,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,,,,,,,
+2300.HCP12,Quantity,Numeric value of quantity,S,,,,,,,
+2300.HCP13,Reject Reason Code,Code assigned by issuer to identify reason for rejection,S,"T1 Cannot Identify Provider as TPO (Third Party
+Organization) Participant
+T2 Cannot Identify Payer as TPO (Third Party
+Organization) Participant
+T3 Cannot Identify Insured as TPO (Third Party
+Organization) Participant
+T4 Payer Name or Identifier Missing
+T5 Certification Information Missing
+T6 Claim does not contain enough information for repricing",,,,,,
+2300.HCP14,Policy Compliance Code,Code specifying policy compliance,S,"1 Procedure Followed (Compliance)
+2 Not Followed - Call Not Made (Non-Compliance Call
+Not Made)
+3 Not Medically Necessary (Non-Compliance NonMedically Necessary)
+4 Not Followed Other (Non-Compliance Other)
+5 Emergency Admit to Non-Network Hospital",,,,,,
+2300.HCP15,Exception Code,"Code specifying the exception reason for consideration of out-of-network health
+care services",S,"1 Non-Network Professional Provider in Network
+Hospital
+2 Emergency Care
+3 Services or Specialist not in Network
+4 Out-of-Service Area
+5 State Mandates
+6 Other",,,,,,
+Loop 2310A (Situational),,,,,,,,,,
+Segment - NM1 Attending Provider Name (Situational),,,,,,,,,,
+2310A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,71 Attending Physician,,,,,,
+2310A.NM102,Entity Type Qualifier,"Code identifying an organizational entity, a physical location, property or an
+individual",R,1 Person,,,,,,
+2310A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attendingPractitioner/practitionerLastName,Last Name of Attending Practitioner,,,
+2310A.NM104,Name First,Individual first name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attendingPractitioner/practitionerFirstName,First Name of Attending Practitioner,,,
+2310A.NM105,Name Middle,Individual middle name or initial,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attendingPractitioner/practitionerMiddleName,,,,
+2310A.NM107,Name Suffix,Suffix to individual name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalClaim/attendingPractitioner/practitionerSuffixName,,,,
+2310A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2310A.NM109,Identification Code,Code identifying a party or other code /Rendering Provider Identifier,S,1851470140,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attendingPractitioner/practitionerNpi,Attending Practitioner's National Provider Id,,,
+Segment - PRV Provider Information (Situational),,,,,,,,,,
+2310A.PRV01,Provider Code,Code identifying the type of provider,R,AT  : Attending,,,,,,
+2310A.PRV02,Reference Identification Qualifier,Code qualifying the Reference Identification,R,PXC :Health Care Provider Taxonomy Code,,,,,,
+2310A.PRV03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,207Q00000X,,,,,,
+Segment - REF Attending Provider Secondary Identification (Situational),,,,,,,,,,
+2310A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+1555 UPINs must be formatted as either X99999 or
+XXX999.
+G2 : Provider Commercial Number
+LU: Location Numbe",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attendingPractitioner/practitionerIdQualifier,Attending provider secondary id type,,,
+2310A.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,0121T3B0B,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/attendingPractitioner/practitionerId,Secondary ID of Attending Practitioner,,,
+Loop 2310B (Situational),,,,,,,,,,
+Segment - NM1 Operating Physician Name (Situational),,,,,,,,,,
+2310B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,72 - Operating Physician,,,,,,
+2310B.NM102,Entity Type Qualifier,"Code identifying an organizational entity, a physical location, property or an
+individual",R,1 - Person,,,,,,
+2310B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,Individual last name or organizational name,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerLastName,Last Name of Operating Practitioner,,,
+2310B.NM104,Name First,Individual first name,S,Individual first name,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerFirstName,First Name of Operating Practitioner,,,
+2310B.NM105,Name Middle,Individual middle name or initial,S,Individual middle name or initial,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerMiddleName,,,,
+2310B.NM107,Name Suffix,Suffix to individual name,S,Suffix to individual name,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerSuffixName,,,,
+2310B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2310B.NM109,Identification Code,Code identifying a party or other code /Rendering Provider Identifier,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerNpi,Operating Practitioner's national Provider Id,,,
+Segment - REF Operating Physician Secondary Identification (Situational),,,,,,,,,,
+2310B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerIdQualifier,Operating provider secondary id type,,,
+2310B.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/operatingPractitioner/practitionerId,Secondary of Operating Practitioner,,,
+Loop 2310C (Situational),,,,,,,,,,
+Segment - NM1 Other Operating Physician Name (Situational),,,,,,,,,,
+2310C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,ZZ : Mutually Defined,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitioner/practitionerIdQualifier,,,,
+2310C.NM102,Entity Type Qualifier,"Code identifying an organizational entity, a physical location, property or an
+individual",R,1 :  Person,,,,,,
+2310C.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitioner/practitionerLastName,Last Name of Practitioner,,,
+2310C.NM104,Name First,Individual first name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitioner/practitionerFirstName,First Name of Practitioner,,,
+2310C.NM105,Name Middle,Individual middle name or initial,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitioner/practitionerMiddleName,,,,
+2310C.NM107,Name Suffix,Suffix to individual name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecordinstitutionalClaim/otherPractitioner/practitionerSuffixName,,,,
+2310C.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2310C.NM109,Identification Code,Code identifying a party or other code /Rendering Provider Identifier,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitioner/practitionerNpi,Practitioner's National Provider Id,,,
+Segment - REF Other Operating Physician Secondary Identification (Situational),,,,,,,,,,
+2310C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+1G : Provider UPIN Number
+1555 UPINs must be formatted as either X99999 or
+XXX999.
+G2 :Provider Commercial Number
+1464: This code designates a proprietary provider number
+for the destination payer identified in the Payer
+Name loop, Loop ID-2010BB, associated with this
+claim. This is to be used by all payers including:
+Medicare, Medicaid, Blue Cross, etc.
+LU : Location Numbe",,,Other provider secondary id type,,,
+2310C.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,Secondary Id of Practitioner,,,
+Loop 2310D (Situational),,,,,,,,,,
+Segment - NM1 Rendering Provider Name (Situational),,,,,,,,,,
+2310D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 :Rendering Provider,,,,,,
+2310D.NM102,Entity Type Qualifier,"Code identifying an organizational entity, a physical location, property or an
+individual",R,1 : Person,,,,,,
+2310D.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2310D.NM104,Name First,Individual first name,S,,,,,,,
+2310D.NM105,Name Middle,Individual middle name or initial,S,,,,,,,
+2310D.NM107,Name Suffix,Suffix to individual name,S,,,,,,,
+2310D.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2310D.NM109,Identification Code,Code identifying a party or other code /Rendering Provider Identifier,S,,,,,,,
+Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,,,,,
+2310D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B :  State License Number
+1G :  Provider UPIN Number
+1555 UPINs must be formatted as either X99999 or
+XXX999.
+G2 :  Provider Commercial Number
+1464 :  This code designates a proprietary provider number
+for the destination payer identified in the Payer
+Name loop, Loop ID-2010BB, associated with this
+claim. This is to be used by all payers including:
+Medicare, Medicaid, Blue Cross, etc.
+LU : Location Number",,,,,,
+2310D.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Loop 2310E (Situational),,,,,,,,,,
+Segment - NM1 Service Facility Location Name (Situational),,,,,,,,,,
+2310E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,77 : Service Location,,,,,,
+2310E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :  Non-Person Entity,,,,,,
+2310E.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2310E.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2310E.NM109,Identification Code,Code identifying a party or other code,S,,,,,,,
+Segment - N3 Service Facility Location Address (Required),,,,,,,,,,
+2310E.N301,Address Information,Address Information,R,,,,,,,
+2310E.N302,Address Information,Address Information,S,,,,,,,
+"Segment - N4 Service Facility Location City, State, ZIP Code (Required)",,,,,,,,,,
+2310E.N401,City Name,Free-form text for city name,R,,,,,,,
+2310E.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,,
+2310E.N403,Postal Code,"Code defining international postal zone code excluding punctuation and blanks
+(zip code for United States)",S,,,,,,,
+2310E.N404,Country Code,Code identifying the country,S,,,,,,,
+2310E.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Segment - REF Service Facility Location Secondary Identification (Situational),,,,,,,,,,
+2310E.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B : State License Number
+G2 :  Provider Commercial Number
+1464 :  This code designates a proprietary provider number
+for the destination payer identified in the Payer
+Name loop, Loop ID-2010BB, associated with this
+claim. This is to be used by all payers including:
+Medicare, Medicaid, Blue Cross, etc.
+LU :  Location Number",,,,,,
+2310E.REF02,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",R,,,,,,,
+Loop 2310F (Situational),,,,,,,,,,
+Segment - NM1 Referring Provider Name (Situational),,,,,,,,,,
+2310F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DN : Referring Provider,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitionerList/otherPractitioner/practitionerIdQualifier,,,,
+2310F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 Person,,,,,,
+2310F.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitionerList/otherPractitioner/practitionerLastName,,,,
+2310F.NM104,Name First,Individual first name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitionerList/otherPractitioner/practitionerFirstName,,,,
+2310F.NM105,Name Middle,Individual middle name or initial,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitionerList/otherPractitioner/practitionerMiddleName,,,,
+2310F.NM107,Name Suffix,Suffix to individual name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecordinstitutionalClaim/otherPractitionerList/otherPractitioner/practitionerSuffixName,,,,
+2310F.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (67)",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2310F.NM109,Identification Code,Code identifying a party or other code,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/otherPractitionerList/otherPractitioner/practitionerNpi,,,,
+Segment - REF Referring Provider Secondary Identification (Situational),,,,,,,,,,
+2310F.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2310F.REF02,Reference Identification,,R,,,,,,,
+Loop 2320 (Situational),,,,,,,,,,
+Segment - SBR Other Subscriber Information (Situational),,,,,,,,,,
+2320.SBR01,Payer Responsibility Sequence Number Code,"Code identifying the insurance carrier’s level of responsibility for a payment of a
+claim",R,"A Payer Responsibility Four
+B Payer Responsibility Five
+C Payer Responsibility Six
+D Payer Responsibility Seven
+E Payer Responsibility Eight
+F Payer Responsibility Nine
+G Payer Responsibility Ten
+H Payer Responsibility Eleven
+P Primary
+S Secondary
+T Tertiary
+U Unknown",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/payerPriorityCode,"Indicates whether otherinsurance is primary, secondary, or tertiary.",,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeSetName,The name of the code set,AttachmentTypeCode,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/attachmentCodeCode/codeEntry,The code entry,18,Code entry describes thevalue of the payer priority code,
+2320.SBR02,Individual Relationship Code,Code indicating the relationship between two individuals or entities,R,"01 Spouse
+18 Self
+19 Child
+20 Employee
+21 Unknown
+39 Organ Donor
+40 Cadaver Donor
+53 Life Partner
+G8 Other Relationship",18,,,,,
+2320.SBR03,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier/Insured Group or Policy Number",S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobGroupNumber,Group number indicated on the EOB,populate this field only once as ‘Y’ when the claim has at least one 2320 loop,,
+2320.SBR04,Name,Free-form name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobGroupName,Group name indicated on the EOB,,,
+2320.SBR09,Claim Filing Indicator Code,Code identifying type of claim,S,"MA Medicare Part A
+MB Medicare Part B
+MC Medicaid
+OF Other Federal Program",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/claimFilingIndicator,Type of the other insurance,,,
+,,,,,,institutionalClaimSubmitRequestRecord/institutionalClaim/insuranceInformation/subscriberInformation/claimFilingIndicator,,Mapping 2320.SBR 09 in the second instance of insurance information,,
+Segment - CAS Claim Level Adjustments (Situational),,,,,,,,,,
+2320.CAS01,Claim Adjustment Group Code,Code identifying the general category of payment adjustment,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/groupCode,Group Code,,,
+2320.CAS02,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,CAS Code,,,
+2320.CAS03,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,Deductible Amount,When CAS01='PR' and CAS02='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,CoInsurance Amount,When CAS01='PR' and CAS02='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS02='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,Member Penalty,When CAS01='PR' and CAS02=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,Provider Penalty,When CAS01='CO' and CAS02=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,Discount  Amount,When CAS01='CO' and CAS02='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,Tax Amount,When CAS01='CO' and CAS02='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,Amount,,,
+2320.CAS04,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,Quantity,,,
+2320.CAS05,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,CAS Code,,,
+2320.CAS06,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,Deductible Amount,When CAS01='PR' and CAS05='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,CoInsurance Amount,When CAS01='PR' and CAS05='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS05='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,Member Penalty,When CAS01='PR' and CAS05=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,Provider Penalty,When CAS01='CO' and CAS05=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,Discount  Amount,When CAS01='CO' and CAS05='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,Tax Amount,When CAS01='CO' and CAS05='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,Amount,,,
+2320.CAS07,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,Quantity,,,
+2320.CAS08,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,"CO Contractual Obligations
+CR Correction and Reversals
+OA Other adjustments
+PI Payor Initiated Reductions
+PR Patient Responsibility",,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,CAS Code,,,
+2320.CAS09,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,Deductible Amount,When CAS01='PR' and CAS08='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,CoInsurance Amount,When CAS01='PR' and CAS08='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS08='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,Member Penalty,When CAS01='PR' and CAS08=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,Provider Penalty,When CAS01='CO' and CAS08=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,Discount  Amount,When CAS01='CO' and CAS08='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,Tax Amount,When CAS01='CO' and CAS08='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,Amount,,,
+2320.CAS10,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,Quantity,,,
+2320.CAS11,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,CAS Code,,,
+2320.CAS12,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,Deductible Amount,When CAS01='PR' and CAS11='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,CoInsurance Amount,When CAS01='PR' and CAS11='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS11='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,Member Penalty,When CAS01='PR' and CAS11=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,Provider Penalty,When CAS01='CO' and CAS11=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,Discount  Amount,When CAS01='CO' and CAS11='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,Tax Amount,When CAS01='CO' and CAS11='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,Amount,,,
+2320.CAS13,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,Quantity,,,
+2320.CAS14,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,CAS Code,,,
+2320.CAS15,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,Deductible Amount,When CAS01='PR' and CAS14='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,CoInsurance Amount,When CAS01='PR' and CAS14='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS14='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,Member Penalty,When CAS01='PR' and CAS14=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,Provider Penalty,When CAS01='CO' and CAS14=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,Discount  Amount,When CAS01='CO' and CAS14='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,Tax Amount,When CAS01='CO' and CAS14='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,Amount,,,
+2320.CAS16,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,Quantity,,,
+2320.CAS17,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/casCode,CAS Code,,,
+2320.CAS18,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/deductibleAmount,Deductible Amount,When CAS01='PR' and CAS17='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/coInsuranceAmount,CoInsurance Amount,When CAS01='PR' and CAS17='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS17='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberPenalty,Member Penalty,When CAS01='PR' and CAS17=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/providerPenalty,Provider Penalty,When CAS01='CO' and CAS17=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/discountAmount,Discount  Amount,When CAS01='CO' and CAS17='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/taxAmount,Tax Amount,When CAS01='CO' and CAS17='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/amount,Amount,,,
+2320.CAS19,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/casCodes/casCode/quantity,Quantity,,,
+Segment - AMT Coordination of Benefits (COB) Payer Paid Amount (Situational),,,,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,D : Payor Amount Paid,,,,,,
+2320.AMT02,Monetary Amount,Monetary amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/netPaidAmount,Net paid amount,,,
+2320.AMT02,Monetary Amount,Monetary amount,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/allowedAmount,,"Sum netpaid amount and CAS*PR amounts for the payer in header 2320 loop and map to this field
+
+Two digit after decimal only allowed",Updated mapping as per careplus,
+Segment - AMT Remaining Patient Liability (Situational),,,,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,EAF Amount Owed,,,,,,
+2320.AMT02,Monetary Amount,Monetary amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/memberResponsibilityAmount,Member Responsibility Amount,,,
+Segment - AMT Coordination of Benefits (COB) Total Non-covered Amount (Situational),,,,,,,,,,
+2320.AMT01,Amount Qualifier Code,Code to qualify amount,R,A8 : Noncovered Charges - Actual,,,,,,
+2320.AMT02,Monetary Amount,Monetary amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount,Non Covered amount,,All 2320.CAS03 / 2320.CAS06 /2320.CAS09 /2320.CAS12/2320.CAS15/2320.CAS18  Amounts for all CAS01-CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2320.CAS segment mapping will also get added to  /institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/nonCoveredTotals,Non Covered Totals,Sum COB amounts for the payer in header 2320 loop and map to this field,,
+Segment - OI Other Insurance Coverage Information (Required),,,,,,,,,,
+2320.OI03,Yes/No Condition or Response Code,Code indicating a Yes or No condition or response,R,"N : No
+W : Not Applicable
+1563 Use code ‘W’ when the patient refuses to assign
+benefits.
+Y :  Yes",,,,,,
+2320.OI06,Release of Information Code,Code indicating whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations,R,"I  : Informed Consent to Release Medical Information
+for Conditions or Diagnoses Regulated by Federal
+Statutes
+488 Required when the provider has not collected a
+signature AND state or federal laws do not require a
+signature be collected.
+Y : Yes, Provider has a Signed Statement Permitting
+Release of Medical Billing Data Related to a Claim
+489 Required when the provider has collected a
+signature.
+OR
+Required when state or federal laws require a
+signature be collected.",,,,,,
+Segment - MIA Inpatient Adjudication Information (Situational),,,,,,,,,,
+2320.MIA01,Quantity,Numeric value of quantity,R,,,,,,,
+2320.MIA03,Quantity,Numeric value of quantity,S,,,,,,,
+2320.MIA04,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA05,Reference Identification,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",S,,,,,,,
+2320.MIA06,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA07,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA08,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA09,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA10,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA11,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA12,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA13,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA14,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA15,Quantity,Numeric value of quantity,S,,,,,,,
+2320.MIA16,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA17,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA18,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA19,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MIA20,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MIA21,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MIA22,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MIA23,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MIA24,Monetary Amount,Monetary Amount,S,,,,,,,
+Segment - MOA Outpatient Adjudication Information (Situational),,,,,,,,,,
+2320.MOA01,Percentage as Decimal,"Percentage expressed as a decimal (e.g., 0.0 through 1.0 represents 0% through
+100%)",S,,,,,,,
+2320.MOA02,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MOA03,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MOA04,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MOA05,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MOA06,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MOA07,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2320.MOA08,Monetary Amount,Monetary Amount,S,,,,,,,
+2320.MOA09,Monetary Amount,Monetary Amount,S,,,,,,,
+Loop 2330A(Situational),,,,,,,,,,
+Segment - NM1 Other Subscriber Name (Required),,,,,,,,,,
+2330A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,IL : Insured or Subscriber,,,,,,
+2330A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,"1 : Person
+2 : Non-Person Entity",,,,,,
+2330A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberLastName,Subscriber's Last Name,,,
+2330A.NM104,Name First,Individual first name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberFirstName,Subscriber's First Name,,,
+2330A.NM105,Name Middle,Individual middle name or initial,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberMiddleName,Subscriber's Middle Name,,,
+2330A.NM107,Name Suffix,Suffix to individual name,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobSubscriberNameSuffix,Subscriber name suffix,,,
+2330A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code (",R,PI  : Payor Identification,,,,,,
+2330A.NM109,Identification Code,Code identifying a party or other code,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/OtherInsuredID,,,,
+Segment - N3 Other Subscriber Address (Situational),,,,,,,,,,
+2330A.N301,Address Information,Address Information,R,,,,,,,
+2330A.N302,Address Information,Address Information,S,,,,,,,
+Segment - N4 Other Subscriber City/State/ZIP Code (Situational),,,,,,,,,,
+2330A.N401,City Name,Free-form text for city name,R,,,,,,,
+2330A.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,,,,,
+2330A.N403,Postal Code,"Code defining international postal zone code excluding punctuation and blanks
+(zip code for United States)",S,,,,,,,
+,,,,,,,,,,
+2330A.N404,Country Code,Code identifying the country,S,,,,,,,
+2330A.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Segment - REF Other Subscriber Secondary Information (Situational),,,,,,,,,,
+2330A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330A.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2330B(Situational),,,,,,,,,,
+Segment - NM1 Other Payer Name (Required),,,,,,,,,,
+2330B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,PR: Payer,,,,,,
+2330B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,2 :  Non-Person Entity,,,,,,
+2330B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/companyName,Insurance company name,,,
+2330B.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",R,,,,,,,
+2330B.NM109,Identification Code,Code identifying a party or other code,R,,,institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/planName,,,,
+Segment - N3 Other Payer Address (Situational),,,,,,,,,,
+2330B.N301,Address Information,Address Information,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/address,Address first line,,,
+2330B.N302,Address Information,Address Information,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/address2,Address second line,,,
+Segment - N4 Other Payer City/State/ZIP Code (Situational),,,,,,,,,,
+2330B.N401,City Name,Free-form text for city name,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/cityName,City Name,,,
+2330B.N402,State or Province Code,Code (Standard State/Province) as defined by appropriate government agency,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/stateCode,State Code,,,
+2330B.N403,Postal Code,"Code defining international postal zone code excluding punctuation and blanks
+(zip code for United States)",S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/zipCode,Zip Code,1-5 digits,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/zipExtensionCode,Zip Code Extension,6-9 digits,,
+2330B.N404,Country Code,Code identifying the country,S,,US,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobHccInformation/address/postalAddress/countryCode/countryCode,Country Code,"Map ""US"" if no value present","If country code not present we need to update ""US""",
+2330B.N407,Country Subdivision Code,Code identifying the country subdivision,S,,,,,,,
+Segment - DTP Claim Check or Remittance Date (Situational),,,,,,,,,,
+2330B.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,573 : Date Claim Paid,,,,,,
+2330B.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8 :Date Expressed in Format CCYYMMDD,,,,,,
+2330B.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobDate,User-entered date on which the EOB was generated,,,
+Segment - REF Other Payer Secondary Identifier (Situational),,,,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"2U: Payer Identification Number
+EI: Employer’s Identification Number
+
+FY: Claim Office Number
+NF: National Association of Insurance Commissioners
+(NAIC) Code",,,,,,
+2330B.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,"Reference information as defined for a particular Transaction Set or as specified
+by the Reference Identification Qualifier",,,,,,
+Segment - REF Other Payer Prior Authorization Number (Situational),,,,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,G1: Prior Authorization Number,,,,,,
+2330B.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Segment - REF Other Payer Referral Number (Situational),,,,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,9F : Referral Number,,,,,,
+2330B.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Segment - REF Other Payer Claim Adjustment Indicator (Situational),,,,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,T4 : Signal Code,,,,,,
+2330B.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Segment - REF Other Payer Claim Control Number (Situational),,,,,,,,,,
+2330B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,F8 : Original Reference Number,,,,,,
+2330B.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobClaimID,,,,
+Loop 2330C (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Attending Provider (Situational),,,,,,,,,,
+2330C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,71 : Attending Physician,,,,,,
+2330C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 :Person,,,,,,
+Segment - REF Other Payer Attending Provider Secondary Identification (Required),,,,,,,,,,
+2330C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B :State License Number
+1G: Provider UPIN Number
+1555
+G2 :Provider Commercial Number
+LU Location Number",,,,,,
+2330C.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2330D (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Operating Physician (Situational),,,,,,,,,,
+2330D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,,
+2330D.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,,
+Segment - REF Other Payer Operating Physician Secondary Identification (Required),,,,,,,,,,
+2330D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330D.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2330E (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Other Operating Physician (Situational),,,,,,,,,,
+2330E.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,,
+2330E.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,,
+Segment - REF Other Payer Other Operating Physician Secondary Identification (Required),,,,,,,,,,
+2330E.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330E.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2330F (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Service Facility Location (Situational),,,,,,,,,,
+2330F.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,,
+2330F.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,,
+Segment - REF Other Payer Service Facility Location Identification (Required),,,,,,,,,,
+2330F.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330F.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2330G (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Rendering Provider Name (Situational),,,,,,,,,,
+2330G.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,,
+2330G.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,,
+Segment - REF Other Payer Rendering Provider Secondary Identification (Required),,,,,,,,,,
+2330G.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330G.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop - 2330H (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Referring Provider (Situational),,,,,,,,,,
+2330H.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,,
+2330H.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,,
+Segment - REF Other Payer Referring Provider Secondary Identification (Required),,,,,,,,,,
+2330H.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330H.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop - 2330I (Situational),,,,,,,,,,
+Segment - NM1 Other Payer Billing Provider (Situational),,,,,,,,,,
+2330I.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,,,,,,,
+2330I.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,,,,,,,
+Segment - REF Other Payer Billing Provider Secondary Identification (Required),,,,,,,,,,
+2330I.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2330I.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2400 (Required),,,,,,,,,,
+Segment - LX Service Line Number (Required),,,,,,,,,,
+2400.LX01,Assigned Number,Number assigned for differentiation within a transaction set,R,1,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/originalLineNumber,Original claim line number,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/hccClaimLineNumber,Claim line number,,,
+Segment - SV2 Institutional Service Line (Required),,,,,,,,,,
+2400.SV201,Product/Service ID,Identifying number for a product or service,R,0900,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/revenueCode,Revenue Code,,,
+2400.SV202,"COMPOSITE MEDICAL PROCEDURE
+IDENTIFIER","To identify a medical procedure by its standardized codes and applicable
+modifiers",S,,,,,,,
+2400.SV202.01,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,"HC :Health Insurance Prospective Payment System
+(HIPPS) Skilled Nursing Facility Rate Code",,,,,,
+2400.SV202.02,Product/Service ID,Identifying number for a product or service,R,H0023,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/serviceCode,Service Code associated with the claim line,,,
+2400.SV202.03,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,HE,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalClaimServiceModifier/modifierCode,Modifier Code,,,
+2400.SV202.04,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,HT,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalClaimServiceModifier/modifierCode,Modifier Code,,,
+2400.SV202.05,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalClaimServiceModifier/modifierCode,Modifier Code,,,
+2400.SV202.06,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalClaimServiceModifier/modifierCode,Modifier Code,,,
+2400.SV202.07,Description,"A free-form description to clarify the related data elements and their
+content",S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/serviceDescription,,,PSD#1640,
+2400.SV203,Monetary Amount,Monetary Amount,R,200,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/billedAmount,Billed amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/totalChargeAmount,Total charged amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/billedAmount,Billed amount,,,
+2400.SV204,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",R,"DA : Days
+UN : Unit",,,,,,
+2400.SV205,Quantity,Numeric value of quantity,R,1,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/serviceUnitCount,Identifies the type of unit,"if decimal point is zero, display as whole number otherwise use fraction",,
+2400.SV207,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/nonCoveredCharges,Amount of charges not covered,,,
+Segment - PWK Line Supplemental Information (Situational),,,,,,,,,,
+2400.PWK01,Report Type Code,"Code indicating the title or contents of a document, report or supporting item",R,"03 Report Justifying Treatment Beyond Utilization
+Guidelines
+04 Drugs Administered
+05 Treatment Diagnosis
+06 Initial Assessment
+07 Functional Goals
+08 Plan of Treatment
+09 Progress Report
+10 Continued Treatment
+11 Chemical Analysis
+13 Certified Test Report
+15 Justification for Admission
+21 Recovery Plan
+A3 Allergies/Sensitivities Document
+A4 Autopsy Report
+AM Ambulance Certification
+AS Admission Summary
+B2 Prescription
+B3 Physician Order
+B4 Referral Form
+BR Benchmark Testing Results
+BS Baseline
+BT Blanket Test Results
+CB Chiropractic Justification
+CK Consent Form(s)
+CT Certification
+D2 Drug Profile Document
+DA Dental Models
+DB Durable Medical Equipment Prescription
+DG Diagnostic Report
+DJ Discharge Monitoring Report
+DS Discharge Summary
+EB Explanation of Benefits (Coordination of Benefits or
+Medicare Secondary Payor)
+HC Health Certificate
+HR Health Clinic Records
+I5 Immunization Record",,,,,,
+2400.PWK02,Report Transmission Code,"Code defining timing, transmission method or format by which reports are to be
+sent",R,"AA Available on Request at Provider Site
+179 This means that the additional information is not
+being sent with the claim at this time. Instead, it is
+available to the payer (or appropriate entity) at their
+request.
+BM By Mail
+EL Electronically Only
+180 Indicates that the attachment is being transmitted in
+a separate X12 functional group.
+EM E-Mail
+FT File Transfer
+FX: By FAX",,,,,,
+2400.PWK05,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,AC Attachment Control Number,,,,,,
+2400.PWK06,Identification Code,Code identifying a party or other code,S,,,,,,,
+Segment - DTP Date - Service Date (Situational),,,,,,,,,,
+2400.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,472 Service,,,,,,
+2400.DTP02,Date Time Period Format Qualifier,Date Time Period Format Qualifier,R,"D8 :Date Expressed in Format CCYYMMDD
+RD8 :Range of Dates Expressed in Format CCYYMMDDCCYYMMDD",,,,,No logic there for COA and Careplus,
+2400.DTP03,Date Time Period,"Expression of a date, a time, or range of dates, times or dates and times",R,"Expression of a date, a time, or range of dates, times or dates and times",,for end date,,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/serviceDate,Date on which the service occurred,,,
+Segment - REF Line Item Control Number (Situational),,,,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2400.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,Whether it will be require tobacktrace or encouter,
+Segment - REF Repriced Line Item Reference Number (Situational),,,,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2400.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Segment - REF Adjusted Repriced Line Item Reference Number (Situational),,,,,,,,,,
+2400.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,,,,,,,
+2400.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Segment - AMT Service Tax Amount (Situational),,,,,,,,,,
+2400.AMT01,Amount Qualifier Code,Code to qualify amount,R,GT Goods and Services Tax,,,,,,
+2400.AMT02,Monetary Amount,Monetary Amount,R,,,,Tax Amount,,,
+Segment - AMT Facility Tax Amount (Situational),,,,,,,,,,
+2400.AMT01,Amount Qualifier Code,Code to qualify amount,R,N8 Miscellaneous Taxes,,,,,,
+2400.AMT02,Monetary Amount,Monetary Amount,R,,,,Tax Amount,,,
+,,,,,,,,,,
+Segment - NTE Third Party Organization Notes (Situational),,,,,,,,,,
+2400.NTE01,Note Reference Code,Code identifying the functional area or purpose for which the note applies,R,TPO Third Party Organization Notes,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/lineItemRemark/remarkCode,,,,
+2400.NTE02,Description,A free-form description to clarify the related data elements and their content,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/lineItemRemark/remark,Remarks added for Service line,,,
+Segment - HCP Line Pricing/Repricing Information (Situational),,,,,,,,,,
+2400.HCP01,Pricing Methodology,"Code specifying pricing methodology at which the claim or line item has been
+priced or repriced",R,"00 Zero Pricing (Not Covered Under Contract)
+01 Priced as Billed at 100%
+02 Priced at the Standard Fee Schedule
+03 Priced at a Contractual Percentage
+04 Bundled Pricing
+05 Peer Review Pricing
+06 Per Diem Pricing
+07 Flat Rate Pricing
+08 Combination Pricing
+09 Maternity Pricing
+10 Other Pricing
+11 Lower of Cost
+12 Ratio of Cost
+13 Cost Reimbursed
+14 Adjustment Pricing",,,,,,
+2400.HCP02,Monetary Amount,Monetary Amount,R,,,,Amount allowed by the repricer,,,
+2400.HCP03,Monetary Amount,Monetary Amount,S,,,,,,,
+2400.HCP04,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,ID of the repricing source,,,
+2400.HCP05,Rate,Rate expressed in the standard monetary denomination for the currency specified,S,,,,,,,
+2400.HCP06,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2400.HCP07,Monetary Amount,Monetary Amount,S,,,,,,,
+2400.HCP08,Product/Service ID,Identifying number for a product or service,S,,,,,,,
+2400.HCP09,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",S,,,,,,,
+2400.HCP10,Product/Service ID,Identifying number for a product or service,S,,,,,,,
+2400.HCP11,Unit or Basis for Measurement Code,"Code specifying the units in which a value is being expressed, or manner in which
+a measurement has been taken",S,"DA Days
+UN Unit",,,,,,
+2400.HCP12,Quantity,Numeric value of quantity,S,,,,,,,
+2400.HCP13,Reject Reason Code,Code assigned by issuer to identify reason for rejection,S,"T1 Cannot Identify Provider as TPO (Third Party
+Organization) Participant
+T2 Cannot Identify Payer as TPO (Third Party
+Organization) Participant
+T3 Cannot Identify Insured as TPO (Third Party
+Organization) Participant
+T4 Payer Name or Identifier Missing
+T5 Certification Information Missing
+T6 Claim does not contain enough information for repricing",,,,,,
+2400.HCP14,Policy Compliance Code,Code specifying policy compliance,S,"1 Procedure Followed (Compliance)
+2 Not Followed - Call Not Made (Non-Compliance Call
+Not Made)
+3 Not Medically Necessary (Non-Compliance NonMedically Necessary)
+4 Not Followed Other (Non-Compliance Other)
+5 Emergency Admit to Non-Network Hospital",,,,,,
+2400.HCP15,Exception Code,"Code specifying the exception reason for consideration of out-of-network health
+care services",S,"1 Non-Network Professional Provider in Network
+Hospital
+2 Emergency Care
+3 Services or Specialist not in Network
+4 Out-of-Service Area
+5 State Mandates
+6 Other",,,,,,
+Loop 2410 - Drug identification,,,,,,,,,,
+Segment - LIN Drug identification (Situational),,,,,,,,,,
+2410.LIN02,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,N4 National Drug Code in 5-4-2 Format,,institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalNdcCodes/qualifier,Map N4 as 'ND',Map N4 as 'ND',"Mapping updated as per careplus
+need to check the x walk/configuration team",
+2410.LIN03,Product/Service ID,Identifying number for a product or service,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalNdcCodes/ndcCode,NationalDrugCodereference.,,,
+Segment - CTP Drug Quantity (Required),,,,,,,,,,
+2410.CTP04,Quantity,Numeric value of quantity,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalNdcCodes/quantity,Quantity; maximum of 8 digits.,,,
+2410.CTP05-1,COMPOSITE UNIT OF MEASURE-Unit or Basis for Measurement Code,To identify a composite unit of measure,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/institutionalNdcCodes/measurementType,"Identifies the unit of measurement,such as ML (milliliter),OU (ounce),etc.",,,
+Segment - REF Prescription or compound drug association Number (Situational),,,,,,,,,,
+2410.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"VY Link Sequence Number
+XZ Pharmacy Prescription Number",,,,,,
+2410.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2420A (Situational),,,,,,,,,,
+Segment - NM1 Operating Physician Name (Situational),,,,,,,,,,
+2420A.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,72 Operating Physician,,,,,,
+2420A.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 Person,,,,,,
+2420A.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2420A.NM104,Name First,Individual first name,S,,,,,,,
+2420A.NM105,Name Middle,Individual middle name or initial,S,,,,,,,
+2420A.NM107,Name Suffix,Suffix to individual name,S,,,,,,,
+2420A.NM108,Identification Code Qualifier,"Code designating the system/method of code structure used for Identification
+Code",S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2420A.NM109,Identification Code,Code identifying a party or other code,S,,,,,,,
+Segment - REF Operating Physician Secondary Identification (Situational),,,,,,,,,,
+2420A.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B State License Number
+1G Provider UPIN Number
+G2 Provider Commercial Number
+LU Location Number",,,,,,
+2420A.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+2420A.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U Payer Identification Number,,,,,,
+2420A.REF04.02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2420B (Situational),,,,,,,,,,
+Segment - NM1 Other Operating Physician Name (Situational),,,,,,,,,,
+2420B.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,ZZ Mutually Defined,,,,,,
+2420B.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 Person,,,,,,
+2420B.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2420B.NM104,Name First,Individual first name,S,,,,,,,
+2420B.NM105,Name Middle,Individual middle name or initial,S,,,,,,,
+2420B.NM107,Name Suffix,Suffix to individual name,S,,,,,,,
+2420B.NM108,Identification Code Qualifier,,S,XX Centers for Medicare and Medicaid Services National Provider Identifier,,,,,,
+2420B.NM109,Identification Code,Code identifying a party or other code,S,,,,,,,
+Segment - REF Other Operating Physician Secondary Identification (Situational),,,,,,,,,,
+2420B.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B State License Number
+1G Provider UPIN Number
+G2 Provider Commercial Number
+LU Location Number",,,,,,
+2420B.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+2420B.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U Payer Identification Number,,,,,,
+2420B.REF04.02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2420C (Situational),,,,,,,,,,
+Segment - NM1 Rendering Provider Name (Situational),,,,,,,,,,
+2420C.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,82 Rendering Provider,,,,,,
+2420C.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 Person,,,,,,
+2420C.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2420C.NM104,Name First,Individual first name,S,,,,,,,
+2420C.NM105,Name Middle,Individual middle name or initial,S,,,,,,,
+2420C.NM107,Name Suffix,Suffix to individual name,S,,,,,,,
+2420C.NM108,Identification Code Qualifier,,S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2420C.NM109,Identification Code,Code identifying a party or other code,S,,,,,,,
+Segment - REF Rendering Provider Secondary Identification (Situational),,,,,,,,,,
+2420C.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B State License Number
+1G Provider UPIN Number
+G2 Provider Commercial Number
+LU Location Number",,,,,,
+2420C.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+2420C.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U Payer Identification Number,,,,,,
+2420C.REF04.02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+Loop 2420D (Situational),,,,,,,,,,
+Segment - NM1 Referring Provider Name (Situational),,,,,,,,,,
+2420D.NM101,Entity Identifier Code,"Code identifying an organizational entity, a physical location, property or an
+individual",R,DN Referring Provider,,,,,,
+2420D.NM102,Entity Type Qualifier,Code qualifying the type of entity,R,1 Person,,,,,,
+2420D.NM103,Name Last or Organization Name,Individual last name or organizational name,R,,,,,,,
+2420D.NM104,Name First,Individual first name,S,,,,,,,
+2420D.NM105,Name Middle,Individual middle name or initial,S,,,,,,,
+2420D.NM107,Name Suffix,Suffix to individual name,S,,,,,,,
+2420D.NM108,Identification Code Qualifier,,S,"XX Centers for Medicare and Medicaid Services
+National Provider Identifier",,,,,,
+2420D.NM109,Identification Code,Code identifying a party or other code,S,,,,,,,
+Segment - REF Referring Provider Secondary Identification (Situational),,,,,,,,,,
+2420D.REF01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,"0B State License Number
+1G Provider UPIN Number
+G2 Provider Commercial Number
+LU Location Number",,,,,,
+2420D.REF02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,S,,,,,,,
+2420D.REF04.01,Reference Identification Qualifier,Code qualifying the Reference Identification,R,2U Payer Identification Number,,,,,,
+2420D.REF04.02,Reference Identification,Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier,R,,,,,,,
+"Loop 2430   — LINE ADJUDICATION INFORMATION(Situational) Loop Repeat: 15
+
+1. Service line cob mapping under - /invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation will happen based upon the matching of 2430.SVD01 against the 2330B.NM109.
+
+2. The below header/sub tag mapping will have sum of all the different payer amounts for each of the service line.
+/serviceLineItem/eobPaymentInformation",,,,,,,,,,
+Segment - SVD Line Adjudication Information (Situational),,,,,,,,,,
+2430.SVD01,Identification Code,Code identifying a party or other code,R,,,,,,,
+2430.SVD02,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/netPaidAmount,Net paid amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/netPaidAmount,Net paid amount,,Mapped when the value exists and Other Subsciber loop(SBR01) exists in 2320 and SVD01 is present.,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord{/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/allowedAmount,Sum netpaid amount and CAS*PR amounts for the payer in line level - 2430 loop and map to this field,Two digits after decimal will be allowed,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/allowedAmount,Sum netpaid amount and CAS*PR amounts of all payers in line level (all 2430 loops) and map to this field,Two digits after decimal will be allowed,,
+2430.SVD03.01,Product/Service ID Qualifier,"Code identifying the type/source of the descriptive number used in
+Product/Service ID",R,,,,,,,
+2430.SVD03.02,Product/Service ID,Identifying number for a product or service,R,,,,,,,
+2430.SVD03.03,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,,,,,,
+2430.SVD03.04,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,,,,,,
+2430.SVD03.05,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,,,,,,
+2430.SVD03.06,Procedure Modifier,"This identifies special circumstances related to the performance of the
+service, as defined by trading partners",S,,,,,,,
+2430.SVD03.07,Description,"A free-form description to clarify the related data elements and their
+content",S,,,,,,,
+2430.SVD04,Product/Service ID,Identifying number for a product or service,R,,,,,,,
+2430.SVD05,Quantity,Numeric value of quantity,R,,,,,,,
+2430.SVD06,Assigned Number,Number assigned for differentiation within a transaction set,S,,,,,,,
+Segment - CAS Line Adjustment (Situational),,,,,,,,,,
+2430.CAS01,Claim Adjustment Group Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/groupCode,Group code,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/groupCode,Group code,,,
+2430.CAS02,Claim Adjustment Reason Code,,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/casCode,CAS code,,,
+2430.CAS03,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS02='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS02='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS02='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS02=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS02=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS02='96/185'
+
+Please refer comments",Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS02='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/Tax amount,Tax amount,When CAS01='CO' and CAS02='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount.,When CAS01='PR' and CAS02='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS02='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS02='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS02=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS02=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS02='96/185'
+
+Please refer comments",Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS02='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS02='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,,
+2430.CAS04,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity,,,
+2430.CAS05,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code identifier,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/casCode,CAS code identifier,,,
+2430.CAS06,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS05='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS05='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS05='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS05=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS05=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS05='96/185'
+
+Please refer comments",Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS05='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/Taxamount,Tax amount,When CAS01='CO' and CAS05='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS05='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS05='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS05='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS05=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS05=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,"When CAS01='CO' and CAS05='96/185'
+
+Please refer comments",Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS05='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS05='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,,
+2430.CAS07,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity;maximumof8digits.,,,
+2430.CAS08,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code identifier,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/casCode,CAS code identifier,,,
+2430.CAS09,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS08='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS08='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS08='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS08=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS08=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS08='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS08='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/taxamount,Tax amount,When CAS01='CO' and CAS08='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS08='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS08='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS08='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS08=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS08=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS08='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS08='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS08='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,,
+2430.CAS10,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity; maximum of 8 digits.,,,
+2430.CAS11,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code identifier,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/casCode,CAS code identifier,,,
+2430.CAS12,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS11='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS11='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS11='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS11=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS11=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS11='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS11='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/taxamount,Tax amount,When CAS01='CO' and CAS11='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS11='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS11='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS11='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS11=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS11=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS11='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS11='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS11='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,,
+2430.CAS13,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity; maximum of 8 digits.,,,
+2430.CAS14,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code identifier,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/casCode,CAS code identifier,,,
+2430.CAS15,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS14='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS14='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS14='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS14=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS14=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS14='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS14='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/taxamount,Tax amount,When CAS01='CO' and CAS14='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS14='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS14='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS14='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS14=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS14=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS14='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS14='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS14='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,,
+2430.CAS16,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity; maximum of 8 digits.,,,
+2430.CAS17,Claim Adjustment Reason Code,Code identifying the detailed reason the adjustment was made,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/casCode,CAS code identifier,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/casCode,CAS code identifier,,,
+2430.CAS18,Monetary Amount,Monetary Amount,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS17='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS17='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/copayAmount,Copay amount,When CAS01='PR' and CAS17='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS17=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS17=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS17='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/discountAmount,Discount amount,When CAS01='CO' and CAS17='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/amount,Amount,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/Taxamount,Tax amount,When CAS01='CO' and CAS17='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/deductibleAmount,Deductible amount,When CAS01='PR' and CAS17='1',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/coInsuranceAmount,Coinsurance amount.,When CAS01='PR' and CAS17='2',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/copayAmount,Copay amount,When CAS01='PR' and CAS17='3',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberPenalty,Member penalty,When CAS01='PR' and CAS17=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/providerPenalty,Provider penalty.,When CAS01='CO' and CAS17=225/237/B4,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non-covered amount.,When CAS01='CO' and CAS17='96/185',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/discountAmount,Discount amount,When CAS01='CO' and CAS17='45',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/taxAmount,Tax amount,When CAS01='CO' and CAS17='105',,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/lineEobCasCodes/casCode/amount,Amount,,,
+2430.CAS19,Quantity,Numeric value of quantity,S,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/lineCasCodes/casCode/quantity,Quantity; maximum of 8 digits.,,,
+Segment - DTP Line Check or Remittance Date (Required),,,,,,,,,,
+2430.DTP01,Date/Time Qualifier,"Code specifying type of date or time, or both date and time",R,573,,,,In the format YYYY-MM-DD,,
+2430.DTP02,Date Time Period Format Qualifier,"Code indicating the date format, time format, or date and time format",R,D8,,,,,,
+2430.DTP03,Date Time Period,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/eobDate,User-entered date on which the EOB was generated,,,
+Segment - AMT Remaining Patient Liability (Situational),,,,,,,,,,
+2430.AMT01,Amount Qualifier Code,Code to qualify amount,R,EAF,,,,,,
+2430.AMT02,Monetary Amount,Monetary Amount,R,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/memberResponsibilityAmount,Total amount for which the member is responsible for this service.,,,
+,,,,,,institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/memberResponsibilityAmount,Total amount for which the member is responsible for this service.,,,
+Segment SE (Required),,,,,,,,,,
+SE Transaction Set Trailer (Required),,,,,,,,,,
+SE01,Number of Included Segments,"Total number of segments included in a transaction set including ST and SE
+segments",R,Count Of ST,,,,,,
+SE02,Transaction Set Control Number,Unique Sequential Number Assigned by Internal Processes for each Transaction Set. Starts from 001 and increments with each transaction set,R,ST02 Value,,,,,,
+Segment GE (Required),,,,,,,,,,
+GE Functional Group Trailer (Required),,,,,,,,,,
+GE01,Number of Transaction Sets Included,"Total number of transaction sets included in the functional group or interchange
+(transmission) group terminated by the trailer containing this data element",R,Count Of GS,,,,,,
+GE02,Group Control Number,Assigned number originated and maintained by the sender,R,GS06 Value,,,,,,
+Segment IEA (Required),,,,,,,,,,
+IEA Interchange Control Trailer (Required),,,,,,,,,,
+IEA01,Number of Included Functional Groups,A count of the number of functional groups included in an interchange,R,Count Of ISA,,,,,,
+IEA02,Interchange Control Number,A control number assigned by the interchange sender.  It must be identical to ISA13,R,,ISA13 Value - 319003402,,,,,
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — 837I Mapping (Default Value)
+
+```csv
+XSD Element,Element Description,Default Value
+institutionalClaimIBRequestRoot/header/inputFilename,Inbound EDI File Name,Input Filename of the EDI file received with filename extension
+institutionalClaimIBRequestRoot/header/inputId,EDI file id,"{UID}- Unique for each file
+Example - -dtBkcCHu9bkKu8O"
+institutionalClaimIBRequestRoot/header/totalClaimCount,Total number of claims,Total Number of claims in the Inbound EDI 837P file
+,,
+institutionalClaimIBRequestRoot/header/inputType,Defines the type of input file - API or File,"Hardcode as ""Institutional"""
+institutionalClaimIBRequestRoot/header/XMLfileCreationDate,File created date in format YYYY-MM-DD HH:mm:ss:sss   - This is used for internal reference. Not loaded to HRP UI,"Processing date/time in the format:
+yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS"
+professionalClaimIBRequestRoot/header/correlationId,Unique string or alphanumeric value identifying each file.,A Unique Record Identifier
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/entryDate,"Date on which the claim was first
+entered into HealthRules. - in HRP UI it is auto populated to claim load date/time",Processing date/time in the format: YYYY-MM-DDTHH:mm:ss
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/creationDate,creation Date - Could not find this field in HRP UI.,"Mapped from BHT04, formatted to YYYY-MM-DD"
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimDeliveryType,"The method by which the claim was
+received.","E' -  Electronic
+'S'  - SDS paper 837
+Crosswalk Name : P_IB_837_ClaimSourceLookup
+•Provide the Sender Id and Receiver Id as the source columns.
+•Provide the ClaimSource and ClaimDeliveryType as the target columns."
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/payeeTypeField,"Indicates whether the claim is to be
+paid to a supplier or a member.",Hardcode as Supplier
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimPayorType,"Benefit plan type (medical, dental,
+etc.)",Hardcode as 1 (medical)
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/rayId,"Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",GUID
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordId,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",GUID
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordIdFromSource,,senderid(ISA06)_patientcontrolnum(CLM01)_clearinghousingnum(2300.REF*D9)
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/sourceTypeIdentifier,Identifier to find from where we received(Starting point) the initial Transaction/Record.,"SubmitterName(1000A. NM103+NM104)_{Paper}
+SubmitterName(1000A. NM103+NM104)_{Electronic}"
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/tenantIdentifier,Unique identifier for the implementation team,"Hardcode as ""Product"""
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/institutionalServiceLineItem/serviceLine/eobPaymentInformation/nonCoveredAmount,Non covered amount - COB - Line level,Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/lineEobInformation/nonCoveredAmount,Non covered amount - COB - Line level,Map 2430.CAS03 / 2430.CAS06 /2430.CAS09 /2430.CAS12/2430.CAS15/2430.CAS18   for all 2430.CAS01-2430.CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2430.CAS segment mapping.
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/invoiceAttachments/invoiceAttachment/eobAttachment/submittedEobPaymentInformation/headerEobInformation/nonCoveredAmount,Non covered amount - COB- Claim level,Map 2320.CAS03 / 2320.CAS06 /2320.CAS09 /2320.CAS12/2320.CAS15/2320.CAS18   for all CAS01-CAS02/05/08/11/14/17 combinations which are not explicitly mentioned in 2320.CAS segment mapping.
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimUDTList/claimUDT/udtListValueSet/attributeRoleName,,"Hardcode as ""Submitted Claim Key"""
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimUDTList/claimUDT/udtListValueSet/attrValueAsString,,Should be same value as pupulated in institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/recordId
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/claimUDTList/claimUDT/userDefinedTermReference/ID,,"Hardcode as ""Submitted Claim Key"""
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — Sheet1
+
+```csv
+institutionalClaimIBRequestRoot/institutionalClaimIBRequest/institutionalClaimSubmitRequestRecordList/institutionalClaimSubmitRequestRecord/institutionalClaim/supplierInformation/address
+```
+
+## Claims IB/EdifecsProduct_MappingSpec_InboundClaims_837_EDI_to_XMLConversion_V2.3.xlsx — Crosswalk
+
+```csv
+PWK Segment,,,,
+Enumeration values,Description,HRP Code,Short Name,Short Description
+M1,Medical Record Attachment,1,Xray,The attachment is an X-ray
+6,Initial Assessment,2,Note,The attachment is a copy of the Doctor's Notes
+21,Recovery Plan,3,OPNote,The attachment is a copy of the Operating Room Notes
+HR,Health Clinic Records,5,Payment Receipt,The attachment is a receipt or some other proof of payment
+HC,Health Certificate,6,Cert,The attachment is a Certificate of Completion
+OD,Orders and Treatments Document,7,Bill,The attachment is an itemized bill
+9,Progress Report,8,Collection Note,The attachment is a Collections Notice
+3,Report Justifying Treatment Beyond UtilizationGuidelines,9,Other,Other Type of Attachment
+4,Drugs Administered,9,Other,Other Type of Attachment
+5,Treatment Diagnosis,9,Other,Other Type of Attachment
+7,Functional Goals,9,Other,Other Type of Attachment
+8,Plan of Treatment,9,Other,Other Type of Attachment
+10,Continued Treatment,9,Other,Other Type of Attachment
+11,Chemical Analysis,9,Other,Other Type of Attachment
+13,Certified Test Report,9,Other,Other Type of Attachment
+15,Justification for Admission,9,Other,Other Type of Attachment
+A3,Allergies/Sensitivities Document,9,Other,Other Type of Attachment
+A4,Autopsy Report,9,Other,Other Type of Attachment
+AM,Ambulance Certification,9,Other,Other Type of Attachment
+BR,Benchmark Testing Results,9,Other,Other Type of Attachment
+BS,Baseline,9,Other,Other Type of Attachment
+BT,Blanket Test Results,9,Other,Other Type of Attachment
+CB,Chiropractic Justification,9,Other,Other Type of Attachment
+CK,Consent Form(s),9,Other,Other Type of Attachment
+D2,Drug Profile Document,9,Other,Other Type of Attachment
+DB,Durable Medical Equipment Prescription,9,Other,Other Type of Attachment
+DJ,Discharge Monitoring Report,9,Other,Other Type of Attachment
+I5,Immunization Record,9,Other,Other Type of Attachment
+IR,State School Immunization Records,9,Other,Other Type of Attachment
+LA,Laboratory Results,9,Other,Other Type of Attachment
+OC,Oxygen Content Averaging Report,9,Other,Other Type of Attachment
+OE,Objective Physical Examination (including vital signs) Document,9,Other,Other Type of Attachment
+OX,Oxygen Therapy Certification,9,Other,Other Type of Attachment
+P4,Pathology Report,9,Other,Other Type of Attachment
+P5,Patient Medical History Document,9,Other,Other Type of Attachment
+PE,Parenteral or Enteral Certification,9,Other,Other Type of Attachment
+PQ,Paramedical Results,9,Other,Other Type of Attachment
+PY,Physician’s Report,9,Other,Other Type of Attachment
+RX,Renewable Oxygen Content Averaging Report,9,Other,Other Type of Attachment
+SG,Symptoms Document,9,Other,Other Type of Attachment
+V5,Death Notification,9,Other,Other Type of Attachment
+XP,Photographs,9,Other,Other Type of Attachment
+AS,Admission Summary,10,Admission Summary,Admission Summary
+B2,Prescription,11,Prescription,Prescription
+B3,Physician Order,12,Physician Order,Physician Order
+B4,Referral Form,13,Referral Form,Referral Form
+CT,Certification,14,Certification,Certification
+DA,Dental Models,15,Dental Models,Dental Models
+DG,Diagnostic Report,16,Diagnostic Report,Diagnostic Report
+DS,Discharge Summary,17,Discharge Summary,Discharge Summary
+EB,Explanation of Benefits (Coordination of Benefits or Medicare Secondary Payor),18,Explanation of Benefits,Explanation of Benefits
+MT,Models,19,Models,Models
+NN,Nursing Notes,20,Nursing Notes,Nursing Notes
+OB,Operative Note,21,Operative Note,Operative Note
+OZ,Support Data for Claim,22,Support Data for Claim,Support Data for Claim
+PN,Physical Therapy Notes,23,Physical Therapy Notes,Physical Therapy Notes
+PO,Prosthetics or Orthotic Certification,24,Prosthetics or Orthotic Certification,Prosthetics or Orthotic Certification
+PZ,Physical Therapy Certification,25,Physical Therapy Certification,Physical Therapy Certification
+RB,Radiology Films,26,Radiology Films,Radiology Films
+RR,Radiology Reports,27,Radiology Reports,Radiology Reports
+RT,Report of Tests and Analysis Report,28,Report of Tests and Analysis Report,Report of Tests and Analysis Report
+```

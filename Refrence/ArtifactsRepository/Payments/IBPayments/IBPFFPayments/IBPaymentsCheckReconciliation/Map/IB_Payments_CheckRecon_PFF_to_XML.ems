@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Map Version="3" ModelVersion="4" ModelRevision="1" LastCPID="87">
+	<Properties Category="BusinessGroups">
+		<Property Name="1/ID">1</Property>
+		<Property Name="1/Name">Check Reconciliation</Property>
+		<Property Name="2/ID">2</Property>
+		<Property Name="2/Name">Header</Property>
+	</Properties>
+	<Properties Category="BusinessTabs">
+		<Property Name="1/ID">2</Property>
+		<Property Name="2/ID">1</Property>
+	</Properties>
+	<Properties Category="Features">
+		<Property Name="StrictVariablesNaming">true</Property>
+		<Property Name="SupportSrcXmlDataExistenceFilter">true</Property>
+	</Properties>
+	<Properties Category="GlobalUserNoteLabels">
+		<Property Name="{054697ff-356c-41a2-999b-3a9d61c8fa1a}">Description</Property>
+	</Properties>
+	<Properties Category="Summary">
+		<Property Name="Author">UST Global</Property>
+		<Property Name="Version">1.0</Property>
+		<Property Name="Company">UST Global</Property>
+		<Property Name="Status">Draft</Property>
+		<Property Name="CreatedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="CreationDate">1752572662</Property>
+		<Property Name="ModifiedBy">SpecBuilder 9.3.3.8519</Property>
+		<Property Name="ModificationDate">1754643812</Property>
+	</Properties>
+	<Properties Category="Variables">
+		<Property Name="LastVarID">2</Property>
+		<Property Name="1/ID">1</Property>
+		<Property Name="1/Name">RecordCount</Property>
+	</Properties>
+	<Sources>
+		<ExternalStorage ID="1" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Source</Property>
+				<Property Name="Location">..\Guideline\IB_Payments_CheckRecon_PFF_Source.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentType">PositionalFlatFile</Property>
+				<Property Name="EntryNodeID">CheckReconciliation</Property>
+				<Property Name="EntryNodeName">CheckReconciliation</Property>
+				<Property Name="GuidelineType">Positional</Property>
+				<Property Name="InternalID">{62736063-ABEB-48AA-BDEB-DE98B8EB47DB}</Property>
+				<Property Name="Standard">PFF</Property>
+				<Property Name="Version"></Property>
+			</Properties>
+			<Properties Category="InternalProperties">
+				<Property Name="_EntireDocument">inputId</Property>
+				<Property Name="_EntireDocument">inputType</Property>
+				<Property Name="_EntireDocument">inputFileName</Property>
+				<Property Name="_EntireDocument">inputArchiveFileName</Property>
+				<Property Name="_EntireDocument">totalTransactions</Property>
+				<Property Name="_EntireDocument">XMLfileCreationDate</Property>
+				<Property Name="_EntireDocument">senderId</Property>
+				<Property Name="_EntireDocument">receiverId</Property>
+				<Property Name="_EntireDocument">recordIdentifier</Property>
+				<Property Name="_EntireDocument">sourceTypeIdentifier</Property>
+				<Property Name="_EntireDocument">rayIdentifier</Property>
+				<Property Name="_EntireDocument">recordIdentifierFromSource</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="11" Path="/Message(ID = 'CheckReconciliation')/Record(ID = 'Record')/Field(ID = '1.001')"/>
+				<ConnectionPoint ID="15" Path="/Message(ID = 'CheckReconciliation')/Record(ID = 'Record')/Field(ID = '1.005')"/>
+				<ConnectionPoint ID="17" Path="/Message(ID = 'CheckReconciliation')/Record(ID = 'Record')/Field(ID = '1.007')"/>
+				<ConnectionPoint ID="19" Path="/Message(ID = 'CheckReconciliation')/Record(ID = 'Record')/Field(ID = '1.009')"/>
+				<ConnectionPoint ID="30" Path="/Message(ID = 'CheckReconciliation')"/>
+				<ConnectionPoint ID="40" Path="/Message(ID = 'CheckReconciliation')/Record(ID = 'Record')"/>
+				<ConnectionPoint ID="55" Path="/Message(ID = 'CheckReconciliation')/Record(ID = 'Record')/Field(ID = '1.004')"/>
+				<ConnectionPoint ID="65" Path="/InternalProperties/Field(Name = 'inputId')"/>
+				<ConnectionPoint ID="67" Path="/InternalProperties/Field(Name = 'inputType')"/>
+				<ConnectionPoint ID="69" Path="/InternalProperties/Field(Name = 'inputFileName')"/>
+				<ConnectionPoint ID="71" Path="/InternalProperties/Field(Name = 'inputArchiveFileName')"/>
+				<ConnectionPoint ID="73" Path="/InternalProperties/Field(Name = 'totalTransactions')"/>
+				<ConnectionPoint ID="75" Path="/InternalProperties/Field(Name = 'XMLfileCreationDate')"/>
+				<ConnectionPoint ID="77" Path="/InternalProperties/Field(Name = 'senderId')"/>
+				<ConnectionPoint ID="79" Path="/InternalProperties/Field(Name = 'receiverId')"/>
+				<ConnectionPoint ID="81" Path="/InternalProperties/Field(Name = 'recordIdentifier')"/>
+				<ConnectionPoint ID="84" Path="/InternalProperties/Field(Name = 'sourceTypeIdentifier')"/>
+				<ConnectionPoint ID="86" Path="/InternalProperties/Field(Name = 'rayIdentifier')"/>
+				<ConnectionPoint ID="87" Path="/InternalProperties/Field(Name = 'recordIdentifierFromSource')"/>
+			</ConnectionPoints>
+		</ExternalStorage>
+	</Sources>
+	<Targets>
+		<ExternalStorage ID="2" Type="File.ECS">
+			<Properties>
+				<Property Name="Name">Target</Property>
+				<Property Name="Location">..\..\IBPaymentsCommon\Guideline\IB_Payments_XML_Target.ecs</Property>
+			</Properties>
+			<Properties Category="GuidelineInfo">
+				<Property Name="DocumentID"></Property>
+				<Property Name="DocumentType">XMLSchema</Property>
+				<Property Name="GuidelineType">XML Schema</Property>
+				<Property Name="InternalID">{2D1F8553-7682-47D3-97B7-CD83488D2CD1}</Property>
+				<Property Name="Standard"></Property>
+				<Property Name="Version"></Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="28" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'criteria')/complexType(name = 'paymentStatusSearchCriteria')/sequence/element(name = 'checkNumber')"/>
+				<ConnectionPoint ID="34" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'w3cReconciliationDate')"/>
+				<ConnectionPoint ID="35" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'additionalPaymentInformation')/complexType(name = 'additionalPaymentInformation')/sequence/element(name = 'externalPaymentId')"/>
+				<ConnectionPoint ID="36" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'action')"/>
+				<ConnectionPoint ID="48" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'recordIdentifierFromSource')"/>
+				<ConnectionPoint ID="51" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'criteria')/complexType(name = 'paymentStatusSearchCriteria')/sequence/element(name = 'checkAmount')"/>
+				<ConnectionPoint ID="57" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'updatePaymentStatus')/complexType(name = 'updatePaymentStatus')/sequence/element(name = 'additionalPaymentInformation')/complexType(name = 'additionalPaymentInformation')/sequence/element(name = 'clearedCheckDate')"/>
+				<ConnectionPoint ID="66" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputId')"/>
+				<ConnectionPoint ID="68" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputType')"/>
+				<ConnectionPoint ID="70" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputFileName')"/>
+				<ConnectionPoint ID="72" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'inputArchiveFileName')"/>
+				<ConnectionPoint ID="74" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'totalTransactions')"/>
+				<ConnectionPoint ID="76" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'XMLfileCreationDate')"/>
+				<ConnectionPoint ID="78" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'senderId')"/>
+				<ConnectionPoint ID="80" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'header')/complexType(name = 'header')/sequence/element(name = 'receiverId')"/>
+				<ConnectionPoint ID="82" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'rayIdentifier')"/>
+				<ConnectionPoint ID="83" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'recordIdentifier')"/>
+				<ConnectionPoint ID="85" Path="/schema/element(name = 'updatePaymentStatusIBRequestRoot')/complexType/sequence/element(name = 'updatePaymentStatusRecord')/complexType(name = 'updatePaymentStatusRecord')/sequence/element(name = 'sourceTypeIdentifier')"/>
+			</ConnectionPoints>
+			<ReverseConnectionPoints/>
+		</ExternalStorage>
+	</Targets>
+	<Functions>
+		<Function ID="1" Name="JavaScript Input_CheckReconciliation" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">// Retrieving the record set or creating the recordset
+myRS1 = ec_VariableHelper.GetRecordSet(&quot;IB_Payments&quot;);
+// Creating an empty array and Getting the value by index and assigning it to the array.
+ resArr1 = new Array();
+ 
+ for(i=0;i&lt;4;i++)
+ {
+ 	resArr1[i] = ec_DataHelper.GetValueByIndex(i);
+ }
+//Updating the newly inserted row with the values from the array
+myRS1.insertRow();
+myRS1.updateRow(resArr1);
+ec_VariableHelper.SetRecordSet(&quot;IB_Payments&quot;, myRS1, true);
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">0</Property>
+				<Property Name="Tab1/YPos">-32</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="1" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="3" FP="A" Pos="1" Name="value2">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="4" FP="A" Pos="2" Name="value3">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="5" FP="A" Pos="3" Name="value4">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="2" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="2" Name="JavaScript Output_CheckReconciliation" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var myRS = ec_VariableHelper.GetRecordSet(&quot;IB_Payments&quot;);
+var Fields = myRS.getFields(); // Retrieve the fields inside the recordSet
+var RecordCount=ec_VariableHelper.GetVariable(&quot;RecordCount&quot;);
+if(RecordCount==1)
+{	
+for(var i=0;i&lt;3;i++)
+{
+ ec_ResultHelper.ReportResultByIndex(i, Fields[i].trim());
+} 
+if(Fields[3]=='Y')
+ {
+	 ec_ResultHelper.ReportResultByIndex(3,'VOID');
+ }
+else if( Fields[3]==&quot;&quot;)
+ {
+	 
+	ec_ResultHelper.ReportResultByIndex(3,'CLEARED');
+	ec_ResultHelper.ReportResultByIndex(4,Fields[1]);
+ }
+ 
+} 
+
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">192</Property>
+				<Property Name="Tab1/YPos">-64</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="29" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="20" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="21" FP="X" Pos="0" Name="result1"/>
+				<ConnectionPoint ID="22" FP="X" Pos="1" Name="result2"/>
+				<ConnectionPoint ID="23" FP="X" Pos="2" Name="result3"/>
+				<ConnectionPoint ID="24" FP="X" Pos="3" Name="result4"/>
+				<ConnectionPoint ID="56" FP="X" Pos="4" Name="result5"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="3" Template="Increment">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">256</Property>
+				<Property Name="Tab1/YPos">-16</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="41" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="4" Template="ChangeVariable">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="variableID">1</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">80</Property>
+				<Property Name="Tab1/YPos">64</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="43" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="42" FP="A" Name="value" DirectValue="0"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="6" Name="JavaScript Output_PayerGroupNumber" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var PayerGroupNumber=ec_VariableHelper.GetVariable(&quot;PayerGroupNumber&quot;);
+var RecordCount=ec_VariableHelper.GetVariable(&quot;RecordCount&quot;);
+if(RecordCount==1)
+{	
+
+  ec_ResultHelper.ReportResultByIndex(0,PayerGroupNumber.trim());
+}  </Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">272</Property>
+				<Property Name="Tab1/YPos">80</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="47" FP="_AP" Name="activation"/>
+				<ConnectionPoint ID="45" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="46" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="7" Name="JavaScript Output_CheckAmt" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">var myRS = ec_VariableHelper.GetRecordSet(&quot;CheckAmt&quot;);
+myRS.last();
+var RS = myRS.getRow(); // Retrieve the row number of the recordSet
+var FinalAmt=0;
+while(RS&gt;0)
+{
+var Fields = myRS.getFields(); // Retrieve the fields inside the recordSet
+ec_ResultHelper.println(Fields[0]);	
+FinalAmt=FinalAmt + +Fields[0];
+myRS.previous();
+RS = myRS.getRow();
+}
+ FinalAmt = (FinalAmt / 100).toFixed(2);// Convert amt to decimal format
+ec_ResultHelper.ReportResultByIndex(0,FinalAmt);
+
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">320</Property>
+				<Property Name="Tab1/YPos">-48</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="52" FP="_AP" Name="activation">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="49" FP="A" Pos="0" Name="value1"/>
+				<ConnectionPoint ID="50" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="8" Name="JavaScript Input_CheckAmt" Template="JScript">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="Parameters/ec_Script">// Retrieving the record set or creating the recordset
+myRS1 = ec_VariableHelper.GetRecordSet(&quot;CheckAmt&quot;);
+// Creating an empty array and Getting the value by index and assigning it to the array.
+ resArr1 = new Array();
+ 
+ for(i=0;i&lt;1;i++)
+ {
+ 	resArr1[i] = ec_DataHelper.GetValueByIndex(i);
+ }
+//Updating the newly inserted row with the values from the array
+myRS1.insertRow();
+myRS1.updateRow(resArr1);
+ec_VariableHelper.SetRecordSet(&quot;CheckAmt&quot;, myRS1, true);
+</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">64</Property>
+				<Property Name="Tab1/YPos">-192</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="53" FP="A" Pos="0" Name="value1">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="54" FP="X" Pos="0" Name="result1"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="9" Template="ConvertDateTime">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="in_format">CCYYMMDD</Property>
+				<Property Name="in_format_spec">1</Property>
+				<Property Name="out_format">yyyy-MM-dd</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">416</Property>
+				<Property Name="Tab1/YPos">16</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="59" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="58" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+		<Function ID="10" Template="ConvertDateTime">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+			<Properties Category="Settings">
+				<Property Name="in_format">CCYYMMDD</Property>
+				<Property Name="in_format_spec">1</Property>
+				<Property Name="out_format">yyyy-MM-dd</Property>
+			</Properties>
+			<Properties Category="UI">
+				<Property Name="Tab1/XPos">432</Property>
+				<Property Name="Tab1/YPos">-48</Property>
+			</Properties>
+			<ConnectionPoints>
+				<ConnectionPoint ID="61" FP="A" Name="value">
+					<Properties Category="Runtime">
+						<Property Name="ResetValue">true</Property>
+					</Properties>
+				</ConnectionPoint>
+				<ConnectionPoint ID="60" FP="X" Name="result"/>
+			</ConnectionPoints>
+		</Function>
+	</Functions>
+	<Connectors>
+		<Connector OutputCP="11" InputCP="1"/>
+		<Connector OutputCP="21" InputCP="28"/>
+		<Connector OutputCP="15" InputCP="3"/>
+		<Connector OutputCP="17" InputCP="4"/>
+		<Connector OutputCP="19" InputCP="5"/>
+		<Connector OutputCP="23" InputCP="35"/>
+		<Connector OutputCP="24" InputCP="36"/>
+		<Connector OutputCP="40" InputCP="29">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">1</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="40" InputCP="41"/>
+		<Connector OutputCP="30" InputCP="43"/>
+		<Connector OutputCP="50" InputCP="51"/>
+		<Connector OutputCP="55" InputCP="53"/>
+		<Connector OutputCP="40" InputCP="52">
+			<Properties Category="GuidelineFilters">
+				<Property Name="Event">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="58" InputCP="34"/>
+		<Connector OutputCP="22" InputCP="59"/>
+		<Connector OutputCP="56" InputCP="61"/>
+		<Connector OutputCP="60" InputCP="57"/>
+		<Connector OutputCP="65" InputCP="66">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="67" InputCP="68">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="69" InputCP="70">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="71" InputCP="72">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="73" InputCP="74">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="75" InputCP="76">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="77" InputCP="78">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="79" InputCP="80">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="81" InputCP="83">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="84" InputCP="85">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="86" InputCP="82">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">2</Property>
+			</Properties>
+		</Connector>
+		<Connector OutputCP="87" InputCP="48">
+			<Properties Category="BusinessGroups">
+				<Property Name="BGSet">1</Property>
+			</Properties>
+		</Connector>
+	</Connectors>
+</Map>

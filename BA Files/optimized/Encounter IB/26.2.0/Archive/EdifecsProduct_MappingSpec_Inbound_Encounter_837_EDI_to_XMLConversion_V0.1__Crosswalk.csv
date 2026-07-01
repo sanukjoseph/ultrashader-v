@@ -1,0 +1,63 @@
+PWK Segment,,,,
+Enumeration values,Description,HRP Code,Short Name,Short Description
+M1,Medical Record Attachment,1,Xray,The attachment is an X-ray
+6,Initial Assessment,2,Note,The attachment is a copy of the Doctor's Notes
+21,Recovery Plan,3,OPNote,The attachment is a copy of the Operating Room Notes
+HR,Health Clinic Records,5,Payment Receipt,The attachment is a receipt or some other proof of payment
+HC,Health Certificate,6,Cert,The attachment is a Certificate of Completion
+OD,Orders and Treatments Document,7,Bill,The attachment is an itemized bill
+9,Progress Report,8,Collection Note,The attachment is a Collections Notice
+3,Report Justifying Treatment Beyond UtilizationGuidelines,9,Other,Other Type of Attachment
+4,Drugs Administered,9,Other,Other Type of Attachment
+5,Treatment Diagnosis,9,Other,Other Type of Attachment
+7,Functional Goals,9,Other,Other Type of Attachment
+8,Plan of Treatment,9,Other,Other Type of Attachment
+10,Continued Treatment,9,Other,Other Type of Attachment
+11,Chemical Analysis,9,Other,Other Type of Attachment
+13,Certified Test Report,9,Other,Other Type of Attachment
+15,Justification for Admission,9,Other,Other Type of Attachment
+A3,Allergies/Sensitivities Document,9,Other,Other Type of Attachment
+A4,Autopsy Report,9,Other,Other Type of Attachment
+AM,Ambulance Certification,9,Other,Other Type of Attachment
+BR,Benchmark Testing Results,9,Other,Other Type of Attachment
+BS,Baseline,9,Other,Other Type of Attachment
+BT,Blanket Test Results,9,Other,Other Type of Attachment
+CB,Chiropractic Justification,9,Other,Other Type of Attachment
+CK,Consent Form(s),9,Other,Other Type of Attachment
+D2,Drug Profile Document,9,Other,Other Type of Attachment
+DB,Durable Medical Equipment Prescription,9,Other,Other Type of Attachment
+DJ,Discharge Monitoring Report,9,Other,Other Type of Attachment
+I5,Immunization Record,9,Other,Other Type of Attachment
+IR,State School Immunization Records,9,Other,Other Type of Attachment
+LA,Laboratory Results,9,Other,Other Type of Attachment
+OC,Oxygen Content Averaging Report,9,Other,Other Type of Attachment
+OE,Objective Physical Examination (including vital signs) Document,9,Other,Other Type of Attachment
+OX,Oxygen Therapy Certification,9,Other,Other Type of Attachment
+P4,Pathology Report,9,Other,Other Type of Attachment
+P5,Patient Medical History Document,9,Other,Other Type of Attachment
+PE,Parenteral or Enteral Certification,9,Other,Other Type of Attachment
+PQ,Paramedical Results,9,Other,Other Type of Attachment
+PY,Physician’s Report,9,Other,Other Type of Attachment
+RX,Renewable Oxygen Content Averaging Report,9,Other,Other Type of Attachment
+SG,Symptoms Document,9,Other,Other Type of Attachment
+V5,Death Notification,9,Other,Other Type of Attachment
+XP,Photographs,9,Other,Other Type of Attachment
+AS,Admission Summary,10,Admission Summary,Admission Summary
+B2,Prescription,11,Prescription,Prescription
+B3,Physician Order,12,Physician Order,Physician Order
+B4,Referral Form,13,Referral Form,Referral Form
+CT,Certification,14,Certification,Certification
+DA,Dental Models,15,Dental Models,Dental Models
+DG,Diagnostic Report,16,Diagnostic Report,Diagnostic Report
+DS,Discharge Summary,17,Discharge Summary,Discharge Summary
+EB,Explanation of Benefits (Coordination of Benefits or Medicare Secondary Payor),18,Explanation of Benefits,Explanation of Benefits
+MT,Models,19,Models,Models
+NN,Nursing Notes,20,Nursing Notes,Nursing Notes
+OB,Operative Note,21,Operative Note,Operative Note
+OZ,Support Data for Claim,22,Support Data for Claim,Support Data for Claim
+PN,Physical Therapy Notes,23,Physical Therapy Notes,Physical Therapy Notes
+PO,Prosthetics or Orthotic Certification,24,Prosthetics or Orthotic Certification,Prosthetics or Orthotic Certification
+PZ,Physical Therapy Certification,25,Physical Therapy Certification,Physical Therapy Certification
+RB,Radiology Films,26,Radiology Films,Radiology Films
+RR,Radiology Reports,27,Radiology Reports,Radiology Reports
+RT,Report of Tests and Analysis Report,28,Report of Tests and Analysis Report,Report of Tests and Analysis Report

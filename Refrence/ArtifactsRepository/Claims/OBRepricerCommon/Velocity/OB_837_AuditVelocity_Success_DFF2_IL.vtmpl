@@ -1,0 +1,20 @@
+{ 
+ "spInvokedBy": "OB Repricer Edifecs",
+ "extractName": "${ExtractName}",
+ "recipientName": "${RepricerName}",
+ "extractType": "${ExtractType}",
+ "targetLocation" : "${VendorLocation}",
+ "extractId": "${ExtractionID}",
+ "jobId": "${JobId}",
+ "recordCountPerPage": "${TotalRecordCount}",
+ "recordCount":  "${TotalRecordCount}",
+ "processStartTs": "${ProcessStartTs}", 
+ "processEndTs": "${ProcessStartTs}",
+ "pageProcessStartTs": "${ProcessStartTs}",
+ "pageProcessEndTs": "${ProcessStartTs}", 																							 									  
+ "extractFileName":"${ExtractFileName}|${InputFileName}",  
+ "auditCreatedTs": "${AuditCreatedTs}" ,
+ "pageId": "${PageID}",
+ "pageNum": 1,
+ "pageExtractStatus": "SUCCESS - DFF IL Layer Received"											  
+}

@@ -1,0 +1,149 @@
+//--------------fILE LEVEL
+1)This audit point defines the file has been received
+{
+"""inputDetails"":"
+{
+"""inputId"": ""7GAhmuhZngfMDJsQ"","
+"""inputFileName"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""totalTransactions"":""3"","
+"""inputArchiveFilename"": ""Input_2025120402520058_USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""edifecs:file received"","
+"""processStatus"": ""FILE RECEIVED"","
+"""processInputArchiveFilename"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""processOutputArchiveFilename"": """","
+"""auditTime"": ""2025-12-04 02:52:59.156"""
+}
+}
+
+"1)This audit point mentions about the file validation. If validation successful, split happens. If validation fails(eg: empty file or corruped file), the process ends"
+{
+"""inputDetails"":"
+{
+"""inputId"": ""7GAhmuhZngfMDJsQ"","
+"""inputFileName"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""totalTransactions"":""3"","
+"""inputArchiveFilename"": ""Input_2025120402520058_USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""edifecs:file validation"","
+"""processStatus"": ""PROCESSED/ERROR"","
+"""processInputArchiveFilename"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""processOutputArchiveFilename"": """","
+"""auditTime"": ""2025-12-04 02:52:59.156"""
+}
+}
+
+//---------------Transaction level------------------------------
+//1st record:
+{
+"""inputDetails"":"
+{
+"""inputId"": ""7GAhmuhZngfMDJsQ"","
+"""inputFileName"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""totalTransactions"":"""","
+"""inputArchiveFilename"": ""Input_2025120402520058_USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""edifecs:message split"","
+"""processStatus"": ""PROCESSED"","
+"""processInputArchiveFilename"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""processOutputArchiveFilename"": """","
+"""auditTime"": ""2025-12-04 02:52:59.145"""
+"},"
+"""identifiers"":"
+{
+"""rayIdentifier"": ""C5642D26-691C-45F1-BAF2-84E38C9EBB32"","
+"""recordIdentifier"": ""068B51AF-7693-4A99-8F6D-968CBCE0EE99"","
+"""recordIdentifierFromSource"": """""
+}
+}
+
+
+{
+"""inputDetails"":"
+{
+"""inputId"": ""7GAhmuhZngfMDJsQ"","
+"""inputFileName"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""totalTransactions"":"""","
+"""inputArchiveFilename"": ""Input_2025120402520058_USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""edifecs:publish completed"","
+"""processStatus"": ""MESSAGE PUBLISHED"","
+"""processInputArchiveFilename"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""processOutputArchiveFilename"": """","
+"""auditTime"": ""2025-12-04 02:52:59.378"""
+"},"
+"""identifiers"":"
+{
+"""rayIdentifier"": ""C5642D26-691C-45F1-BAF2-84E38C9EBB32"","
+"""recordIdentifier"": ""068B51AF-7693-4A99-8F6D-968CBCE0EE99"","
+"""recordIdentifierFromSource"": """""
+}
+}
+
+
+
+
+//2nd record:
+{
+"""inputDetails"":"
+{
+"""inputId"": ""7GAhmuhZngfMDJsQ"","
+"""inputFileName"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""totalTransactions"":"""","
+"""inputArchiveFilename"": ""Input_2025120402520058_USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""edifecs:message split"","
+"""processStatus"": ""PROCESSED"","
+"""processInputArchiveFilename"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""processOutputArchiveFilename"": """","
+"""auditTime"": ""2025-12-04 02:52:59.088"""
+"},"
+"""identifiers"":"
+{
+"""rayIdentifier"": ""A90CC353-EB5A-4ADA-97A0-A824D3F7FA81"","
+"""recordIdentifier"": ""775C7D71-44C3-4ED0-A1D8-206D7EF8210C"","
+"""recordIdentifierFromSource"": """""
+}
+}
+
+
+//------------------------------- File message publish -------------------------------
+{
+"""inputDetails"":"
+{
+"""inputId"": ""7GAhmuhZngfMDJsQ"","
+"""inputFileName"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""totalTransactions"":"""","
+"""inputArchiveFilename"": ""Input_2025120402520058_USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"""
+
+"},"
+"""process"":"
+{
+"""processStageName"": ""edifecs:publish completed"","
+"""processStatus"": ""MESSAGE PUBLISHED"","
+"""processInputArchiveFilename"": ""USTDailyStatusReport_20250628000_DF307987_55 (2) - Copy"","
+"""processOutputArchiveFilename"": """","
+"""auditTime"": ""2025-12-04 02:52:59.319"""
+"},"
+"""identifiers"":"
+{
+"""rayIdentifier"": ""A90CC353-EB5A-4ADA-97A0-A824D3F7FA81"","
+"""recordIdentifier"": ""775C7D71-44C3-4ED0-A1D8-206D7EF8210C"","
+"""recordIdentifierFromSource"": """""
+}
+}

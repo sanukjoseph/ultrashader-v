@@ -1,0 +1,269 @@
+Record Type 1 Payment Level Information,,,,,,
+,,,,,,
+INDEX,DATA ELEMENT,DATA TYPE,REQ,DESCRIPTION,Highmark Comments,UST
+1.001,Record,Varchar(4),Required,0001,,
+1.002,BatchKey,Varchar(75),Required,See key generation,,
+1.003,CheckNumberPrefix,Varchar(4),Optional,The prefix for the check number assigned to the check.,,
+1.004,CheckNumber,Varchar(25),Optional,The check number assigned to the check.,,
+1.005,CheckDate,Date,Optional,The check date MMDDYYYY,,
+1.006,CheckAmount,Money,Required,The numeric payment for the check,,
+1.007,FractionTransitNumber,Varchar(25),Optional,"The Fractional Transit Number for the bank, as held in Fund Accounting for the applicable account for the group.",,
+1.008,MICRTransitNumber,Varchar(9),Required,"The MICR Transit Number for the bank, as held in Fund Accounting for the applicable account for the group.",,
+1.009,AccountNumber,Varchar(255),Required,"The Bank Account Number for the bank, as held in Fund Accounting for the applicable account for the group.",,
+1.010,BankName,Varchar(255),Required,The Bank Name,,
+1.011,BankAddress1,Varchar(255),Optional,The first bank address field,,
+1.012,BankAddress2,Varchar(255),Optional,The second bank address field,,
+1.013,BankCity,Varchar(255),Optional,The city for the bank,,
+1.014,BankState,Varchar(2),Optional,The state for the bank,,
+1.015,BankZip,Varchar(10),Optional,The zip for the bank,,
+1.016,BankCountry,Varchar(255),Optional,The country code for the bank,,
+1.017,PayeeName,Varchar(255),Required,The payee name. This is the recipient for the check.,,
+1.018,PayeeAddress1,Varchar(255),Required,The first address line for the payee,,
+1.019,PayeeAddress2,Varchar(255),"Required, if available",The second address line for the payee,Missing in the sample PNC extract,If address Line 2 is available in HRP this will be populated
+1.020,PayeeCity,Varchar(255),Required,The city for the payee,,
+1.021,PayeeState,Varchar(2),Required,The state for the payee,,
+1.022,PayeeZip,Varchar(10),Required,The zip for the payee,,
+1.023,PayeeCountry,Varchar(255),Required,The country for the payee,,
+1.024,SpecHandle,Varchar(10),Optional,"Special Handling for the payment, i.e. reinsurance",,
+1.025,ResponseType,Varchar(10),Optional,"Indicates the original response provided by payment vendor in the Response File (2). Valid values are: Payment, 835Only, None.",Missing in the sample PNC extract,This was a required field for another client. For 835 generation this is not used. Marked as optional field
+1.026,PPO Network Contract Identifier,Varchar(3),Optional,"(If Available)PPO Contract Identifier from ClaimHeader. For provider voucher processing, it is assumed that the first non-blank PPO Contract Identifier will be communicated (if available).",Missing in the sample PNC extract,This was a required field for another client. For 835 generation this is not used. Marked as optional field
+1.027,Provider Phone Number,Varchar(15),Optional,,,
+1.028,Provider Email,Varchar(100,Optional,,,
+1.029,Provider Type,Varchar(50),Optional,Provider taxonomy code,,
+1.030,Provider TIN Sequence Code,Varchar(10),Optional,Sequence code for the payee provider,Missing in the sample PNC extract,This was a required field for another client. For 835 generation this is not used. Marked as optional field
+1.031,Paid To,Varchar(1),Required,"if Fully Funded Paid To (E=Employee, D=Dependent, M = Member, P=Provider, S=Split pay)",,
+1.032,Payee SSN/TIN,Varchar(9),Required,(if Member Payment) Payee SSN or TIN,,
+1.033,Payee NPI,Int,Required,(If Available) The NPI for the payee provider,,
+,,,,,,
+,,,,,,
+,,,,,,
+Record Type 2 Claim Level Information,,,,,,
+,,,,,,
+INDEX,Data Element,Data Type,REQ,Description,,
+2.001,Record,Varchar(4),Required,002,,
+2.002,BatchKey,Varchar(75),Required,See key generation,,
+2.003,ClaimNumber,Varchar(50),Required,The claim number assigned for the claim.,,
+2.004,EOBNumber,Varchar(10),Optional,The EOB number assigned for the claim.,,
+2.005,PatientID,Varchar(30),Required,The patient account number for the claim. This is assigned by the provider (ie. SSN),,
+2.006,PatientName,Varchar(255),Required,The patient's name,,
+2.007,PatientDOB,Date,Optional,The patient's Date of Birth.   MMDDYYYY,Missing in the sample PNC file,Marking as optional as it is not used for 835 mapping
+2.008,ParticipantKey,Varchar(30),Optional,The insured's employee number Enrollee Member ID,Missing in the sample PNC file,Marking as optional as it is not used for 835 mapping
+2.009,ParticipantName,Varchar(255),Optional,The insured's name,,
+2.01,ParticipantAddress1,Varchar(255),Optional,The first address line for the insured,,
+2.011,ParticipantAddress2,Varchar(255),Optional,The second address line for the insured,,
+2.012,ParticipantCity,Varchar(255),Optional,The city for the insured,,
+2.013,ParticipantState,Varchar(2),Optional,The state for the insured,,
+2.014,ParticipantZip,Varchar(10),Optional,The zip for the insured,,
+2.015,ParticipantCountry,Varchar(255),Optional,The country for the insured,,
+2.016,ProviderNPI,Int,Required (If Available),The NPI for the provider of service,Missing in the sample PNC file,Available in the sample file.
+2.017,ProviderTIN,Varchar(9),Required (If Available),The TIN for the provider of service,Missing in the sample PNC file,
+2.017.1,Provider TIN Sequence Code,Varchar(7),Required (If Available),Sequence code for the providers,Missing in the sample PNC file,
+2.018,ProviderName,Varchar(255),Required (If Available),The provider's name,Missing in the sample PNC file,
+2.019,ProviderAddress1,Varchar(255),Required (If Available),The first address line for the provider,Missing in the sample PNC file,
+2.02,ProviderAddress2,Varchar(255),Required (If Available),The second address line for the provider,Missing in the sample PNC file,
+2.021,ProviderCity,Varchar(255),Required (If Available),The city for the provider,Missing in the sample PNC file,
+2.022,ProviderState,Varchar(2),Required (If Available),The state for the provider,Missing in the sample PNC file,
+2.023,ProviderZip,Varchar(10),Required (If Available),The zip for the provider,Missing in the sample PNC file,
+2.024,ProviderCountry,Varchar(255),Required (If Available),The country for the provider,Missing in the sample PNC file,
+2.025,GroupCode,Varchar(30),Required (If Available),The Group number for the insured,Missing in the sample PNC file,
+2.026,GroupSubCode,Varchar(30),Required (If Available),The Sub Group number for the insured,,
+2.027,GroupName,Varchar(255),Required (If Available),The group name for the insured.,,
+2.028,ChargeAmount,Money,Required,"The amount billed, for all service lines for this claim.",,
+2.029,PPODiscountAmount,Money,Required (If Available),"The PPO discount amount, for all service lines for this claim.",Missing in the sample PNC file,
+2.03,RNCDiscountAmount,Money,Required (If Available),"The Reasonable and customary amount, for all service lines for this claim.",Missing in the sample PNC file,
+2.031,COBAmount,Money,Required (If Available),"The COB amount, for all service lines for this claim for this claim",Missing in the sample PNC file,
+2.032,DeductableAmount,Money,Required (If Available),The total amount applied to a deductible for all service lines for this claim,Missing in the sample PNC file,
+2.033,CoInsuranceAmount,Money,Required (If Available),The total amount of Co -Insurance for all service lines for this claim,Missing in the sample PNC file,
+2.034,CopayAmount,Money,Required (If Available),The total amount of the co-pay for all service lines for this claim,Missing in the sample PNC file,
+2.035,SumDedCoinsCopayAmount,Money,Required (If Available),"The SUM of all Deductible Amounts, Co - Insurance, and CoPay for all service lines for this claim.",Missing in the sample PNC file,
+2.036,OtherAdjustmentsAmount,Money,Required (If Available),The total amount of all other adjustments for all service lines for this claim. This will include all other adjustments not mentioned individually above.,Missing in the sample PNC file,
+2.037,PaidAmount,Money,Required,"The total plan paid amount, for all service lines for this claim.",,
+2.038,PatientOwedAmount,Money,Required (If Available),The employee responsibility for the service line,Missing in the sample PNC file,
+2.039,PatientPaidAmountTotal,Money,Required (If Available),"The total patient paid amount, for all service lines for this claim.",,
+2.04,ClaimStatusCode,Varchar(5),Required (If Available),"Determined based on whether it is a primary paid, denied, or reversal claim, etc. (1, 4, 22, etc.).",,
+2.041,AlternateProcedureCode,Varchar(15),Required (If Available),Alternate Procedure Code/DRG. For Institutional Claims with DRG code.,Missing in the sample PNC file,
+2.042,CoverageExpiration,Date,Required (If Available),Expiration date of patient’s coverage.,Missing in the sample PNC file,
+2.043,AdjudicationAllowedAmount,Money,Required (If Available),This value is calculated as (Charge) minus (PPO Discount/RNC Discount) minus (Ineligible Amounts).,Missing in the sample PNC file,
+2.044,Provider NAIC Code,Varchar(255),Required (If Available),National Association of Insurance Commissioners (NAIC) Code,Missing in the sample PNC file,
+2.045,Corrected Patient/Insured Name,Varchar(255),Required (If Available),Corrected information about the patient or insured.,Missing in the sample PNC file,
+2.046,Corrected Patient/Insured Member ID,Varchar(255),Required (If Available),Insured's Changed Unique Identification Number,Missing in the sample PNC file,
+2.047,Corrected Priority Payer Name,Varchar(255),Required (If Available),Another payer has priority for making a payment and the claim is not being automatically transferred to that payer. This is the name of the new priority payer.,Missing in the sample PNC file,
+2.048,Corrected Priority Payer NAIC or TIN,Varchar(255),Required (If Available),Another payer has priority for making a payment and the claim is not being automatically transferred to that payer. This is the unique id of the new priority payer.,Missing in the sample PNC file,
+2.049,Corrected Priority Payer Subscriber Name,Varchar(255),Required (If Available),Another payer has priority for making a payment and the claim is not being automatically transferred to that payer. This is the name of the subscriber with the new priority payer.,Missing in the sample PNC file,
+2.05,Corrected Priority Payer Subscriber Member Id,Varchar(255),Required (If Available),Another payer has priority for making a payment and the claim is not being automatically transferred to that payer. This is the name of the subscriber id the new priority payer.,Missing in the sample PNC file,
+2.051,Claim Received Date,Date,Required,This is the date that the claim was received by the payer.,,
+2.052,Interest Amounts,Money,Not Required,Use this monetary amount for the interest amount,Missing in the sample PNC file,This is not required field
+2.053,Prompt Pay Discount,Money,Required (If Available),,Missing in the sample PNC file,
+2.054,Over Coinsurance Maximum Amount,Money,Required (If Available),This is the total over coinsurance maximum ineligible amounts for the claim,Missing in the sample PNC file,
+2.055,Over Benefit Maximum Amount,Money,Required (If Available),This is the total over benefit maximum ineligible amounts for the claim,Missing in the sample PNC file,
+2.056,Over Period A Maximum Amount,Money,Required (If Available),This is the total Period A maximum ineligible amounts for the claim,Missing in the sample PNC file,
+2.057,Over Period B Maximum Amount,Money,Required (If Available),This is the total Period B maximum ineligible amounts for the claim,Missing in the sample PNC file,
+2.058,Miscellaneous Ineligible Amount,Money,Required (If Available),This is the total of any ineligible amounts not otherwise defined for the claim,Missing in the sample PNC file,
+2.059,PPO Network Contract Identifier,Varchar(3),Required (If Available),"PPO Contract Identifier from Claim Header.  For provider voucher processing, this field may contain a different value than the value sent in the Pre-Pass record since there may be multiple record type 0002 records per voucher payment (if available).",Missing in the sample PNC file,
+2.06,Provider Type,Varchar(50),Optional,Provider taxonomy code,Missing in the sample PNC file,
+2.061,Facility Code Value,Varchar(50),Required (If Available),"Code identifying where services were, or may be, performed; the first and second positions of the Uniform Bill Type Code for Institutional Services or the Place of Service Codes for Professional or Dental Services. Loop 2100 CLP08 from the 835 specifications. Since professional or dental claims can have different place of service codes for services within a single claim, default to the place of service of the first service line when the service lines are not all for the same place of service. This number was received in CLM05-1 of the 837 claims.",,
+2.062,From Date,DateTime,Required (If Available),"2100 DTM FROM AND TO DATES. Claim service date, may be overridden at the service level.
+Required when the “Statement From or To Dates” are not supplied at the service (2110 loop) level. Dates at the claim level apply to the entire claim, including all service lines. Dates at the service line level apply only to the service line where they appear. When claim dates are not provided, service dates are required for every service line. When claim dates are provided, service dates are not required, but if used they override the claim dates for individual service lines. If the claim statement period start date is conveyed without a subsequent claim statement period end date, the end date is assumed to be the same as the start date.",Missing in the sample PNC file,
+2.063,To Date,DateTime,Optional,"2100 DTM FROM AND TO DATES. Claim service date, may be overridden at the service level.
+Required when the “Statement From or To Dates” are not supplied at the service (2110 loop) level. Dates at the claim level apply to the entire claim, including all service lines. Dates at the service line. level apply only to the service line where they appear. When claim dates are not provided, service dates are required for every service line. When claim dates are provided, service dates are not required, but if used they override the claim dates for individual service lines.",Missing in the sample PNC file,
+2.064,Claim Filing Indicator Code,Varchar(5)`,Required (If Available),"Loop 2100 CLP06 For many providers to electronically post the 835remittance data to their patient accounting systems without human intervention, a unique, provider-specific insurance plan code is needed. This code allows the provider to separately identify and manage the different product lines or contractual arrangements between the payer and the provider. Because most payers maintain the same Originating Company Identifier in the TRN03 or BPR10 for all product lines or contractual relationships, the CLP06 is used by the provider as a table pointer in combination with the TRN03 or BPR10 to identify the unique, provider-specific insurance plan code needed to post the payment without human intervention. The value should mirror the value received in the original claim (2-005 SBR09 of the 837), if applicable, or provide the value as assigned or edited by the payer. For example, the BL from the SBR09 in the 837 would be returned as 12, 13, 15, in the 835 when more details are known. The 837 SBR09 code CI (Commercial Insurance) is generic, if through adjudication the specific type of plan is obtained a more specific code must be returned in the 835.
+12  Preferred Provider
+Organization (PPO)
+13  Point of Service (POS)
+14  Exclusive Provider Organization
+(EPO)
+15  Indemnity Insurance
+16  Health Maintenance
+Organization (HMO) Medicare
+Risk
+17  Dental Maintenance
+Organization
+AM Automobile Medical
+CH Champus
+DS Disability
+HM Health Maintenance
+Organization
+LM Liability Medical
+MA Medicare Part A
+MB Medicare Part B
+MC Medicaid
+OF Other Federal Program 1049 Use this code for the Black Lung Program.
+TV Title V
+VA Veterans Affairs Plan
+WC Workers’ Compensation
+Health Claim
+ZZ Mutually Defined",,
+2.065,Discharge Fraction,"Decimal(3,2)",Required (If Available),"Loop 2100 CLP13 Percentage expressed as a decimal (e.g., 0.0 through 1.0 represents 0% through
+100%). Required when a discharge
+fraction was applied in the adjudication process.",Missing in the sample PNC file,
+2.066,Patient Type Identifier,Varchar(2),Required (If Available),“I” for inpatient and “O” for outpatient. Needed for RARC reporting.,Missing in the sample PNC file,
+2.067,Original Reference Number,Varchar(50),Required (If Available),"When this is a correction claim and CLP07 does not equal the CLP07 value from the original claim payment, one iteration of this REF segment using this qualifier is REQUIRED to identify the original claim CLP07 value in REF02. See section 1.10.2.8, Reversals and Corrections, for additional information.",Missing in the sample PNC file,
+2.068,DRG Weight,Varchar(15),Required (If Available),Loop 2100 CLP12. The average diagnosis-related group (DRG) weight.,Missing in the sample PNC file,
+2.069,Diagnosis Related Group Code,Varchar(4),Required (If Available),"Loop 2100 CLP11. Code indicating a patient’s diagnosis group based on a patient’s illness, diseases, and medical problems. Required for institutional claims when the claim was adjudicated using a DRG.",Missing in the sample PNC file,
+2.07,Other Subscriber Name,Varchar(100),Required (If Available),"2100 NM1.  LAST, FIRST. This is the name and ID number of the other subscriber when a corrected priority payer has been identified. When used, either the name or ID must be supplied. Required when a corrected priority payer has been identified in another NM1 segment AND the name or ID of the other subscriber is known. If not required by this implementation guide, do not send.",Missing in the sample PNC file,
+2.071,CDHP Type,Nvarchar(3),Optional,"Possible Values:
+DEP
+FSA
+HRA
+LFS
+TMT
+TPC
+TPR
+
+Populated when a claim is a CDHP claim to indicate CDHP status.",Missing in the sample PNC file,
+2.072,Relationship Code,Varchar(5),Optional,Code representing relationship of insured to patient,Missing in the sample PNC file,
+2.073,Alternate Provider ID,Varchar(50),Required (If Available),Required when additional rendering provider identification numbers not already reported in the Provider NM1 segment for this claim were submitted on the original claim and impacted adjudication.,Missing in the sample PNC file,
+2.074,Crossover Carrier Name,Varchar(255),Required (If Available),"Required when the claim is transferred to another carrier or coverage (CLP02 equals 19, 20, 21 or 23).",Missing in the sample PNC file,
+2.075,Crossover Carrier NAIC or TIN,Varchar(255),Required (If Available),"Required when the claim is transferred to another carrier or coverage (CLP02 equals 19, 20, 21 or 23).",Missing in the sample PNC file,
+2.076,Claim Contact Telephone,Varchar(256),Required (If Available),Required when there is a claim specific communications contact.,Missing in the sample PNC file,
+2.077,Tax Amount,Money,Required (If Available),Required when tax is non-zero.,Missing in the sample PNC file,
+2.078,Total Claim Before Tax,Money,Required (If Available),Used only when tax also applies to the claim.,Missing in the sample PNC file,
+2.079,Patient Control Number,,Required,Patient Control Number,,
+2.080,Patient Last name,,Required,Last name,,
+2.081,Patient First name,,Required,First Name,,
+2.082,Patient Middle name,,Required,Middle Name,,
+2.083,Frequency Code,,Required,Frequency  Code,,
+2.084,SubmittedPatientID,Varchar(30),Required,Patient member ID as originally submitted in the claim,,
+2.085,SubmittedPatientFirstName,Varchar(255),Required,First Name as originally submitted in the claim,,
+2.086,SubmittedPatientMiddleName,Varchar(255),Required,Middle Name as originally submitted in the claim,,
+2.087,SubmittedPatientLastName,Varchar(255),Required,Last name as originally submitted in the claim. This will be used to send the submitted patient Full Name as it is in HRDW database.,,
+2.088,SubscriberID,Varchar(30),Required,Subscriber ID if the patient is not subscriber,,
+2.089,SubscriberFirstName,Varchar(255),Required,Subscriber First Name if the patient is not subscriber,,
+2.090,SubscriberMiddleName,Varchar(255),Required,Subscriber Middle Name if the patient is not subscriber,,
+2.091,SubscriberLastName,Varchar(255),Required,Subscriber Last Name if the patient is not subscriber,,
+2.092,PractitionerFirstName,varchar(107),Required (If Available),Practitioner First Name from the Claim,,
+2.093,PractitionerMiddleName,varchar(107),Required (If Available),Practitioner Middle Initial from the Claim,,
+2.094,PractitionerLastName,varchar(107),Required (If Available),Practitioner last name from the Claim,,
+,,,,,,
+Record Type 3 Claim line Level Information,,,,,,
+,,,,,,
+INDEX,Data Element,Data Type,REQ,Description,,
+3.001,Record,Varchar(4),Required,0003,,
+3.002,BatchKey,Varchar(75),Required,See key generation,,
+3.003,ClaimNumber,Varchar(50),Required,The claim number assigned for the claim.,,
+3.004,ClaimLineNumber,Varchar(4),Required(If Available),The service line number is used to specify the order of the services rendered on the claim,,
+3.005,FromDate,Date,Required (If Available),The incurred from date MMDDYYYY,,
+3.006,ToDate,Date,Required (If Available),The incurred through date MMDDYYYY,,
+3.007,ProcedureCode,Varchar(5),Required (If Available),The procedure code,,
+3.008,ProcedureDescription,Varchar(40),Required (If Available),The procedure description,,
+3.009,LayProcedureDescription,Varchar(40),Required (If Available),The layperson procedure description,Missing in the sample PNC file,
+3.010,ChargeAmount,Money,Required,The amount billed for the serviceline,,
+3.011,PPODiscountAmount,Money,Required(If Available),The discount amount for the service line,,
+3.012,RNCDiscountAmount,Money,Required(If Available),The Reasonable and customaryamount for the service line,Missing in the sample PNC file,
+3.013,COBAmount,Money,Required(If Available),The COB amount for the service line,Missing in the sample PNC file,
+3.014,DeductableAmount,Money,Required(If Available),Any amount applied to the deductible for the service line,Missing in the sample PNC file,
+3.015,CoInsuranceAmount,Money,Required (If Available),Co-Insurance Amount detail line,Missing in the sample PNC file,
+3.016,CopayAmount,Money,Required (If Available),Co-Payment amount per detail line,Missing in the sample PNC file,
+3.017,SumDedCoinsCopayAmount,Money,Required(If Available),"The SUM of all deductible amounts,Co-Insurance, and Co-Payment",Missing in the sample PNC file,
+3.018,OtherAdjustmentsAmount,Money,Required(If Available),Any other adjustment amount perdetail line,Missing in the sample PNC file,
+3.019,PaidAmount,Money,Required,The plan paid amount for the service line,,
+3.020,PatientOwedAmount,Money,Required (If Available),The employee responsibility for the service line,Missing in the sample PNC file,
+3.021,ServiceProviderName,Varchar(255),Conditional,Only required if the service providername is not the payee for the claim,Missing in the sample PNC file,
+3.022,ServiceProviderNationalProviderID,Varchar(255),Conditional,Only required if the service provider ID is not the payee for the claim,,
+3.023,Product/Service ID Qualifier,Varchar(255),Required,The database from which the procedure code is derived,Missing in the sample PNC file,This is not used for 835 mapping yet this will be populated if its available in HRP
+3.024,Units,Int,Required (if available),Units on the claim line. This is required by HIPAA if units on the claim line are > 1,,
+3.025,Previously Paid Amount,Money,Required (If Available),"The previously paid amount on the claim, for “underpayment reversal” claims. This amount corresponds tothe amount already paid on the claim, on a check that is NOT being reversed (although the claim in the adjudication system IS being reversed.",Missing in the sample PNC file,
+3.026,Over Coinsurance Maximum Amount,Money,Required (If Available),This is the total over coinsurance maximum ineligible amounts for the claim,Missing in the sample PNC file,
+3.027,Over Benefit Maximum Amount,Money,Required (If Available),This is the total over benefit maximum ineligible amounts for the claim,Missing in the sample PNC file,
+3.028,Over Period A Maximum Amount,Money,Required (If Available),This is the total Period A maximum ineligible amounts for the claim,Missing in the sample PNC file,
+3.029,Over Period B Maximum Amount,Money,Required (If Available),This is the total Period B maximum ineligible amounts for the claim,Missing in the sample PNC file,
+3.030,Miscellaneous Ineligible Amount,Money,Required (If Available),This is the total of any ineligible amounts not otherwise defined for the claim,Missing in the sample PNC file,
+3.031,Procedure Modifier,Varchar(60),Required (if applies),Loop 2110 SV01-3. This identifies the special circumstances related to the performance of the service.,Missing in the sample PNC file,
+3.031.1,Procedure Modifier 2,Varchar(60),Required (if applies),Loop 2110 SV01-4. This identifies the special circumstances related to the performance of the service.,Missing in the sample PNC file,
+3.031.2,Procedure Modifier 3,Varchar(60),Required (if applies),Loop 2110 SV01-5. This identifies the special circumstances related to the performance of the service.,Missing in the sample PNC file,
+3.031.3,Procedure Modifier 4,Varchar(60),Required (if applies),Loop 2110 SV01-6. This identifies the special circumstances related to the performance of the service.,Missing in the sample PNC file,
+3.032,Healthcare Policy ID,Varchar(50),Required(if available),"Loop 2110 REF02. Supply the Healthcare policy identifier as provided by the payer’s published Healthcare policy code list. This policy code will be used to explain the policy used to process the claim which resulted
+in the adjusted payment.
+Required when;
+• The payment is adjusted in
+accordance with the Payer’s
+published Healthcare Policy Code
+list and
+•A Claim Adjustment Reason Code
+identified by the notation, “refer to
+835 Healthcare Policy identification
+segment”, in the Claim Adjustment
+Reason Code List is present in a
+related CAS segment and
+• The payer has a published
+enumerated healthcare policy code
+list available to healthcare
+providers via an un-secure public
+website.|",Missing in the sample PNC file,
+3.033,Allowed Amount,Money,Required,Loop 2110 AMT*B6. Allowed amount on this service line. Allowed amount is the amount the payer deems payable prior to considering patient responsibility. This can also be the COB allowed amount on a secondary claim.,,
+3.034,Revenue Code,Varchar(4),Required(if available),Loop 2110 SVC01-2. Used when SVC01-1 is NU. National Uniform Billing Committee Revenue code,Missing in the sample PNC file,
+3.035,Composite Code,Varchar(80),Required(if available),Used when sending the full 835 composite procedure code already formed for SVC01,Missing in the sample PNC file,
+3.036,Original Units,Integer,Required(if available),Loop 2101 SVC07. The original submitted units of service,Missing in the sample PNC file,
+3.037,Line Item Control Number,Varchar(20),Required(if available),"Loop 2110 RF02. This is the Line Item Control Number submitted in the 837, which is utilized by the provider for tracking purposes. Note - the value in REF02 can include alpha characters. Required when a Line Item Control Number was received on the original claim or when claim or service line splitting has occurred. If not required by this implementation guide, do not send",,
+3.038,Rendering Provider TIN,Varchar(20),Required (if different from claim),"Loop 2110 REF02. The Service provider TIN, if it is different from the claim TIN. Required when the rendering provider for this service is different than the rendering provider applicable at the claim level",Missing in the sample PNC file,
+3.039,Rendering Provider NPI,Varchar(50),Required (if available),Rendering provider NPI. Required if different from claim level NPI.,,
+3.040,Tax Amount,Money,Required (If Available),Required if tax is non-zero.,Missing in the sample PNC file,
+3.041,Late Filing Deduction,Money,Required (If Available),Required when there is a Late Filing Reduction,Missing in the sample PNC file,
+3.042,Total Claim Before Taxes,Money,Required (If Available),Use this monetary amount for the service charge before taxes. This is only used when there is an applicable tax amount on this service.,Missing in the sample PNC file,
+3.043,Submitted Product/Service id qualifier,Varchar(255),Required,The database from which the procedure code is derived,,
+3.044,Submitted ProcedureCode,Varchar(5),Required (If Available),The procedure code,,
+3.045,Submitted Procedure Modifier,Varchar(60),Required (if applies),Loop 2110 SV01-3. This identifies the special circumstances related to the performance of the service.,,
+3.046,Submitted Procedure Modifier 2,Varchar(60),Required (if applies),Loop 2110 SV01-4. This identifies the special circumstances related to the performance of the service.,,
+3.047,Submitted Procedure Modifier 3,Varchar(60),Required (if applies),Loop 2110 SV01-5. This identifies the special circumstances related to the performance of the service.,,
+3.048,Submitted Procedure Modifier 4,Varchar(60),Required (if applies),Loop 2110 SV01-6. This identifies the special circumstances related to the performance of the service.,,
+,,,,,,
+Record Layout 4 (Remarks/ adjustment level information),,,,,,
+,,,,,,
+INDEX,Data Element,Data Type,REQ,Description,,
+4.001,Record,Varchar(4),Required,0004,,
+4.002,BatchKey,Varchar(75),Required,See key generation,,
+4.003,ClaimNumber,Varchar(50),Optional,The claim number assigned for the claim. Required if remark is at claim line or claim service line,,
+4.004,ClaimLineNumber,Varchar(15),Optional,The claim line number assigned for the particular service line. Required if remark is at the claim service line,,
+4.005,System Remark Code,Varchar(10),Required,The internal system remark code for a service line,,
+4.006,System Remark Description,Varchar(1000),Required (If Available),The description used for the above remark code,,
+4.007,ProviderAdjustmentCode,Varchar(2),Required (If Available),Adjustments to the actual payment that are NOT specific to a particular claim or service,Missing in the sample PNC file,
+4.008,835 Adjusted Amount,Money,Required (If Available),The respective adjusted amount for the aforementioned Remark Code,,
+4.009,CARC,Varchar(50),Required (If Available),Client CARC Code mapped to System Remark Code,,
+4.01,RARC,Varchar(50),Required (If Available),Client RARC Code mapped to corresponding 4.009 CARC,,
+4.011,CAGC,Varchar(50),Required (If Available),Client CAGC Code mapped to corresponding 4.009 CARC,,
+4.012,Remark Type,Varchar(10),Required (If Available),Defines type of ineligible amount from Payments File Detail record,Missing in the sample PNC file,
+4.013,PLB Identifier,Varchar(100),Required (if available),"835 Summary Field PLB03-2. Provider Level Adjustment Code related claim number of another identifier.
+Required when a control, account or tracking number applies to this adjustment.
+For example, for Provider Level Adjustment Code 72, PLB03-2 must always contain an identifying reference number when the value is used.
+For code “CS”, you must provide supporting identification information in PLB03-2.",Missing in the sample PNC file,
+4.014,Covered Days,Int,Required (if available),"The number of days being adjusted. A positive value decreases the covered days, and a negative number increases the covered days. CAS04, CAS07, CAS10, CAS13, CAS16, CAS19",Missing in the sample PNC file,

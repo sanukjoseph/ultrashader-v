@@ -1,0 +1,103 @@
+import org.apache.commons.lang.StringUtils
+import com.edifecs.etools.xeserver.proxy.ProxyMessage
+
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages
+message = messages[0]
+msgHeaders = message.headers
+
+// Copy exchange properties to message headers
+exchProperties.each { k, v -> msgHeaders.put(k, v) }  
+
+// Retrieve the base filename and extension from input properties
+def baseFileName = exchProperties.get('FileNameNoExt')  // Get the base filename without extension
+def extension = exchProperties.get('extension')  // Get the file extension
+
+// Read the input content as a String
+messageBodyInputStream = message.getBodyAsSmartStream().getInputStream();
+String inputContent = new String(messageBodyInputStream.readAllBytes());
+
+// Replace all occurrences of ~ with \r\n (to format the unstructured file)
+inputContent = inputContent.replace('~', '\r\n')
+
+// Split the content into lines
+def lines = inputContent.split('\n')
+
+// Count the occurrences of CLM* segments
+def clmCount = lines.count { it.startsWith("CLM*") }
+
+// Set the clmCount in the properties as test
+msgHeaders.put("TotalEdiTransaction", clmCount.toString())
+
+// Find all the ISA* lines and split accordingly
+def isaSegments = []
+def currentISA = []
+def isISAFound = false
+
+// Process each line to identify ISA* and corresponding blocks
+lines.each { line ->
+    if (line.startsWith("ISA*")) {
+        // If an ISA* is found, process the current block (if any)
+        if (isISAFound) {
+            isaSegments << currentISA.join('\n')  // Add the current block to the ISA segments list
+        }
+        currentISA = [line]  // Start a new block with the current ISA line
+        isISAFound = true
+    } else {
+        currentISA << line  // Add the line to the current block
+    }
+}
+
+// Add the last ISA* block
+if (isISAFound) {
+    isaSegments << currentISA.join('\n')
+}
+
+// Check the number of ISA segments and decide whether to split the file or not
+if (isaSegments.size() > 1) {
+    // If there are multiple ISA* segments, perform the split logic
+    isaSegments.eachWithIndex { segment, index ->
+        def finalFileName
+		def finalFileNameNoExt
+        if (isaSegments.size() > 1) {
+            // If there are multiple ISA* segments, append a counter
+            finalFileName = baseFileName + "_" + (index + 1) + "." + extension
+			finalFileNameNoExt = baseFileName + "_" + (index + 1)
+        } else {
+            // If there is only one ISA* segment, no counter is needed
+            finalFileName = baseFileName + "." + extension
+			finalFileNameNoExt = baseFileName + "_" + (index + 1)
+        }
+
+        // Set the final filename in the response properties
+        properties.put("SplitISAFileName", finalFileName)
+		msgHeaders.put("MultipleCheckISA", "Yes")
+        properties.put("SplitISAFileNameWithoutExt", finalFileNameNoExt)
+
+        // Prepare headers for the new message
+        def newMsgHeaders = [:]  // Initialize a new map for the headers
+        exchProperties.each { k, v -> newMsgHeaders.put(k, v) }  // Populate the new message headers with existing exchange properties
+
+        // Create a new message using context.createNewMessage
+        ProxyMessage newMessage = context.createNewMessage(segment, newMsgHeaders)
+
+        // Set the SplitISAFileName header
+        newMessage.setHeader("SplitISAFileName", finalFileName)
+		newMessage.setHeader("SplitISAFileNameWithoutExt", finalFileNameNoExt)
+
+        // Send the response with the split content
+        context.createExchangeResponse(msgHeaders, newMessage)
+    }
+} else {
+    // If there's only one ISA* segment, just send the original file as it is
+    def finalFileName = baseFileName + "." + extension
+
+    // Ensure the finalFileName is added to properties
+    properties.put("SplitISAFileNameWithoutExt", baseFileName)
+	msgHeaders.put("MultipleCheckISA", "No")
+	msgHeaders.put("SplitISAFileName", finalFileName)
+
+    // Send the original file without any modification
+    context.createExchangeResponse(msgHeaders, message)
+}

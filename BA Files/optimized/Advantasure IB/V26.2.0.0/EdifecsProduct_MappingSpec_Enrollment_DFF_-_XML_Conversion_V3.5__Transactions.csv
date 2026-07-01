@@ -1,0 +1,15 @@
+Transaction type,Mapping details
+▪    DEM (Demographics) – Non spanable always contains the latest value,Mapped in Product Core
+▪    ADR – Address History,No Need to map as of now
+▪    PLN – Plan Enrollment History,Mapped in Product Core
+▪    PWO – Premium Withhold,Mapped in Product Core
+▪    LIS – Low Income Subsidy,Mapped in Product Core
+▪    LEP – Late Enrollment Penalty,Mapped in Product Core
+▪    FLG – Flag set in the system,Mapped in Product Core
+▪    BRK – Broker,"No Need to map. Current direction is not to bring Broker data to HRP,"
+▪    PCP – Primary Care Physician,"Mapped in Product Core. But since PCP information are implementaion specific, account teams needs to be review the mapping logic and make appropriate changes in adaptor if needed."
+▪    GRP – Group/Subgroup information,No Need to map as of now
+▪    RDR – Rider,No Need to map as of now
+▪    COB – Coordination of Benefits,COB transaction is client specific. Needs to be handled at Implementaion side
+▪    MCD - Medicaid,Mapped in Product Core
+▪    M3P-Medicare Prescription Payment Plan,Mapped in Product Core

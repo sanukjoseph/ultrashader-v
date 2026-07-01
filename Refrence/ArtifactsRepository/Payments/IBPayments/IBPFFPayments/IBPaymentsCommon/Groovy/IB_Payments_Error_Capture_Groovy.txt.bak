@@ -1,0 +1,102 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+import com.edifecs.etools.commons.io.SmartStream;
+import groovy.util.slurpersupport.NodeChild;
+import java.io.*;
+
+// Initialize exchange and message properties
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+
+// Transfer properties from exchange to message headers
+exchProperties.each { k, v -> msgHeaders.put(k, v) }
+
+// Buffer input stream so it can be reused
+InputStream originalInputStream = message.getBodyAsSmartStream().getInputStream();
+ByteArrayOutputStream baos = new ByteArrayOutputStream();
+originalInputStream.withStream { it.transferTo(baos) }
+byte[] messageBytes = baos.toByteArray();
+
+// Parse XML from buffered bytes
+def root = new XmlSlurper().parse(new ByteArrayInputStream(messageBytes))
+
+// Prepare StringBuilders
+StringBuilder messageLevelErrors = new StringBuilder()
+StringBuilder errorBuilder = new StringBuilder()
+
+// Initialize error count
+int errorCount = 0
+
+// Function to count errors in messageLevelErrors
+def countErrors(StringBuilder errorsSb) {
+    if (!errorsSb) return 0
+    return errorsSb.toString().trim().isEmpty() ? 0 : errorsSb.toString().split("\\|\\|").length
+}
+
+// Variables to hold error fields
+def messageErrorBrief;
+def messageErrorMsg;
+def messageErrorErrData;
+def messageErrorSegment;
+def messageErrorPath;
+def messageSNIP;
+def messageSnipCategory;
+def messageErrorID;
+
+// Iterate over GroupNode and Errors
+root.GroupNode.each { messageNode ->
+    for (NodeChild error : messageNode.Errors.Error) {
+        messageErrorBrief = error.Brief.text().toString().replaceAll(',', '')
+        messageErrorMsg = error.Msg.text().toString().replaceAll(',', '').replaceAll('\\{br\\}\\{br\\}', ' ').replaceAll('\\{br\\}\\{tab\\}', ' ')
+        messageErrorErrData = error.ErrorDataInfo.ErrData.text().toString().replaceAll(',', '')
+        messageErrorSegment = error.ErrorDataInfo.Part1.text().toString().replaceAll(',', '')
+        messageErrorPath = error.ErrorDataInfo.BusinessPath.text().toString().replaceAll(',', '')
+        messageSNIP = error.@SNIP.toString()
+        messageSnipCategory = error.@Category.toString()
+        messageErrorID = error.@ID.toString()
+
+        if (messageSnipCategory == 'Rejecting') {
+            String temp
+            if (messageLevelErrors.length() > 0) {
+                temp = "||ErrID-${messageErrorID}: SNIP-${messageSNIP}: ErrorBrief-${messageErrorBrief}: ErrorMsg-${messageErrorMsg}"
+                messageLevelErrors.append(temp)
+            } else {
+                temp = "ErrID-${messageErrorID}: ErrData-${messageErrorErrData}: SNIP-${messageSNIP}: ErrorBrief-${messageErrorBrief}: ErrorMsg-${messageErrorMsg}"
+                messageLevelErrors.append(temp)
+            }
+            errorCount = countErrors(messageLevelErrors)
+        }
+    }
+}
+
+// Split errors and truncate each to max 300 chars
+String errorString = messageLevelErrors.toString()
+String[] errors = errorString.split("\\|\\|")
+errors = errors.collect { err ->
+    err.length() > 300 ? err.substring(0, 297) : err
+}
+
+// Replace with truncated errors joined by "||"
+messageLevelErrors.setLength(0)
+messageLevelErrors.append(errors.join('||'))
+
+// If errors exist, prepare final error message
+def errorMessage = ''
+if (errorCount > 0 && messageLevelErrors.length() > 0) {
+    errorBuilder.append(messageLevelErrors.toString()).append("\r\n")
+    errorMessage = errorBuilder.toString().trim()
+
+    // Trim errorMessage if too long
+    if (errorMessage.length() > 5000) {
+        errorMessage = errorMessage.substring(0, 4992) + "(...)"
+    }
+}
+
+// Only generate output and set property if errors found
+if (errorCount > 0) {
+    exchProperties['errorMessage'] = errorMessage
+    exchProperties.put('errorMessage', errorMessage)
+    context.createExchangeResponse(exchProperties, new ByteArrayInputStream(messageBytes))
+} 

@@ -1,0 +1,108 @@
+import com.edifecs.etools.xeserver.proxy.ProxyMessage;
+import com.edifecs.etools.commons.io.SmartStream;
+import groovy.util.slurpersupport.NodeChild;
+import java.io.*;
+import groovy.util.XmlSlurper;
+
+exchange = context.exchange;
+exchProperties = exchange.properties;
+messages = exchange.messages;
+message = messages[0];
+msgHeaders = message.headers;
+
+// Fetch FileLevelErrorCheck and SE01Value properties
+def FileLevelErrorCheck = exchProperties.get('FileLevelErrorCheck');
+def SE01Value = exchProperties.get('SE01Value');  // Fetch the SE01Value property
+
+if (exchProperties.get('auditEventNumber') in ["1", "3", "4", "7", "8"]) {
+    def auditEventNumber = exchProperties.get('auditEventNumber');
+    messageBodyInputStream = message.getBodyAsSmartStream().getInputStream();
+    def maxFormattedLength = 298;
+
+    // Parse XML
+    def root = new XmlSlurper().parse(messageBodyInputStream);
+
+    StringBuilder errorDetails = new StringBuilder();
+    def errors = root.'**'.findAll { it.name() == 'Error' };
+
+    // Iterate and format each error
+    errors.eachWithIndex { error, idx -> 
+        def errorBrief = error.Brief?.text()?.trim();
+        def errorID = error.@ID?.toString();
+        def errorSnip = error.@SNIP?.toString();
+
+        // Nested info inside ErrorDataInfo
+        def errDataInfo = error.ErrorDataInfo;
+
+        def businessPath = errDataInfo.BusinessPath?.text()?.trim();
+        if (businessPath != "") {
+            businessPath = ": " + "ErrPath-" + "${businessPath}";
+        } else {
+            businessPath = "";
+        }
+
+        def errorSegment = errDataInfo.Part1?.text()?.trim();
+        if (errorSegment != "") {
+            errorSegment = ": " + "ErrSegment-" + "${errorSegment}";
+        } else {
+            errorSegment = "";
+        }
+
+        def errData = errDataInfo.ErrData?.text()?.trim();
+        if (errData != "") {
+            errData = ": " + "ErrData-" + "${errData}";
+        } else {
+            errData = "";
+        }
+
+        // Build base error string (excluding Msg and Description)
+        String formatted = "ErrID-${errorID}${errData}: SNIP-${errorSnip}${errorSegment}${businessPath}: ErrBrief-${errorBrief}";
+
+        // Truncate if longer than allowed
+        if (formatted.length() > maxFormattedLength) {
+            formatted = formatted.take(maxFormattedLength);
+        }
+
+        // Append with || separator if not first
+        if (idx > 0) {
+            errorDetails.append("||");
+        }
+
+        errorDetails.append(formatted);
+    }
+
+    // Add to headers
+    msgHeaders.put("ExtractedErrors", errorDetails.toString());
+
+    def AdaptorErrorMessage = '';
+    def newMessageBody = errorDetails.toString();
+
+    if (auditEventNumber == "3") {
+        if (newMessageBody != "") {
+            newMessageBody = errorDetails.toString();
+        }
+    }
+
+    if (FileLevelErrorCheck == "True") {
+        def fileLevelError = "ErrID-0x810005: ErrData-${SE01Value}: SNIP-1: ErrSegment-SE*: ErrPath-SE/96: ErrBrief-The values are not equal.";
+        if (newMessageBody?.trim()) {
+            newMessageBody = fileLevelError + "||" + newMessageBody;
+        } else {
+            newMessageBody = fileLevelError;
+        }
+    }
+
+    // Ensure the string length doesn't exceed 5000 characters
+    if (newMessageBody.length() > 5000) {
+        newMessageBody = newMessageBody.substring(0, 4992) + "(...)";
+    }
+
+    // Set property for downstream use
+    exchProperties['adaptorErrorMessage'] = newMessageBody;
+}
+
+// Evaluate the second script file if auditEventNumber is between 1 and 8
+if ((exchProperties.get('auditEventNumber') >= "1") && (exchProperties.get('auditEventNumber') <= "8")) {
+    def AdaptorErrorMessage = exchProperties['adaptorErrorMessage'];
+    evaluate(new File("C:/Edifecs/Core/ArtifactsRepository/Claims/IBClaimsCommon/Groovy/P_IB_837_Audit.groovy.txt"));
+}

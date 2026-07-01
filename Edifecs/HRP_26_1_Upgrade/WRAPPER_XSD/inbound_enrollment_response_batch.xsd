@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ust-global.com/schema"
+	xmlns:tns="http://www.ust-global.com/schema/enrollment" targetNamespace="http://www.ust-global.com/schema/enrollment"
+	xmlns:resp="http://www.healthedge.com/connector/schema/enrollmentsparseresponse"
+	xmlns:header="http://www.ust-global.com/schema/common" 
+	elementFormDefault="qualified" version="4.1">
+
+	<xs:annotation>
+		<xs:documentation>
+			Wrapper Response XSD for Inbound Enrollment
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:import namespace="http://www.healthedge.com/connector/schema/enrollmentsparseresponse" 	schemaLocation="../PRIME_SERVICES_XSD/connector-enrollmentsparse/enrollment-sparse-response.xsd" />
+	<xs:import namespace="http://www.ust-global.com/schema/common" 	schemaLocation="header.xsd" />
+
+	<!-- **** Wrapper for submit operation - Start ***** -->
+	
+	<!-- Defining inbound record of submit operation -->
+	<xs:element name="enrollmentSparseSubmitResponseRecord">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="recordId" type="xs:string" />
+				<xs:element name="recordIdDesc" type="xs:string" 	minOccurs="0" />
+				<xs:element ref="resp:enrollmentResponse" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<!-- Defining list of inbound record of submit operation -->
+	<xs:element name="enrollmentSparseSubmitResponseRecordList">
+		<xs:complexType>
+			<xs:sequence>
+			    <xs:element name="recordCount" type="xs:int" />
+				<xs:element ref="tns:enrollmentSparseSubmitResponseRecord" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- ***** Wrapper for submit operation - End ***** -->	
+	
+	<!-- Defining Enrollment Inbound Element for all inbound responses-->
+	<xs:element name="enrollmentSparseIBResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tns:enrollmentSparseSubmitResponseRecordList" minOccurs="1" maxOccurs="1"/>
+				
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>		
+	
+	<!-- Defining the root element for all Enrollment Inbound operations-->
+	<xs:element name="enrollmentSparseIBResponseRoot">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="header:header" />
+				<xs:element ref="tns:enrollmentSparseIBResponse" maxOccurs="unbounded" minOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
+

@@ -1,0 +1,16 @@
+processStageName,processStatus,processMessage,JSON TRIGGER EVENT,Comments
+EDIFECS,MESSAGE READ,,As soon as IB file is picked for processing (Identifier block will not be present)- File level,Removed for now since this entry is causing issues at JAVA layer due to the missing identifier block.
+EDIFECS-Validation,PROCESS START,,Start of SNIP validations,
+EDIFECS-Validation,PROCESS END,,"After the SNIP Validations, if it’s a good record",
+EDIFECS-Validation,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.","After the SNIP Validations, if it’s a bad record",
+EDIFECS-Conversion,PROCESS START,,Start of XML conversion,
+EDIFECS-Conversion,PROCESS END,,After the XML conversion if it’s a success,
+EDIFECS-Conversion,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",After the XML conversion if it’s a failure,
+EDIFECS,MESSAGE PUBLISHED,,EDIFECS process ends,
+,,,,
+EDIFECS-Validation,ERROR,"Detailed Error details
+(Err ID, ErrData, ErrSegment, ErrPath, ErrBrief) seprated by '||'.  Total error message length is 5000  with a max of 300 characters  recorded for  one error.",In case the full file is rejected due to error in header segments. – File level,
+EDIFECS-Validation,ERROR,Duplicate_File_<FileName>,In case the duplicate file name,
+EDIFECS-Validation,ERROR,Duplicate_Interchange_<SenderId>_<ReciverId>_<Time>_<Date>_<InterchangeControlNumber>,In case the interchange Duplicate,

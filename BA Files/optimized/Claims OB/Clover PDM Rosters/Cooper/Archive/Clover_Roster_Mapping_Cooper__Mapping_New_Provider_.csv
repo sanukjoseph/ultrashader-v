@@ -1,0 +1,66 @@
+##,I Network Fields,Cooper Fields Mapping,Mapping Rules
+1,Service Market,Service Market,
+2,Provider NPI,Provider NPI,
+3,First Name,First Name,
+4,Last Name,Last Name,
+5,Degree,Degree,
+6,Primary Specialty,Taxonomy Code/Secondary Specialty(if exist) Split and map an additional record with the specialty into I N/w output,
+7,Secondary Specialty,,
+8,PCP or Specialist?,PCP or Specialist?,
+9,Hospitalist?,Hospitalist?,
+10,Board Certified?,Board Certified?,
+11,Board Name (certifying board name),Board Name,
+12,License #,License #,"Do not Map if one of the following values are received (Pending, Not Required)"
+13,DEA #,DEA #,"Do not Map if one of the following values are received (Pending, Not Required)"
+14,CDS # (If Applicable),CDS #,"Do not Map if one of the following values are received (Pending, Not Required)"
+15,Social Security #,Social Security #,
+16,Medical School Name,Medical School Name,
+17,Medical School Grad Year,Medical School Grad Year,"Map only if year ""YYYY"" is passed on the record"
+18,DOB,DOB,"Convert date format to ""YYYY-MM-DD"""
+19,Gender,Gender,"Expected values - M,F,Male,Female
+
+Map ""Male"" if input value is ""M""
+Map ""Female"" if input value is ""F"""
+20,Additional Languages?,Additional Languages?,Example - English; Indonesian; Chinese; Mandarin
+21,Active Date,Active Date,"Convert date format to ""YYYY-MM-DD"""
+22,Practice/Group Name,Practice/Group Name,
+23,Practice/Group NPI,Practice/Group NPI,
+24,Provider's Primary Location?,,"Default it to ""N"""
+25,List Location in Directory?,List Location in Directory?,"IF ""Hospitalist?"" is ""Y"" or ""YES"". Then Map it as ""No""
+Else Map it to ""Yes"" in case if no values is received"
+26,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)","Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)","Map ""Yes"" if one of the following values are received - Accepting New Patients, Accepting Existing Patients separately or in combinations
+
+Default it to ""Yes"" in case of no values present"
+27,Provider Email,Provider Email,
+28,Service Address,Service Address,
+29,Service Address 2,Service Address 2,
+30,Service Location City,Service Location City,
+31,Service Location State,Service Location State,
+32,Service Location Zip,Service Location Zip,Map only first 5 digit numeric
+33,Service Location County,Service Location County,
+34,Service Location Phone,Service Location Phone,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+35,Service Location Fax,Service Location Fax,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+36,Tax ID,Tax ID,"Remove ""-"""
+37,Remit Address,Remit Address,
+38,Remit Address 2,Remit Address 2,
+39,Remit Address City,Remit Address City,
+40,Remit Address State,Remit Address State,
+41,Remit Address Zip,Remit Address Zip,Map only first 5 digit numeric
+42,Billing Phone,Billing Phone,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"
+43,Billing Fax,Billing Fax,"Remove ""(""
+Remove ""-""
+Remove Spaces
+Convert to phone number format (xxxxxxxxxx)
+Expected formats - (856) 508-1000, 856-508-1000"

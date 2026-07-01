@@ -1,0 +1,45 @@
+,Fields,Mandatory/Optional,Length (Max)
+,Service Market,O,100
+NPI,Provider NPI,M,10
+FN,First Name,M,50
+LN,Last Name,M,50
+Degree,Degree,M,25
+,Primary Specialty,M,100
+,Secondary Specialty,O,100
+,PCP or Specialist?,M,50
+,Hospitalist?,M,50
+,Board Certified?,O,1
+,Board Name (certifying board name),O,100
+,License #,O,50
+,DEA #,O,50
+,CDS # (If Applicable),O,50
+,Social Security #,O,11
+,Medical School Name,O,50
+,Medical School Grad Year,O,50
+,DOB,O,12
+,,,
+,Gender,O,10
+,Additional Languages?,O,100
+,Active Date,M,12
+,Practice/Group Name,M,100
+,Practice/Group NPI,M,10
+,Provider's Primary Location?,M,5
+,List Location in Directory?,M,5
+,"Panel Status (Accepting New Patients, Accepting Existing Patients, Closed)",M,50
+,Provider Email,O,100
+,Service Address,M,100
+,Service Address 2,O,100
+,Service Location City,M,50
+,Service Location State,M,2
+,Service Location Zip,M,50
+,Service Location County,M,50
+,Service Location Phone,O,50
+,Service Location Fax,O,50
+,Tax ID,M,10
+,Remit Address,M,100
+,Remit Address 2,O,100
+,Remit Address City,M,50
+,Remit Address State,M,2
+,Remit Address Zip,M,50
+BP,Billing Phone,O,50
+,Billing Fax,O,50

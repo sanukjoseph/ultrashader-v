@@ -1,0 +1,46 @@
+Group,Fields,Sub Fields,Data Type,Mandatory (Present in all Audit points),Mandatory (Present in atleast one Audit Point),835 - Values,Description,Comments,
+inputDetails,inputId,,String,,,"Value passed is  - {UID}- Uniqie for each file
+Example - -dtBkcCHu9bkKu8O",EDI file id,NA for Edifecs,NA for OB payments
+,inputType,,String,,,,Defines the type of input file - API or File,,
+,totalTransactions,,Integer,,,,Total no. of transactions/Record received in API/File,,
+,inputFileName,,String,,,Input Filename of the EDI file received with filename extension,Name of the input file received from source.,,
+,inputArchiveFilename,,String,,,Input Filename of the EDI file archived in s3 with filename extension,Name of the input file after archiving the input file.,,
+process,processStageName,,String,Y,,Edifecs-FileRead,Represent the name of the process stage which post the Audit point.,,
+,processStatus,,String,Y,,"PROCESSED
+SUCCESS
+ERROR",Represent the Intermediate or Final status of the process stage which posts the Audit point.,,
+,processMessage,,String,,,"Connection-timeout
+Rejected",Specific information of a particular step after the process is completed.,,
+,processInputArchiveFilename,,String,,,Input Filename of the DFF file received with filename extension,Name of the input Archive file of the process stage which posts the Audit point.,This field is required only if Edifecs is archiving the Input File,
+,processOutputArchiveFilename,,String,,,NA,Name of the output Archive file of the process stage which posts the Audit point.,This field is required only if Edifecs is archiving the Input File,
+,auditTime,,DateTime,Y,,"The time the audit trigger event got generated in YYYY-MM-ddTHH:mm:ss.SSS format
+Sample: 2024-08-05T00:24:16:480",Auditing time of each audit point,,
+identifiers,rayIdentifier,,String,Y,,"Shared as part of Summary file by Iplus Core team
+Ex: RAYID_001","Unique Identifier for the complete lifecycle of transaction/Record. Will be unchanged even the transaction is Split, passed across various system, reprocessed.",,
+,recordIdentifier,,String,,Y,"Shared as part of Summary file by Iplus Core team
+q_5BkDy1SnLR3dO4-000083
+q_5BkDy1SnLR3dO4-000083_D",Unique Identifier for transaction level. Will be different when reprocess a same record.,,
+,tenantIdentifier,,String,,,Product - Can be editable by Implementation team to send their client Name.,Unique identifier for the implementation team,,
+,sourceTypeIdentifier,,String,,,"Enrollment_ADV, SMOKER_STATUS",Identifier to find from where we received(Starting point) the initial Transaction/Record.,,
+,recordIdentifierFromSource,,String,,,BlueCard_T78601104_1000178899,,,
+,referenceIdentifier,,String,,,NA,Place holder to add any specific Reference Identifier based on Business Requirement,,
+,retriedReferenceIdentifier,,String,Y (for retried transaction),,NA,This field indicates unique identifier for a transaction that has been retried,,
+jobDetails,identifier,,String,Y,,UUID - Primary Identifier (Job Identifier),"Unique identifier for the job, will be unchanged throughout the lifecycle of the job",,
+,referenceIdentifier,,String,,,,Placeholder to add any identifier specific to the job,,
+,definition,,String,,Y,,Payment definition identifier,,
+,transactionCount,,Integer,,Y,,Total number of payments available for processing in the job,,
+,startTime,,String,,Y,,Job start time,,
+,completionTime,,String,,Y,,"Job completion time, i.e., generation of EDI835 files for all the Payments in the job",,
+,status,,String,,Y,,Current status of the job,,
+payment,notifyOfs,,Boolean,Y,,,Flag sent from functional services to LCN to identify whether it has to be published to OFS or not,,
+,paymentId,,String,,Y,Actual Payment Id,Unique ID for each Payment transaction,,
+,totalClaimCount,,Integer,,Y,Total Claim Count,Total number of claims associated/available under the specific Payment transaction,,
+,outputFileName,,String,,Y,edi835 File Name,Generated EDI835 file name for the Payment,,
+,requestPaymentArchiveFilename,,String,,,,,No use with business,
+,responsePaymentArchiveFilename,,String,,,,,No use with business,
+,claims,claimIdentifier,String,,Y,UUID - Claim level Identifier,"Unique identifier for each claim, will be different when the claim is reprocessed",Claim Level Audit events for Edifecs  are not in current scope,
+,,claimHccId,String,,Y,20241110000948,"Claim HCC ID - Unique ID for each claim, will remain unchanged when reprocessed",DFF Index - 3.003,
+,,claimNumber,String,,Y,714045,"Claim Number - Unique number for each claim, will remain unchanged when reprocessed",,
+,,claimStatus,String,,Y,,PDS insertion status of the processed Claim,,
+,,requestClaimArchiveFilename,String,,,,,,
+,,responseClaimArchiveFilename,String,,,,,,

@@ -1,0 +1,6 @@
+Audit events,,,
+processStageName,adaptorStatus,JSON TRIGGER EVENT,Comments
+EDIFECS,Message Read,As soon as IB file is picked for processing - File level,
+EDIFECS_Validation,Success/Failure,SNIP validations,
+EDIFECS_Conversion,Success/Failure,XML Conversion,
+EDIFECS_Api call Response,Success/Failure,API static response,

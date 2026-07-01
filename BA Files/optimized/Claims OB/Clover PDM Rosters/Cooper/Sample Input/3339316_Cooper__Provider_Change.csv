@@ -1,0 +1,37 @@
+Instructions:,,,,,"All data elements are required. Incomplete roster data may affect accuracy of prior authorization requests, listings in the Provider Directory and claims payments.",,,,,,,,,
+1.  Complete attestion (Required),,,,,,,,,,,,,,
+2.  Please provide each unique practitioner NPI and each practitioner's unique location on a separate line.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+I certify that the information submited within this form is accurate and complete.,,,Authorized Name:,,,Title:,,,Date:,,,,,
+,,,Josephine Gonzales,,,Credentialing Associate,,,08/13/2024,,,,,
+,,,,,,,,,,,,,,
+Please return completed roster to Providers@Cloverhealth.com and include W9 for new Tax ID,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"Change Type (address add, address removal, panel status change)",Effective date of change,Provider NPI,First Name,Last Name,Panel Status (open or closed),Group NPI,Tax ID,Service Address,Service Address 2,Service Location City,Service Location State,Zipcode,Service Location County,Contact Phone
+Phone Number Update to (856) 536-1515 from (856) 342-2000 and Fax Number to (856) 412-5390 from (856) 342-2687,08/12/2024,1336849744,Carmen,Cantillo,Open,1215551437,85-1080079,63 E,Route 73,Marlton,NJ,08053,Marlton,(856) 536-1515
+Provider is no longer practicing location,08/12/2024,1558302349,Keith,Damerau,Open,1215551437,85-1080079,3829 Church Rd,Ste A,Mount Laurel,NJ,08054,Burlington,(856) 536-1515
+Additional location,08/12/2024,1558302349,Keith,Damerau,Open,1215551437,85-1080079,63 E,Route 73,Marlton,NJ,08053,Marlton,(856) 536-1515
+Change Tin ID from 22-3266219 to 82-1589048,08/01/2024,1699207332,Margaret,DeOliveira,Closed,1083747323,82-1589048,400 W Rte 38,Nephrology,Moorestown,NJ,08057,Burlington,(856) 270-4000
+Provider is no longer practicing location for 12 years,07/11/2024,1669580395,Kelly,Gilrain,Closed,1982646634,22-3315602,3 Cooper Plz,Ste 307,Camden,NJ,08103,Camden,(856) 342-2328
+Provider is no longer practicing location for 12 years,08/05/2024,1669580395,Kelly,Gilrain,Closed,1982646634,22-3315602,901 Centennial Blvd,6400 Main St Complex,Voorhees,NJ,08043,Camden,(856) 673-4912
+Phone Number Update to (856) 325-6601 from (856) 968-7396,08/01/2023,1134327026,Jennifer,Hummel,Closed,1194745976,22-2329164,100 Grove St,,Haddonfield,NJ,08033,Camden,(856) 325-6601
+Additional Location,08/01/2023,1134327026,Jennifer,Hummel,Closed,1225058027,22-2700904,100 Grove St,,Haddonfield,NJ,08033,Camden,(856) 325-6601
+Change specialty from OB GYN to Maternal Fetal Medicine,07/02/2024,1689235418,Neel,Iyer,Closed,1225058027,22-2700904,1 Cooper Plz,D627 L&D Triage,Camden,NJ,08103,Camden,(800) 826-6737
+Change specialty from OB GYN to Maternal Fetal Medicine,07/02/2024,1689235418,Neel,Iyer,Closed,1194745976,22-2329164,1 Cooper Plz,L & D Triage,Camden,NJ,08103,Camden,(856) 342-2065
+Additional Location,07/02/2024,1922621150,Kyle,Le,Closed,1194745976,22-2329164,3 Cooper Plz,Suite 104,Camden,NJ,08103,Camden,(856) 342-2186
+Provider is no longer practicing location,08/12/2024,1538367198,Patricia,Luceri,Closed,1215551437,85-1080079,200 Campbell Dr,Ste 115,Willingboro,NJ,08046,Burlington,(856) 536-1515
+Additional location,08/12/2024,1538367198,Patricia,Luceri,Closed,1215551437,85-1080079,63 E,Route 73,Marlton,NJ,08053,Marlton,(856) 536-1515
+Additional Location,07/02/2024,1952924425,Danielle,Schenker,Closed,1194745976,22-2329164,3 Cooper Plz,Suite 104,Camden,NJ,08103,Camden,(856) 342-2186
+Change specialty from Emergency Medicine to Critical Care Medicine,07/02/2024,1043872146,Thomas,Sewatsky,Closed,1689694473,20-0835576,310 Salem Woodstown Rd,,Salem,NJ,08079,Salem,(856) 339-6048
+Change specialty from Emergency Medicine to Critical Care Medicine,07/02/2024,1043872146,Thomas,Sewatsky,Closed,1689694473,20-0835576,1 Cooper Plz,Dept of Emergency Medicine,Camden,NJ,08103,Camden,(856) 342-2627
+Additional Location,07/02/2024,1043872146,Thomas,Sewatsky,Closed,1386682094,22-3266219,2 Stone Harbor Blvd,,Cape May Court House,NJ,08210,Camden,(609) 463-2273
+Additional Location,07/02/2024,1043872146,Thomas,Sewatsky,Closed,1386682094,22-3266219,700 Mullica Hill Rd,,Mullica Hill,NJ,08062,Gloucester,(856) 508-1000
+Additional Location,07/02/2024,1043872146,Thomas,Sewatsky,Closed,1386682094,22-3266219,1505 W Sherman Ave,,Vineland,NJ,08360,Cumberland,(856) 641-8000
+Additional Location,07/02/2024,1043872146,Thomas,Sewatsky,Closed,1386682094,22-3266219,310 Salem Woodstown Rd,,Salem,NJ,08079,Salem,(856) 935-1000
+Provider is no longer practicing location,08/12/2024,1710390364,Priya,Shah,Closed,1215551437,85-1080079,3829 Church Rd,Ste A,Mount Laurel,NJ,08054,Burlington,(856) 536-1515
+Additional location,08/12/2024,1710390364,Priya,Shah,Closed,1215551437,85-1080079,63 E,Route 73,Marlton,NJ,08053,Marlton,(856) 536-1515
+Change specialty from Critical Care to Pulmonary Critical Care,07/15/2024,1518320233,Robert,Wilcott,Closed,1386682094,22-3266219,1 Cooper Plz,,Camden,NJ,08103,Camden,(856) 968-8282
+Additional Location,07/15/2024,1518320233,Robert,Wilcott,Closed,1386682094,22-3266219,2 Stone Harbor Blvd,,Cape May Court House,NJ,08210,Camden,(609) 463-2859
+Additional Location,07/15/2024,1518320233,Robert,Wilcott,Closed,1386682094,22-3266219,700 Mullica Hill Rd,,Mullica Hill,NJ,08062,Gloucester,(856) 508-1000
+Additional Location,07/15/2024,1518320233,Robert,Wilcott,Closed,1386682094,22-3266219,1505 W Sherman Ave,,Vineland,NJ,08360,Cumberland Count,(856) 641-8000
+Additional Location,07/15/2024,1518320233,Robert,Wilcott,Closed,1386682094,22-3266219,310 Salem Woodstown Rd,,Salem,NJ,08079,Salem,(856) 642-2133

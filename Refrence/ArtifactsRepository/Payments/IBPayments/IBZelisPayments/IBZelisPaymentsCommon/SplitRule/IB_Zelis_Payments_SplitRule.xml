@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataSplitRules Version="2.0" Name="Data Splitting rules" Description="Default data splitting rule set" xsi:noNamespaceSchemaLocation="DataSplitRules.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Rule name="good">Group[@AckCode='A'] and Group[@Uniquevalue='##unique##']</Rule>
+<Rule name="bad">Group[@AckCode='R'] and Group[@Uniquevalue='##unique##']</Rule>
+</DataSplitRules>

@@ -1,0 +1,67 @@
+{
+"inputDetails": {
+  #if($InputId != "" and $InputId != "(N/A)" and $InputId != "{Prp[InputId]}")
+	"inputId": "${UID}",
+  #{else}#end
+  #if($inputType != "" and $inputType != "(N/A)" and $inputType != "{Prp[inputType]}")
+	"inputType": "DFF",
+  #{else}#end
+   #if($UniqueSplitCount != "" and $UniqueSplitCount != "(N/A)" and $UniqueSplitCount != "{Prp[UniqueSplitCount]}")
+	"totalTransactions": "${UniqueSplitCount}",
+  #{else}#end
+  #if($FileName != "" and $FileName != "(N/A)" and $FileName != "{Prp[FileName]}")
+	"inputFileName": "${FileName}",
+  #{else}#end
+  #if($inputArchiveFilename != "" and $inputArchiveFilename != "(N/A)" and $inputArchiveFilename != "{Prp[inputArchiveFilename]}")
+	"inputArchiveFilename": "${inputArchiveFilename}"
+  #{else}#end
+  },
+  "process": {
+   #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $MessageRead =="Yes")
+	"processStageName": "${processStageName}",
+  #{else}#end
+  #if($ProcessStageName != "" and $ProcessStageName != "(N/A)" and $ProcessStageName != "{Prp[ProcessStageName]}" and $MessageRead =="No")
+	"processStageName": "${processStageName}",
+  #{else}#end
+  #if($processmessage != "" and $processmessage != "(N/A)" and $processmessage != "{Prp[processmessage]}" and $HasError =="true")
+	"processMessage": "${processmessage}",
+  #{else}#end
+  #if($processstatus != "" and $processstatus != "(N/A)" and $processstatus != "{Prp[processstatus]}")
+	"processStatus": "${processstatus}",
+  #{else}#end
+  #if($inputArchiveFilename != "" and $inputArchiveFilename != "(N/A)" and $inputArchiveFilename != "{Prp[inputArchiveFilename]}" and $MessageRead =="No")
+	"processInputArchiveFilename": "${inputArchiveFilename}",
+  #{else}#end
+  #if($inputArchiveFilename != "" and $inputArchiveFilename != "(N/A)" and $inputArchiveFilename != "{Prp[inputArchiveFilename]}" and $MessageRead =="Yes")
+	"processInputArchiveFilename": "${inputArchiveFilename}",
+  #{else}#end
+   #if($processOutputArchiveFilename != "" and $processOutputArchiveFilename != "(N/A)" and $processOutputArchiveFilename != "{Prp[processOutputArchiveFilename]}" and $MessageRead =="Yes")
+	"processOutputArchiveFilename": "${FileName}",
+  #{else}#end
+  #if($processAuditSendDateTime != "" and $processAuditSendDateTime != "(N/A)" and $processAuditSendDateTime != "{Prp[processAuditSendDateTime]}" and $MessageRead =="No")
+	"auditTime": "${processAuditSendDateTime}"
+  #{else}#end
+  },
+   "identifiers": {
+  #if($RayIdentifier != "" and $RayIdentifier != "(N/A)" and $RayIdentifier != "{Prp[RayIdentifier]}")
+	"rayIdentifier": "${RayIdentifier}",
+  #{else}#end
+  #if($RecordIdentifier != "" and $RecordIdentifier != "(N/A)" and $RecordIdentifier != "{Prp[RecordIdentifier]}")
+	"recordIdentifier": "${RecordIdentifier}",
+  #{else}#end
+  ##if($Tenant_Identifier != "" and $Tenant_Identifier != "(N/A)" and $Tenant_Identifier != "{Prp[Tenant_Identifier]}")
+	##"tenantIdentifier": "${Tenant_Identifier}",
+  ##{else}#end
+   #if($sourceTypeIdentifier != "(N/A)" and $sourceTypeIdentifier != "{Prp[sourceTypeIdentifier]}")
+	"sourceTypeIdentifier": "${sourceTypeIdentifier}",
+  #{else}#end
+  #if($RecordIdentifier != "" and $RecordIdentifier != "(N/A)" and $RecordIdentifier != "{Prp[RecordIdentifier]}")
+	"recordIdentifierFromSource": "${RecordIdentifier}"
+  #{else}#end
+  },
+  "secondaryEditing": {
+   #if($UniqueClaimId != "" and $UniqueClaimId != "(N/A)" and $UniqueClaimId != "{Prp[UniqueClaimId]}")
+	"claimHCCId": "${UniqueClaimId}"
+  #{else}#end
+   	}
+	}

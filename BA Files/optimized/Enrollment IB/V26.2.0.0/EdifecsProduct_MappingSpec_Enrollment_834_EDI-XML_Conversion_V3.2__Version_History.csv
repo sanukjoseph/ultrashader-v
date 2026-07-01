@@ -1,0 +1,30 @@
+Revision History,,,,
+,,,,
+,,,,
+,,,,
+V#,Date,Author,Reviewer(s)/ Contributor(s),Comments
+1.0,02/16/23,Mithun Mohan,Shijila M,Initial Version
+1.1,03/13/23,Mithun Mohan,Shijila M,Updated the codes
+1.2,03/14/23,Mithun Mohan,Shijila M,
+1.3,03/16/23,Mithun Mohan,Shijila M,Stadardized the entire mapping sheet
+1.4,03/17/23,Mithun Mohan,Shijila M,Commercial LOB formatted
+1.5,03/22/23,Mithun Mohan,Shijila M,Medicaid reporting category qualifier changes
+,5/9/23,Mithun Mohan,Shijila M,Version 2 Enhancements
+2.1,5/10/23,Mithun Mohan,Shijila M,Version 2 Enhancements
+2.2,5/11/23,Ambily Raj,Rameshwar Singh,Formatted the commercial and medicaid mapping. Corrected the /medicareHICN section in  Medicaid mapping.
+2.3,12/15/2023,Ambily Raj,Rameshwar Singh,Corrected the 2300.HD01 mapping  in Commercial and medicaid.  -  For PSD - 1287
+2.4,1/17/24,Ambily Raj,Rameshwar Singh,"Added mapping for /memberTerminateReasonCode in Commercial and Medicaid.
+Corrected mapping logic for INS06-2    in Medicaid."
+2.5,1/23/24,Ambily Raj,Rameshwar Singh,"Changed the Mapping for subsidy (2750 Loop) in Commercial.
+Added Mappng logic for 2200.DSB01 in Medicaid mapping."
+2.6,2/21/24,Ambily Raj,Rameshwar Singh,Formatted and updated the Medicare mapping.
+2.7,2/28/24,Ambily Raj,Rameshwar Singh,Updated Commercial Mapping (INTP-7090). Included the mapping for  member/hccIdentifier and memberMatchData/Id from REF*23
+3.0,4/5/24,Ambily Raj,Rameshwar Singh,Changes for INTP-7913. XSD tag changes
+,5/14/24,Ambily Raj,Rameshwar Singh,Format changes. Added a new  column 'Custom' to indicate the fields which needs to be customised in adaptor map.
+,5/14/24,Ambily Raj,Rameshwar Singh,Changes for INTP-8521.  XSD tag changes
+,6/17/24,Ambily Raj,Rameshwar Singh,Changes for /asofdate and qualifier/startdate and end date Tags - INTP-8790 - Refer tab asofdate
+,10/4/24,Ambily Raj,Rameshwar Singh,Changes to default planenddate as 3000/01/01 and to add asofdate logic for REINSTATE.
+3.1,2/12/24,Ambily Raj,Rameshwar Singh,Changes for IB enrollment LCN
+3.2,14/11/2025,Ambily Raj,Rameshwar Singh,"1.Changes for the mapping of Language tags (primary and Native)  and XML creation date
+2. Changes for TBA"
+3.3,2/6/26,Ambily Raj,Rameshwar Singh,Changed for Enrollment Config Suite. Added the tags State and LOB in header section

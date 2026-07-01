@@ -1,0 +1,90 @@
+TabName,Field Name,Mandatory/Optional,Length,Format,Pre-Mapping Validation Rules,Sample Value,Mapped or Not
+New Providers,Northside Notes,O,100,String,,Add provider,Not Mapped to Inetwork format
+New Providers,Provider Address Type,O,100,String,,Primary Address,Not Mapped to Inetwork format
+New Providers,Requested Effective Date,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)",9/1/24,Mapped to Inetwork template
+New Providers,Tax ID,M,10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10",45-1259435,Mapped to Inetwork template
+New Providers,Group NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC
+IF this TAXID and NPI is not available in ""NS Billing Information"" tab",1922397553,Mapped to Inetwork template
+New Providers,Last Name,M,50,String,,Alfano,Mapped to Inetwork template
+New Providers,First Name,M,50,String,,Anthony,Mapped to Inetwork template
+New Providers,Middle Name,o,50,String,,Joseph,Not Mapped to Inetwork format
+New Providers,Suffix,o,50,String,,,Not Mapped to Inetwork format
+New Providers,Degree,M,25,String,,DO,Mapped to Inetwork template
+New Providers,DOB,M,12,Date,"Reject -
+ IF NOT IN FORMAT (MM-DD-YYYY or MM/DD/YYYY)",9/7/83,Mapped to Inetwork template
+New Providers,Gender,M,10,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (M,F,Male,Female)",M,Mapped to Inetwork template
+New Providers,Provider NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",1073945796,Mapped to Inetwork template
+New Providers,Taxonomy,M,10,Alphanumeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10
+
+Example - 208M00000X",207Q00000X,Mapped to Inetwork template
+New Providers,CAQH,o,50,String,,13861794,Not Mapped to Inetwork format
+New Providers,Medicare#,o,50,String,,Applied,Not Mapped to Inetwork format
+New Providers,PCP_SPC_HospBased,M,50,String,"Reject -
+ IF EMPTY or
+ IF NOT IN LIST (PCP, SPC, Hospital Based, Urgent Care)",PCP,Mapped to Inetwork template
+New Providers,Ages Seen,o,50,String,,12 and older,Not Mapped to Inetwork format
+New Providers,Office Hours,o,50,String,,"8-4, M-F",Not Mapped to Inetwork format
+New Providers,Practice Name,M,100,String,"Reject -
+ IF EMPTY",Northside Primary Care Associates - Acworth,Mapped to Inetwork template
+New Providers,Address,M,100,String,"Reject -
+ IF EMPTY",4450 Calibre Xing NW,Not Mapped to Inetwork format
+New Providers,Address_2,O,100,String,,Ste 1224,Mapped to Inetwork template
+New Providers,City,M,50,String,"Reject -
+ IF EMPTY",Acworth,Mapped to Inetwork template
+New Providers,State,M,2,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE",GA,Mapped to Inetwork template
+New Providers,Zip Code,M,20,String,"Reject -
+ IF EMPTY",30101-4104,Mapped to Inetwork template
+New Providers,Provider Address County,O,50,String,,Cobb,Mapped to Inetwork template
+New Providers,Phone,M,20,String,"Reject -
+ IF EMPTY",(770) 974-6550,Mapped to Inetwork template
+New Providers,Fax,O,20,String,,(770) 974-6551,Mapped to Inetwork template
+New Providers,GA License Number,O,50,String,,100438,Mapped to Inetwork template
+New Providers,GA License Expiration Date,O,12,Date,,9/30/25,Not Mapped to Inetwork format
+New Providers,DEA#,O,50,String,,FA6254697,Mapped to Inetwork template
+New Providers,DEA#Exp,O,12,Date,,6/30/25,Not Mapped to Inetwork format
+New Providers,List in Directory_Y or N,M,5,String,"Reject -
+ IF PRESENT and
+ IF NOT IN LIST (Y, N, YES, NO)",Y,Mapped to Inetwork template
+New Providers,Primary Specialty,O,100,String,,Family Medicine,Not Mapped to Inetwork format
+New Providers,Medical Board,O,100,String,,Am Os Bd Family Physicians - Family Medicine / OMT,Mapped to Inetwork template
+New Providers,Board Status,O,100,String,"Reject -
+ IF NOT IN LIST (Y,Yes,N,No,Certified,Active,BOARD CERTIFIED,Eligible,Expired,Not Certified)",Certified,Mapped to Inetwork template
+New Providers,Board Certification Date,O,12,Date,,8/5/16,Not Mapped to Inetwork format
+New Providers,Board Expiration Date,O,12,Date,,12/31/24,Not Mapped to Inetwork format
+New Providers,Hospital Privileges - Northside Hospital,O,100,String,,Northside Hospital,Not Mapped to Inetwork format
+New Providers,Medical School information,O,100,String,,Lake Erie College of Osteopathic Medicine,Mapped to Inetwork template
+New Providers,Graduate Date,O,12,Date,,8/1/09,Mapped to Inetwork template
+NS Billing Information,Billing Entity Name,M,100,String,,,Not Mapped to Inetwork format
+NS Billing Information,Tax Id,M,10,String,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10",,Mapped to Inetwork template
+NS Billing Information,NPI,M,10,Numeric,"Reject -
+ IF EMPTY or
+ IF LENGTH <> 10 or
+ IF NOT ALL NUMERIC",,Mapped to Inetwork template
+NS Billing Information,Remittance Address,M,100,String,"Reject -
+ IF EMPTY",,Mapped to Inetwork template
+NS Billing Information,City,M,50,String,"Reject -
+ IF EMPTY",,Mapped to Inetwork template
+NS Billing Information,State,M,2,String,"Reject -
+ IF EMPTY or
+ IF DOES NOT MATCH '2 CHAR' STATE CODE",,Mapped to Inetwork template
+NS Billing Information,Zip,M,20,String,"Reject -
+ IF EMPTY",,Mapped to Inetwork template
+NS Billing Information,Phone,O,20,String,,,Mapped to Inetwork template
+NS Billing Information,Fax,O,20,String,,,Mapped to Inetwork template

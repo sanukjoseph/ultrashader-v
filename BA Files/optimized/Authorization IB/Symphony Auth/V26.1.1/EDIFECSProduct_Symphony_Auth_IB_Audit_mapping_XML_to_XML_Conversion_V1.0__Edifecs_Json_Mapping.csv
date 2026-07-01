@@ -1,0 +1,23 @@
+Group,Fields,Auth Ib values,Description,Sample values
+,,,,
+,inputFileID,UID,,
+inputHeaderInfo,,,,
+,inputFileType,XML,Defines the type of input file - XML,
+,inputArchiveFilename,Input Filename of the EDI file archived in s3 with filename extension,Name of the input file after archiving the input file.,Input_20251103-001556463_Test-APIData-7-Multiple Records.xml
+,inputFileReceiptDateTime,"Input file receipt date time of when the file is dropped to edifecs profile
+yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS",,2025-11-03T00:15:56.000000462
+,inputFileName,Input Filename of the EDI file received with filename extension,Name of the input file received from source.,Test-APIData-7-Multiple Records.xml
+,auditTime,The time the audit json got generated in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,Auditing time of each audit point,2025-11-03T00:15:56.000000462
+,totalRecordCount,Total number Auth transaction in a batch file,,9
+,sourceTypeIdentifier,Hardcode as EDIFECS,Identifier to find from where we received(Starting point) the initial Transaction/Record.,EDIFECS
+,,,,
+,,,,
+,recordIdentifier,A Unique Record Identifier. GUID,"Unique Identifier for transaction level. Will be different when we split, reprocess a same record.",14918E29-4C01-4A01-9440-49BCBFDB3DD9
+,recordIdentifierFromSource,externalAuthorizationID,,KSUM00032748
+,memberId,member Id,,K44008029
+,inputFileId,Value passed is  - {UID}- Uniqie for each file,EDI file id,PtChmkgktLNLFz9N
+businessAdaptor,adaptorReceiptDateTime,The time when the file is dropped to edifecs profile  in yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS format,,2025-11-03T00:15:56.000000462
+,adaptorAuditDateTime,The time the audit trigger event  got generated in yyyy-MM-dd'T'HH:mm:ss.SSS format,Auditing time of each audit point,2025-11-03T00:16:10.000000079
+processStatus,processStageName,Refer Audit events Tab,Represent the name of the process stage which post the Audit point.,EDIFECS-Record-sent-via-API
+,adaptorStatus,Refer Audit events Tab,Represent the Intermediate or Final status of the process stage which posts the Audit point.,SUCCESS
+,sourceTypeIdentifier,Hardcode as EDIFECS,Identifier to find from where we received(Starting point) the initial Transaction/Record.,EDIFECS

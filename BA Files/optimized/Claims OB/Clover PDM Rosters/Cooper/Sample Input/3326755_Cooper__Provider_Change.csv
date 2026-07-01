@@ -1,0 +1,109 @@
+Instructions:,,,,,"All data elements are required. Incomplete roster data may affect accuracy of prior authorization requests, listings in the Provider Directory and claims payments.",,,,,,,,,
+1.  Complete attestion (Required),,,,,,,,,,,,,,
+2.  Please provide each unique practitioner NPI and each practitioner's unique location on a separate line.,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+I certify that the information submited within this form is accurate and complete.,,,Authorized Name:,,,Title:,,,Date:,,,,,
+,,,Karroll Dizon,,,Credentialing Associate,,,11/30/2023,,,,,
+,,,,,,,,,,,,,,
+Please return completed roster to Providers@Cloverhealth.com and include W9 for new Tax ID,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+"Change Type (address add, address removal, panel status change)",Effective date of change,Provider NPI,First Name,Last Name,Panel Status (open or closed),Group NPI,Tax ID,Service Address,Service Address 2,Service Location City,Service Location State,Service Location Zip,Service Location County,Contact Phone
+address removal,10/18/2016,1588735963,Stephanie,Tonetta-Sayers,open,1649217175,22-3358732,111 E Main St,,Maple Shade,New Jersey,08052,Burlington,(856) 779-9220
+address add,03/01/2023,1114589140,Caroline,Blatcher,open,1386682094,22-3266219,800 Cooper St,"Ste 400, 4th Fl",Camden,New Jersey,08103,Camden,(856) 342-3040
+address add,03/01/2023,1114589140,Caroline,Blatcher,open,1386682094,22-3266219,3 Cooper Plz,Ste 220,Camden,New Jersey,08103,Camden,(856) 342-2439
+address add,03/01/2023,1114589140,Caroline,Blatcher,open,1386682094,22-3266219,200 College Dr,,Blackwood,New Jersey,08012,Camden,(856) 536-1630
+address add,03/01/2023,1114589140,Caroline,Blatcher,open,1386682094,22-3266219,390 N Broadway,Ste 100,Pennsville,New Jersey,08070,Salem,(856) 678-6411
+address add,03/01/2023,1114589140,Caroline,Blatcher,open,1386682094,22-3266219,3 Cooper Plz,Ste 513,Camden,New Jersey,08103,Camden,(856) 342-3715
+address add,03/01/2023,1114589140,Caroline,Blatcher,open,1386682094,22-3266219,20 S Black Horse Pike,,Runnemede,New Jersey,08078,Camden,(856) 962-8840
+address removal,09/26/2018,1982869467,Peter,Kelly,open,1649217175,22-3358732,111 E Main St,,Maple Shade,New Jersey,08052,Burlington,(856) 779-9220
+address removal,02/18/2014,1629075759,Stephen,Paul,open,1649217175,22-3358732,111 E Main St,,Maple Shade,New Jersey,08052,Burlington,(856) 779-9220
+address removal,05/15/2019,1427082429,Bennett,Shenker,open,1649217175,22-3358732,111 E Main St,,Maple Shade,New Jersey,08052,Burlington,(856) 779-9220
+address removal,11/01/2021,1972033843,Natasha,Chase,open,1649217175,22-3358732,111 E Main St,,Maple Shade,New Jersey,08052,Burlington,(856) 779-9220
+address removal,08/01/2021,1376988279,Maya,Bass,open,1649217175,22-3358732,111 E Main St,,Maple Shade,New Jersey,08052,Burlington,(856) 779-9220
+Change name,03/01/2023,1336632181,Angela,Capriotti,open,1154369510,22-3310529,900 Centennial Blvd,"Bldg 1, Ste M",Voorhees,New Jersey,08043,Camden,(856) 968-7003
+Change name,03/01/2023,1336632181,Angela,Capriotti,open,1154369510,22-3310529,2 Cooper Plz,400 Haddon Ave,Camden,New Jersey,08103,Camden,(856) 968-7003
+Change last name,03/01/2023,1184160145,Sharice,Gerber,open,1154369163,22-3587486,2 Cooper Plz,,Camden,New Jersey,08103,Camden,(855) 632-2667
+Change last name,03/01/2023,1184160145,Sharice,Gerber,open,1154369163,22-3587486,1 Cooper Plz,Cooper Hospital / UMC (Radiation Oncology),Camden,New Jersey,08103,Camden,(855) 632-2667
+Change last name,03/01/2023,1184160145,Sharice,Gerber,open,1154369163,22-3587486,715 Fellowship Rd,Ste C,Mount Laurel,New Jersey,08054,Burlington,(855) 632-2667
+Change last name,03/01/2023,1184160145,Sharice,Gerber,open,1154369163,22-3587486,900 Centennial Blvd,Ste D,Voorhees,New Jersey,08043,Camden,(855) 632-2667
+Change last name,03/01/2023,1669135968,Jordan,Seebold,open,1649217514,22-2170196,2339 Rte 70,2nd Fl,Cherry Hill,New Jersey,08002,Camden,(856) 751-6464
+Address add,03/01/2023,1457871063,Marlena,Klein,open,1649217175,22-3358732,100 Grove St,,Haddonfield,New Jersey,08033,Camden,(856) 325-6601
+address removal,08/13/2018,1073911772,Matthugh,Bennett,open,1538109913,22-3419259,218 C Sunset Rd,,Willingboro,New Jersey,08046,Burlington,(609) 589-3651
+address removal,08/13/2018,1073911772,Matthugh,Bennett,open,1538109913,22-3419259,3 Cooper Plz,Ste 314,Camden,New Jersey,08103,Camden,(856) 963-6770
+address removal,08/13/2018,1073911772,Matthugh,Bennett,open,1538109913,22-3419259,501 Fellowship Rd,Ste 102,Mount Laurel,New Jersey,08054,Burlington,(856) 608-8897
+address removal,08/13/2018,1073911772,Matthugh,Bennett,open,1538109913,22-3419259,900 Centennial Blvd,"Bldg 1, Ste G",Voorhees,New Jersey,08043,Camden,(856) 325-6505
+address removal,10/17/2017,1023527728,Meredith,Defusco,open,1538109913,22-3419259,3 Cooper Plz,Ste 314,Camden,New Jersey,08103,Camden,(856) 963-6770
+address removal,01/29/2018,1699289504,Ji,Kwon-Murphy,open,1538109913,22-3419259,218 C Sunset Rd,,Willingboro,New Jersey,08046,Burlington,(609) 589-3651
+address removal,01/29/2018,1699289504,Ji,Kwon-Murphy,open,1538109913,22-3419259,3 Cooper Plz,Ste 314,Camden,New Jersey,08103,Camden,(856) 963-6770
+address removal,01/29/2018,1699289504,Ji,Kwon-Murphy,open,1538109913,22-3419259,501 Fellowship Rd,Ste 102,Mount Laurel,New Jersey,08054,Burlington,(856) 608-8897
+address removal,01/29/2018,1699289504,Ji,Kwon-Murphy,open,1538109913,22-3419259,900 Centennial Blvd,"Bldg 1, Ste G",Voorhees,New Jersey,08043,Camden,(856) 325-6505
+address removal,12/01/2021,1326540733,Tara,Mcgrory,open,1154369510,22-3310529,1 Cooper Plz,,Camden,New Jersey,08103,Camden,(856) 342-2000
+address add,03/01/2023,1992779763,Jack,Shilling,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1437170891,Mark,Pollard,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1619311263,Matthew,Brown,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1962723478,Catherine,Fedorka,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1154580751,Matthew,Kleiner,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1457511719,Katharine,Woozley,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1548359979,David,Fuller,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1801471933,Stephen,Gorda,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1215384656,Andrew,Simon,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1073956918,Maureen,Moore,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1770594038,Steven,Mcclane,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1215041470,Lisa,Reid,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1568469153,Michael,Sasso,open,1215551437,85-1080079,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 342-2000
+address add,03/01/2023,1194821967,Robert,Simons,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1073870010,Danica,Giugliano,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1437570751,Michael,Kwiatt,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1790819084,Amit,Joshi,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1285707554,Umur,Atabek,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1972732089,Michael,Franco,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 325-6767
+address add,03/01/2023,1770775470,Lioudmila,Lipetskaia,open,1255352423,22-3235088,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4005
+address add,03/01/2023,1437269941,John,Bauer,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 325-6767
+address add,03/01/2023,1215102942,Lauren,Krill,open,1831110105,22-3427282,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1831300243,Meredith,Duffy,open,1831110105,22-3427282,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1811906878,Saifuddin,Mama,open,1255352423,22-3235088,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4005
+address add,03/01/2023,1326144940,David,Warshal,open,1831110105,22-3427282,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1750739686,Anna,Pancheshnikov,open,1255352423,22-3235088,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4005
+address add,03/01/2023,1629174172,Kathleen,Schaeffer,open,1225058027,22-2700904,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4005
+address add,03/01/2023,1639559545,Courtney,Griffiths,open,1831110105,22-3427282,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1063444180,Christina,Chu,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1336584762,Kingsuk,Ganguly,open,1538109913,22-3419259,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1821330093,Laurel,Hastings,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1972984334,Jasjit,Sehdev,open,1538109913,22-3419259,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1568906766,Katherine,Mcmackin,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1477846046,Bruce,Tjaden,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1205127503,Christina,Tofani,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4000
+address add,03/01/2023,1164481032,Anthony,Infantolino,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4000
+address add,03/01/2023,1326036245,Michele,Fantazzio,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1295996361,Catherine,Loveland-Jones,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1083864367,Jennifer,Chapokas,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1588773824,Generosa,Grana,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1598874042,Alexandre,Hageboutros,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1992774996,Rebecca,Jaslow,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1518963875,Yong,Ji,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1285274977,Caroline,Pyle,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1235178872,Michael,Salacz,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(855) 632-2667
+address add,03/01/2023,1164502878,Rido,Cha,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1255782140,Evan,Carabelli,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1528156981,Fredric,Ginsberg,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1215034848,Maritza,Cotto,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1932381035,Ketan,Gala,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1801320163,Harry,Wang,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1104238765,Anupam,Kumar,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1871936757,Loheetha,Ragupathi,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1952335531,Danielle,Ferrer,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1265922488,Michelle,Wecker,open,1386682094,22-3266219,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4004
+address add,03/01/2023,1609523901,Kimberly,Damian,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1144647587,Nadeem,Kolia,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1821482597,Colby,Weaver,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1639226541,Michele,McGee,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 325-6767
+address add,03/01/2023,1548616030,Entela,Ahmeti,open,1649217514,22-2170196,400 W Rte 38,,Moorestown,New Jersey,08057,Burlington,(856) 270-4002
+address add,03/01/2023,1629161427,Lorraine,Antico,open,1790724730,20-0031895,3 Cooper Plz,Ste 215,Camden,New Jersey,08103,Camden,(856) 342-3341
+address add,03/01/2023,1629161427,Lorraine,Antico,open,1790724730,20-0031895,3 Cooper Plz,Ste 403,Camden,New Jersey,08103,Camden,(856) 342-2270
+address add,03/01/2023,1437696655,Megan,Cote,open,1649217514,22-2170196,90 Brick Rd,,Marlton,New Jersey,08053,Burlington,(856) 342-3113
+address add,03/01/2023,1194493759,Shannon,Dailey,open,1649217175,22-2170196,901 Centennial Blvd,6100 Main St Complex,Voorhees,New Jersey,08043,Camden,(856) 325-6565
+address add,03/01/2023,1194493759,Shannon,Dailey,open,1649217514,22-2170196,6200 Main St,,Voorhees,New Jersey,08043,Camden,(856) 325-6516
+address add,03/01/2023,1174112452,Nicole,Dragun,open,1649217514,22-2170196,6015 Main St,6200 Main St Complex,Voorhees,New Jersey,08043,Camden,(856) 325-6516
+address add,03/01/2023,1174112452,Nicole,Dragun,open,1649217514,22-2170196,1 Cooper Plz,,Camden,New Jersey,08103,Camden,(856) 342-3113
+address add,03/01/2023,1528600749,David,Fry,open,1649217514,22-2170196,2339 Rte 70 W,Fl 2,Cherry Hill,New Jersey,08002,Camden,(856) 751-6464
+address add,03/01/2023,1073047536,Brendan,Gill,open,1386682094,22-3266219,1 Cooper Plz,Critical Care - Dorrance 432,Camden,New Jersey,08103,Camden,(856) 342-2633

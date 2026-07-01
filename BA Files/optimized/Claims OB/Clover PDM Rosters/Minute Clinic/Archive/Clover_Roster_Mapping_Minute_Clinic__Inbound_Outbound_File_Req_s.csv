@@ -1,0 +1,10 @@
+Roster Type,Minuteclinic
+Roster Format (Inbound),Excel (.xlsx)
+Roster Sheets in Scope,Core Providers & Virtual Care Providers
+,
+Inbound File Path,<To be Determined>
+Outbound File Path,<To be Determined>
+,
+I  Network Format (Outbound),Comma Separated (.csv)
+Outbound File name,MinuteClinic.csv
+Include Headers in output,Yes

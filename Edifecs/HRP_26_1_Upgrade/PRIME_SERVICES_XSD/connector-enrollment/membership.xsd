@@ -1,0 +1,406 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSpy v2014 sp1 (http://www.altova.com) by Rebecca (healthedge) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.healthedge.com/connector/schema/membership" xmlns:tns="http://www.healthedge.com/connector/schema/membership" xmlns:base="http://www.healthedge.com/connector/schema/basetypes" targetNamespace="http://www.healthedge.com/connector/schema/membership" elementFormDefault="unqualified" version="4.0">
+	<xs:import namespace="http://www.healthedge.com/connector/schema/basetypes" schemaLocation="../connector-common-schema/base-types.xsd"/>
+	<xs:element name="membership" type="MembershipType"/>
+	<xs:complexType name="MembershipType">
+		<xs:complexContent>
+			<xs:extension base="base:HealthRulesResourceType">
+				<xs:group ref="MembershipGroup"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="ProviderRoleType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PCP">
+				<xs:annotation><xs:documentation>Primary Care Provider</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OBGYN">
+				<xs:annotation><xs:documentation>Obstetrical Gynecologist</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MHF">
+				<xs:annotation><xs:documentation>Mental Health Facility</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Hosp">
+				<xs:annotation><xs:documentation>Home Hospital</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Network">
+				<xs:annotation><xs:documentation>Primary Network</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Fitness">
+				<xs:annotation><xs:documentation>Fitness Center</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="3D">
+				<xs:annotation><xs:documentation>Obstetrics and Gynecology Facility</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Laboratory">
+				<xs:annotation><xs:documentation>Laboratory</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Facility">
+				<xs:annotation><xs:documentation>Facility</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Optometrist">
+				<xs:annotation><xs:documentation>Doctor of Optometry</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Pharmacy">
+				<xs:annotation><xs:documentation>Pharmacy</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Dentist">
+				<xs:annotation><xs:documentation>Dentist</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MCO">
+				<xs:annotation><xs:documentation>Managed Care Organization</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Restricted Physician">
+				<xs:annotation><xs:documentation>Restricted Physician</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Restricted Clinic">
+				<xs:annotation><xs:documentation>Restricted Clinic</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Restricted Hospital">
+				<xs:annotation><xs:documentation>Restricted Hospital</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Restricted Pharmacy">
+				<xs:annotation><xs:documentation>Restricted Pharmacy</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Care Coordination Organization">
+				<xs:annotation><xs:documentation>Care Coordination Organization</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Care Coordinator">
+				<xs:annotation><xs:documentation>Care Coordinator</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Managing Provider">
+				<xs:annotation><xs:documentation>Managing Provider</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Vision">
+				<xs:annotation><xs:documentation>Vision</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Allergy">
+				<xs:annotation><xs:documentation>Allergy</xs:documentation></xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Ear Nose Throat">
+				<xs:annotation><xs:documentation>Ear Nose Throat</xs:documentation></xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:group name="MembershipGroup">
+		<xs:sequence>
+			<xs:element name="membershipIdentifier" type="xs:long" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="memberIsSubscriber" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>If true, the member is the subscriber. This is automatically set by the system for members with relationship to subscriber "self". </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="outOfServiceArea" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>If true, the member lives outside the service area for their benefit plan.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hccIdentifier" type="base:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The business identifier for the member. This can be generated by adding a suffix to the subscription ID based on configured rules.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="receiptDate" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Date on which the member's application was received from the account.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="smokingStatus" type="base:SmokingStatusType">
+				<xs:annotation>
+					<xs:documentation>Member's smoking status.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="waivePHIClaimViewRestriction" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Specifies if PHI claim view restriction defined at the Health Insurance Company level applies to this member.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="payeeHccId" type="base:String50Type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>If checks and correspondence for this member should go to someone other than the subscriber, the other member's HCC ID should be placed in this field.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="isMemberInHospice" type="xs:boolean" default="false" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indicates if Member is in hospice. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="individual" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:group ref="base:IndividualInformationGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="physicalAddress" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A list of the member's physical addresses. A residential address must be present, and other addresses (work, school, seasonal) may also be included. Each member has their own address.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="memberPhysicalAddress" type="base:MemberPhysicalAddressType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="correspondenceAddress" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Member's correspondence address.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:group ref="base:MemberCorrespondenceAddressGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="otherIdNumberList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>A list of other identification numbers for the member. These can be used for links to other systems, or to improve claim matching.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="identificationNumber" type="base:IdentificationNumberType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="disabilityInfoForEligibility" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>If the member has extended eligibility because of a disability, thiese elements contain information and validation about the disability.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:group ref="base:DisabilityInfoForEligibilityGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dependentVerification" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="dependentVerification" type="base:DependentVerificationType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="physicalCharacteristics" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:group ref="base:PhysicalCharacteristicGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="employmentInfo" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:group ref="base:EmploymentInfoGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="dentalInfo" type="base:MemberDentalInfoType" minOccurs="0" maxOccurs="1">
+				
+			</xs:element>
+			<xs:element name="priorCoverageInfo" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:group ref="base:PriorCoverageInfoGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="preExistingConditionInfo" minOccurs="0" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="preExistingConditionInfo" type="base:PreExistingConditionType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="preExReduction" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>These elements can be used to override the default pre-existing condition behavior.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:group ref="base:PreExReductionGroup"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="otherResponsiblePersonInfo" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Information on a person other than the subscriber who is legally responsible for a member.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="otherResponsiblePersonInfo" type="base:OtherResponsiblePersonInfoType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="memberRepresentative" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Individuals with special authorization regarding the member.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="authorizedIndividual" type="base:AuthorizedIndividualType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="membershipUDTList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>User-defined terms on the member record.The available custom fields are configured on the benefit plan.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="membershipUDT" type="base:UDTListType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="informationAccessPermissionList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifies persons with unusual PHI permissions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HIPAAPermission" type="base:HIPAAPermissionType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="informationAccessRestrictionList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identifies persons with unusual PHI restrictions.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HIPAARestriction" type="base:HIPAARestrictionType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="phiAuthorizationList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>List of PHI authorizations.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HIPAAAuthorization" type="base:HIPAAAuthorizationType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ccDirectiveList" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Confidential communications directivies. These are used for situations such as endangered members. In such a case, all communications related to the member are sent to the member, not the subscriber.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="confidentialCommunicationDirective" type="base:ConfidentialCommunicationDirectiveType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="subscriptionReference" type="base:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The subscription of which the membership is a part.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="individualReference" type="base:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>In Medicaid lines of business, it can be important to track the head of household, even if that individual is not part of the subscription.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="relationshipToSubscriberDefinitionReference" type="base:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The member's relationship to the subscriber. This generally uses the HIPAA relationship codes, which are mapped to member types Subscriber, Spouse, Child, Dependent, or Domestic Partner. If the member type is Subscriber, then memberIsSubscriber is automatically True.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="raceOrEthnicityCodes" type="CodeEntryInputTypeForRaceEthnicity" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The member's race or ethnicity, wihch may be required by government programs.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vipReasonCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Reference to VIPReason or HealthStatusReason codeset.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="healthStatusReasonCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Reference to HealthStatusReason codeset; the reason this member has restricted health status.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="informationSourceCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Reference to the InformationSource codeset; the origin site of the information that triggered the membership request.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="attachmentSetReference" type="base:ReferenceType" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>External documents related to the membership.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="planSelection" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>From MemberSelections; a list of plans in which the member has enrolled.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="startDate" type="xs:date"/>
+						<xs:element name="endDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="enrollmentInfo" type="EnrollmentInformationType" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="memberTerminateReasonCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+						<!-- <xs:element name="benefitPlanIdentificationNumber" type="base:String50Type" minOccurs="0" maxOccurs="1"/> -->
+						<xs:element name="benefitPlanReference" type="base:BenefitPlanReferenceType" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="providerSelection" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>From MemberSelections; a list of provider choices the member has made. </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="providerRoleType" type="ProviderRoleType" nillable="true" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Type of Provider</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="startDate" type="xs:date"/>
+						<xs:element name="endDate" type="xs:date"/>
+						<!-- <xs:element name="practionerIdentIficationNumber" type="base:String50Type" minOccurs="0" maxOccurs="1"/> -->
+						<xs:element name="practitionerReference" type="base:PractitionerReferenceType" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="practitionerRoleReference" type="base:PractitionerByRoleReferenceType" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="supplierReference" type="base:SupplierReferenceType" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="affiliatedSupplierNetworkReference" type="base:SupplierNetworkReferenceType" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:group>
+		<xs:group name="EnrollmentInformationGroup">
+		<xs:sequence>
+			<xs:element name="applicationSignatureDomain" type="ApplicationSignatureDomainType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="applicationSignatureDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="applicationReceiptDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="completedDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="submitDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="disenrollDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="disenrollReason" type="xs:string" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="medicareEnrollmentPeriodCode" type="base:CodeEntryInputType" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:complexType name="EnrollmentInformationType">
+		<xs:group ref="EnrollmentInformationGroup"/>
+	</xs:complexType>
+		<xs:simpleType name="ApplicationSignatureDomainType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="CodeEntryInputTypeForRaceEthnicity">
+		<xs:sequence>
+			<xs:group ref="CodeEntryInputGroupForRaceOrEthnicity"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:group name="CodeEntryInputGroupForRaceOrEthnicity">
+		<xs:sequence>
+			<xs:element name="codeSetName" type="String50Type" minOccurs="0" maxOccurs="1"/>
+			<xs:choice>
+				<xs:element name="codeEntry" type="String50Type" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="shortName" type="String50Type" minOccurs="0" maxOccurs="1"/>
+			</xs:choice>
+			<xs:element name="raceOrEthnicitySourceCodeEntry" type="base:CodeEntryInputType"  minOccurs="0" maxOccurs="1"/>
+			<xs:element name="entryDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:group>
+
+	<xs:simpleType name="String50Type">
+		<xs:annotation>
+			<xs:documentation>50 Characters (Payor Constraint: ITS String type)</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>

@@ -1,0 +1,30 @@
+{
+    "process": {
+        "processStageName": "${ProcessStageName}", 
+        "processStatus": "${ProcessStatus}", 
+		#if($AuditEventCount == "2" or $AuditEventCount == "4" )
+        "processMessage": "${ProcessMessage}",
+		#{else}#end 
+		"processInputArchiveFilename":"${processInputArchiveFilename}",
+		#if($AuditEventCount == "3" or $AuditEventCount == "4" )
+        "processOutputArchiveFilename": "${ProcessOutputArchiveFilename}",
+		#{else}#end 
+        "auditTime": "${AuditTime}" 
+    }, 
+    "identifiers": {
+        "rayIdentifier": "${FileRayId}",
+        "recordIdentifier": "${FileRecordId}",
+        "tenantIdentifier": "${tenantIdentifier}"
+    },
+    "jobDetails": {
+        "identifier": "${FileJobId}"
+    },
+    "payment": {
+		#if($AuditEventCount == "3" or $AuditEventCount == "4" )
+		"paymentId": "${PaymentId}",
+        "outputFileName": "${ProcessOutputArchiveFilename}"
+		#{else}
+		"paymentId": "${PaymentId}"
+		#end 
+    }
+}
